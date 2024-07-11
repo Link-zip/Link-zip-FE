@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="umc.link.zip.presentation.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="umc.link.zip.presentation.list.ListFragment"
+        android:label="ListFragment" />
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="umc.link.zip.presentation.mypage.MypageFragment"
+        android:label="MypageFragment" />
+    <fragment
+        android:id="@+id/zipFragment"
+        android:name="umc.link.zip.presentation.zip.ZipFragment"
+        android:label="ZipFragment" />
+
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="umc.link.zip.presentation.create.CreateFragment"
+        android:label="CreateFragment" />
+</navigation>

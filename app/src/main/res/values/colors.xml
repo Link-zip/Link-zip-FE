@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <!--gray-->
+    <color name="black">#000000</color>
+    <color name="dark_gray">#333333</color>
+    <color name="nav_selected">#666666</color>
+    <color name="light_gray">#999999</color>
+    <color name="btn_stroke">#D9D9D9</color>
+    <color name="nav_unselected">#EBEBEB</color>
+    <color name="gF1F1F1">#F1F1F1</color>
+    <color name="btn_bg">#F9F9F9</color>
     <color name="white">#FFFFFFFF</color>
+    <!--blue-->
+    <color name="bgblue">#D0FCFF</color>
+    <color name="gnbblue">#CEE5FF</color>
+    <color name="abled_color">#1191AD</color>
+    <color name="b00EFFF">#00EFFF</color>
+    <color name="b2EB7D6">#2EB7D6</color>
+    <color name="b3DC4CD">#3DC4CD</color>
+    <color name="b50A7FA">#50A7FA</color>
+    <color name="b005773">#005773</color>
+    <!--others-->
+    <color name="disabled_color">#E90A0A</color>
+    <color name="yellow">#FFF7CE</color>
+    <color name="ad_alarm">#CFCEFF</color>
+    <color name="lpEEEEFF">#EEEEFF</color>
 </resources>
