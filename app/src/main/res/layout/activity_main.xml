@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
 
     <data>
 
@@ -11,8 +12,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.MainActivity"
-        android:background="@color/white">
+        tools:context=".presentation.MainActivity">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
@@ -20,42 +20,39 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_nav_container"
+            app:layout_constraintBottom_toTopOf="@+id/main_bnv"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/main_graph" />
-
-        <FrameLayout
-            android:id="@+id/bottom_nav_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bnv"
             style="Widget.MaterialComponents.BottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="0dp"
             android:background="@color/white"
-            android:padding="8dp"
-            app:itemActiveIndicatorStyle="@android:color/transparent"
-            app:itemIconSize="24dp"
             android:elevation="4dp"
-            app:itemRippleColor="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:itemIconTint="@null"
+            app:itemTextColor="@color/bottom_nav_item_selector_font"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
             app:menu="@menu/bottom_nav_menu" />
 
-            <ImageButton
-                android:id="@+id/fab_button"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_navigation_create"
-                android:layout_gravity="center"
-                android:elevation="6dp"
-                android:contentDescription="+" />
-        </FrameLayout>
+        <ImageView
+            android:id="@+id/btn_main_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/btn_bottomnav_create"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/main_bnv"
+            app:layout_constraintStart_toStartOf="@id/main_bnv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,26 +3,26 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_navigation_home_unselected"
+        android:icon="@drawable/bottom_nav_selector_home"
         android:title="HOME" />
 
     <item
         android:id="@+id/zipFragment"
-        android:icon="@drawable/ic_navigation_zip_unselected"
+        android:icon="@drawable/bottom_nav_selector_zip"
         android:title="ZIP" />
 
     <item
         android:id="@+id/createFragment"
-        android:icon="@drawable/ic_navigation_create" />
+        android:icon="@null" />
 
     <item
         android:id="@+id/listFragment"
-        android:icon="@drawable/ic_navigation_list_unselected"
+        android:icon="@drawable/bottom_nav_selector_list"
         android:title="LIST" />
 
     <item
         android:id="@+id/mypageFragment"
-        android:icon="@drawable/ic_navigation_mypage_unselected"
+        android:icon="@drawable/bottom_nav_selector_mypage"
         android:title="My Page" />
 
 </menu>
