@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_splash_n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_n"
+        android:layout_marginTop="77dp"
+        android:layout_marginStart="53dp"
+        app:layout_constraintStart_toStartOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+    <ImageView
+        android:id="@+id/iv_splash_idark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_idark"
+        android:layout_marginTop="198dp"
+        android:layout_marginStart="55dp"
+        app:layout_constraintStart_toStartOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+    <ImageView
+        android:id="@+id/iv_splash_clip"
+        android:layout_width="182dp"
+        android:layout_height="294dp"
+        android:src="@drawable/img_clip"
+        android:layout_marginTop="173dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_splash_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_l"
+        android:layout_marginTop="-15dp"
+        android:layout_marginStart="-64dp"
+        app:layout_constraintStart_toStartOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+    <ImageView
+        android:id="@+id/iv_splash_i"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_i"
+        android:layout_marginTop="-51dp"
+        android:layout_marginStart="17dp"
+        app:layout_constraintStart_toStartOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+
+    <ImageView
+        android:id="@+id/iv_splash_k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_k"
+        android:layout_marginStart="139dp"
+        app:layout_constraintStart_toStartOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+    <ImageView
+        android:id="@+id/iv_splash_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_dot"
+        android:layout_marginTop="130dp"
+        android:layout_marginStart="22dp"
+        app:layout_constraintStart_toEndOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+    <ImageView
+        android:id="@+id/iv_splash_z"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_z"
+        android:layout_marginTop="194dp"
+        android:layout_marginStart="-47dp"
+        app:layout_constraintStart_toStartOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+    <ImageView
+        android:id="@+id/iv_splash_p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_loading_p"
+        android:layout_marginTop="194dp"
+        android:layout_marginStart="115dp"
+        app:layout_constraintStart_toStartOf="@id/iv_splash_clip"
+        app:layout_constraintTop_toTopOf="@id/iv_splash_clip" />
+
+    <TextView
+        android:id="@+id/tv_splash_linkzip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link.zip"
+        android:fontFamily="@font/pretendard_bold"
+        android:textSize="50sp"
+        android:textColor="@color/black"
+        android:lineHeight="45sp"
+        android:layout_marginTop="77dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_splash_clip" />
+
+    <TextView
+        android:id="@+id/tv_splash_everyzip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모든 Link를 내 zip 안에"
+        android:fontFamily="@font/pretendard_medium"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:lineHeight="28sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_splash_linkzip" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
