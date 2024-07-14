@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gom="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/homeFragment"
@@ -13,7 +14,9 @@
 
     <item
         android:id="@+id/createFragment"
-        android:icon="@null" />
+        android:icon="@null"
+        android:title=""
+        gom:showAsAction="never"/>
 
     <item
         android:id="@+id/listFragment"
