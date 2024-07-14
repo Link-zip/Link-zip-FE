@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <ImageView
+        android:id="@+id/iv_login_clip"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="142dp"
+        android:src="@drawable/img_clip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_login_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:lineHeight="42dp"
+        android:text="처음이신가요?"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_login_clip" />
+
+    <LinearLayout
+        android:id="@+id/layout_login_social"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_login_question">
+
+        <ImageView
+            android:id="@+id/iv_login_social_rectangle1"
+            android:layout_width="123dp"
+            android:layout_height="1dp"
+            android:src="@drawable/shape_rect_EBEBEB_fill" />
+
+        <TextView
+            android:id="@+id/tv_login_social"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:lineHeight="16sp"
+            android:letterSpacing="-0.025"
+            android:text="소셜로그인"
+            android:textSize="12sp"
+            android:textColor="@color/nav_selected"/>
+
+        <ImageView
+            android:id="@+id/iv_login_social_rectangle2"
+            android:layout_width="123dp"
+            android:layout_height="1dp"
+            android:src="@drawable/shape_rect_EBEBEB_fill" />
+    </LinearLayout>
+
+    <!--<Button
+        android:layout_width="312dp"
+        android:layout_height="56dp"
+        android:background="@drawable/login_kakao_rectangle"
+        android:drawableStart="@drawable/kakaotalk"
+        android:layout_marginTop="24dp"
+        android:text="카카오 로그인"
+        android:fontFamily="@font/pretendard_medium"
+        android:lineHeight="24sp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/layout_login_social"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <LinearLayout
+        android:layout_width="312dp"
+        android:layout_height="56dp"
+        android:background="@drawable/shape_rect_8_f9f9f9_fill_d9d9d9_line"
+        android:layout_marginTop="24dp"
+        android:paddingVertical="16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/layout_login_social"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_kakaotalk" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카카오 로그인"
+            android:fontFamily="@font/pretendard_medium"
+            android:lineHeight="24sp"
+            android:textSize="16sp"
+            android:letterSpacing="-0.025"
+            android:layout_marginStart="12dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
