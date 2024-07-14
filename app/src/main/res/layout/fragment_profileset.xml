@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_gradient">
+
+    <ImageView
+        android:id="@+id/iv_profileset_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_gnb_back"
+        android:layout_marginTop="54dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profileset_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_semibold"
+        android:lineHeight="28sp"
+        android:textSize="20sp"
+        android:text="프로필 설정"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_profileset_back"
+        app:layout_constraintBottom_toBottomOf="@id/iv_profileset_back" />
+
+    <TextView
+        android:id="@+id/tv_profileset_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textSize="30sp"
+        android:lineHeight="42sp"
+        android:textColor="@color/black"
+        android:text="안녕하세요!\n프로필을 만들어 볼까요?"
+        android:layout_marginTop="38dp"
+        app:layout_constraintStart_toStartOf="@id/iv_profileset_back"
+        app:layout_constraintTop_toBottomOf="@id/profileset_title_tv" />
+
+    <TextView
+        android:id="@+id/tv_profileset_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textSize="16sp"
+        android:lineHeight="24sp"
+        android:letterSpacing="-0.025"
+        android:textColor="@color/black"
+        android:text="닉네임"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_profileset_question" />
+
+    <TextView
+        android:id="@+id/tv_profileset_letter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="14sp"
+        android:lineHeight="20sp"
+        android:letterSpacing="-0.025"
+        android:textColor="@color/nav_selected"
+        android:text="0/20"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_profileset_nickname" />
+
+    <EditText
+        android:id="@+id/et_profileset_nickname"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/black"
+        android:text="닉네임을 입력해주세요"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="16sp"
+        android:lineHeight="24sp"
+        android:letterSpacing="-0.025"
+        android:textColor="@color/nav_selected"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_profileset_nickname"
+        app:layout_constraintStart_toStartOf="@id/tv_profileset_question" />
+
+    <TextView
+        android:id="@+id/tv_profileset_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="12sp"
+        android:lineHeight="16sp"
+        android:letterSpacing="-0.025"
+        android:textColor="@color/disabled_color"
+        android:text="이미 사용 중인 유저가 있어요!"
+        app:layout_constraintStart_toStartOf="@id/et_profileset_nickname"
+        app:layout_constraintTop_toBottomOf="@id/et_profileset_nickname"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_profileset_namecheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_8_white_fill_d9d9d9_line"
+        android:layout_marginHorizontal="24dp"
+        android:text="중복 확인"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textSize="18sp"
+        android:lineHeight="25sp"
+        android:letterSpacing="-0.025"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_profileset_result"
+        app:layout_constraintStart_toStartOf="@id/tv_profileset_result"
+        app:layout_constraintEnd_toEndOf="@id/tv_profileset_result" />
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_profileset_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rect_8_666666_fill"
+        android:layout_marginHorizontal="24dp"
+        android:text="완료"
+        android:fontFamily="@font/pretendard_semibold"
+        android:textSize="18sp"
+        android:lineHeight="25sp"
+        android:letterSpacing="-0.025"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/btn_profileset_namecheck"
+        app:layout_constraintEnd_toEndOf="@id/btn_profileset_namecheck" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>
