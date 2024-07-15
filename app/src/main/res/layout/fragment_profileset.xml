@@ -91,6 +91,15 @@
         app:layout_constraintStart_toStartOf="@id/tv_profileset_question"
         app:layout_constraintEnd_toEndOf="@id/tv_profileset_letter"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_profileset_delete"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/ic_deletex"
+        app:layout_constraintTop_toTopOf="@id/et_profileset_nickname"
+        app:layout_constraintBottom_toBottomOf="@id/et_profileset_nickname"
+        app:layout_constraintEnd_toEndOf="@id/et_profileset_nickname" />
+
     <TextView
         android:id="@+id/tv_profileset_result"
         android:layout_width="wrap_content"
