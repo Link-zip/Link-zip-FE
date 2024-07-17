@@ -38,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <android.widget.Button
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_create_textsummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,6 +54,7 @@
             app:layout_constraintBottom_toTopOf="@id/btn_create_linksave"/>
 
         <android.widget.Button
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_create_linksave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

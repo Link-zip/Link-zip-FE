@@ -55,6 +55,7 @@
             app:layout_constraintTop_toBottomOf="@id/btn_savetext_early_unselected"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_savelink_easySave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,6 +72,7 @@
             android:padding="20dp"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_savelink_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

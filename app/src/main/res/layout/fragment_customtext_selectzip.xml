@@ -54,6 +54,7 @@
             app:layout_constraintTop_toBottomOf="@id/btn_savetext_early_unselected"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_create_linksave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

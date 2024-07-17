@@ -71,6 +71,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_customText_linkTitle"/>
 
         <android.widget.Button
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_customText_setMemo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,6 +88,7 @@
 
 
         <android.widget.Button
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_customText_setAlarm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,6 +105,7 @@
 
 
         <android.widget.Button
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btn_customText_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

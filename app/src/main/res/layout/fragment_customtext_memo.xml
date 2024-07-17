@@ -18,7 +18,7 @@
                 android:id="@+id/iv_saveLink_memo_topImg"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:src="@drawable/img_customlink_topimg"
+                android:src="@drawable/img_customtext_topimg"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -91,6 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_saveLink_memo_linkTitle"/>
 
             <android.widget.Button
+                style="?android:attr/borderlessButtonStyle"
                 android:id="@+id/btn_saveLink_memo_complete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
