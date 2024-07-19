@@ -96,25 +96,54 @@
                     android:textColor="@color/black"
                     android:lineHeight="34dp"
                     android:letterSpacing="-0.025"
-                    android:text="가입을 환영해요!\n링크를 저장해 보세요"
+                    android:text="남아 있는 링크가\n뉴비 님을 기다려요"
                     android:layout_marginTop="106dp"
                     android:layout_marginStart="24dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ProgressBar
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
                     android:id="@+id/pb_home_graph"
                     android:layout_width="190dp"
                     android:layout_height="190dp"
-                    android:background="@drawable/circular_progress_background"
-                    android:progressDrawable="@drawable/circular_progress_foreground"
-                    android:indeterminateOnly="false"
-                    android:max="100"
-                    android:progress="25"
+                    app:cpb_background_progressbar_color="@color/white"
+                    app:cpb_background_progressbar_width="15dp"
+                    app:cpb_progressbar_color_start="#01B6EC"
+                    app:cpb_progressbar_color_end="@color/b3DC4CD"
+                    app:cpb_progressbar_width="15dp"
+                    app:cpb_round_border="true"
+                    app:cpb_progress="75"
                     android:layout_marginTop="24dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_home_welcome" />
+
+                <ImageView
+                    android:id="@+id/iv_home_graph_edge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/shape_oval_gradient_fill"
+                    android:layout_marginTop="86dp"
+                    android:layout_marginStart="-1.5dp"
+                    app:layout_constraintTop_toTopOf="@id/pb_home_graph"
+                    app:layout_constraintStart_toStartOf="@id/pb_home_graph" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_8_gradient_fill"
+                    android:text="6개"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:lineHeight="16dp"
+                    android:letterSpacing="-0.025"
+                    android:layout_marginBottom="8dp"
+                    android:elevation="1dp"
+                    app:layout_constraintStart_toStartOf="@id/iv_home_graph_edge"
+                    app:layout_constraintEnd_toEndOf="@id/iv_home_graph_edge"
+                    app:layout_constraintBottom_toTopOf="@id/iv_home_graph_edge" />
 
                 <ImageView
                     android:id="@+id/iv_home_graph_center"
@@ -137,6 +166,23 @@
                     app:layout_constraintBottom_toBottomOf="@id/pb_home_graph" />
 
                 <TextView
+                    android:id="@+id/tv_home_ratio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_12_d0fcff_fill_666666_line"
+                    android:text="2/8"
+                    android:gravity="center"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textSize="12sp"
+                    android:lineHeight="16dp"
+                    android:letterSpacing="-0.025"
+                    android:layout_marginTop="-16dp"
+                    app:layout_constraintStart_toStartOf="@id/pb_home_graph"
+                    app:layout_constraintEnd_toEndOf="@id/pb_home_graph"
+                    app:layout_constraintTop_toBottomOf="@id/iv_home_clip" />
+
+                <TextView
+                    android:id="@+id/tv_home_notreading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_rect_40_transparent_fill_d9d9d9_line"
