@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Zip_Item_Fragment">
+
+    <ImageView
+        android:id="@+id/item_image_1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:transformPivotY="5dp"
+        android:src=""
+        />
+
+    <ImageView
+        android:id="@+id/item_image_2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:transformPivotY="5dp"
+        android:src="@drawable/zip_box"
+         />
+
+
+
+</FrameLayout>
