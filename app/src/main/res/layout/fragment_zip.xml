@@ -17,20 +17,38 @@
 
         <!-- 상단 우측 아이콘들 -->
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:background="@color/white"
-            android:textAlignment="center"
-            android:textSize="20px"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="전체 Zip"
-            app:titleTextColor="@color/black" />
 
         <!-- 정렬 및 편집 버튼을 포함하는 CardView -->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/fragment_zip_msg2"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:text="전체 Zip"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/fragment_zip_msg2"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            app:layout_constraintWidth_percent="0.0666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/notification_icon"
             android:layout_width="wrap_content"
