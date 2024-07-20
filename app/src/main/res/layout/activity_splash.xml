@@ -5,16 +5,26 @@
     android:background="@drawable/bg_gradient"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_splash_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_loading_logo"
-        android:layout_marginTop="122dp"
-        android:layout_marginStart="5dp"
+    <View
+        android:id="@+id/view_splash_mg1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="720:169"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHeight_percent="0.124" />
+
+    <ImageView
+        android:id="@+id/iv_splash_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/img_loading_logo"
+        app:layout_constraintDimensionRatio="311:399"
+        app:layout_constraintHeight_percent="0.586"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_splash_mg1" />
 
     <TextView
         android:id="@+id/tv_splash_linkzip"
@@ -30,6 +40,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_splash_logo" />
 
+    <View
+        android:id="@+id/view_splash_mg2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="360:16"
+        app:layout_constraintTop_toBottomOf="@id/tv_splash_linkzip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.0235" />
+
     <TextView
         android:id="@+id/tv_splash_everyzip"
         android:layout_width="wrap_content"
@@ -40,9 +60,8 @@
         android:textColor="@color/black"
         android:lineHeight="28dp"
         android:letterSpacing="-0.025"
-        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_splash_linkzip" />
+        app:layout_constraintTop_toBottomOf="@id/view_splash_mg2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
