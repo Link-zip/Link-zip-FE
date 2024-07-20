@@ -56,21 +56,21 @@
             app:layout_constraintHeight_percent="0.0486" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/fragment_openzip_insite_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_zip_zipthumb_insite"
+            android:src="@drawable/thumb_zipthumb_edit"
             app:layout_constraintEnd_toStartOf="@id/view_mypage_withdrawal_mg4"
-            app:layout_constraintStart_toEndOf="@+id/view_mypage_withdrawal_mg2"
+            app:layout_constraintStart_toStartOf="@+id/iv_mypage_withdrawal_back"
             app:layout_constraintTop_toBottomOf="@id/view_mypage_withdrawal_mg3" />
 
         <View
             android:id="@+id/view_mypage_withdrawal_mg4"
             android:layout_width="0dp"
-            android:layout_height="68dp"
+            android:layout_height="76dp"
             app:layout_constraintBottom_toBottomOf="fragment_openzip_msg4"
             app:layout_constraintWidth_percent="0.0444"
-            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintStart_toEndOf="@id/fragment_openzip_insite_iv"
             app:layout_constraintEnd_toStartOf="@id/zip_name_space"
             app:layout_constraintTop_toBottomOf="@+id/view_mypage_withdrawal_mg3" />
 
@@ -111,12 +111,15 @@
 
             <TextView
                 android:id="@+id/fragment_openzip_link_count_tv"
-                android:layout_width="78dp"
+                android:layout_width="wrap_content"
                 android:layout_height="18dp"
                 android:fontFamily="@font/pretendard_light"
-                android:text="링크개수 | 2개"
-                android:textSize="14dp"
+                android:text="링크개수|2개"
+                android:textSize="12dp"
+                android:textFontWeight="400"
+                android:letterSpacing="0.1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fragment_openzip_insite_tv" />
 
@@ -125,7 +128,7 @@
         <View
             android:id="@+id/view_mypage_withdrawal_mg5"
             android:layout_width="0dp"
-            android:layout_height="68dp"
+            android:layout_height="76dp"
             app:layout_constraintBottom_toBottomOf="fragment_openzip_msg4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent="0.5027"
@@ -133,33 +136,52 @@
             app:layout_constraintTop_toBottomOf="@+id/view_mypage_withdrawal_mg3" />
 
 
-        <TextView
-            android:text="option"
-            android:textAlignment="center"
+        <View
             android:id="@+id/fragment_openzip_msg4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.038"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHeight_percent="0.0649"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_openzip_insite_iv"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/fragment_openzip_all_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/drawerbtn_textlinkselect"
+            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_msg4"
+            app:layout_constraintStart_toStartOf="@id/fragment_openzip_insite_iv"/>
 
         <View
             android:id="@+id/fragment_openzip_msg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="8:36"
+            app:layout_constraintWidth_percent="0.0222"
+            app:layout_constraintStart_toEndOf="@id/fragment_openzip_all_iv"
+            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_msg6"/>
+
+        <ImageView
+            android:id="@+id/fragment_openzip__iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="option"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.0649"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_openzip_msg4"
-            app:layout_constraintVertical_bias="0.0" />
+            android:src="@drawable/drawerbtn_textlinkselect"
+
+            app:layout_constraintStart_toEndOf="@id/fragment_openzip_msg5"/>
+
+        <View
+            android:id="@+id/fragment_openzip_msg6"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_all_iv"/>
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
