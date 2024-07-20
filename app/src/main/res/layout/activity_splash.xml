@@ -7,12 +7,9 @@
 
     <View
         android:id="@+id/view_splash_mg1"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="720:169"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.124" />
 
     <ImageView
@@ -42,12 +39,9 @@
 
     <View
         android:id="@+id/view_splash_mg2"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="360:16"
         app:layout_constraintTop_toBottomOf="@id/tv_splash_linkzip"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.0235" />
 
     <TextView
