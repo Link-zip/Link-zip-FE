@@ -7,12 +7,9 @@
 
     <View
         android:id="@+id/view_login_mg1"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="720:209"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.154" />
 
     <ImageView
@@ -28,12 +25,9 @@
 
     <View
         android:id="@+id/view_splash_mg2"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="360:50.15"
         app:layout_constraintTop_toBottomOf="@id/iv_login_clip"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.0737" />
 
     <TextView
@@ -52,12 +46,9 @@
 
     <View
         android:id="@+id/view_splash_mg3"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="360:72"
         app:layout_constraintTop_toBottomOf="@id/tv_login_question"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.106" />
 
     <TextView
@@ -99,12 +90,9 @@
 
     <View
         android:id="@+id/view_login_mg4"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="360:16"
         app:layout_constraintTop_toBottomOf="@id/tv_login_social"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.0235" />
 
     <androidx.appcompat.widget.AppCompatButton
