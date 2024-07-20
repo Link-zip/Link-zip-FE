@@ -7,10 +7,55 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view_alarm_mg1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHeight_percent="0.02" />
+
+        <TextView
+            android:id="@+id/tv_alarm_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림"
+            android:textAppearance="@style/appbar"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:lineSpacingExtra="4sp"
+            app:layout_constraintTop_toBottomOf="@id/view_alarm_mg1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_alarm_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:src="@drawable/ic_mypage_profile_back"
+            app:layout_constraintStart_toEndOf="@id/view_alarm_mg2"
+            app:layout_constraintTop_toTopOf="@id/tv_alarm_title"
+            app:layout_constraintBottom_toTopOf="@id/view_alarm_mg3"/>
+
+        <View
+            android:id="@+id/view_alarm_mg2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHeight_percent="0.039" />
+
+        <View
+            android:id="@+id/view_alarm_mg3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_alarm_title"
+            app:layout_constraintHeight_percent="0.02" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profile_post_rv"
@@ -20,6 +65,7 @@
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:listitem="@layout/item_alarm" />
-    </LinearLayout>
+            tools:listitem="@layout/item_alarm"
+            app:layout_constraintTop_toBottomOf="@id/view_alarm_mg3"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
