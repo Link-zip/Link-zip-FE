@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <View
+        android:id="@+id/view_item_link_mg1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:16"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.0667" />
+
+    <ImageView
+        android:id="@+id/iv_item_link_img_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/view_mypage_social_bg"
+        android:scaleType="fitCenter"
+        android:elevation="5dp"
+        android:outlineProvider="background"
+        android:src="@drawable/item_list_zip_example"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toEndOf="@id/view_item_link_mg1"
+        app:layout_constraintTop_toBottomOf="@id/view_item_link_mg1"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.305" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="5dp"
+        app:layout_constraintStart_toStartOf="@id/iv_item_link_img_main"
+        app:layout_constraintEnd_toEndOf="@id/iv_item_link_img_main"
+        app:layout_constraintTop_toTopOf="@id/iv_item_link_img_main"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_link_img_main"
+        android:background="@drawable/shadow_item_list" />
+
+    <View
+        android:id="@+id/view_item_link_mg2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:16"
+        app:layout_constraintTop_toBottomOf="@id/iv_item_link_img_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.0667" />
+    <View
+        android:id="@+id/view_item_link_mg7"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:142"
+        app:layout_constraintTop_toTopOf="@id/view_item_link_mg1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.0667" />
+
+    <ImageView
+        android:id="@+id/iv_item_link_type_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="52:28"
+        app:layout_constraintWidth_percent="0.144"
+        android:src="@drawable/ic_link_textlink"
+        android:layout_marginStart="0dp"
+        android:scaleType="fitCenter"
+        android:elevation="100dp"
+        android:outlineProvider="none"
+        app:layout_constraintStart_toStartOf="@id/iv_item_link_img_main"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_link_img_main"
+        />
+
+    <ImageView
+        android:id="@+id/iv_item_link_type_link"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="40:28"
+        app:layout_constraintWidth_percent="0.11"
+        android:src="@drawable/ic_link_link"
+        android:layout_marginStart="0dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/iv_item_link_img_main"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_link_img_main"
+        />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:20.66"
+        app:layout_constraintWidth_percent="0.0667"
+        android:src="@drawable/ic_heart_selected"
+        android:elevation="100dp"
+        android:outlineProvider="none"
+        app:layout_constraintEnd_toEndOf="@id/iv_item_link_img_main"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_link_img_main"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="6dp"
+        />
+
+    <View
+        android:id="@+id/view_item_link_mg3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="18:3.91"
+        app:layout_constraintTop_toTopOf="@id/iv_item_link_img_main"
+        app:layout_constraintStart_toEndOf="@id/iv_item_link_img_main"
+        app:layout_constraintWidth_percent="0.05" />
+
+    <TextView
+        android:id="@+id/iv_item_link_visit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="방문 횟수"
+        android:textAppearance="@style/dialogue_lineup_item_unselected"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/view_item_link_mg3"
+        app:layout_constraintTop_toBottomOf="@id/view_item_link_mg3"
+        />
+
+    <View
+        android:id="@+id/view_item_link_mg4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="8:0"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_link_visit_title"
+        app:layout_constraintStart_toEndOf="@id/iv_item_link_visit_title"
+        app:layout_constraintWidth_percent="0.0222" />
+
+    <View
+        android:id="@+id/item_link_line"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_item_link_line"
+        app:layout_constraintTop_toTopOf="@id/iv_item_link_visit_title"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_link_visit_title"
+        app:layout_constraintStart_toEndOf="@id/view_item_link_mg4"
+        app:layout_constraintDimensionRatio="0:12"
+        />
+
+    <View
+        android:id="@+id/view_item_link_mg6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="8:0"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_link_visit_title"
+        app:layout_constraintStart_toEndOf="@id/item_link_line"
+        app:layout_constraintWidth_percent="0.0222" />
+
+    <TextView
+        android:id="@+id/tv_item_link_zip_visit_count"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="0회"
+        android:textAppearance="@style/dialogue_lineup_item_selected"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/view_item_link_mg6"
+        app:layout_constraintStart_toEndOf="@+id/view_item_link_mg6"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_link_visit_title" />
+
+    <View
+        android:id="@+id/view_item_link_mg5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="2:10"
+        app:layout_constraintTop_toBottomOf="@id/iv_item_link_visit_title"
+        app:layout_constraintEnd_toStartOf="@id/iv_item_link_visit_title"
+        app:layout_constraintWidth_percent="0.00555" />
+
+    <TextView
+        android:id="@+id/tv_item_link_link_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="5sp"
+        android:text="마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄"
+        android:textAppearance="@style/item_list_linktitle"
+        app:layout_constraintEnd_toStartOf="@+id/view_item_link_mg2"
+        app:layout_constraintStart_toStartOf="@id/view_item_link_mg5"
+        app:layout_constraintTop_toBottomOf="@id/iv_item_link_visit_title"
+        app:layout_constraintBottom_toTopOf="@id/tv_item_link_link_date"/>
+
+    <View
+        android:id="@+id/view_item_link_mg8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:3"
+        app:layout_constraintBottom_toTopOf="@id/view_item_link_mg2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.0667" />
+
+    <TextView
+        android:id="@+id/tv_item_link_link_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="2sp"
+        android:text="2024.06.11"
+        android:textAppearance="@style/item_list_linkdate"
+        app:layout_constraintBottom_toTopOf="@id/view_item_link_mg8"
+        app:layout_constraintEnd_toStartOf="@+id/view_item_link_mg2"
+        app:layout_constraintStart_toStartOf="@id/tv_item_link_link_name"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/nav_unselected"
+        app:layout_constraintTop_toBottomOf="@id/view_item_link_mg7"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
