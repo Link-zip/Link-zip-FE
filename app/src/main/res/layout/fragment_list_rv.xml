@@ -7,44 +7,65 @@
 
     <View
         android:id="@+id/view_list_rv_bg"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
         android:background="#FFFFFF"
         android:elevation="2dp"
+        app:layout_constraintDimensionRatio="360:60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintWidth_percent="1" />
+
+    <View
+        android:id="@+id/view_list_rv_mg1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:12"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
 
     <ImageView
         android:id="@+id/iv_list_rv_drawerbtn_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:elevation="2dp"
         android:src="@drawable/drawerbtn_allselect_unselected"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintDimensionRatio="72:36"
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintStart_toEndOf="@id/view_list_rv_mg1"
+        app:layout_constraintTop_toTopOf="@id/view_list_rv_bg"
+        app:layout_constraintBottom_toBottomOf="@id/view_list_rv_bg"/>
 
     <ImageView
-        android:id="@+id/iv_list_rv_drawerbtn_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:id="@+id/iv_list_rv_drawerbtn_lineup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:elevation="2dp"
+        app:layout_constraintDimensionRatio="84:36"
+        app:layout_constraintWidth_percent="0.2333"
         android:src="@drawable/drawerbtn_lineup_early_unselected"
-        app:layout_constraintStart_toEndOf="@id/iv_list_rv_drawerbtn_all"
+        app:layout_constraintStart_toEndOf="@id/view_list_rv_mg2"
         app:layout_constraintTop_toTopOf="@id/iv_list_rv_drawerbtn_all" />
+
+    <View
+        android:id="@+id/view_list_rv_mg2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="8:0"
+        app:layout_constraintStart_toEndOf="@id/iv_list_rv_drawerbtn_all"
+        app:layout_constraintWidth_percent="0.0222" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_height="0dp"
         android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/view_list_rv_bg"
-        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_list" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
