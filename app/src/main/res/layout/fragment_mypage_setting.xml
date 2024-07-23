@@ -4,44 +4,42 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <View
-        android:id="@+id/view_mypage_setting_mg1"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_mypage_setting"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/bg_transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.02" />
+        app:titleTextColor="@color/black">
 
-    <TextView
-        android:id="@+id/tv_mypage_setting_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="설정"
-        android:textAppearance="@style/appbar_title"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:lineSpacingExtra="4sp"
-        android:translationY="-2.07sp"
-        android:gravity="center_horizontal|top"
-        app:layout_constraintTop_toBottomOf="@id/view_mypage_setting_mg1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_mypage_setting_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="2dp"
-        android:src="@drawable/ic_mypage_profile_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_mypage_setting_title" />
+            <ImageView
+                android:id="@+id/iv_mypage_setting_toolbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_mypage_profile_back"
+                android:contentDescription="뒤로가기" />
 
-    <View
-        android:id="@+id/view_mypage_setting_mg2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_mypage_setting_back"
-        app:layout_constraintHeight_percent="0.02" />
+            <TextView
+                android:id="@+id/tv_mypage_setting_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:text="설정"
+                android:textAppearance="@style/appbar_title"
+                android:gravity="center"
+                android:textColor="@android:color/black" />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_mypage_setting_alarm"
@@ -49,7 +47,7 @@
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="312:56"
         app:layout_constraintWidth_percent="0.866"
-        app:layout_constraintTop_toBottomOf="@id/view_mypage_setting_mg2"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_mypage_setting"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

@@ -119,9 +119,10 @@
     <style name="TransparentAppBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="colorPrimary">@android:color/white</item>
-        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="colorAccent">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:background">@drawable/bg_transparent</item>
     </style>
 </resources>
