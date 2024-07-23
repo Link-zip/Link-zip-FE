@@ -102,6 +102,20 @@
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:textColor">@color/nav_selected</item>
     </style>
+    <style name="mypage_profile_nickname_change_red">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/disabled_color</item>
+    </style>
+    <style name="mypage_profile_nickname_change_blue">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/b005773</item>
+    </style>
+
+
     <style name="TransparentAppBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -110,8 +124,4 @@
         <item name="colorAccent">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
-
-
-
 </resources>

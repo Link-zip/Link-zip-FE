@@ -18,27 +18,41 @@
 
 
         <ImageView
+            android:id="@+id/iv_mypage_profile_round_bg1"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/bg_mypage_profile_bg1"
             app:layout_constraintDimensionRatio="268:418"
-            app:layout_constraintWidth_percent="0.650" />
+            app:layout_constraintWidth_percent="0.644"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <View
+            android:id="@+id/view_mypage_profile_mg16"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_mypage_profile_round_bg1"
+            app:layout_constraintHeight_percent="0.1056"
+            />
 
         <ImageView
+            android:id="@+id/iv_mypage_profile_round_bg2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="268:418"
-            app:layout_constraintWidth_percent="0.650"
+            app:layout_constraintWidth_percent="0.644"
             android:src="@drawable/bg_mypage_profile_bg2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/view_mypage_profile_mg16" />
 
         <View
             android:id="@+id/view_mypage_profile_mg1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:119"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHeight_percent="0.17" />
+            app:layout_constraintWidth_percent="1" />
 
         <ImageView
             android:id="@+id/iv_mypage_profile_bg"
@@ -61,7 +75,7 @@
         <TextView
             android:id="@+id/tv_mypage_profile_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:text="프로필 관리"
             android:textAppearance="@style/appbar_title"
             android:layout_centerHorizontal="true"
@@ -96,8 +110,9 @@
             android:id="@+id/view_mypage_profile_mg3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:30"
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_title"
-            app:layout_constraintHeight_percent="0.04866" />
+            app:layout_constraintWidth_percent="1" />
 
         <ImageView
             android:id="@+id/iv_mypage_profile_user_info_box"
@@ -105,8 +120,8 @@
             android:layout_height="0dp"
             android:scaleType="fitXY"
             android:src="@drawable/bg_mypage_boxinfo"
-            app:layout_constraintDimensionRatio="304:196"
-            app:layout_constraintWidth_percent="0.815"
+            app:layout_constraintDimensionRatio="284:196"
+            app:layout_constraintWidth_percent="0.7888"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg3"
@@ -116,8 +131,8 @@
             android:id="@+id/view_mypage_profile_mg9"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="30:24"
-            app:layout_constraintHeight_percent="0.038"
+            app:layout_constraintDimensionRatio="16:24"
+            app:layout_constraintWidth_percent="0.05"
             app:layout_constraintTop_toTopOf="@id/iv_mypage_profile_user_info_box"
             app:layout_constraintStart_toStartOf="@id/iv_mypage_profile_user_info_box"/>
 
@@ -136,7 +151,7 @@
             android:id="@+id/view_mypage_profile_mg5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.0195"
+            app:layout_constraintDimensionRatio="360:12"
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_user_info" />
 
         <TextView
@@ -153,7 +168,7 @@
             android:id="@+id/view_mypage_profile_mg7"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.03892"
+            app:layout_constraintDimensionRatio="360:24"
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_exp" />
 
 
@@ -171,13 +186,12 @@
             android:id="@+id/tv_mypage_profile_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-4dp"
             android:layout_marginStart="12dp"
-            android:textAppearance="@style/mypage_profile_nickname"
             android:text="뉴비"
-            app:layout_constraintTop_toTopOf="@id/tv_mypage_profile_nick_ex"
+            android:textAppearance="@style/mypage_profile_nickname"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_mypage_profile_nick_ex"
             app:layout_constraintStart_toEndOf="@id/tv_mypage_profile_nick_ex"
-            />
+            app:layout_constraintTop_toTopOf="@id/tv_mypage_profile_nick_ex" />
 
         <View
             android:id="@+id/view_mypage_social"
@@ -222,7 +236,7 @@
             android:id="@+id/view_mypage_profile_mg4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.03"
+            app:layout_constraintDimensionRatio="360:16"
             app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile_user_info_box" />
 
         <ImageView
@@ -231,26 +245,35 @@
             android:layout_height="0dp"
             android:scaleType="fitXY"
             android:src="@drawable/bg_mypage_boxinfo"
-            app:layout_constraintDimensionRatio="304:240"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg4"
-            app:layout_constraintWidth_percent="0.815" />
+            app:layout_constraintBottom_toBottomOf="@id/view_mypage_profile_mg14"
+            app:layout_constraintWidth_percent="0.7888" />
 
         <View
             android:id="@+id/view_mypage_profile_mg10"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="30:24"
-            app:layout_constraintHeight_percent="0.038"
+            app:layout_constraintDimensionRatio="16:24"
+            app:layout_constraintWidth_percent="0.05"
             app:layout_constraintTop_toTopOf="@id/iv_mypage_profile_user_nicknm_change_box"
             app:layout_constraintStart_toStartOf="@id/iv_mypage_profile_user_nicknm_change_box"/>
+
+        <View
+            android:id="@+id/view_mypage_profile_mg15"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="16:24"
+            app:layout_constraintWidth_percent="0.05"
+            app:layout_constraintTop_toTopOf="@id/iv_mypage_profile_user_nicknm_change_box"
+            app:layout_constraintEnd_toEndOf="@id/iv_mypage_profile_user_nicknm_change_box"/>
 
 
         <TextView
             android:id="@+id/tv_mypage_profile_nicknm_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:text="닉네임 변경"
             android:textAppearance="@style/list_title"
             app:layout_constraintStart_toEndOf="@id/view_mypage_profile_mg10"
@@ -261,14 +284,14 @@
             android:id="@+id/view_mypage_profile_mg6"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.0195"
+            app:layout_constraintDimensionRatio="360:12"
             app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_nicknm_title" />
 
 
         <TextView
             android:id="@+id/tv_mypage_profile_nicknm_letter_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="0dp"
             android:text="0/20"
@@ -282,17 +305,17 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_mypage_profile_et"
-            app:layout_constraintDimensionRatio="232:44"
-            app:layout_constraintWidth_percent="0.644"
+            app:layout_constraintDimensionRatio="252:44"
+            app:layout_constraintWidth_percent="0.7"
             app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg6"
-            app:layout_constraintStart_toStartOf="@id/iv_mypage_profile_user_nicknm_change_box"
-            app:layout_constraintEnd_toEndOf="@id/iv_mypage_profile_user_nicknm_change_box"
+            app:layout_constraintStart_toEndOf="@id/view_mypage_profile_mg10"
+            app:layout_constraintEnd_toStartOf="@id/view_mypage_profile_mg15"
             />
 
         <EditText
             android:id="@+id/et_mypage_profile"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="20dp"
             android:layout_margin="12dp"
             android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="@id/view_mypage_profile_et_bg"
@@ -306,18 +329,45 @@
             />
 
         <View
+            android:id="@+id/view_mypage_profile_mg11"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="8:8"
+            app:layout_constraintWidth_percent="0.022"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_profile_et_bg"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_et_bg" />
+
+        <TextView
+            android:id="@+id/tv_mypage_profile_nicknm_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이미 사용 중인 유저가 있어요!"
+            android:visibility="gone"
+            android:textAppearance="@style/mypage_profile_nickname_change_red"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg11"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_profile_et_bg"
+            />
+
+        <View
+            android:id="@+id/view_mypage_profile_mg12"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="8:8"
+            app:layout_constraintWidth_percent="0.022"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_profile_et_bg"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_profile_nicknm_exp" />
+
+
+        <View
             android:id="@+id/view_mypage_profile_btn_chk_dup"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="12dp"
             android:background="@drawable/bg_mypage_profile_btn_dup"
-            app:layout_constraintBottom_toTopOf="@+id/view_mypage_profile_btn_save"
-            app:layout_constraintDimensionRatio="232:36"
-            app:layout_constraintEnd_toEndOf="@id/iv_mypage_profile_user_nicknm_change_box"
-            app:layout_constraintStart_toStartOf="@id/iv_mypage_profile_user_nicknm_change_box"
-            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_et_bg"
-            app:layout_constraintWidth_percent="0.644" />
+            app:layout_constraintDimensionRatio="252:36"
+            app:layout_constraintEnd_toEndOf="@id/view_mypage_profile_et_bg"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_profile_et_bg"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg12"
+            app:layout_constraintWidth_percent="0.7" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -331,15 +381,24 @@
             />
 
         <View
+            android:id="@+id/view_mypage_profile_mg13"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="8:12"
+            app:layout_constraintWidth_percent="0.022"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_btn_chk_dup"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_profile_btn_chk_dup"/>
+
+        <View
             android:id="@+id/view_mypage_profile_btn_save"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_mypage_profile_btn_save"
-            app:layout_constraintDimensionRatio="232:44"
-            app:layout_constraintWidth_percent="0.644"
-            app:layout_constraintBottom_toTopOf="@id/view_mypage_profile_mg8"
-            app:layout_constraintStart_toStartOf="@id/iv_mypage_profile_user_nicknm_change_box"
-            app:layout_constraintEnd_toEndOf="@id/iv_mypage_profile_user_nicknm_change_box"
+            app:layout_constraintDimensionRatio="252:44"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_profile_et_bg"
+            app:layout_constraintEnd_toEndOf="@id/view_mypage_profile_et_bg"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg13"
             />
 
         <TextView
@@ -354,18 +413,31 @@
             />
 
         <View
-            android:id="@+id/view_mypage_profile_mg8"
-            android:layout_width="match_parent"
+            android:id="@+id/view_mypage_profile_mg14"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.03892"
-            app:layout_constraintBottom_toBottomOf="@id/iv_mypage_profile_user_nicknm_change_box" />
+            app:layout_constraintDimensionRatio="8:24"
+            app:layout_constraintWidth_percent="0.022"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_btn_save"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_profile_btn_chk_dup"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
             android:background="@color/btn_bg"
             android:layout_marginTop="0dp"
+            app:layout_constraintDimensionRatio="360:120"
+            app:layout_constraintWidth_percent="1"
             app:layout_constraintTop_toTopOf="@id/view_mypage_shadow2"
+            />
+
+        <View
+            android:id="@+id/view_mypage_profile_mg17"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="360:40"
+            app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile_user_nicknm_change_box"
+            app:layout_constraintWidth_percent="1"
             />
 
         <View
@@ -374,7 +446,7 @@
             android:layout_marginTop="3dp"
             android:layout_height="30dp"
             android:background="@drawable/shadow_mypage_bg"
-            app:layout_constraintTop_toBottomOf="@id/iv_mypage_profile_bg"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg17"
             />
 
         <TextView
