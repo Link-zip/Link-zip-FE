@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_notice_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="0dp">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/al_mypage_withdrawal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:elevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_mypage_withdrawal_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="공지사항"
+                        android:textAppearance="@style/appbar_title"
+                        android:gravity="center"
+                        android:textColor="@android:color/black" />
+
+                    <ImageView
+                        android:id="@+id/iv_mypage_withdrawal_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:padding="16dp"
+                        android:src="@drawable/ic_mypage_profile_back"
+                        android:contentDescription="뒤로가기" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@id/al_mypage_withdrawal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_notice" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
