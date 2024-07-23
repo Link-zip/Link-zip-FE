@@ -14,20 +14,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.0667" />
 
-    <ImageView
+    <androidx.cardview.widget.CardView
         android:id="@+id/iv_item_list_img_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/view_mypage_social_bg"
-        android:scaleType="fitCenter"
-        android:elevation="5dp"
-        android:outlineProvider="background"
-        android:src="@drawable/item_list_zip_example"
+        android:layout_margin="4dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toEndOf="@id/view_item_list_mg1"
         app:layout_constraintTop_toBottomOf="@id/view_item_list_mg1"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="0.306" />
+        app:layout_constraintWidth_percent="0.306">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/item_list_zip_example" />
+
+    </androidx.cardview.widget.CardView>
+
+
 
     <ImageView
         android:layout_width="0dp"
