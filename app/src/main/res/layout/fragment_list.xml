@@ -75,8 +75,8 @@
             app:tabTextColor="@color/light_gray"
             app:tabTextAppearance="@style/list_tab_item_unselected"
             app:tabSelectedTextAppearance="@style/list_tab_item_selected"
-            app:tabGravity="fill"
-            app:tabMode="fixed" >
+            app:tabGravity="center"
+            app:tabMode="scrollable" >
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_list_item_missed"
