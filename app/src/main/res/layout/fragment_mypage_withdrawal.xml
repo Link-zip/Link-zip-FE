@@ -154,14 +154,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.039" />
 
+
         <ImageView
             android:id="@+id/iv_profileset_blueshadow"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="2070:512"
+            app:layout_constraintStart_toStartOf="@id/view_mypage_withdrawal_btn"
+            app:layout_constraintEnd_toEndOf="@id/view_mypage_withdrawal_btn"
             android:src="@drawable/shadow_bluebtn"
-            android:layout_marginBottom="-20dp"
             app:layout_constraintTop_toTopOf="@id/view_mypage_withdrawal_btn"
-            app:layout_constraintBottom_toBottomOf="@id/view_mypage_withdrawal_btn"
             android:visibility="visible"/>
 
         <View
