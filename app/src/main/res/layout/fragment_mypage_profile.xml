@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:text="프로필 설정"
+                    android:text="프로필 관리"
                     android:textAppearance="@style/appbar_title"
                     android:gravity="center"
                     android:textColor="@android:color/black" />
