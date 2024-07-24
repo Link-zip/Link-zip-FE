@@ -45,7 +45,6 @@
     <style name="mypage_nickname">
         <item name="fontFamily">@font/pretendard_semibold</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:letterSpacing">-0.025</item>
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="mypage_social">
