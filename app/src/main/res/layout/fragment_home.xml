@@ -13,9 +13,7 @@
             android:layout_height="0dp"
             android:elevation="1dp"
             app:layout_constraintHeight_percent="0.0830"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <View
                 android:id="@+id/view_home_toolbar_mg1"
@@ -103,26 +101,32 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <View
                     android:id="@+id/view_home_mg1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintHeight_percent="0.101" />
+                    app:layout_constraintHeight_percent="0.0610" />
 
-                <ImageView
-                    android:layout_width="match_parent"
+                <!--<ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:src="@drawable/bg_home_logo"
-                    app:layout_constraintDimensionRatio="360:654"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/bg_home_gradient1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/view_home_bgmg1"
+                    app:layout_constraintBottom_toBottomOf=""/>-->
 
                 <View
                     android:id="@+id/view_home_mg2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHeight_percent="0.101" />
+
+                <View
+                    android:id="@+id/view_home_mg3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="1:1"
@@ -130,189 +134,53 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintWidth_percent="0.0667" />
 
-                <TextView
-                    android:id="@+id/tv_home_welcome"
-                    android:layout_width="wrap_content"
+                <HorizontalScrollView
+                    android:id="@+id/sv_home_link"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:textColor="@color/black"
-                    android:lineHeight="34dp"
-                    android:letterSpacing="-0.025"
-                    android:text="남아 있는 링크가\n뉴비 님을 기다려요"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg2"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg1" />
+                    app:layout_constraintTop_toBottomOf="@id/view_home_mg2"
+                    app:layout_constraintStart_toEndOf="@id/view_home_mg3">
 
-                <View
-                    android:id="@+id/view_home_mg3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_home_welcome"
-                    app:layout_constraintHeight_percent="0.0353" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
 
-                <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                    android:id="@+id/pb_home_graph"
-                    android:layout_width="190dp"
-                    android:layout_height="190dp"
-                    app:cpb_background_progressbar_color="@color/white"
-                    app:cpb_background_progressbar_width="15dp"
-                    app:cpb_progressbar_color_start="#01B6EC"
-                    app:cpb_progressbar_color_end="@color/b3DC4CD"
-                    app:cpb_progressbar_width="15dp"
-                    app:cpb_round_border="true"
-                    app:cpb_progress="75"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg3" />
+                        <ImageView
+                            android:id="@+id/iv_home_logo"
+                            android:layout_width="248dp"
+                            android:layout_height="350dp"
+                            android:src="@drawable/img_home_logo"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        
+                        <ImageView
+                            android:id="@+id/iv_home_oldlink"
+                            android:layout_width="210dp"
+                            android:layout_height="350dp"
+                            android:src="@drawable/img_home_oldlink"
+                            android:layout_marginStart="4dp"
+                            app:layout_constraintStart_toEndOf="@id/iv_home_logo"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_home_graph_edge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/shape_oval_gradient_fill"
-                    android:layout_marginTop="86dp"
-                    android:layout_marginStart="-1.5dp"
-                    app:layout_constraintTop_toTopOf="@id/pb_home_graph"
-                    app:layout_constraintStart_toStartOf="@id/pb_home_graph" />
+                        <ImageView
+                            android:id="@+id/iv_home_likelink"
+                            android:layout_width="210dp"
+                            android:layout_height="350dp"
+                            android:src="@drawable/img_home_likelink"
+                            android:layout_marginStart="4dp"
+                            app:layout_constraintStart_toEndOf="@id/iv_home_oldlink"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_rect_8_gradient_fill"
-                    android:text="6개"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:lineHeight="16dp"
-                    android:letterSpacing="-0.025"
-                    android:layout_marginBottom="8dp"
-                    android:elevation="1dp"
-                    app:layout_constraintStart_toStartOf="@id/iv_home_graph_edge"
-                    app:layout_constraintEnd_toEndOf="@id/iv_home_graph_edge"
-                    app:layout_constraintBottom_toTopOf="@id/iv_home_graph_edge" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/iv_home_graph_center"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:src="@drawable/shape_oval_white_fill_00efff_line"
-                    app:layout_constraintStart_toStartOf="@id/pb_home_graph"
-                    app:layout_constraintEnd_toEndOf="@id/pb_home_graph"
-                    app:layout_constraintTop_toTopOf="@id/pb_home_graph"
-                    app:layout_constraintBottom_toBottomOf="@id/pb_home_graph" />
-                
-                <ImageView
-                    android:id="@+id/iv_home_clip"
-                    android:layout_width="75dp"
-                    android:layout_height="127dp"
-                    android:src="@drawable/img_clip"
-                    app:layout_constraintStart_toStartOf="@id/pb_home_graph"
-                    app:layout_constraintEnd_toEndOf="@id/pb_home_graph"
-                    app:layout_constraintTop_toTopOf="@id/pb_home_graph"
-                    app:layout_constraintBottom_toBottomOf="@id/pb_home_graph" />
-
-                <TextView
-                    android:id="@+id/tv_home_graph_percent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_oval_white_fill_00efff_line"
-                    android:text="12.5%"
-                    android:shadowColor="#80000000"
-                    android:shadowRadius="24"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:textColor="@color/white"
-                    android:textSize="45sp"
-                    android:lineHeight="62dp"
-                    android:letterSpacing="-0.025"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="@id/pb_home_graph"
-                    app:layout_constraintEnd_toEndOf="@id/pb_home_graph"
-                    app:layout_constraintTop_toTopOf="@id/pb_home_graph"
-                    app:layout_constraintBottom_toBottomOf="@id/pb_home_graph"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/tv_home_ratio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_rect_12_d0fcff_fill_666666_line"
-                    android:text="2/8"
-                    android:gravity="center"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:textSize="12sp"
-                    android:lineHeight="16dp"
-                    android:letterSpacing="-0.025"
-                    android:layout_marginTop="-16dp"
-                    app:layout_constraintStart_toStartOf="@id/pb_home_graph"
-                    app:layout_constraintEnd_toEndOf="@id/pb_home_graph"
-                    app:layout_constraintTop_toBottomOf="@id/iv_home_clip" />
-
-                <TextView
-                    android:id="@+id/tv_home_oldlink"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_rect_8_gradient_fill_f8f8f8_line"
-                    android:text="오래된 링크"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:textSize="12sp"
-                    android:lineHeight="16dp"
-                    android:letterSpacing="-0.025"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintStart_toStartOf="@id/tv_home_ratio"
-                    app:layout_constraintEnd_toEndOf="@id/tv_home_ratio"
-                    app:layout_constraintBottom_toTopOf="@id/tv_home_ratio"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/tv_home_notreadlink"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_rect_8_gradient_fill_f8f8f8_line"
-                    android:text="읽지 않은 링크 2건"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:textSize="12sp"
-                    android:lineHeight="16dp"
-                    android:letterSpacing="-0.025"
-                    android:textColor="@color/black"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintStart_toStartOf="@id/tv_home_ratio"
-                    app:layout_constraintEnd_toEndOf="@id/tv_home_ratio"
-                    app:layout_constraintBottom_toTopOf="@id/tv_home_ratio"
-                    android:visibility="gone"/>
-
-                <View
-                    android:id="@+id/view_home_mg4"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintTop_toBottomOf="@id/pb_home_graph"
-                    app:layout_constraintHeight_percent="0.0470" />
-
-                <TextView
-                    android:id="@+id/tv_home_notreading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_rect_40_transparent_fill_d9d9d9_line"
-                    android:text="미열람 링크"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:lineHeight="24dp"
-                    android:letterSpacing="-0.025"
-                    android:gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg4" />
+                </HorizontalScrollView>
 
                 <View
                     android:id="@+id/view_home_mg5"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_home_notreading"
-                    app:layout_constraintHeight_percent="0.0735" />
+                    app:layout_constraintTop_toBottomOf="@id/sv_home_link"
+                    app:layout_constraintHeight_percent="0.0794" />
 
                 <TextView
                     android:id="@+id/tv_home_recent"
@@ -324,7 +192,7 @@
                     android:fontFamily="@font/pretendard_semibold"
                     android:lineHeight="30dp"
                     android:letterSpacing="-0.025"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg2"
+                    app:layout_constraintStart_toEndOf="@id/view_home_mg3"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg5" />
 
                 <View
@@ -374,7 +242,7 @@
                     tools:listitem="@layout/item_home_recent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg2"
+                    app:layout_constraintStart_toEndOf="@id/view_home_mg3"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg7"/>
 
                 <View
@@ -394,7 +262,7 @@
                     android:fontFamily="@font/pretendard_semibold"
                     android:lineHeight="30dp"
                     android:letterSpacing="-0.025"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg2"
+                    app:layout_constraintStart_toEndOf="@id/view_home_mg3"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg8" />
 
                 <View
@@ -411,7 +279,7 @@
                     tools:listitem="@layout/item_home_recommend"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg2"
+                    app:layout_constraintStart_toEndOf="@id/view_home_mg3"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg9"/>
 
                 <View
