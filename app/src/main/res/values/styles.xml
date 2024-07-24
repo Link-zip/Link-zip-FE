@@ -33,7 +33,7 @@
         <item name="android:shadowColor">#80000000</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">5</item>
+        <item name="android:shadowRadius">7</item>
     </style>
 
     <style name="ziptitlethu_2">

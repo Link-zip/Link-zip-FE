@@ -330,21 +330,23 @@
                     android:id="@+id/select_pic_finish_IV_shadow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/black_btn_shadow"
+                    android:src="@drawable/shadow_graybtn"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@id/select_pic_finish_IV"
                     app:layout_constraintTop_toBottomOf="@id/makezip_msg6"
-                    app:layout_constraintVertical_bias="0.44" />
+                    app:layout_constraintVertical_bias="0.451" />
 
                 <ImageView
-                    android:id="@+id/iv_makezip_grayshadow"
-                    android:layout_width="match_parent"
+                    android:id="@+id/iv_profileset_blueshadow"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:src="@drawable/black_btn_shadow"
-                    android:layout_marginBottom="-20dp"
+                    app:layout_constraintDimensionRatio="2070:512"
+                    app:layout_constraintStart_toStartOf="@id/select_pic_finish_IV"
+                    app:layout_constraintEnd_toEndOf="@id/select_pic_finish_IV"
+                    android:src="@drawable/shadow_graybtn"
                     app:layout_constraintTop_toTopOf="@id/select_pic_finish_IV"
-                    app:layout_constraintBottom_toBottomOf="@id/select_pic_finish_IV"
                     android:visibility="visible"/>
 
                 <ImageView

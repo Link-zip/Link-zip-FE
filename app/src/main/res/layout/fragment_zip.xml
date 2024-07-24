@@ -159,7 +159,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="#fbfbfb"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -173,18 +173,20 @@
                 android:id="@+id/zip_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="10"
+                tools:itemCount="1"
                 tools:listitem="@layout/item_zip" />
         </androidx.core.widget.NestedScrollView>
 
         <ImageView
             android:id="@+id/iv_profileset_blueshadow"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/blue_btn_shadow_1"
-            android:layout_marginBottom="-20dp"
+            app:layout_constraintDimensionRatio="2070:512"
+            app:layout_constraintStart_toStartOf="@id/create_zip_button"
+            app:layout_constraintEnd_toEndOf="@id/create_zip_button"
+            android:src="@drawable/shadow_bluebtn"
             app:layout_constraintTop_toTopOf="@id/create_zip_button"
-            app:layout_constraintBottom_toBottomOf="@id/create_zip_button" />
+            android:visibility="visible"/>
 
         <ImageButton
             android:contentDescription="create_zip_button"
