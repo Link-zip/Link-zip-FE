@@ -24,22 +24,42 @@
 
             <ImageView
                 android:id="@+id/item_image_1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="9dp"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/ic_zip_zipthumb"
+                android:src="@drawable/ic_zip_clip_shadow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+            <TextView
+                android:id="@+id/item_zip_save_tv"
+                style="@style/ziptitlethu_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="44dp"
+                android:gravity="center_horizontal|top"
+                android:lineSpacingExtra="2sp"
+                android:text="빠른저장"
+                android:translationY="-0.84sp"
+                app:layout_constraintBottom_toBottomOf="@id/item_image_1"
+                app:layout_constraintEnd_toStartOf="@id/text_block_1"
+                app:layout_constraintStart_toStartOf="@id/item_image_1"
+                app:layout_constraintTop_toTopOf="@id/item_image_1"
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="45dp"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/text_block_1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/item_arrow_1"
                 app:layout_constraintStart_toEndOf="@id/item_image_1"
@@ -48,12 +68,14 @@
 
                 <TextView
                     android:id="@+id/item_title_1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:text="빠른 저장"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:letterSpacing="-0.03"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:textFontWeight="600"
                     app:layout_constraintBottom_toTopOf="@id/item_subtitle_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -66,32 +88,90 @@
                     android:id="@+id/item_subtitle_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="링크 개수  |  0개"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:letterSpacing="-0.03"
+                    android:text="링크 개수"
+                    android:textColor="#666"
+                    android:textFontWeight="400"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/item_subtitle_2"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/item_title_1"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    />
+
+                <TextView
+                    android:id="@+id/item_subtitle_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:letterSpacing="-0.03"
+                    android:text="|"
+                    android:textColor="#666"
+                    android:textFontWeight="400"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/item_subtitle_3"
+                    app:layout_constraintStart_toEndOf="@id/item_subtitle_1"
+                    app:layout_constraintTop_toBottomOf="@id/item_title_1"
+                    />
+
+                <TextView
+                    android:id="@+id/item_subtitle_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:letterSpacing="-0.03"
+                    android:text="0개"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/item_subtitle_2"
+                    app:layout_constraintTop_toBottomOf="@id/item_title_1"
+                    />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/view_openzip_withdrawal_mg2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_block_1"
+                app:layout_constraintDimensionRatio="12:48"
+                app:layout_constraintEnd_toStartOf="@id/item_arrow_1"
+                app:layout_constraintStart_toEndOf="@+id/text_block_1"
+                app:layout_constraintTop_toTopOf="@+id/text_block_1"
+                app:layout_constraintWidth_percent="0.0333" />
 
             <ImageView
                 android:id="@+id/item_arrow_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="30dp"
-                android:layout_marginRight="30dp"
-                android:src="@drawable/ic_back_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/text_block_1"
+                android:src="@drawable/ic_zip_detailzip"
+                app:layout_constraintBottom_toBottomOf="@id/view_openzip_withdrawal_mg"
+                app:layout_constraintEnd_toStartOf="@+id/view_openzip_withdrawal_mg"
+                app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg2"
+                app:layout_constraintTop_toTopOf="@+id/view_openzip_withdrawal_mg2"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <View
+                android:id="@+id/view_openzip_withdrawal_mg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_block_1"
+                app:layout_constraintDimensionRatio="24:48"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/text_block_1"
-                app:layout_constraintLeft_toRightOf="@id/text_block_1"
-                app:layout_constraintVertical_bias="0.5" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.952"
+                app:layout_constraintWidth_percent="0.0666" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!--&lt;!&ndash; 두 번째 아이템 &ndash;&gt;
