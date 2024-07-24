@@ -125,12 +125,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg3"
+            android:elevation="10dp"
             >
 
         <eightbitlab.com.blurview.BlurView
             android:id="@+id/iv_mypage_profile_user_info_box_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:elevation="8dp"
             >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -142,8 +144,8 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/bg_mypage_boxinfo"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:elevation="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <View
@@ -162,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:text="회원 정보"
                 android:elevation="8dp"
-                android:textAppearance="@style/list_title"
+                android:textAppearance="@style/mypage_profile_box_exp"
                 app:layout_constraintStart_toEndOf="@id/view_mypage_profile_mg9"
                 app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg9"
                 />
@@ -275,6 +277,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
+            android:elevation="8dp"
             android:src="@drawable/bg_mypage_boxinfo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -326,7 +329,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
                 android:text="닉네임 변경"
-                android:textAppearance="@style/list_title"
+                android:textAppearance="@style/mypage_profile_box_exp"
                 app:layout_constraintStart_toEndOf="@id/view_mypage_profile_mg10"
                 app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg10"
                 />
@@ -361,6 +364,8 @@
                 app:layout_constraintTop_toBottomOf="@id/view_mypage_profile_mg6"
                 app:layout_constraintStart_toEndOf="@id/view_mypage_profile_mg10"
                 app:layout_constraintEnd_toStartOf="@id/view_mypage_profile_mg15"
+                android:elevation="15dp"
+                android:padding="10dp"
                 />
 
             <EditText
@@ -377,6 +382,7 @@
                 android:textColorHint="@color/nav_selected"
                 android:textAppearance="@style/mypage_profile_social"
                 android:textSize="14sp"
+                android:elevation="15dp"
                 />
 
             <View

@@ -25,7 +25,7 @@
     </path>
 
     <path
-        android:strokeWidth="1"
+        android:strokeWidth="2"
         android:pathData="M8,0.5 H244 A7.5,7.5 0,0 1,251.5,8 V36 A7.5,7.5 0,0 1,244,43.5 H8 A7.5,7.5 0,0 1,0.5,36 V8 A7.5,7.5 0,0 1,8,0.5 z"
         android:fillColor="#00000000">
         <aapt:attr name="android:strokeColor">
