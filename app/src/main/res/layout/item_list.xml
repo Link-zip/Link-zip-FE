@@ -19,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        app:cardElevation="4dp"
+        app:cardElevation="20dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toEndOf="@id/view_item_list_mg1"
@@ -40,7 +40,7 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:elevation="5dp"
+        android:elevation="20dp"
         app:layout_constraintStart_toStartOf="@id/iv_item_list_img_main"
         app:layout_constraintEnd_toEndOf="@id/iv_item_list_img_main"
         app:layout_constraintTop_toTopOf="@id/iv_item_list_img_main"
