@@ -63,14 +63,15 @@
         <TextView
             android:id="@+id/tv_mypage_nickname"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="42dp"
             android:elevation="8dp"
             android:text="뉴비"
             android:textAlignment="center"
             android:textAppearance="@style/mypage_nickname"
-            app:layout_constraintDimensionRatio="312:42"
+            android:lineSpacingExtra="6sp"
+            android:translationY="-3.1sp"
+            android:gravity="center_horizontal|top"
             app:layout_constraintEnd_toEndOf="@id/view_mypage_bg"
-            app:layout_constraintHeight_percent="0.061"
             app:layout_constraintStart_toStartOf="@id/view_mypage_bg"
             app:layout_constraintTop_toBottomOf="@id/view_mypage_mg2" />
 
