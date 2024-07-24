@@ -17,7 +17,6 @@
 
         <!-- 상단 우측 아이콘들 -->
 
-
         <!-- 정렬 및 편집 버튼을 포함하는 CardView -->
 
         <androidx.appcompat.widget.Toolbar
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="56.5dp"
             android:background="@color/white"
-            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -41,7 +40,6 @@
                 android:textSize="20dp" />
         </androidx.appcompat.widget.Toolbar>
 
-
         <ImageView
             android:id="@+id/notification_icon"
             android:layout_width="wrap_content"
@@ -49,8 +47,7 @@
             android:layout_marginEnd="28dp"
             android:src="@drawable/ic_main_alarm_nothing"
             app:layout_constraintBottom_toTopOf="@+id/button_card_view"
-            app:layout_constraintEnd_toEndOf="@+id/button_card_view"
-            app:layout_constraintEnd_toStartOf="view_openzip_withdrawal_mg5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/toolbar"
             app:layout_constraintVertical_bias="0.432" />
 
@@ -87,10 +84,10 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="24:60"
-                    app:layout_constraintEnd_toStartOf="@+id/sort_button"
-                    app:layout_constraintRight_toLeftOf="@id/sort_button"
+                    app:layout_constraintEnd_toStartOf="@id/sort_button"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
                     app:layout_constraintWidth_percent="0.0666" />
 
                 <!-- 최신순 버튼 -->
@@ -102,14 +99,11 @@
                     android:contentDescription="최신순"
                     android:src="@drawable/drawerbtn_lineup_early_unselected"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_zip_msg1"
                     app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg4"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SmallTouchTarget"/>
+                    tools:ignore="SmallTouchTarget" />
 
-                <!-- Spacer -->
-
-                <!-- 편집 버튼 -->
                 <View
                     android:id="@+id/fragment_zip_msg1"
                     android:layout_width="0dp"
@@ -129,16 +123,15 @@
                     android:text="편집"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:weight="500"
+                    android:textFontWeight="500"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="3sp"
                     android:translationY="-1.65sp"
                     android:gravity="top"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_msg2"
                     app:layout_constraintStart_toEndOf="@id/fragment_zip_msg1"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
                 <View
                     android:id="@+id/view_openzip_withdrawal_msg2"
@@ -146,28 +139,13 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="2:5"
-                    app:layout_constraintEnd_toEndOf="@+id/some_id"
-                    app:layout_constraintRight_toLeftOf="@id/sort_button"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.0666" />
-
-                <View
-                    android:id="@+id/view_openzip_withdrawal_mg5"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="24:60"
-                    app:layout_constraintEnd_toEndOf="@+id/some_id"
-                    app:layout_constraintRight_toLeftOf="@id/sort_button"
-                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/some_id"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.0666" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-
 
         <View
             android:id="@+id/fragment_zip_shadow"
@@ -177,9 +155,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/nestedScrollView"
-            app:layout_constraintTop_toBottomOf="@id/button_card_view"
-            />
-
+            app:layout_constraintTop_toBottomOf="@id/button_card_view" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
@@ -197,7 +173,7 @@
                 android:id="@+id/zip_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="1"
+                tools:itemCount="10"
                 tools:listitem="@layout/item_zip" />
         </androidx.core.widget.NestedScrollView>
 
