@@ -67,6 +67,9 @@
                 android:textAppearance="@style/notice_detail_date"
                 app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg1"
                 app:layout_constraintStart_toEndOf="@id/view_notice_detail_mg1"
+                android:lineSpacingExtra="3sp"
+                android:translationY="-1.65sp"
+                android:gravity="top"
                 />
 
             <View
@@ -87,6 +90,9 @@
                 app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg2"
                 app:layout_constraintStart_toStartOf="@id/tv_notice_detail_date"
                 app:layout_constraintEnd_toStartOf="@id/view_notice_detail_mg2"
+                android:lineSpacingExtra="4sp"
+                android:translationY="-1.76sp"
+                android:gravity="top"
                 />
 
             <View
@@ -127,6 +133,9 @@
                 app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg4"
                 app:layout_constraintStart_toStartOf="@id/tv_notice_detail_title"
                 app:layout_constraintEnd_toEndOf="@id/tv_notice_detail_title"
+                android:lineSpacingExtra="3sp"
+                android:translationY="-1.65sp"
+                android:gravity="top"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
