@@ -97,7 +97,7 @@
                 <ImageButton
                     android:id="@+id/sort_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="최신순"
                     android:src="@drawable/drawerbtn_lineup_early_unselected"
@@ -211,6 +211,7 @@
             app:layout_constraintBottom_toBottomOf="@id/create_zip_button" />
 
         <ImageButton
+            android:contentDescription="create_zip_button"
             android:id="@+id/create_zip_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
