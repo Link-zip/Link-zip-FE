@@ -92,7 +92,6 @@
     <style name="appbar_title">
         <item name="fontFamily">@font/pretendard_semibold</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:letterSpacing">-0.025</item>
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="dialogue_lineup_item_selected">
