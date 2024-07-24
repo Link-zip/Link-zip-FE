@@ -15,36 +15,41 @@
         android:focusable="false"
         tools:context=".presentation.MainActivity">
 
-
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_makezip"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_makezip_exzip_ic"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintBottom_toTopOf="makezip_msg10"
+            app:titleTextColor="@color/black">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:src="@drawable/ic_gnb_back" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/pretendard_semibold"
-                android:letterSpacing="-0.03"
-                android:text="Zip 만들기"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textFontWeight="600"
-                android:textSize="20dp"
-                tools:layout_editor_absoluteX="137dp"
-                tools:layout_editor_absoluteY="13dp" />
+                <ImageView
+                    android:id="@+id/iv_mypage_setting_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_mypage_profile_back"
+                    android:contentDescription="뒤로가기" />
+
+                <TextView
+                    android:id="@+id/tv_mypage_setting_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:text="Zip 만들기"
+                    android:textAppearance="@style/appbar_title"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+            </RelativeLayout>
+
         </androidx.appcompat.widget.Toolbar>
 
         <View
@@ -55,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.053"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_makezip" />
 
         <ImageView
             android:id="@+id/fragment_makezip_exzip_ic"
