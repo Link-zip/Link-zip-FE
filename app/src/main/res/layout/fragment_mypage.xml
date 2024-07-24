@@ -14,7 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <View
             android:id="@+id/view_mypage_bg"
@@ -198,7 +199,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
             android:background="@color/btn_bg"
             app:layout_constraintTop_toTopOf="@id/view_mypage_shadow2"
             app:layout_constraintBottom_toBottomOf="parent"
