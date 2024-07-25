@@ -3,8 +3,143 @@
     <style name="Widget.BottomNavigationView"
         parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/pretendard_light</item>
-        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:letterSpacing">-0.025</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">12sp</item>
+    </style>
+    <style name="item_list_ziptitle">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/nav_selected</item>
+    </style>
+    <style name="item_list_linktitle">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="item_list_linkdate">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+    <style name="list_title">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="list_tab_item_selected">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/abled_color</item>
+    </style>
+    <style name="list_tab_item_unselected">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+    <style name="mypage_nickname">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="mypage_social">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="mypage_logout">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/nav_selected</item>
+    </style>
+    <style name="mypage_profile_exp">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="mypage_profile_box_exp">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="mypage_profile_nickname">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="mypage_profile_social">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="mypage_profile_btn">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/b005773</item>
+    </style>
+    <style name="appbar_title">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="dialogue_lineup_item_selected">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="dialogue_lineup_item_unselected">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/nav_selected</item>
+    </style>
+    <style name="mypage_profile_nickname_change_red">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/disabled_color</item>
+    </style>
+    <style name="mypage_profile_nickname_change_blue">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/b005773</item>
+    </style>
+    <style name="notice_detail_title">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="notice_detail_date">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-0.025</item>
+        <item name="android:textColor">@color/nav_selected</item>
+    </style>
+
+
+
+
+    <style name="TransparentAppBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorAccent">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:background">@drawable/bg_transparent</item>
     </style>
 </resources>
