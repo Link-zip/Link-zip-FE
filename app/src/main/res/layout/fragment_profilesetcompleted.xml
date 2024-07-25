@@ -121,37 +121,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.039" />
 
-    <ImageView
-        android:id="@+id/iv_profilesetcompleted_blueshadow"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/shadow_bluebtn"
-        app:layout_constraintDimensionRatio="2070:512"
-        app:layout_constraintTop_toTopOf="@id/btn_profilesetcompleted_start"
-        app:layout_constraintStart_toStartOf="@id/btn_profilesetcompleted_start"
-        app:layout_constraintEnd_toEndOf="@id/btn_profilesetcompleted_start"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_profilesetcompleted_start"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_profilesetcompleted_start_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rect_8_1191ad_fill"
-        android:text="시작하기"
-        android:fontFamily="@font/pretendard_semibold"
-        android:textSize="18sp"
-        android:lineHeight="25dp"
-        android:letterSpacing="-0.025"
-        android:textColor="@color/white"
-        style="?android:attr/borderlessButtonStyle"
-        app:layout_constraintBottom_toTopOf="@id/view_profilesetcompleted_mg6"
+        app:layout_constraintEnd_toStartOf="@id/view_profilesetcompleted_mg5"
         app:layout_constraintStart_toEndOf="@id/view_profilesetcompleted_mg1"
-        app:layout_constraintEnd_toStartOf="@id/view_profilesetcompleted_mg5" />
-
-    <View
-        android:id="@+id/view_profilesetcompleted_mg6"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.0353" />
+        >
+
+        <ImageView
+            android:id="@+id/iv_profilesetcompleted_blueshadow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="-5dp"
+            android:src="@drawable/shadow_bluebtn"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/btn_profilesetcompleted_start"
+            app:layout_constraintHeight_percent="0.75"
+            app:layout_constraintEnd_toEndOf="@id/btn_profilesetcompleted_start"
+            app:layout_constraintStart_toStartOf="@id/btn_profilesetcompleted_start"
+            app:layout_constraintTop_toTopOf="@id/btn_profilesetcompleted_start"
+            android:scaleType="fitXY"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_profilesetcompleted_start"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rect_8_1191ad_fill"
+            android:fontFamily="@font/pretendard_semibold"
+            android:letterSpacing="-0.025"
+            android:lineHeight="25dp"
+            android:text="시작하기"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/view_profileset_mg6"
+            />
+
+        <View
+            android:id="@+id/view_profileset_mg6"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_profilesetcompleted_start"
+            app:layout_constraintDimensionRatio="360:30"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
