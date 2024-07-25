@@ -135,6 +135,7 @@
         app:layout_constraintHeight_percent="0.0235" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login_kakaologin"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/img_login_kakaologin"
