@@ -18,6 +18,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -77,21 +78,24 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 
     //lifecycle
-    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     //viewModel
-    implementation ("androidx.activity:activity-ktx:1.9.0")
-    implementation ("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("androidx.activity:activity-ktx:1.9.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // Glide Image Loading Library
     implementation("com.github.bumptech.glide:glide:4.14.2")
     ksp("com.github.bumptech.glide:ksp:4.14.2")
 
     //CardView
-    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.cardview:cardview:1.0.0")
 
     // Coroutines Dependency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
+    //blur
+    implementation("jp.wasabeef:blurry:4.0.1")
+    implementation ("com.github.Dimezis:BlurView:version-2.0.3")
 }
