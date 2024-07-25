@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/view_item_notice_mg1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:20"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
+
+    <TextView
+        android:id="@+id/tv_item_notice_title"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="5sp"
+        android:text="공지사항 제목공지사항 제목공지사항 제목공지사항 제목 ##최대 2줄로"
+        android:textAppearance="@style/item_list_linktitle"
+        app:layout_constraintStart_toEndOf="@id/view_item_notice_mg1"
+        app:layout_constraintEnd_toStartOf="@id/view_item_notice_mg2"
+        app:layout_constraintTop_toBottomOf="@id/view_item_notice_mg1" />
+
+    <View
+        android:id="@+id/view_item_notice_mg2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:20"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
+
+    <View
+        android:id="@+id/view_item_notice_mg3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:12"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_notice_title"
+        app:layout_constraintStart_toStartOf="@id/tv_item_notice_title"
+        app:layout_constraintWidth_percent="0.06667" />
+
+    <TextView
+        android:id="@+id/tv_item_notice_date"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:lineSpacingExtra="2sp"
+        android:text="2024.06.11"
+        android:textAppearance="@style/item_list_linkdate"
+        app:layout_constraintTop_toBottomOf="@id/view_item_notice_mg3"
+        app:layout_constraintStart_toStartOf="@id/view_item_notice_mg3"
+        />
+
+    <View
+        android:id="@+id/view_item_notice_mg4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:20"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_notice_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/nav_unselected"
+        app:layout_constraintTop_toBottomOf="@id/view_item_notice_mg4"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
