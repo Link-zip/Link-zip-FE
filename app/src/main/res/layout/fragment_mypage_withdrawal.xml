@@ -157,7 +157,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_profileset_finish_btn"
+            android:id="@+id/cl_mypage_withdrawal_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/view_mypage_withdrawal_mg3"
@@ -166,7 +166,7 @@
             >
 
             <ImageView
-                android:id="@+id/iv_profileset_blueshadow"
+                android:id="@+id/iv_mypage_withdrawal_blueshadow"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintStart_toStartOf="@id/view_mypage_withdrawal_btn"
@@ -193,6 +193,7 @@
 
 
         <TextView
+            android:id="@+id/tv_mypage_withdrawal_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="탈퇴하기"
