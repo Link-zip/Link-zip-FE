@@ -139,7 +139,7 @@
         android:layout_height="0dp"
         android:background="@drawable/img_login_kakaologin"
         app:layout_constraintDimensionRatio="300:45"
-        app:layout_constraintHeight_percent="0.0661"
+        app:layout_constraintWidth_percent="0.833"
         app:layout_constraintTop_toBottomOf="@id/view_login_mg8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
