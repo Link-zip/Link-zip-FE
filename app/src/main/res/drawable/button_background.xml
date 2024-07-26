@@ -1,0 +1,10 @@
+<!-- res/drawable/button_background.xml -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#1191AD" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</ripple>
