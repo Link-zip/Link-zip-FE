@@ -242,7 +242,7 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_rect_1191AD_fill"
+                android:background="@drawable/shape_rect_1191ad_fill"
                 android:clickable="false"
                 android:fontFamily="@font/pretendard_semibold"
                 android:letterSpacing="-0.025"
