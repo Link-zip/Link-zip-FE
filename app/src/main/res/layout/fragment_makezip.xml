@@ -84,7 +84,7 @@
             android:shadowColor="@color/black"
             android:textColor="#FFFFFF"
             android:textFontWeight="600"
-            android:textSize="16px"
+            android:textSize="16sp"
             android:letterSpacing="-0.03"
             android:layout_alignParentTop="true"
             android:textAppearance="@style/ziptitlethu"
@@ -116,8 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="32:24"
                     app:layout_constraintWidth_percent="0.0888"
                     tools:ignore="MissingConstraints" />
 
@@ -170,18 +169,29 @@
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/zip_name">
 
+                <View
+                    android:id="@+id/makezip_msg11"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/zip_name_enter_tv"
+                    app:layout_constraintDimensionRatio="32:24"
+                    app:layout_constraintWidth_percent="0.0888"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/zip_name_enter_tv"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
                 <TextView
                     android:id="@+id/zip_name_enter_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
-                    android:text="Zip 이름을 입력해주세요."
-                    android:paddingLeft="32dp"
                     android:letterSpacing="-0.03"
+                    android:text="Zip 이름을 입력해주세요."
                     android:textColor="#666666"
                     android:textFontWeight="400"
                     android:textSize="16dp"
-                    tools:ignore="MissingConstraints" />
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg11" />
 
                 <View
                     android:id="@+id/line"
