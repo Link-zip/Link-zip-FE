@@ -152,11 +152,10 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintDimensionRatio="32:24"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent"
-                    app:layout_constraintWidth_percent="0.0888"
-                    tools:ignore="MissingConstraints" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0888" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -191,44 +190,58 @@
                     android:textColor="#666666"
                     android:textFontWeight="400"
                     android:textSize="16dp"
-                    app:layout_constraintStart_toEndOf="@id/makezip_msg11" />
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg11"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <View
+                    android:id="@+id/makezip_msg12"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:64"
+                    app:layout_constraintWidth_percent="0.0666"
+                    app:layout_constraintTop_toBottomOf="@id/makezip_msg11"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <View
+                    android:id="@+id/makezip_msg13"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:64"
+                    app:layout_constraintWidth_percent="0.0666"
+                    app:layout_constraintTop_toBottomOf="@id/makezip_msg11"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
 
                 <View
                     android:id="@+id/line"
-                    android:layout_width="312dp"
+                    android:layout_width="0dp"
                     android:layout_height="2px"
                     android:layout_marginTop="12dp"
                     android:background="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg12"
                     app:layout_constraintTop_toBottomOf="@id/zip_name_enter_tv" />
 
-                <!--                <View-->
-                <!--                    android:id="@+id/makezip_msg9"-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="0dp"-->
-                <!--                    android:layout_marginStart="28dp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintDimensionRatio="5:0"-->
-                <!--                    app:layout_constraintStart_toEndOf="@+id/colors"-->
-                <!--                    app:layout_constraintTop_toTopOf="@id/line"-->
-                <!--                    app:layout_constraintVertical_bias="0.0"-->
-                <!--                    app:layout_constraintWidth_percent="0.06" />-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/colors"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg12"
                     app:layout_constraintTop_toBottomOf="@id/line">
 
                     <View
                         android:id="@+id/rectangle_1"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_2"
@@ -238,8 +251,9 @@
 
                     <View
                         android:id="@+id/rectangle_2"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_2"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -250,8 +264,9 @@
 
                     <View
                         android:id="@+id/rectangle_3"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_3"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_4"
@@ -263,8 +278,9 @@
 
                     <View
                         android:id="@+id/rectangle_4"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_4"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_5"
@@ -276,8 +292,9 @@
 
                     <View
                         android:id="@+id/rectangle_5"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_5"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_6"
@@ -289,8 +306,9 @@
 
                     <View
                         android:id="@+id/rectangle_6"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_6"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_7"
@@ -302,8 +320,9 @@
 
                     <View
                         android:id="@+id/rectangle_7"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_7"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -313,8 +332,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="264dp">
+                android:layout_width="wrap_content"
+                android:layout_height="216dp">
 
                 <View
                     android:id="@+id/makezip_msg5"
@@ -348,16 +367,6 @@
                     app:layout_constraintTop_toBottomOf="@id/makezip_msg6"
                     app:layout_constraintVertical_bias="0.451" />
 
-                <ImageView
-                    android:id="@+id/iv_profileset_blueshadow"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="2070:512"
-                    app:layout_constraintStart_toStartOf="@id/select_pic_finish_IV"
-                    app:layout_constraintEnd_toEndOf="@id/select_pic_finish_IV"
-                    android:src="@drawable/shadow_graybtn"
-                    app:layout_constraintTop_toTopOf="@id/select_pic_finish_IV"
-                    android:visibility="visible"/>
 
                 <ImageView
                     android:id="@+id/select_pic_finish_IV"
