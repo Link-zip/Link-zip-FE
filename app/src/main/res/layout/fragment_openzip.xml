@@ -49,16 +49,16 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
+
         <View
             android:id="@+id/fragment_openzip_withdrawal_mg2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="24:198"
-            app:layout_constraintWidth_percent="0.0666"
             app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg6"
+            app:layout_constraintDimensionRatio="24:198"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0666" />
 
         <ImageView
             android:id="@+id/fragment_openzip_insite_iv"
@@ -285,12 +285,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="0dp"
             android:background="#fbfbfb"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_openzip_shadow"
             app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="-16dp" />
+            tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
