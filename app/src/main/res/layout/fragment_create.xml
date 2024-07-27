@@ -8,65 +8,238 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="24dp">
+        android:layout_height="match_parent">
+
+        <!-- appbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_create"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view_create_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.066667" />
+
+                <ImageView
+                    android:id="@+id/iv_create_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="뒤로가기"
+                    android:src="@drawable/ic_appbar_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_create_mg1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_create_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="텍스트·링크 저장하기"
+                    android:textAppearance="@style/appbar_title"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!--View-->
+        <View
+            android:id="@+id/view_create_mg4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:170"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create"
+            app:layout_constraintWidth_percent="0.066" />
+
+        <View
+            android:id="@+id/view_create_mg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create"
+            app:layout_constraintWidth_percent="0.066" />
+
+        <View
+            android:id="@+id/view_create_mg6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.066" />
 
         <TextView
             android:id="@+id/tv_create_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="링크"
-            android:textSize="16sp"
-            android:textColor="@color/black"
             android:fontFamily="@font/pretendard_semibold"
-            android:paddingBottom="10dp"
+            android:letterSpacing="-0.03"
             android:paddingLeft="12dp"
-            app:layout_constraintBottom_toTopOf="@id/et_create_link"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="링크"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/view_create_mg4"
+            app:layout_constraintTop_toBottomOf="@id/view_create_mg4" />
 
         <EditText
             android:id="@+id/et_create_link"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:layout_marginTop="8dp"
+            android:drawableEnd="@drawable/drawerbtn_delete"
             android:fontFamily="@font/pretendard_medium"
             android:hint="링크를 불러와 주세요."
-            android:letterSpacing="0"
+            android:letterSpacing="-0.03"
+            android:paddingStart="12dp"
             android:paddingBottom="20dp"
-            android:paddingLeft="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@id/view_create_mg5"
+            app:layout_constraintStart_toEndOf="@id/view_create_mg4"
+            app:layout_constraintTop_toBottomOf="@id/tv_create_link" />
 
-        <android.widget.Button
-            style="?android:attr/borderlessButtonStyle"
-            android:id="@+id/btn_create_textsummary"
-            android:layout_width="match_parent"
+        <!-- 텍스트 요약하기 버튼 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_create_summary_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="텍스트 요약하기"
-            android:textSize="19sp"
-            android:textColor="@color/nav_selected"
-            android:fontFamily="@font/pretendard_semibold"
-            android:letterSpacing="0"
-            android:backgroundTint="@null"
-            android:background="@drawable/shape_rect_10_white000_fill_gray999_line"
-            android:layout_marginBottom="16dp"
-            android:padding="20dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_create_linksave"/>
+            app:layout_constraintBottom_toTopOf="@id/cl_create_save_btn"
+            app:layout_constraintEnd_toStartOf="@id/view_create_mg5"
+            app:layout_constraintStart_toEndOf="@id/view_create_mg4">
 
-        <android.widget.Button
-            style="?android:attr/borderlessButtonStyle"
-            android:id="@+id/btn_create_linksave"
-            android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shadow_graybtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/btn_create_summary"
+                app:layout_constraintEnd_toEndOf="@id/btn_create_summary"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintStart_toStartOf="@id/btn_create_summary"
+                app:layout_constraintTop_toTopOf="@id/btn_create_summary"
+                app:layout_constraintWidth_default="spread" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_create_summary"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_white_fill_999999_line"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="텍스트 요약하기"
+                android:textColor="@color/light_gray"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_create_mg9"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="360:12"
+                app:layout_constraintTop_toBottomOf="@id/btn_create_summary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 링크 저장하기 버튼 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_create_save_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="링크 저장하기"
-            android:textSize="19sp"
-            android:fontFamily="@font/pretendard_semibold"
-            android:textColor="@color/white"
-            android:letterSpacing="0"
-            android:backgroundTint="@null"
-            android:background="@drawable/shape_rect_10_gray_fill"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:padding="20dp"/>
+            app:layout_constraintEnd_toStartOf="@id/view_create_mg5"
+            app:layout_constraintStart_toEndOf="@id/view_create_mg4">
+
+            <ImageView
+                android:id="@+id/iv_create_grayshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shadow_graybtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/btn_create_save"
+                app:layout_constraintEnd_toEndOf="@id/btn_create_save"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintStart_toStartOf="@id/btn_create_save"
+                app:layout_constraintTop_toTopOf="@id/btn_create_save"
+                app:layout_constraintWidth_default="spread" />
+
+            <ImageView
+                android:id="@+id/iv_create_blueshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shadow_bluebtn"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/btn_create_save"
+                app:layout_constraintEnd_toEndOf="@id/btn_create_save"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintStart_toStartOf="@id/btn_create_save"
+                app:layout_constraintTop_toTopOf="@id/btn_create_save" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_create_save"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_666666_fill"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="링크 저장하기"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_create_mg10"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="360:30"
+                app:layout_constraintTop_toBottomOf="@id/btn_create_save" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,118 +7,368 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="24dp">
+        android:layout_height="match_parent">
+
+        <!--appbar-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_customText_custom"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view_customText_custom_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.066667" />
+
+                <ImageView
+                    android:id="@+id/iv_customText_custom_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="뒤로가기"
+                    android:src="@drawable/ic_appbar_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_customText_custom_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="텍스트 커스터마이징"
+                    android:textAppearance="@style/appbar_title"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!--view-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#F8F8F8"
+            app:layout_constraintTop_toTopOf="@id/view_customText_custom_shadow_top"
+            app:layout_constraintBottom_toBottomOf="@id/view_customText_custom_shadow_bottom"/>
+
+        <View
+            android:id="@+id/view_customText_custom_shadow_top"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@drawable/shadow_custom_text_up_bg"
+            android:alpha="0.3"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_customText_custom" />
+
+        <View
+            android:id="@+id/view_customText_custom_shadow_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@drawable/shadow_custom_text_down_bg"
+            android:alpha="0.3"
+            app:layout_constraintTop_toBottomOf="@id/et_customText_summaryText"/>
 
         <EditText
             android:id="@+id/et_customText_summaryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="이제는 좁고 뾰족한 타겟을 두고 있는 마이크로/나노 인플루언서와의 협업을 통한 마케팅 전략이 대세이다. 상대적으로 저렴한 비용으로 브랜드의 메세지를 전달해 낼 수 있다는 것이 가장 큰 장점이다. 하지만 이들과의 협업 과정에서는 커뮤니케이션이 무엇보다 중요하기 때문에 상세하고 정확한 가이드라인이 가장 중요하다."
-            android:textSize="13sp"
-            android:textColor="@color/nav_selected"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/pretendard_regular"
+            android:gravity="top"
+            android:inputType="textMultiLine"
             android:letterSpacing="0"
             android:lineSpacingExtra="4dp"
-            android:layout_marginTop="8dp"
-            android:inputType="textMultiLine"
             android:minHeight="100dp"
-            android:gravity="top"
-            android:background="@android:color/transparent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:text="이제는 좁고 뾰족한 타겟을 두고 있는 마이크로/나노 인플루언서와의 협업을 통한 마케팅 전략이 대세이다. 상대적으로 저렴한 비용으로 브랜드의 메세지를 전달해 낼 수 있다는 것이 가장 큰 장점이다. 하지만 이들과의 협업 과정에서는 커뮤니케이션이 무엇보다 중요하기 때문에 상세하고 정확한 가이드라인이 가장 중요하다."
+            android:textColor="@color/nav_selected"
+            android:textSize="13sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_customText_custom_shadow_top" />
+
+        <View
+            android:id="@+id/view_customText_custom_mg4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:40"
+            app:layout_constraintWidth_percent="0.066"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_customText_custom_shadow_bottom" />
 
         <TextView
             android:id="@+id/tv_customText_textCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="텍스트 커스터마이징"
-            android:textSize="23sp"
-            android:textColor="@color/black"
             android:fontFamily="@font/pretendard_bold"
             android:letterSpacing="0"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@id/et_customText_summaryText"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="텍스트 커스터마이징"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg4"
+            app:layout_constraintTop_toBottomOf="@id/view_customText_custom_mg4" />
+
+        <View
+            android:id="@+id/view_customText_custom_mg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.066"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_customText_textCustom" />
 
         <TextView
             android:id="@+id/tv_customText_linkTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="링크 제목"
-            android:textSize="18sp"
-            android:textColor="@color/black"
+            android:layout_marginLeft="8dp"
             android:fontFamily="@font/pretendard_semibold"
             android:letterSpacing="0"
-            android:layout_marginTop="24dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_customText_textCustom"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="링크 제목"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg5"
+            app:layout_constraintTop_toBottomOf="@id/view_customText_custom_mg5" />
+
+        <View
+            android:id="@+id/view_customText_custom_mg6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintWidth_percent="0.066"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_customText_linkTitle" />
+
+        <View
+            android:id="@+id/view_customText_custom_mg7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:6"
+            app:layout_constraintWidth_percent="0.066"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_customText_linkTitle" />
 
         <EditText
             android:id="@+id/et_customText_linkTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="실패란 없는 마이크로/나노 인플루언서 필승.."
-            android:textSize="18sp"
-            android:textColor="@color/nav_selected"
-            android:fontFamily="@font/pretendard_regular"
-            android:letterSpacing="0"
-            android:drawableEnd="@drawable/drawerbtn_delete"
             android:layout_marginTop="10dp"
+            android:drawableEnd="@drawable/drawerbtn_delete"
+            android:fontFamily="@font/pretendard_regular"
+            android:imeOptions="actionDone"
+            android:letterSpacing="0"
             android:paddingLeft="8dp"
             android:paddingBottom="20dp"
-            android:imeOptions="actionDone"
-            app:layout_constraintTop_toBottomOf="@id/tv_customText_linkTitle"/>
+            android:text="실패란 없는 마이크로/나노 인플루언서 필승.."
+            android:textColor="@color/nav_selected"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg6"
+            app:layout_constraintEnd_toStartOf="@id/view_customText_custom_mg7"
+            app:layout_constraintTop_toBottomOf="@id/tv_customText_linkTitle" />
 
-        <android.widget.Button
-            style="?android:attr/borderlessButtonStyle"
-            android:id="@+id/btn_customText_setMemo"
-            android:layout_width="match_parent"
+        <!-- 메모 설정하기 버튼 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_customText_custom_memo_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="메모 설정하기"
-            android:textSize="19sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/pretendard_semibold"
-            android:letterSpacing="0"
-            android:backgroundTint="@null"
-            android:background="@drawable/shape_rect_10_whitef9_fill_grayd9_line"
-            android:layout_marginTop="32dp"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@id/et_customText_linkTitle"/>
+            app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg9"
+            app:layout_constraintEnd_toStartOf="@id/view_customText_custom_mg10"
+            app:layout_constraintBottom_toTopOf="@id/cl_customText_custom_alarm_btn"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_graybtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/btn_customText_custom_memo"
+                app:layout_constraintWidth_default="spread"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/btn_customText_custom_memo"
+                app:layout_constraintStart_toStartOf="@id/btn_customText_custom_memo"
+                app:layout_constraintTop_toTopOf="@id/btn_customText_custom_memo"
+                android:scaleType="fitXY"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customText_custom_memo"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_white_fill_999999_line"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_medium"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="메모 설정하기"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <View
+                android:id="@+id/view_customText_alarm_mg7"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/btn_customText_custom_memo"
+                app:layout_constraintDimensionRatio="360:12"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <android.widget.Button
-            style="?android:attr/borderlessButtonStyle"
-            android:id="@+id/btn_customText_setAlarm"
-            android:layout_width="match_parent"
+        <!-- 알림 설정하기 버튼 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_customText_custom_alarm_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="알림 설정하기"
-            android:textSize="19sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/pretendard_semibold"
-            android:letterSpacing="0"
-            android:backgroundTint="@null"
-            android:background="@drawable/shape_rect_10_whitef9_fill_grayd9_line"
-            android:layout_marginTop="12dp"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_customText_setMemo"/>
+            app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg9"
+            app:layout_constraintEnd_toStartOf="@id/view_customText_custom_mg10"
+            app:layout_constraintBottom_toTopOf="@id/cl_customText_custom_save_btn"
+            android:layout_marginBottom="25dp"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_graybtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/btn_customText_custom_alarm"
+                app:layout_constraintWidth_default="spread"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/btn_customText_custom_alarm"
+                app:layout_constraintStart_toStartOf="@id/btn_customText_custom_alarm"
+                app:layout_constraintTop_toTopOf="@id/btn_customText_custom_alarm"
+                android:scaleType="fitXY"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customText_custom_alarm"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_white_fill_999999_line"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_medium"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="알림 설정하기"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <View
+                android:id="@+id/view_customText_alarm_mg8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/btn_customText_custom_alarm"
+                app:layout_constraintDimensionRatio="360:12"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <android.widget.Button
-            style="?android:attr/borderlessButtonStyle"
-            android:id="@+id/btn_customText_save"
-            android:layout_width="match_parent"
+        <!-- 저장 버튼 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_customText_custom_save_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="저장하기"
-            android:textSize="19sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/pretendard_semibold"
-            android:letterSpacing="0"
-            android:backgroundTint="@null"
-            android:background="@drawable/shape_rect_10_abled_fill"
-            android:layout_marginTop="40dp"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_customText_setAlarm"/>
+            app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg9"
+            app:layout_constraintEnd_toStartOf="@id/view_customText_custom_mg10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <ImageView
+                android:id="@+id/iv_customText_custom_blueshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_bluebtn"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/btn_customText_custom_save"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/btn_customText_custom_save"
+                app:layout_constraintStart_toStartOf="@id/btn_customText_custom_save"
+                app:layout_constraintTop_toTopOf="@id/btn_customText_custom_save"
+                android:scaleType="fitXY"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customText_custom_save"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_1191ad_fill"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="저장"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <View
+                android:id="@+id/view_customText_alarm_mg11"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/btn_customText_custom_save"
+                app:layout_constraintDimensionRatio="360:30"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_customText_custom_mg9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.066"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:id="@+id/view_customText_custom_mg10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.066"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

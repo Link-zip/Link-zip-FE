@@ -1,0 +1,368 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--appbar-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_open_link"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view_openLink_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.066667" />
+
+                <ImageView
+                    android:id="@+id/iv_openLink_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="뒤로가기"
+                    android:src="@drawable/ic_appbar_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_openLink_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="링크"
+                    android:textAppearance="@style/appbar_title"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!--View-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_open_link">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_openLink_topImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_link_topimg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:alpha="0.3"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shape_rect_gradiant"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_openLink_mg4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintTop_toBottomOf="@id/iv_openLink_topImg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent="0.066" />
+
+                <View
+                    android:id="@+id/view_openLink_mg5"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.066"
+                    app:layout_constraintTop_toBottomOf="@id/iv_openLink_topImg"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_openLink_zipimg"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/img_text_zipimg"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg4"
+                    app:layout_constraintTop_toBottomOf="@id/view_openLink_mg4" />
+
+                <TextView
+                    android:id="@+id/tv_openLink_zipname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="인사이트"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_openLink_zipimg"
+                    app:layout_constraintStart_toEndOf="@id/iv_openLink_zipimg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="방문 횟수  |  "
+                    android:textColor="@color/nav_selected"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_openLink_zipname"
+                    app:layout_constraintEnd_toStartOf="@id/tv_openLink_counting"/>
+
+                <TextView
+                    android:id="@+id/tv_openLink_counting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="0회"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_openLink_zipname"
+                    app:layout_constraintEnd_toStartOf="@id/view_openLink_mg5"/>
+
+                <View
+                    android:id="@+id/view_openLink_mg6"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.066"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_openLink_zipimg" />
+
+                <TextView
+                    android:id="@+id/tv_openLink_it1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:letterSpacing="-0.03"
+                    android:text="링크 제목"
+                    android:textColor="@color/nav_selected"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@id/view_openLink_mg6"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg6" />
+
+                <TextView
+                    android:id="@+id/tv_openLink_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:letterSpacing="-0.03"
+                    android:text="하계 인턴 모음"
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_openLink_it1"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg4"
+                    app:layout_constraintEnd_toStartOf="@id/view_openLink_mg5"/>
+
+                <View
+                    android:id="@+id/view_openLink_mg7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.066"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_openLink_title" />
+
+                <TextView
+                    android:id="@+id/tv_openLink_it2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="링크 메모"
+                    android:textColor="@color/nav_selected"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@id/view_openLink_mg7"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg4" />
+
+                <TextView
+                    android:id="@+id/tv_openLink_memo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="대한항공 인턴 자소서 마감 ~6.20"
+                    android:textColor="@color/black"
+                    android:textSize="19sp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_openLink_it2"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg4"
+                    app:layout_constraintEnd_toStartOf="@id/view_openLink_mg5"/>
+
+                <View
+                    android:id="@+id/view_openLink_mg8"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.066"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_openLink_memo" />
+
+                <TextView
+                    android:id="@+id/tv_openLink_it3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="링크 알림"
+                    android:textColor="@color/nav_selected"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@id/view_openLink_mg8"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg8"/>
+
+                <TextView
+                    android:id="@+id/tv_openLink_alarm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="2024.01.24 PM 06:00"
+                    android:textColor="@color/black"
+                    android:textSize="19sp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_openLink_it3"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg4"
+                    app:layout_constraintEnd_toStartOf="@id/view_openLink_mg5"/>
+
+                <View
+                    android:id="@+id/view_openLink_mg9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:40"
+                    app:layout_constraintWidth_percent="0.066"
+                    app:layout_constraintTop_toBottomOf="@id/tv_openLink_alarm"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <!-- 텍스트 수정 버튼 -->
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/btn_openLink_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:gravity="center"
+                    android:letterSpacing="0"
+                    android:paddingStart="45dp"
+                    android:text="텍스트 수정하기"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toStartOf="@id/view_openLink_mg9"
+                    app:layout_constraintTop_toBottomOf="@id/view_openLink_mg9" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:elevation="8dp"
+                    android:src="@drawable/ic_edit_content"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_openLink_edit"
+                    app:layout_constraintStart_toStartOf="@id/btn_openLink_edit"
+                    app:layout_constraintTop_toTopOf="@id/btn_openLink_edit" />
+
+                <View
+                    android:id="@+id/view_openLink_mg10"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:16"
+                    app:layout_constraintWidth_percent="0.066"
+                    app:layout_constraintTop_toBottomOf="@id/btn_openLink_edit"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <!-- 원본 링크로 이동 버튼 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_openLink_move_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/view_openLink_mg4"
+                    app:layout_constraintEnd_toStartOf="@id/view_openLink_mg5"
+                    app:layout_constraintTop_toBottomOf="@id/view_openLink_mg10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_openLink_blueshadow"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginBottom="-5dp"
+                        android:src="@drawable/shadow_bluebtn"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_openLink_move"
+                        app:layout_constraintHeight_percent="0.75"
+                        app:layout_constraintEnd_toEndOf="@id/btn_openLink_move"
+                        app:layout_constraintStart_toStartOf="@id/btn_openLink_move"
+                        app:layout_constraintTop_toTopOf="@id/btn_openLink_move"
+                        android:scaleType="fitXY"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_openLink_move"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_rect_8_1191ad_fill"
+                        android:clickable="false"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:letterSpacing="-0.025"
+                        android:lineHeight="25dp"
+                        android:text="원본 링크로 이동하기"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <View
+                        android:id="@+id/view_openLink_mg11"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toBottomOf="@id/btn_openLink_move"
+                        app:layout_constraintDimensionRatio="360:30"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
