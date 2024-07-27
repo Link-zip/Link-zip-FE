@@ -103,7 +103,7 @@
             android:letterSpacing="-0.03"
             android:text="알림 설정하기"
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg4"
             app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg4" />
 
@@ -124,7 +124,7 @@
             android:letterSpacing="-0.03"
             android:text="날짜 선택"
             android:textColor="@color/nav_selected"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg5"
             app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg5" />
 
@@ -154,7 +154,7 @@
             android:letterSpacing="-0.03"
             android:text="2024.06.21"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_saveLink_alarm_date"
             app:layout_constraintStart_toEndOf="@id/iv_saveLink_alarm_date"
             app:layout_constraintTop_toTopOf="@id/iv_saveLink_alarm_date" />
@@ -186,7 +186,7 @@
             android:letterSpacing="-0.03"
             android:text="시간 선택"
             android:textColor="@color/nav_selected"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg7"
             app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg7" />
 
@@ -216,7 +216,7 @@
             android:letterSpacing="-0.03"
             android:text="AM 12:00"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_saveLink_alarm_time"
             app:layout_constraintStart_toEndOf="@id/iv_saveLink_alarm_time"
             app:layout_constraintTop_toTopOf="@id/iv_saveLink_alarm_time" />

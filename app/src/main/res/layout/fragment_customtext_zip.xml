@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="저장할 Zip 선택하기"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/pretendard_semibold"
             app:layout_constraintStart_toEndOf="@id/view_customText_zip_mg4"

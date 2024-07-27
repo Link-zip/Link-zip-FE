@@ -102,7 +102,7 @@
             android:minHeight="100dp"
             android:text="이제는 좁고 뾰족한 타겟을 두고 있는 마이크로/나노 인플루언서와의 협업을 통한 마케팅 전략이 대세이다. 상대적으로 저렴한 비용으로 브랜드의 메세지를 전달해 낼 수 있다는 것이 가장 큰 장점이다. 하지만 이들과의 협업 과정에서는 커뮤니케이션이 무엇보다 중요하기 때문에 상세하고 정확한 가이드라인이 가장 중요하다."
             android:textColor="@color/nav_selected"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="24dp"
@@ -127,7 +127,7 @@
             android:letterSpacing="0"
             android:text="텍스트 커스터마이징"
             android:textColor="@color/black"
-            android:textSize="23sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg4"
             app:layout_constraintTop_toBottomOf="@id/view_customText_custom_mg4" />
 
@@ -149,7 +149,7 @@
             android:letterSpacing="0"
             android:text="링크 제목"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg5"
             app:layout_constraintTop_toBottomOf="@id/view_customText_custom_mg5" />
 
@@ -184,7 +184,7 @@
             android:paddingBottom="20dp"
             android:text="실패란 없는 마이크로/나노 인플루언서 필승.."
             android:textColor="@color/nav_selected"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/view_customText_custom_mg6"
             app:layout_constraintEnd_toStartOf="@id/view_customText_custom_mg7"
             app:layout_constraintTop_toBottomOf="@id/tv_customText_linkTitle" />
@@ -199,34 +199,19 @@
             app:layout_constraintBottom_toTopOf="@id/cl_customText_custom_alarm_btn"
             >
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginBottom="-5dp"
-                android:src="@drawable/shadow_graybtn"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/btn_customText_custom_memo"
-                app:layout_constraintWidth_default="spread"
-                app:layout_constraintHeight_percent="0.75"
-                app:layout_constraintEnd_toEndOf="@id/btn_customText_custom_memo"
-                app:layout_constraintStart_toStartOf="@id/btn_customText_custom_memo"
-                app:layout_constraintTop_toTopOf="@id/btn_customText_custom_memo"
-                android:scaleType="fitXY"/>
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_customText_custom_memo"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_rect_8_white_fill_999999_line"
+                android:background="@drawable/shape_rect_8_f9f9f9_fill_d9d9d9_line"
                 android:clickable="false"
                 android:fontFamily="@font/pretendard_medium"
                 android:letterSpacing="-0.025"
                 android:lineHeight="25dp"
                 android:text="메모 설정하기"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -254,34 +239,19 @@
             android:layout_marginBottom="25dp"
             >
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginBottom="-5dp"
-                android:src="@drawable/shadow_graybtn"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/btn_customText_custom_alarm"
-                app:layout_constraintWidth_default="spread"
-                app:layout_constraintHeight_percent="0.75"
-                app:layout_constraintEnd_toEndOf="@id/btn_customText_custom_alarm"
-                app:layout_constraintStart_toStartOf="@id/btn_customText_custom_alarm"
-                app:layout_constraintTop_toTopOf="@id/btn_customText_custom_alarm"
-                android:scaleType="fitXY"/>
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_customText_custom_alarm"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_rect_8_white_fill_999999_line"
+                android:background="@drawable/shape_rect_8_f9f9f9_fill_d9d9d9_line"
                 android:clickable="false"
                 android:fontFamily="@font/pretendard_medium"
                 android:letterSpacing="-0.025"
                 android:lineHeight="25dp"
                 android:text="알림 설정하기"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -315,7 +285,7 @@
                 android:layout_marginTop="19dp"
                 android:layout_marginBottom="-5dp"
                 android:src="@drawable/shadow_bluebtn"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/btn_customText_custom_save"
                 app:layout_constraintHeight_percent="0.75"
                 app:layout_constraintEnd_toEndOf="@id/btn_customText_custom_save"
