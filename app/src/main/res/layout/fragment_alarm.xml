@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="최근 알림이 없어요"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/pretendard_semibold"
                 android:letterSpacing="-0.03"
