@@ -8,9 +8,7 @@ import umc.link.zip.presentation.base.BaseFragment
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create){
     override fun initObserver() {
-        binding.btnCreateLinksave.setOnClickListener {  }
 
-        binding.btnCreateTextsummary.setOnClickListener {  }
     }
 
     override fun initView() {

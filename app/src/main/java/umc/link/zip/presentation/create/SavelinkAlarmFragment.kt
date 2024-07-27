@@ -7,7 +7,7 @@ import umc.link.zip.databinding.FragmentCustomtextAlarmBinding
 import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.layout.fragment_customtext_alarm){
+class SavelinkAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.layout.fragment_customtext_alarm){
     override fun initObserver() {
 
     }
