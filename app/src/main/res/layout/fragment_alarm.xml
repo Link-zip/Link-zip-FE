@@ -90,15 +90,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="visible">
 
-            <View
-                android:id="@+id/view_alarm_none_mg4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.27"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-
             <ImageView
                 android:id="@+id/iv_alarm_none_clip"
                 android:layout_width="0dp"
@@ -106,9 +97,10 @@
                 android:src="@drawable/img_alarm_clip"
                 app:layout_constraintDimensionRatio="0.62"
                 app:layout_constraintWidth_percent="0.26"
-                app:layout_constraintTop_toBottomOf="@id/view_alarm_none_mg4"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/toolbar_alarm_mg4"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,6 +114,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_alarm_none_clip"/>
+
+            <View
+                android:id="@+id/toolbar_alarm_mg4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.066667"
+                app:layout_constraintDimensionRatio="360:40"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
