@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_itemAlarm_ad_icon"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:src="@drawable/ic_alarm_ad"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
