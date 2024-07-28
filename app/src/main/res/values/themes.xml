@@ -3,6 +3,11 @@
     <style name="Theme.Linkzip" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:spotShadowAlpha">0.08</item>
+        <item name="android:ambientShadowAlpha">0.1</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="actionBarStyle">@style/TransparentAppBarTheme</item>
     </style>
 
 </resources>

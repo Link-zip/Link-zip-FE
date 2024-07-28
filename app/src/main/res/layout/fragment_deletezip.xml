@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".DeleteZipFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/fragment_deletezip_delete_message"
+                android:layout_width="210dp"
+                android:layout_height="92dp"
+                android:background="@drawable/delete_message"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/fragment_deletezip_cancle_btn"
+                android:layout_width="105dp"
+                android:layout_height="36dp"
+                android:background="@drawable/cancle_btn"
+                app:layout_constraintTop_toBottomOf="@id/fragment_deletezip_delete_message"
+                app:layout_constraintEnd_toStartOf="@id/fragment_deletezip_delete_btn" />
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/fragment_deletezip_delete_btn"
+                android:layout_width="105dp"
+                android:layout_height="36dp"
+                android:background="@drawable/delete_btn"
+                app:layout_constraintTop_toBottomOf="@id/fragment_deletezip_delete_message"
+                app:layout_constraintStart_toEndOf="@id/fragment_deletezip_cancle_btn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

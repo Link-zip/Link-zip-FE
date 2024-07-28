@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/toolbar_alarm_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintWidth_percent="0.066667"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/iv_alarm_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/toolbar_alarm_mg1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_mypage_profile_back"
+                    android:contentDescription="뒤로가기" />
+
+                <TextView
+                    android:id="@+id/tv_alarm_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="알림"
+                    android:textAppearance="@style/appbar_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@android:color/black" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <!-- alarm O -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_post_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/item_alarm"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <!-- alarm X -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_alarm_none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_alarm_none_clip"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/img_alarm_clip"
+                app:layout_constraintDimensionRatio="0.62"
+                app:layout_constraintWidth_percent="0.26"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/toolbar_alarm_mg4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근 알림이 없어요"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.03"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_alarm_none_clip"/>
+
+            <View
+                android:id="@+id/toolbar_alarm_mg4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintWidth_percent="0.066667"
+                app:layout_constraintDimensionRatio="360:40"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
