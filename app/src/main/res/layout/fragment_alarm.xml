@@ -72,13 +72,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profile_post_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/item_alarm"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
         <!-- alarm X -->
