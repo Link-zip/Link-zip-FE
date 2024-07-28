@@ -60,7 +60,7 @@
         app:layout_constraintWidth_percent="0.0222" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
