@@ -45,6 +45,7 @@
         android:maxLines="1"
         android:lineHeight="24dp"
         android:letterSpacing="-0.025"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="@id/cv_item_home_recommend_img"
         app:layout_constraintTop_toTopOf="@id/cv_item_home_recommend_img" />
 

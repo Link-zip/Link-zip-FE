@@ -486,7 +486,9 @@
                     tools:listitem="@layout/item_home_recent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
+                    tools:itemCount="10"
                     app:layout_constraintStart_toEndOf="@id/view_home_mg4"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg4"/>
 
                 <View
@@ -527,6 +529,7 @@
                     tools:listitem="@layout/item_home_recommend"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/view_home_mg6"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg6"/>
 
