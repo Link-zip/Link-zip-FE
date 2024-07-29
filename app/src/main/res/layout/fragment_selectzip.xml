@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SelectzipFragment">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/drawer_list_lineup"
+    android:layout_margin="1dp"
+    android:elevation="10dp">
 
-    <!-- TODO: Update blank fragment layout -->
+    <View
+        android:id="@+id/view_dialogue_lineup_mg1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:20"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
+
+    <View
+        android:id="@+id/view_dialogue_lineup_mg2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:20"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
+
     <TextView
+        android:id="@+id/tv_dialogue_lineup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zip 선택하기"
+        android:textSize="18sp"
+        android:textAppearance="@style/mypage_profile_nickname"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/view_dialogue_lineup_mg1"
+        app:layout_constraintTop_toBottomOf="@id/view_dialogue_lineup_mg1"/>
+
+    <ImageView
+        android:id="@+id/iv_dialogue_lineup_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_drawer_dialogue_close"
+        app:layout_constraintEnd_toStartOf="@id/view_dialogue_lineup_mg3"
+        app:layout_constraintTop_toTopOf="@id/tv_dialogue_lineup_title"
+        />
+
+    <View
+        android:id="@+id/view_dialogue_lineup_mg3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:16"
+        app:layout_constraintTop_toBottomOf="@id/tv_dialogue_lineup_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_dialogue_lineup_mg3"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_zip" />
 
-</FrameLayout>
+    <View
+        android:id="@+id/view_dialogue_lineup_mg5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="24:20"
+        app:layout_constraintTop_toBottomOf="@id/nestedScrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.06667" />
+</androidx.constraintlayout.widget.ConstraintLayout>

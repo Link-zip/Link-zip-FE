@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal|top"
                 android:lineSpacingExtra="2sp"
-                android:text="빠른저장"
+                android:text="빠른 저장"
                 android:layout_marginTop="13dp"
                 app:layout_constraintBottom_toBottomOf="@id/item_image_1"
                 app:layout_constraintEnd_toEndOf="@id/item_image_1"

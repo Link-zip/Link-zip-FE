@@ -216,7 +216,7 @@
             app:layout_constraintBottom_toTopOf="@id/nestedScrollView"
             app:layout_constraintTop_toBottomOf="@id/button_card_view" />
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/nestedScrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -226,15 +226,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_card_view"
-            app:layout_constraintVertical_bias="0.0">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/zip_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:itemCount="10"
-                tools:listitem="@layout/item_zip" />
-        </androidx.core.widget.NestedScrollView>
+            app:layout_constraintVertical_bias="1.0"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_zip" />
 
         <View
             android:id="@+id/fragment_zip_msg2"
