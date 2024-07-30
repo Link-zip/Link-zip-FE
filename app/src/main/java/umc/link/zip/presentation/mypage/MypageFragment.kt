@@ -8,6 +8,10 @@ import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
 class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
+    private val navigator by lazy {
+        findNavController()
+    }
+
     override fun initObserver() {
 
     }
@@ -19,6 +23,6 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     }
 
     private fun navigateToMypageProfile() {
-        findNavController().navigate(R.id.action_mypageFragment_to_mypageProfileFragment)
+        navigator.navigate(R.id.action_mypageFragment_to_mypageProfileFragment)
     }
 }
