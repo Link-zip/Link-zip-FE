@@ -10,7 +10,6 @@ import umc.link.zip.presentation.base.BaseFragment
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private var recentList = ArrayList<Link>()
-    private var recommendList = ArrayList<Link>()
     override fun initObserver() {
 
     }
@@ -20,12 +19,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         val recentRVAdapter = RecentRVAdapter(recentList)
         binding.rvHomeRecent.adapter = recentRVAdapter
         binding.rvHomeRecent.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-        setRecommendList()
-        val recommendRVAdapter = RecommendRVAdapter(recommendList)
-        binding.rvHomeRecommend.adapter = recommendRVAdapter
-        binding.rvHomeRecommend.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
     }
 
     private fun setRecentList() {
@@ -65,39 +58,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
                 "www.naver.com",
                 "무언가 끄적임",
                 R.drawable.img_home_recent4,
-                0,
-                "2024-07-29",
-            )
-        )
-    }
-
-    private fun setRecommendList() {
-        recommendList.add(
-            Link(0,
-                "핀터레스트(Pinterest)",
-                "www.어딘가.com",
-                "무언가 끄적임",
-                R.drawable.img_home_recommend,
-                0,
-                "2024-07-29",
-            )
-        )
-        recommendList.add(
-            Link(1,
-                "티스토리",
-                "www.어딘가.com",
-                "무언가 끄적임",
-                R.drawable.img_home_recommend2,
-                0,
-                "2024-07-29",
-            )
-        )
-        recommendList.add(
-            Link(2,
-                "뉴닉(New Neek)",
-                "www.어딘가.com",
-                "무언가 끄적임",
-                R.drawable.img_home_recommend3,
                 0,
                 "2024-07-29",
             )

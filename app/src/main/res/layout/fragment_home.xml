@@ -553,7 +553,7 @@
                                     android:id="@+id/iv_home_recommend1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/img_home_recommend"
+                                    android:src="@drawable/img_home_recommend1"
                                     android:scaleType="fitStart"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -690,17 +690,6 @@
 
                     </LinearLayout>
                 </HorizontalScrollView>
-
-                <!--<androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_recommend"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_home_recommend"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg6"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg6"/>-->
 
                 <View
                     android:id="@+id/view_home_mg7"
