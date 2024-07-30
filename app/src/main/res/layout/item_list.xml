@@ -78,6 +78,7 @@
         android:scaleType="fitCenter"
         android:elevation="100dp"
         android:outlineProvider="none"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/iv_item_list_img_card"
         app:layout_constraintBottom_toBottomOf="@id/iv_item_list_img_card"
         />
@@ -91,7 +92,8 @@
         android:src="@drawable/ic_link_link"
         android:layout_marginStart="0dp"
         android:scaleType="fitCenter"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:elevation="100dp"
         app:layout_constraintStart_toStartOf="@id/iv_item_list_img_card"
         app:layout_constraintBottom_toBottomOf="@id/iv_item_list_img_card"
         />

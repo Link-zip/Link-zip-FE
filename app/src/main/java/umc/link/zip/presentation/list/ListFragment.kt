@@ -55,7 +55,7 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
     }
 
     companion object {
-        private val tabTitles = listOf("미열람 링크", "좋아요 한 링크", "최근 저장한 링크")
+        private val tabTitles = listOf("미열람 링크", "좋아요 누른 링크", "최근 저장한 링크")
     }
 }
 

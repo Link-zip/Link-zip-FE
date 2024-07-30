@@ -4,7 +4,7 @@ package umc.link.zip.util.extension
 fun String.toCategoryPosition(): Int{
     return when (this) {
         "미열람 링크" -> 0
-        "좋아요 한 링크" -> 1
+        "좋아요 누른 링크" -> 1
         "최근 저장한 링크" -> 2
         else -> 0
     }
