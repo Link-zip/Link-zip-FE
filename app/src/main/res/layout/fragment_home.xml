@@ -447,28 +447,35 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
                     app:layout_constraintWidth_percent="0.0667" />
 
-                <ImageView
-                    android:id="@+id/iv_home_more"
+                <LinearLayout
+                    android:id="@+id/ll_home_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_gnb_details"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     app:layout_constraintTop_toTopOf="@id/tv_home_recent"
                     app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
-                    app:layout_constraintEnd_toStartOf="@id/view_home_mg3"/>
+                    app:layout_constraintEnd_toStartOf="@id/view_home_mg3">
 
-                <TextView
-                    android:id="@+id/tv_home_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="더보기"
-                    android:textColor="@color/nav_selected"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:lineHeight="16dp"
-                    android:letterSpacing="-0.025"
-                    app:layout_constraintEnd_toStartOf="@id/iv_home_more"
-                    app:layout_constraintTop_toTopOf="@id/iv_home_more"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_home_more" />
+                    <TextView
+                        android:id="@+id/tv_home_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="더보기"
+                        android:textColor="@color/nav_selected"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="16dp"
+                        android:letterSpacing="-0.025"/>
+
+                    <ImageView
+                        android:id="@+id/iv_home_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_gnb_details"/>
+
+
+                </LinearLayout>
 
                 <View
                     android:id="@+id/view_home_mg4"
