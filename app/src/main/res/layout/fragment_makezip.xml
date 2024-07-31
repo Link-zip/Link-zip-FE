@@ -9,7 +9,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="false"
@@ -207,6 +207,20 @@
                     app:layout_constraintStart_toEndOf="@id/makezip_msg11"
                     app:layout_constraintTop_toTopOf="parent"/>
 
+                <EditText
+                    android:id="@+id/zip_name_edit_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:letterSpacing="-0.03"
+                    android:text="Zip 이름을 입력해주세요."
+                    android:textColor="#666666"
+                    android:textFontWeight="400"
+                    android:textSize="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg11"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
                 <View
                     android:id="@+id/makezip_msg12"
                     android:layout_width="0dp"
@@ -380,12 +394,12 @@
                 android:layout_marginBottom="-5dp"
                 android:src="@drawable/shadow_graybtn"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/btn_profileset_finish"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_zip_make_btn"
                 app:layout_constraintWidth_default="spread"
                 app:layout_constraintHeight_percent="0.75"
-                app:layout_constraintEnd_toEndOf="@id/btn_profileset_finish"
-                app:layout_constraintStart_toStartOf="@id/btn_profileset_finish"
-                app:layout_constraintTop_toTopOf="@id/btn_profileset_finish"
+                app:layout_constraintEnd_toEndOf="@id/fragment_zip_make_btn"
+                app:layout_constraintStart_toStartOf="@id/fragment_zip_make_btn"
+                app:layout_constraintTop_toTopOf="@id/fragment_zip_make_btn"
                 android:scaleType="fitXY"/>
 
             <ImageView
@@ -396,15 +410,15 @@
                 android:layout_marginBottom="-5dp"
                 android:src="@drawable/shadow_bluebtn"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/btn_profileset_finish"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_zip_make_btn"
                 app:layout_constraintHeight_percent="0.75"
-                app:layout_constraintEnd_toEndOf="@id/btn_profileset_finish"
-                app:layout_constraintStart_toStartOf="@id/btn_profileset_finish"
-                app:layout_constraintTop_toTopOf="@id/btn_profileset_finish"
+                app:layout_constraintEnd_toEndOf="@id/fragment_zip_make_btn"
+                app:layout_constraintStart_toStartOf="@id/fragment_zip_make_btn"
+                app:layout_constraintTop_toTopOf="@id/fragment_zip_make_btn"
                 android:scaleType="fitXY"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_profileset_finish"
+                android:id="@+id/fragment_zip_make_btn"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -426,7 +440,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_profileset_finish"
+                app:layout_constraintTop_toBottomOf="@id/fragment_zip_make_btn"
                 app:layout_constraintDimensionRatio="360:30"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -30,6 +30,8 @@ android {
             )
         }
     }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -98,4 +100,5 @@ dependencies {
     //blur
     implementation("jp.wasabeef:blurry:4.0.1")
     implementation ("com.github.Dimezis:BlurView:version-2.0.3")
+
 }

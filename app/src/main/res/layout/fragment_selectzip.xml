@@ -58,7 +58,7 @@
         app:layout_constraintWidth_percent="0.06667" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/nestedScrollView"
+        android:id="@+id/fragment_zip_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="24:20"
-        app:layout_constraintTop_toBottomOf="@id/nestedScrollView"
+        app:layout_constraintTop_toBottomOf="@id/fragment_zip_recyclerview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.06667" />
 </androidx.constraintlayout.widget.ConstraintLayout>

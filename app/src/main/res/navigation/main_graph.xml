@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.link.zip.presentation.home.HomeFragment"
         android:label="HomeFragment" />
+
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
         android:label="ListFragment" />
+
     <fragment
         android:id="@+id/mypageFragment"
         android:name="umc.link.zip.presentation.mypage.MypageFragment"
@@ -20,14 +23,31 @@
             android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
             app:destination="@id/mypageProfileFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/zipFragment"
-        android:name="umc.link.zip.presentation.zip.ZipFragment"
-        android:label="ZipFragment" />
+        android:name="com.example.app.FragmentZip"
+        android:label="ZipFragment">
+        <action
+            android:id="@+id/action_zipFragment_to_makezipFragment"
+            app:destination="@id/fragment_makezip" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_makezip"
+        android:name="com.example.app.FragmentMakeZip"
+        android:label="Fragment Make Zip"
+        tools:layout="@layout/fragment_makezip">
+        <action
+            android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
+            app:destination="@id/zipFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/createFragment"
         android:name="umc.link.zip.presentation.create.CreateFragment"
         android:label="CreateFragment" />
+
     <fragment
         android:id="@+id/mypageProfileFragment"
         android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
