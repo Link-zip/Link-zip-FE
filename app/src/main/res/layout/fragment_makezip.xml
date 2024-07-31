@@ -86,7 +86,7 @@
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="90:93"
             app:layout_constraintWidth_percent="0.25"
-            android:src="@drawable/ic_zip_sky_shadow"
+            android:src="@drawable/ic_zip_shadow_4"
             app:layout_constraintBottom_toTopOf="@id/makezip_option"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +94,7 @@
             android:scaleType="fitCenter"/>
 
         <TextView
+            android:id="@+id/fragment_makezip_zip_name_tv"
             android:layout_width="72dp"
             android:layout_height="24dp"
             android:layout_marginTop="23dp"
@@ -152,6 +153,7 @@
                     tools:layout_editor_absoluteY="0dp" />
 
                 <TextView
+                    android:id="@+id/fragment_makezip_cnt_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_light"
@@ -194,32 +196,31 @@
                     app:layout_constraintEnd_toStartOf="@id/zip_name_enter_tv"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/zip_name_enter_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
                     android:letterSpacing="-0.03"
-                    android:text="Zip 이름을 입력해주세요."
+                    android:hint="Zip 이름을 입력해주세요."
                     android:textColor="#666666"
                     android:textFontWeight="400"
                     android:textSize="16dp"
+                    android:background="@null"
+                    android:maxLength="15"
                     app:layout_constraintStart_toEndOf="@id/makezip_msg11"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <EditText
-                    android:id="@+id/zip_name_edit_tv"
+                <ImageView
+                    android:id="@+id/fragment_makezip_delete_ic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_regular"
-                    android:letterSpacing="-0.03"
-                    android:text="Zip 이름을 입력해주세요."
-                    android:textColor="#666666"
-                    android:textFontWeight="400"
-                    android:textSize="16dp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toEndOf="@id/makezip_msg11"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:src="@drawable/ic_deletex"
+                    app:layout_constraintBottom_toTopOf="@id/makezip_msg13"
+                    app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="gone"/>
+
 
                 <View
                     android:id="@+id/makezip_msg12"

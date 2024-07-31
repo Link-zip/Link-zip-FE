@@ -84,7 +84,7 @@
             android:id="@+id/fragment_openzip_insite_iv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_zip_yellow_shadow"
+            android:src="@drawable/ic_zip_shadow_1"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@id/fragment_openzip_withdrawal_mg4"
             app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg2"
