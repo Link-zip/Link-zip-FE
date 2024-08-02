@@ -55,7 +55,6 @@
         app:layout_constraintDimensionRatio="24:16"
         app:layout_constraintTop_toBottomOf="@id/iv_item_list_img_card"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintWidth_percent="0.0667" />
 
     <View
@@ -122,85 +121,103 @@
         app:layout_constraintStart_toEndOf="@id/iv_item_list_img_card"
         app:layout_constraintWidth_percent="0.05" />
 
-    <ImageView
-        android:id="@+id/iv_item_list_zip"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintWidth_percent="0.0604"
-        android:src="@drawable/ic_item_zip_yellow"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/iv_item_list_img_card"
         app:layout_constraintStart_toEndOf="@id/view_item_list_mg3"
-        app:layout_constraintTop_toBottomOf="@id/view_item_list_mg3"
-        />
+        app:layout_constraintBottom_toTopOf="@id/view_item_list_mg2"
+        app:layout_constraintEnd_toStartOf="@id/view_item_list_mg2">
 
-    <View
-        android:id="@+id/view_mypage_shadow"
-        android:layout_width="0dp"
-        android:layout_height="7dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="3dp"
-        android:background="@drawable/shadow_mypage_bg"
-        app:layout_constraintStart_toStartOf="@id/iv_item_list_zip"
-        app:layout_constraintTop_toBottomOf="@id/iv_item_list_zip"
-        app:layout_constraintEnd_toEndOf="@id/iv_item_list_zip"
-        />
+        <ImageView
+            android:id="@+id/iv_item_list_zip"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.118279"
+            android:src="@drawable/ic_item_zip_yellow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-    <View
-        android:id="@+id/view_item_list_mg4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="8.26:2"
-        app:layout_constraintTop_toTopOf="@id/iv_item_list_zip"
-        app:layout_constraintStart_toEndOf="@id/iv_item_list_zip"
-        app:layout_constraintWidth_percent="0.023" />
+        <View
+            android:id="@+id/view_mypage_shadow"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/shadow_mypage_bg"
+            app:layout_constraintStart_toStartOf="@id/iv_item_list_zip"
+            app:layout_constraintTop_toBottomOf="@id/iv_item_list_zip"
+            app:layout_constraintEnd_toEndOf="@id/iv_item_list_zip"
+            />
 
-    <TextView
-        android:id="@+id/tv_item_list_zip_name"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:lineSpacingExtra="2sp"
-        android:text="인사이트"
-        android:layout_marginTop="3.09dp"
-        android:layout_marginBottom="2dp"
-        android:textAppearance="@style/item_list_ziptitle"
-        app:layout_constraintTop_toBottomOf="@id/view_item_list_mg4"
-        app:layout_constraintStart_toEndOf="@+id/view_item_list_mg4"
-        app:layout_constraintTop_toTopOf="@+id/iv_item_list_zip" />
+        <View
+            android:id="@+id/view_item_list_mg4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="8.26:2"
+            app:layout_constraintTop_toBottomOf="@id/iv_item_list_zip"
+            app:layout_constraintStart_toEndOf="@id/iv_item_list_zip"
+            app:layout_constraintWidth_percent="0.044" />
 
-    <View
-        android:id="@+id/view_item_list_mg5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="2:9"
-        app:layout_constraintTop_toBottomOf="@id/iv_item_list_zip"
-        app:layout_constraintEnd_toStartOf="@id/iv_item_list_zip"
-        app:layout_constraintWidth_percent="0.00555" />
+        <TextView
+            android:id="@+id/tv_item_list_zip_name"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:lineSpacingExtra="2sp"
+            android:text="인사이트"
+            android:layout_marginTop="3.09dp"
+            android:layout_marginBottom="2dp"
+            android:textAppearance="@style/item_list_ziptitle"
+            app:layout_constraintTop_toBottomOf="@id/view_item_list_mg4"
+            app:layout_constraintStart_toEndOf="@+id/view_item_list_mg4"
+            app:layout_constraintTop_toTopOf="@+id/iv_item_list_zip" />
 
-    <TextView
-        android:id="@+id/tv_item_list_link_name"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:gravity="center_vertical"
-        android:lineSpacingExtra="5sp"
-        android:text="마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄"
-        android:textAppearance="@style/item_list_linktitle"
-        app:layout_constraintEnd_toStartOf="@+id/view_item_list_mg2"
-        app:layout_constraintStart_toStartOf="@id/view_item_list_mg5"
-        app:layout_constraintTop_toBottomOf="@id/iv_item_list_zip"
-        app:layout_constraintBottom_toTopOf="@id/tv_item_list_link_date"/>
+        <View
+            android:id="@+id/view_item_list_mg5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="23.25:1"
+            app:layout_constraintTop_toBottomOf="@id/iv_item_list_zip"
+            app:layout_constraintEnd_toStartOf="@id/iv_item_list_zip"
+            />
 
-    <TextView
-        android:id="@+id/tv_item_list_link_date"
-        android:layout_width="0dp"
-        android:layout_height="16dp"
-        android:lineSpacingExtra="2sp"
-        android:text="2024.06.11"
-        android:textAppearance="@style/item_list_linkdate"
-        app:layout_constraintBottom_toTopOf="@id/view_item_list_mg6"
-        app:layout_constraintEnd_toStartOf="@+id/view_item_list_mg2"
-        app:layout_constraintStart_toStartOf="@id/tv_item_list_link_name"
-        />
+        <TextView
+            android:id="@+id/tv_item_list_link_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="5sp"
+            android:text="마이크로/나노 인플레이션 제목"
+            android:textAppearance="@style/item_list_linktitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/view_item_list_mg5"
+            app:layout_constraintTop_toBottomOf="@id/view_item_list_mg5"/>
+
+        <View
+            android:id="@+id/view_item_list_mg7"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="23.25:1"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_list_link_name"
+            app:layout_constraintEnd_toStartOf="@id/iv_item_list_zip"
+            />
+        <TextView
+            android:id="@+id/tv_item_list_link_date"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:lineSpacingExtra="2sp"
+            android:text="2024.06.11"
+            android:textAppearance="@style/item_list_linkdate"
+            app:layout_constraintTop_toBottomOf="@id/view_item_list_mg7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"
