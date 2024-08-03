@@ -2,9 +2,12 @@ package umc.link.zip.presentation.home
 
 import android.content.Intent
 import android.net.Uri
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.BlurView
+import eightbitlab.com.blurview.RenderScriptBlur
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentHomeBinding
 import umc.link.zip.domain.model.Link
@@ -23,10 +26,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     override fun initView() {
         setClickListener()
         setRecentList()
+        setRVAdapter()
+        applyBlurToImageView(binding.blurviewHomeToolbar)
+    }
+
+    private fun navigateToList() {
+        navigator.navigate(R.id.action_homeFragment_to_listFragment)
+    }
+
+    private fun applyBlurToImageView(view: BlurView) {
+        val window = requireActivity().window
+        val radius = 5f
+
+        val decorView = window.decorView
+        val rootView = decorView.findViewById<ViewGroup>(android.R.id.content)
+        val windowBackground = decorView.background
+        view.setClipToOutline(true);
+
+        view.setupWith(rootView, context?.let { RenderScriptBlur(it) }) // or RenderEffectBlur
+            .setFrameClearDrawable(windowBackground) // Optional
+            .setBlurRadius(radius)
+
+    }
+
+    private fun setRVAdapter() {
         val recentRVAdapter = RecentRVAdapter(recentList, requireContext())
         binding.rvHomeRecent.adapter = recentRVAdapter
         binding.rvHomeRecent.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
     }
 
     private fun setClickListener() {
@@ -49,7 +75,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         }
 
         binding.llHomeMore.setOnClickListener {
+            navigateToList()
+        }
 
+        binding.ivHomeSearch.setOnClickListener {
+
+        }
+
+        binding.ivHomeAlarmExist.setOnClickListener {
+
+        }
+
+        binding.ivHomeAlarmNothing.setOnClickListener {
+
+        }
+
+        binding.clHomeLink.setOnClickListener {
+            navigateToList()
+        }
+
+        binding.clHomeOldlink.setOnClickListener {
+            navigateToList()
+        }
+
+        binding.clHomeLikelink.setOnClickListener {
+            navigateToList()
         }
     }
 
