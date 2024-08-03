@@ -1,8 +1,10 @@
 package umc.link.zip.presentation.home
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,10 +30,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         setRecentList()
         setRVAdapter()
         applyBlurToImageView(binding.blurviewHomeToolbar)
-    }
-
-    private fun navigateToList() {
-        navigator.navigate(R.id.action_homeFragment_to_listFragment)
+        binding.svHome.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > 10) {
+                binding.blurviewHomeToolbar.setBackgroundColor(Color.parseColor("#A6FFFFFF"))
+            } else {
+                binding.blurviewHomeToolbar.setBackgroundColor(Color.TRANSPARENT)
+            }
+        })
     }
 
     private fun applyBlurToImageView(view: BlurView) {
@@ -46,13 +51,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         view.setupWith(rootView, context?.let { RenderScriptBlur(it) }) // or RenderEffectBlur
             .setFrameClearDrawable(windowBackground) // Optional
             .setBlurRadius(radius)
-
     }
 
     private fun setRVAdapter() {
         val recentRVAdapter = RecentRVAdapter(recentList, requireContext())
         binding.rvHomeRecent.adapter = recentRVAdapter
         binding.rvHomeRecent.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun toListFragment(index: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToListFragment(tabIndex = index) // 원하는 탭 인덱스 전달
+        findNavController().navigate(action)
     }
 
     private fun setClickListener() {
@@ -75,7 +84,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         }
 
         binding.llHomeMore.setOnClickListener {
-            navigateToList()
+            toListFragment(1)
         }
 
         binding.ivHomeSearch.setOnClickListener {
@@ -83,23 +92,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         }
 
         binding.ivHomeAlarmExist.setOnClickListener {
-
+            navigator.navigate(R.id.action_homeFragment_to_alarmFragment)
         }
 
         binding.ivHomeAlarmNothing.setOnClickListener {
-
+            navigator.navigate(R.id.action_homeFragment_to_alarmFragment)
         }
 
         binding.clHomeLink.setOnClickListener {
-            navigateToList()
+            toListFragment(0)
         }
 
         binding.clHomeOldlink.setOnClickListener {
-            navigateToList()
+            toListFragment(0)
         }
 
         binding.clHomeLikelink.setOnClickListener {
-            navigateToList()
+            toListFragment(2)
         }
     }
 

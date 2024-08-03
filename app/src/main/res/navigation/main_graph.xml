@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
     <fragment
@@ -11,11 +10,19 @@
         <action
             android:id="@+id/action_homeFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
-        android:label="ListFragment" />
+        android:label="ListFragment">
+        <argument
+            android:name="tabIndex"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/mypageFragment"
         android:name="umc.link.zip.presentation.mypage.MypageFragment"
@@ -36,4 +43,8 @@
         android:id="@+id/mypageProfileFragment"
         android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
         android:label="MypageProfileFragment" />
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="umc.link.zip.presentation.home.AlarmFragment"
+        android:label="AlarmFragment" />
 </navigation>
