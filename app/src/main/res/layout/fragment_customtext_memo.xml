@@ -179,12 +179,12 @@
             android:maxLines="12"
             android:padding="8dp"
             android:scrollHorizontally="false"
-            app:layout_constraintBottom_toTopOf="@id/view_customText_memo_mg8"
-            app:layout_constraintEnd_toStartOf="@id/view_customText_memo_mg7"
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintEnd_toStartOf="@id/view_customText_memo_mg7"
             app:layout_constraintStart_toEndOf="@id/view_customText_memo_mg6"
             app:layout_constraintTop_toBottomOf="@id/tv_customText_memo_linkTitle"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintBottom_toTopOf="@id/view_customText_memo_mg8" />
 
         <View
             android:id="@+id/view_customText_memo_mg8"

@@ -116,6 +116,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_saveLink_alarm_setAlarm"
             app:layout_constraintWidth_percent="0.088" />
 
+        <!-- 날짜 선택 -->
         <TextView
             android:id="@+id/tv_saveLink_alarm_it1"
             android:layout_width="wrap_content"
@@ -128,6 +129,31 @@
             app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg5"
             app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg5" />
 
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-10dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/shadow_graybtn"
+            app:layout_constraintBottom_toBottomOf="@id/btn_saveLink_alarm_date"
+            app:layout_constraintEnd_toEndOf="@id/btn_saveLink_alarm_date"
+            app:layout_constraintStart_toStartOf="@id/btn_saveLink_alarm_date"
+            app:layout_constraintTop_toTopOf="@id/btn_saveLink_alarm_date" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_saveLink_alarm_date"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rect_8_white_fill"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/cl_saveLink_alarm_date_set"
+            app:layout_constraintEnd_toStartOf="@id/view_saveLink_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg9"
+            app:layout_constraintTop_toTopOf="@id/cl_saveLink_alarm_date_set" />
+
         <View
             android:id="@+id/view_saveLink_alarm_mg6"
             android:layout_width="0dp"
@@ -139,35 +165,50 @@
 
         <ImageView
             android:id="@+id/iv_saveLink_alarm_date"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:src="@drawable/ic_alarm_date"
+            app:layout_constraintBottom_toBottomOf="@id/cl_saveLink_alarm_date_set"
             app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg6"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg6" />
+            app:layout_constraintTop_toTopOf="@id/cl_saveLink_alarm_date_set" />
 
-        <TextView
-            android:id="@+id/tv_saveLink_alarm_date"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_saveLink_alarm_date_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:letterSpacing="-0.03"
-            android:text="2024.06.21"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_saveLink_alarm_date"
             app:layout_constraintStart_toEndOf="@id/iv_saveLink_alarm_date"
-            app:layout_constraintTop_toTopOf="@id/iv_saveLink_alarm_date" />
+            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg6">
 
-        <ImageView
-            android:id="@+id/iv_saveLink_alarm_it2"
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginTop="13dp"
-            android:background="@color/black"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg9"
-            app:layout_constraintEnd_toStartOf="@id/view_saveLink_alarm_mg10"
-            app:layout_constraintTop_toBottomOf="@id/iv_saveLink_alarm_date" />
+            <TextView
+                android:id="@+id/tv_saveLink_alarm_date_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:text="설정된 알림이 없습니다."
+                android:textColor="@color/nav_selected"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_saveLink_alarm_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:text="2024.06.21"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view_saveLink_alarm_mg7"
@@ -175,7 +216,7 @@
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="32:24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_saveLink_alarm_it2"
+            app:layout_constraintTop_toBottomOf="@id/btn_saveLink_alarm_date"
             app:layout_constraintWidth_percent="0.088" />
 
         <TextView
@@ -187,8 +228,34 @@
             android:text="시간 선택"
             android:textColor="@color/nav_selected"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg7"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg7" />
+            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg7"
+            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg7" />
+
+        <!-- 시간 선택 -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-10dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/shadow_graybtn"
+            app:layout_constraintBottom_toBottomOf="@id/btn_saveLink_alarm_time"
+            app:layout_constraintEnd_toEndOf="@id/btn_saveLink_alarm_time"
+            app:layout_constraintStart_toStartOf="@id/btn_saveLink_alarm_time"
+            app:layout_constraintTop_toTopOf="@id/btn_saveLink_alarm_time" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_saveLink_alarm_time"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rect_8_white_fill"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/cl_saveLink_alarm_time_set"
+            app:layout_constraintEnd_toStartOf="@id/view_saveLink_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg9"
+            app:layout_constraintTop_toTopOf="@id/cl_saveLink_alarm_time_set" />
 
         <View
             android:id="@+id/view_saveLink_alarm_mg8"
@@ -201,34 +268,74 @@
 
         <ImageView
             android:id="@+id/iv_saveLink_alarm_time"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:src="@drawable/ic_alarm_time"
             app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg8"
             app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg8" />
 
-        <TextView
-            android:id="@+id/tv_saveLink_alarm_time"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_saveLink_alarm_time_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
+            app:layout_constraintStart_toEndOf="@id/iv_saveLink_alarm_date"
+            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg8">
+
+            <TextView
+                android:id="@+id/tv_saveLink_alarm_time_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:text="설정된 알림이 없습니다."
+                android:textColor="@color/nav_selected"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_saveLink_alarm_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:text="PM 06:00"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 삭제 버튼 -->
+        <TextView
+            android:id="@+id/tv_saveLink_alarm_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림 삭제하기"
+            android:textColor="@color/nav_selected"
+            android:textSize="16sp"
             android:fontFamily="@font/pretendard_regular"
             android:letterSpacing="-0.03"
-            android:text="AM 12:00"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_saveLink_alarm_time"
-            app:layout_constraintStart_toEndOf="@id/iv_saveLink_alarm_time"
-            app:layout_constraintTop_toTopOf="@id/iv_saveLink_alarm_time" />
+            android:layout_marginBottom="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cl_saveLink_alarm_complete_btn"/>
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:layout_marginTop="13dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toStartOf="@id/view_saveLink_alarm_mg10"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg9"
-            app:layout_constraintTop_toBottomOf="@id/iv_saveLink_alarm_time" />
+            android:layout_height="1dp"
+            android:background="@color/nav_selected"
+            android:layout_marginStart="-2dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginTop="-1dp"
+            app:layout_constraintStart_toStartOf="@id/tv_saveLink_alarm_delete"
+            app:layout_constraintEnd_toEndOf="@id/tv_saveLink_alarm_delete"
+            app:layout_constraintTop_toBottomOf="@id/tv_saveLink_alarm_delete"/>
+
 
         <!-- 저장 버튼 -->
         <androidx.constraintlayout.widget.ConstraintLayout

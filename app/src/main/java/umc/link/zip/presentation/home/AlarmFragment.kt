@@ -1,5 +1,6 @@
-package umc.link.zip.presentation.create
+package umc.link.zip.presentation.home
 
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentAlarmBinding
@@ -12,6 +13,12 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
     }
 
     override fun initView() {
+        binding.ivAlarmToolbarBack.setOnClickListener{
+            navigateToHome()
+        }
+    }
 
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.action_alarmFragment_to_homeFragment)
     }
 }

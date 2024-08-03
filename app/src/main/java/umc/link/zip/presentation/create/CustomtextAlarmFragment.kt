@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.create
 
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
@@ -13,24 +14,16 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
     }
 
     override fun initView() {
-        binding.tvCustomTextAlarmDate.setOnClickListener {
-            showDatePickerBottomSheet()
+        binding.ivCustomTextAlarmToolbarBack.setOnClickListener{
+            navigateToCustom()
+        }
+        binding.clCustomTextAlarmSaveBtn.setOnClickListener {
+            navigateToCustom()
         }
     }
 
-    private fun showDatePickerBottomSheet() {
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
-        val bottomSheetBinding = FragmentCustomtextAlarmBinding.inflate(layoutInflater)
-        bottomSheetDialog.setContentView(bottomSheetBinding.root)
-
-//        bottomSheetBinding.btnCustomTextAlarmComplete.setOnClickListener {
-//            val year = bottomSheetBinding.datePicker.year
-//            val month = bottomSheetBinding.datePicker.month + 1 // DatePicker months are 0-based
-//            val day = bottomSheetBinding.datePicker.dayOfMonth
-//            // 선택한 날짜를 사용하여 원하는 작업 수행
-//            bottomSheetDialog.dismiss()
-//        }
-
-        bottomSheetDialog.show()
+    private fun navigateToCustom() {
+        findNavController().navigate(R.id.action_customtextAlarmFragment_to_customtextCustomFragment)
     }
+
 }

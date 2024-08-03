@@ -49,25 +49,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintWidth_percent="0.0667" />
 
-            <ImageView
-                android:id="@+id/iv_home_alarm_nothing"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_main_alarm_nothing"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_home_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg2"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:visibility="visible"/>
+                app:layout_constraintBottom_toBottomOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_home_alarm_exist"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_main_alarm_exist"
-                app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:visibility="invisible"/>
+                <ImageView
+                    android:id="@+id/iv_home_alarm_nothing"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_main_alarm_nothing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:id="@+id/iv_home_alarm_exist"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_main_alarm_exist"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="invisible"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/view_home_toolbar_mg3"
@@ -76,7 +86,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_home_alarm_nothing"
+                app:layout_constraintEnd_toStartOf="@id/cl_home_alarm"
                 app:layout_constraintWidth_percent="0.0444" />
 
             <ImageView
@@ -84,8 +94,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_main_search"
-                app:layout_constraintTop_toTopOf="@id/iv_home_alarm_nothing"
-                app:layout_constraintBottom_toBottomOf="@id/iv_home_alarm_nothing"
+                app:layout_constraintTop_toTopOf="@id/cl_home_alarm"
+                app:layout_constraintBottom_toBottomOf="@id/cl_home_alarm"
                 app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg3"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

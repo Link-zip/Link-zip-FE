@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.create
 
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCreateBinding
@@ -12,6 +13,29 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     }
 
     override fun initView() {
+        binding.ivCreateToolbarBack.setOnClickListener {
+            navigateToHome()
+        }
 
+        binding.btnCreateSaveLink.setOnClickListener{
+            navigateToText()
+        }
+
+        binding.btnCreateSaveText.setOnClickListener{
+            navigateToLink()
+        }
+    }
+
+
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.action_createFragment_to_homeFragment)
+    }
+
+    private fun navigateToText() {
+        findNavController().navigate(R.id.action_createFragment_to_customtextZipFragment)
+    }
+
+    private fun navigateToLink() {
+        findNavController().navigate(R.id.action_createFragment_to_savelinkZipFragment)
     }
 }

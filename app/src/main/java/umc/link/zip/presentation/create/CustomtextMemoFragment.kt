@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.create
 
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextMemoBinding
@@ -12,6 +13,16 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
     }
 
     override fun initView() {
-
+        binding.ivCustomTextMemoToolbarBack.setOnClickListener{
+            navigateToCustom()
+        }
+        binding.clCustomTextMemoCompleteBtn.setOnClickListener {
+            navigateToCustom()
+        }
     }
+
+    private fun navigateToCustom() {
+        findNavController().navigate(R.id.action_customtextMemoFragment_to_customtextCustomFragment)
+    }
+
 }

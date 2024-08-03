@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -55,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="텍스트 요약하기"
+                    android:text="저장할 Zip 선택하기"
                     android:textAppearance="@style/appbar_title"
                     android:textColor="@android:color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -149,9 +150,11 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:overScrollMode="never"
+            android:background="#fbfbfb"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/view_customText_zip_shadow_top"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_zip"/>
 
 
         <!-- 다음 버튼 -->
@@ -196,7 +199,7 @@
                 android:scaleType="fitXY"
                 />
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_customText_zip_next"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
