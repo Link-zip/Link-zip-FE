@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
             app:destination="@id/mypageProfileFragment" />
+        <action
+            android:id="@+id/action_mypageFragment_to_mypageSettingFragment"
+            app:destination="@id/mypageSettingFragment" />
     </fragment>
     <fragment
         android:id="@+id/zipFragment"
@@ -32,4 +35,12 @@
         android:id="@+id/mypageProfileFragment"
         android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
         android:label="MypageProfileFragment" />
+    <fragment
+        android:id="@+id/mypageSettingFragment"
+        android:name="umc.link.zip.presentation.mypage.MypageSettingFragment"
+        android:label="MypageSettingFragment" />
+    <fragment
+        android:id="@+id/mypageWithdrawalFragment"
+        android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
+        android:label="MypageWithdrawalFragment" />
 </navigation>
