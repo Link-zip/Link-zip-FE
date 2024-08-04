@@ -26,16 +26,16 @@
 
     <fragment
         android:id="@+id/zipFragment"
-        android:name="com.example.app.FragmentZip"
+        android:name="umc.link.zip.presentation.zip.FragmentZip"
         android:label="ZipFragment">
         <action
-            android:id="@+id/action_zipFragment_to_makezipFragment"
+            android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
             app:destination="@id/fragment_makezip" />
     </fragment>
 
     <fragment
         android:id="@+id/fragment_makezip"
-        android:name="com.example.app.FragmentMakeZip"
+        android:name="umc.link.zip.presentation.zip.FragmentMakeZip"
         android:label="Fragment Make Zip"
         tools:layout="@layout/fragment_makezip">
         <action

@@ -4,52 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!-- 데이터 바인딩을 사용할 경우 여기에 변수를 선언 -->
+        <variable
+            name="zipItem"
+            type="umc.link.zip.domain.model.ZipItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_zip_cl"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:background="#fbfbfb">
 
-        <!-- 첫 번째 아이템 -->
+        <!-- 기존의 item_1 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="70dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <!--<View
-                android:id="@+id/view_openzip_withdrawal_mg5"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.1428"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="item_image_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />-->
+            app:layout_constraintEnd_toEndOf="parent">
 
             <View
                 android:id="@+id/view_openzip_withdrawal_mg1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="24:84"
+                app:layout_constraintDimensionRatio="24:70"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.0666" />
 
-
             <ImageView
-                android:id="@+id/item_image_1"
+                android:id="@+id/item_zip_fast_save_iv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_zip_clip_shadow"
+                android:src="@{zipItem.color}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="102:105"
                 app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg1"
@@ -63,40 +54,37 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal|top"
                 android:lineSpacingExtra="2sp"
-                android:text="빠른 저장"
+                android:text="@{zipItem.title}"
                 android:layout_marginTop="13dp"
-                app:layout_constraintBottom_toBottomOf="@id/item_image_1"
-                app:layout_constraintEnd_toEndOf="@id/item_image_1"
-                app:layout_constraintStart_toStartOf="@id/item_image_1"
-                app:layout_constraintTop_toTopOf="@id/item_image_1" />
+                app:layout_constraintBottom_toBottomOf="@id/item_zip_fast_save_iv"
+                app:layout_constraintEnd_toEndOf="@id/item_zip_fast_save_iv"
+                app:layout_constraintStart_toStartOf="@id/item_zip_fast_save_iv"
+                app:layout_constraintTop_toTopOf="@id/item_zip_fast_save_iv" />
 
             <View
                 android:id="@+id/view_openzip_withdrawal_mg3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintWidth_percent="0.0444"
-                app:layout_constraintDimensionRatio="16:84"
-                app:layout_constraintStart_toEndOf="@id/item_image_1"
+                app:layout_constraintDimensionRatio="16:70"
+                app:layout_constraintStart_toEndOf="@id/item_zip_fast_save_iv"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/text_block_1"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_mg2"
                 app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg3"
                 app:layout_constraintTop_toTopOf="parent">
 
-
                 <TextView
                     android:id="@+id/item_title_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="빠른 저장"
+                    android:text="@{zipItem.title}"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:letterSpacing="-0.03"
@@ -105,9 +93,7 @@
                     app:layout_constraintBottom_toTopOf="@id/item_subtitle_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
-
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/item_subtitle_1"
@@ -124,8 +110,7 @@
                     app:layout_constraintEnd_toStartOf="@id/item_subtitle_2"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/item_title_1"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/item_title_1" />
 
                 <TextView
                     android:id="@+id/item_subtitle_2"
@@ -142,8 +127,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/item_subtitle_3"
                     app:layout_constraintStart_toEndOf="@id/item_subtitle_1"
-                    app:layout_constraintTop_toBottomOf="@id/item_title_1"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/item_title_1" />
 
                 <TextView
                     android:id="@+id/item_subtitle_3"
@@ -153,15 +137,12 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/pretendard_regular"
                     android:letterSpacing="-0.03"
-                    android:text="0개"
+                    android:text="@{zipItem.user_id}"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/item_subtitle_2"
-                    app:layout_constraintTop_toBottomOf="@id/item_title_1"
-                    />
-
-
+                    app:layout_constraintTop_toBottomOf="@id/item_title_1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
@@ -183,7 +164,7 @@
                 app:layout_constraintBottom_toTopOf="@id/view_openzip_withdrawal_mg4"
                 app:layout_constraintEnd_toStartOf="@+id/view_openzip_withdrawal_mg"
                 app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg2"
-                app:layout_constraintTop_toTopOf="@+id/view_openzip_withdrawal_mg2" />
+                app:layout_constraintTop_toTopOf="@id/view_openzip_withdrawal_mg2" />
 
             <View
                 android:id="@+id/view_openzip_withdrawal_mg4"
@@ -192,7 +173,7 @@
                 app:layout_constraintDimensionRatio="19:44.92"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_mg"
-                app:layout_constraintStart_toEndOf="@+id/view_openzip_withdrawal_mg2"
+                app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg2"
                 app:layout_constraintTop_toBottomOf="@id/item_arrow_1"
                 app:layout_constraintHeight_percent="0.5347" />
 
@@ -203,7 +184,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintDimensionRatio="24:84"
+                app:layout_constraintDimensionRatio="24:70"
                 app:layout_constraintWidth_percent="0.0666" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

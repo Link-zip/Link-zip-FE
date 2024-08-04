@@ -87,7 +87,6 @@
             app:layout_constraintDimensionRatio="90:93"
             app:layout_constraintWidth_percent="0.25"
             android:src="@drawable/ic_zip_shadow_4"
-            app:layout_constraintBottom_toTopOf="@id/makezip_option"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/makezip_msg10"
@@ -114,12 +113,13 @@
             app:layout_constraintStart_toStartOf="@id/fragment_makezip_exzip_ic"
             app:layout_constraintTop_toTopOf="@id/fragment_makezip_exzip_ic" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/makezip_option"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/fragment_makezip_exzip_ic">
+            app:layout_constraintTop_toBottomOf="@id/fragment_makezip_exzip_ic"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/zip_name"
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="33dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/fragment_makezip_exzip_ic">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <View
                     android:id="@+id/makezip_msg3"
@@ -143,11 +143,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_regular"
+                    android:letterSpacing="-0.03"
                     android:text="Zip 이름"
                     android:textColor="@color/black"
                     android:textFontWeight="600"
                     android:textSize="16dp"
-                    android:letterSpacing="-0.03"
                     app:layout_constraintStart_toEndOf="@id/makezip_msg3"
                     tools:ignore="MissingConstraints"
                     tools:layout_editor_absoluteY="0dp" />
@@ -157,11 +157,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_light"
-                    android:text="0/15"
+                    android:letterSpacing="-0.03"
+                    android:text="0/30"
                     android:textColor="#666666"
                     android:textFontWeight="400"
                     android:textSize="14sp"
-                    android:letterSpacing="-0.03"
                     app:layout_constraintEnd_toStartOf="@id/makezip_msg4"
                     tools:ignore="MissingConstraints" />
 
@@ -180,10 +180,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/zip_name_enter"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/zip_name">
+                app:layout_constraintTop_toBottomOf="@id/zip_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <View
                     android:id="@+id/makezip_msg11"
@@ -191,35 +194,48 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="@id/zip_name_enter_tv"
                     app:layout_constraintDimensionRatio="32:24"
-                    app:layout_constraintWidth_percent="0.0888"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/zip_name_enter_tv"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0888" />
 
                 <EditText
                     android:id="@+id/zip_name_enter_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_transparent"
                     android:fontFamily="@font/pretendard_regular"
-                    android:letterSpacing="-0.03"
                     android:hint="Zip 이름을 입력해주세요."
+                    android:letterSpacing="-0.03"
                     android:textColor="#666666"
                     android:textFontWeight="400"
                     android:textSize="16dp"
-                    android:background="@null"
-                    android:maxLength="15"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:text="ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"
+                    app:layout_constraintEnd_toStartOf="@id/fragment_makezip_delete_ic"
                     app:layout_constraintStart_toEndOf="@id/makezip_msg11"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/makezip_msg14"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/zip_name_enter_tv"
+                    app:layout_constraintDimensionRatio="32:24"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0888" />
 
                 <ImageView
                     android:id="@+id/fragment_makezip_delete_ic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_deletex"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toTopOf="@id/makezip_msg13"
                     app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="gone"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <View
@@ -227,20 +243,18 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="24:64"
-                    app:layout_constraintWidth_percent="0.0666"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/makezip_msg11"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintWidth_percent="0.0666" />
 
                 <View
                     android:id="@+id/makezip_msg13"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="24:64"
-                    app:layout_constraintWidth_percent="0.0666"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/makezip_msg11"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintWidth_percent="0.0666" />
 
                 <View
                     android:id="@+id/line"
@@ -258,7 +272,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
                     app:layout_constraintStart_toEndOf="@id/makezip_msg12"
                     app:layout_constraintTop_toBottomOf="@id/line">
@@ -267,96 +280,96 @@
                         android:id="@+id/rectangle_1"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="1:1"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/rectangle_1"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_2"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginRight="10dp"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:id="@+id/rectangle_2"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="1:1"
-                        android:background="@drawable/rectangle_2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/rectangle_1"
                         android:layout_marginRight="10dp"
-                        app:layout_constraintEnd_toStartOf="@id/rectangle_3"/>
+                        android:background="@drawable/rectangle_2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/rectangle_3"
+                        app:layout_constraintStart_toEndOf="@id/rectangle_1"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:id="@+id/rectangle_3"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="1:1"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/rectangle_3"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_4"
                         app:layout_constraintHorizontal_bias="0.901"
                         app:layout_constraintStart_toEndOf="@id/rectangle_2"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginRight="10dp"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <View
                         android:id="@+id/rectangle_4"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="1:1"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/rectangle_4"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_5"
                         app:layout_constraintHorizontal_bias="0.932"
                         app:layout_constraintStart_toEndOf="@id/rectangle_3"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginRight="10dp"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <View
                         android:id="@+id/rectangle_5"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="1:1"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/rectangle_5"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_6"
                         app:layout_constraintHorizontal_bias="0.946"
                         app:layout_constraintStart_toEndOf="@id/rectangle_4"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginRight="10dp"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <View
                         android:id="@+id/rectangle_6"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="1:1"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/rectangle_6"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toStartOf="@id/rectangle_7"
                         app:layout_constraintHorizontal_bias="0.962"
                         app:layout_constraintStart_toEndOf="@id/rectangle_5"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginRight="10dp"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <View
                         android:id="@+id/rectangle_7"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="1:1"
                         android:background="@drawable/rectangle_7"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/rectangle_6"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/fragment_makezip_msg1"
