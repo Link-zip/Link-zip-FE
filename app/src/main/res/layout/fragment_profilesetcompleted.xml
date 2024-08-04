@@ -1,175 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_profilesetcompleted"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/black">
+    <data>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_profilesetcompleted_toolbar_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/ic_gnb_back"
-                android:contentDescription="뒤로가기" />
-
-            <TextView
-                android:id="@+id/tv_profilesetcompleted_toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:text="프로필 설정"
-                android:textAppearance="@style/appbar_title"
-                android:gravity="center"
-                android:textColor="@android:color/black" />
-        </RelativeLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:id="@+id/view_profilesetcompleted_mg1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.039" />
-
-    <View
-        android:id="@+id/view_profilesetcompleted_mg2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_profilesetcompleted"
-        app:layout_constraintHeight_percent="0.0735" />
-
-    <ImageView
-        android:id="@+id/iv_profilesetcompleted_3dhand"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/img_profilesetcompleted_3dhand"
-        app:layout_constraintDimensionRatio="277:230"
-        app:layout_constraintHeight_percent="0.338"
-        app:layout_constraintTop_toBottomOf="@id/view_profilesetcompleted_mg2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/view_profilesetcompleted_mg3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_profilesetcompleted_3dhand"
-        app:layout_constraintHeight_percent="0.0470" />
-
-    <TextView
-        android:id="@+id/tv_profilesetcompleted_complete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="프로필 설정이\n완료됐어요!"
-        android:gravity="center"
-        android:fontFamily="@font/pretendard_semibold"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:lineHeight="42dp"
-        android:letterSpacing="-0.025"
-        app:layout_constraintTop_toBottomOf="@id/view_profilesetcompleted_mg3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/view_profilesetcompleted_mg4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_profilesetcompleted_complete"
-        app:layout_constraintHeight_percent="0.0353" />
-
-    <TextView
-        android:id="@+id/tv_profilesetcompleted_welcome"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="뉴비 님, Link.zip에\n오신 걸 환영해요!"
-        android:gravity="center"
-        android:fontFamily="@font/pretendard_regular"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:lineHeight="24dp"
-        android:letterSpacing="-0.025"
-        app:layout_constraintTop_toBottomOf="@id/view_profilesetcompleted_mg4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/view_profilesetcompleted_mg5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.039" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_profilesetcompleted_start_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/view_profilesetcompleted_mg5"
-        app:layout_constraintStart_toEndOf="@id/view_profilesetcompleted_mg1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        android:paddingTop="37.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/iv_profilesetcompleted_blueshadow"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="-5dp"
-            android:src="@drawable/shadow_bluebtn"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/btn_profilesetcompleted_start"
-            app:layout_constraintHeight_percent="0.75"
-            app:layout_constraintEnd_toEndOf="@id/btn_profilesetcompleted_start"
-            app:layout_constraintStart_toStartOf="@id/btn_profilesetcompleted_start"
-            app:layout_constraintTop_toTopOf="@id/btn_profilesetcompleted_start"
-            android:scaleType="fitXY"
-            />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_profilesetcompleted_start"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_rect_8_1191ad_fill"
-            android:fontFamily="@font/pretendard_semibold"
-            android:letterSpacing="-0.025"
-            android:lineHeight="25dp"
-            android:text="시작하기"
-            android:textColor="@color/white"
-            android:textSize="18sp"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_profilesetcompleted"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/view_profileset_mg6"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/black">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_profilesetcompleted_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_gnb_back"
+                    android:contentDescription="뒤로가기" />
+
+                <TextView
+                    android:id="@+id/tv_profilesetcompleted_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:text="프로필 설정"
+                    android:textAppearance="@style/appbar_title"
+                    android:gravity="center"
+                    android:textColor="@android:color/black" />
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <View
-            android:id="@+id/view_profileset_mg6"
+            android:id="@+id/view_profilesetcompleted_mg1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHeight_percent="0.039" />
+
+        <View
+            android:id="@+id/view_profilesetcompleted_mg2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_profilesetcompleted_start"
-            app:layout_constraintDimensionRatio="360:30"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbar_profilesetcompleted"
+            app:layout_constraintHeight_percent="0.0735" />
+
+        <ImageView
+            android:id="@+id/iv_profilesetcompleted_3dhand"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/img_profilesetcompleted_3dhand"
+            app:layout_constraintDimensionRatio="277:230"
+            app:layout_constraintHeight_percent="0.338"
+            app:layout_constraintTop_toBottomOf="@id/view_profilesetcompleted_mg2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/view_profilesetcompleted_mg3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_profilesetcompleted_3dhand"
+            app:layout_constraintHeight_percent="0.0470" />
+
+        <TextView
+            android:id="@+id/tv_profilesetcompleted_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필 설정이\n완료됐어요!"
+            android:gravity="center"
+            android:fontFamily="@font/pretendard_semibold"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:lineHeight="42dp"
+            android:letterSpacing="-0.025"
+            app:layout_constraintTop_toBottomOf="@id/view_profilesetcompleted_mg3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/view_profilesetcompleted_mg4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_profilesetcompleted_complete"
+            app:layout_constraintHeight_percent="0.0353" />
+
+        <TextView
+            android:id="@+id/tv_profilesetcompleted_welcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="뉴비 님, Link.zip에\n오신 걸 환영해요!"
+            android:gravity="center"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:lineHeight="24dp"
+            android:letterSpacing="-0.025"
+            app:layout_constraintTop_toBottomOf="@id/view_profilesetcompleted_mg4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/view_profilesetcompleted_mg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.039" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_profilesetcompleted_start_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/view_profilesetcompleted_mg5"
+            app:layout_constraintStart_toEndOf="@id/view_profilesetcompleted_mg1"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_profilesetcompleted_blueshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_bluebtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/btn_profilesetcompleted_start"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/btn_profilesetcompleted_start"
+                app:layout_constraintStart_toStartOf="@id/btn_profilesetcompleted_start"
+                app:layout_constraintTop_toTopOf="@id/btn_profilesetcompleted_start"
+                android:scaleType="fitXY" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_profilesetcompleted_start"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_1191ad_fill"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="시작하기"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/view_profileset_mg6" />
+
+            <View
+                android:id="@+id/view_profileset_mg6"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/btn_profilesetcompleted_start"
+                app:layout_constraintDimensionRatio="360:30" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

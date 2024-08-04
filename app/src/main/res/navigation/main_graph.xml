@@ -32,4 +32,12 @@
         android:id="@+id/mypageProfileFragment"
         android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
         android:label="MypageProfileFragment" />
+    <fragment
+        android:id="@+id/profilesetFragment"
+        android:name="umc.link.zip.presentation.login.ProfilesetFragment"
+        android:label="ProfilesetFragment" />
+    <fragment
+        android:id="@+id/profilesetCompletedFragment"
+        android:name="umc.link.zip.presentation.login.ProfilesetCompletedFragment"
+        android:label="ProfilesetCompletedFragment" />
 </navigation>
