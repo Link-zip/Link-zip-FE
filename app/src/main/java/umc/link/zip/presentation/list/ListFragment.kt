@@ -43,9 +43,7 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
 
     private fun setupButtonListeners() {
         binding.ivListAlarm.setOnClickListener {
-            /* 알림 페이지 이동
             navigator.navigate(R.id.action_listFragment_to_alarmFragment)
-             */
         }
     }
 

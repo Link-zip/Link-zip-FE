@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentDialogueListselectBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
@@ -15,9 +16,8 @@ class ListDialogueListselectFragment : BaseBottomSheetDialogFragment<FragmentDia
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        return dialog
+        return BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme)
+
     }
 
     override fun initObserver() {
@@ -27,5 +27,9 @@ class ListDialogueListselectFragment : BaseBottomSheetDialogFragment<FragmentDia
     override fun initView() {
 
     }
+
+ //각 버튼 클릭시 움직이고 적용되는 거 구현 필요
+
+
 
 }
