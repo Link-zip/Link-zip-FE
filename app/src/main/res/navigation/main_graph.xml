@@ -38,9 +38,21 @@
     <fragment
         android:id="@+id/mypageSettingFragment"
         android:name="umc.link.zip.presentation.mypage.MypageSettingFragment"
-        android:label="MypageSettingFragment" />
+        android:label="MypageSettingFragment">
+        <action
+            android:id="@+id/action_mypageSettingFragment_to_noticeFragment"
+            app:destination="@id/noticeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mypageWithdrawalFragment"
         android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
         android:label="MypageWithdrawalFragment" />
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="umc.link.zip.presentation.mypage.NoticeFragment"
+        android:label="NoticeFragment" />
+    <fragment
+        android:id="@+id/noticeDetailFragment"
+        android:name="umc.link.zip.presentation.mypage.NoticeDetailFragment"
+        android:label="NoticeDetailFragment" />
 </navigation>
