@@ -25,6 +25,8 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
         }
     }
     private fun navigateToMypageSetting() {
-        navigator.navigate(R.id.action_mypageFragment_to_mypageSettingFragment)
+        binding.clMypageSetting.setOnClickListener {
+            navigator.navigate(R.id.action_mypageFragment_to_mypageSettingFragment)
+        }
     }
 }

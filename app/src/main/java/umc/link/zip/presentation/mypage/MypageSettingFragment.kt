@@ -15,7 +15,14 @@ class MypageSettingFragment : BaseFragment<FragmentMypageSettingBinding>(R.layou
     }
 
     override fun initView() {
-
+        binding.ivMypageSettingToolbarBack.setOnClickListener {
+            navigator.navigateUp()
+        }
+        binding.clMypageSettingNotification.setOnClickListener{
+            navigator.navigate(R.id.action_mypageSettingFragment_to_noticeFragment)
+        }
     }
+
+
 
 }

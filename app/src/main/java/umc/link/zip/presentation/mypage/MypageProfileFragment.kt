@@ -14,6 +14,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
 import jp.wasabeef.blurry.Blurry
@@ -22,6 +23,7 @@ import umc.link.zip.databinding.FragmentMypageProfileBinding
 import umc.link.zip.presentation.base.BaseFragment
 
 class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layout.fragment_mypage_profile) {
+    private val navigator by lazy { findNavController() }
     override fun initObserver() {
 
     }
@@ -30,6 +32,10 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         // 블러 처리
         applyBlurToImageView(binding.ivMypageProfileUserInfoBoxBg)
         applyBlurToImageView(binding.ivMypageProfileUserNicknmChangeBoxBg)
+
+        binding.ivMypageProfileToolbarBack.setOnClickListener {
+            navigator.navigateUp()
+        }
     }
 
 
@@ -48,4 +54,5 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             .setBlurRadius(radius)
 
     }
+
 }

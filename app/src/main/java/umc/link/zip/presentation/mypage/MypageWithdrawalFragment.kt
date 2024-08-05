@@ -16,6 +16,9 @@ class MypageWithdrawalFragment : BaseFragment<FragmentMypageWithdrawalBinding>(R
 
     override fun initView() {
 
+        binding.ivMypageWithdrawalToolbarBack.setOnClickListener{
+            navigator.navigateUp()
+        }
     }
 
 }
