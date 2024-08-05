@@ -150,28 +150,27 @@
                     app:layout_constraintWidth_percent="0.0666" />
 
                 <!-- 최신순 버튼 -->
-                <ImageButton
+                <ImageView
                     android:id="@+id/sort_button"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="최신순"
                     android:src="@drawable/drawerbtn_lineup_early_unselected"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/fragment_zip_msg1"
                     app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg4"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SmallTouchTarget" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/all_selected_btn_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_checkunselected_black"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/all_selected_tv"
                     app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg4"
@@ -190,7 +189,7 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:translationY="-1.65sp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg1"
                     app:layout_constraintStart_toEndOf="@id/all_selected_btn_black"
@@ -223,7 +222,7 @@
                     app:layout_constraintStart_toEndOf="@id/fragment_zip_msg1"
                     app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_msg2"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     />
 
                 <TextView
@@ -243,7 +242,7 @@
                     app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_msg2"
                     app:layout_constraintStart_toEndOf="@id/fragment_zip_msg1"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     />
 
                 <View
