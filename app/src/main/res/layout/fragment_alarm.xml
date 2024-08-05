@@ -101,7 +101,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/toolbar_alarm_mg4"/>
+                app:layout_constraintBottom_toTopOf="@id/view_alarm_mg4"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,13 +117,23 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_alarm_none_clip"/>
 
             <View
-                android:id="@+id/toolbar_alarm_mg4"
+                android:id="@+id/view_alarm_mg4"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintWidth_percent="0.066667"
                 app:layout_constraintDimensionRatio="360:40"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+            <!-- shadow -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:alpha="0.1"
+                android:scaleType="fitXY"
+                android:src="@drawable/shape_rect_gradiant_down"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
