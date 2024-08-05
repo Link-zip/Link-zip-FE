@@ -192,7 +192,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:lineSpacingExtra="5sp"
-            android:text="마이크로/나노 인플레이"
+            android:text="마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄"
             android:textAppearance="@style/item_list_linktitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/view_item_link_mg5"
