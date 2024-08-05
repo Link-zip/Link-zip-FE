@@ -18,7 +18,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun setClickListener() {
         binding.btnLoginKakaologin.setOnClickListener {
-            binding.btnLoginKakaologin.isClickable = false
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragment_view_login, ProfilesetFragment(), "profileset")
@@ -26,33 +25,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             // 소셜 로그인 추가 해야 함
         }
     }
-
-    /*fun changeFragment(index: Int){
-        when(index){
-            1 -> {
-                binding.clLoginMain.visibility = View.GONE
-                supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fragment_view_login, ProfilesetFragment(), "profileset")
-                    .commit()
-            }
-
-            2 -> {
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_view_login, ProfilesetCompletedFragment())
-                    .commit()
-            }
-
-            3 -> {
-                binding.clLoginMain.visibility = View.VISIBLE
-                supportFragmentManager.findFragmentByTag("profileset")?.let {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .remove(it)
-                        .commit()
-                }
-            }
-        }
-    }*/
 }
