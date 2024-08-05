@@ -34,7 +34,7 @@ class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         super.onViewCreated(view, savedInstanceState)
 
         // RecyclerView 설정
-        val recyclerView: RecyclerView = view.findViewById(R.id.fragment_zip_recyclerview)
+        val recyclerView: RecyclerView = binding.fragmentZipRecyclerview
         zipAdapter = ZipAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = zipAdapter
@@ -46,7 +46,7 @@ class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         })
 
         // Zip 만들기 버튼 설정
-        val makeZipButton: Button = view.findViewById(R.id.fragment_zip_make_btn)
+        val makeZipButton: Button = binding.fragmentZipMakeBtn
         makeZipButton.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
             Log.d("FragmentZip", "Navigated to FragmentMakeZip")
