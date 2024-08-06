@@ -27,30 +27,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
 
     override fun initView() {
         setClickListener()
+        setScrollListener()
         setRecentList()
         setRVAdapter()
-        applyBlurToImageView(binding.blurviewHomeToolbar)
-        binding.svHome.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY > 10) {
-                binding.blurviewHomeToolbar.setBackgroundColor(Color.parseColor("#A6FFFFFF"))
-            } else {
-                binding.blurviewHomeToolbar.setBackgroundColor(Color.TRANSPARENT)
-            }
-        })
     }
 
-    private fun applyBlurToImageView(view: BlurView) {
-        val window = requireActivity().window
-        val radius = 5f
-
-        val decorView = window.decorView
-        val rootView = decorView.findViewById<ViewGroup>(android.R.id.content)
-        val windowBackground = decorView.background
-        view.setClipToOutline(true);
-
-        view.setupWith(rootView, context?.let { RenderScriptBlur(it) }) // or RenderEffectBlur
-            .setFrameClearDrawable(windowBackground) // Optional
-            .setBlurRadius(radius)
+    private fun setScrollListener() {
+        binding.svHome.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > 10) {
+                binding.layoutHomeToolbar.setBackgroundColor(Color.WHITE)
+            } else {
+                binding.layoutHomeToolbar.setBackgroundColor(Color.TRANSPARENT)
+            }
+        })
     }
 
     private fun setRVAdapter() {

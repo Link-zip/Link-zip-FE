@@ -7,21 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <eightbitlab.com.blurview.BlurView
-            android:id="@+id/blurview_home_toolbar"
-            android:paddingTop="37.5dp"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:elevation="1dp"
-            android:background="#A6FFFFFF"
-            app:layout_constraintHeight_percent="0.131"
-            app:layout_constraintTop_toTopOf="parent">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_home_toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:paddingTop="37.5dp"
                     android:elevation="1dp"
+                    app:layout_constraintHeight_percent="0.131"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <View
@@ -98,8 +90,6 @@
                         app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg3"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </eightbitlab.com.blurview.BlurView>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/sv_home"
@@ -184,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg1"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg1"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
                     <LinearLayout
@@ -202,6 +192,7 @@
                                 android:layout_width="256dp"
                                 android:layout_height="358dp"
                                 android:src="@drawable/img_home_logo"
+                                android:layout_marginStart="24dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
