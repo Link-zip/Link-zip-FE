@@ -497,7 +497,9 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
                     tools:itemCount="10"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg4"
+                    android:clipToPadding="false"
+                    android:paddingStart="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg4"/>
 
@@ -538,7 +540,7 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg6"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg6"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
                     <LinearLayout
                         android:orientation="horizontal"
@@ -549,7 +551,8 @@
                             android:id="@+id/cl_home_recommend1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp">
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="24dp">
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/cv_home_recommend1_img"
