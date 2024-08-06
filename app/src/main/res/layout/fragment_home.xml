@@ -7,100 +7,91 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_home_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:elevation="1dp"
-            app:layout_constraintHeight_percent="0.0830"
-            app:layout_constraintTop_toTopOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_home_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:paddingTop="37.5dp"
+                    android:elevation="1dp"
+                    app:layout_constraintHeight_percent="0.131"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <View
-                android:id="@+id/view_home_toolbar_mg1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintWidth_percent="0.0722" />
+                    <View
+                        android:id="@+id/view_home_toolbar_mg1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintWidth_percent="0.0722" />
 
-            <TextView
-                android:id="@+id/tv_home_linkzip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Link.zip"
-                android:fontFamily="@font/pretendard_bold"
-                android:textSize="20sp"
-                android:letterSpacing="-0.025"
-                android:lineHeight="28dp"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@id/view_home_toolbar_mg1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView
+                        android:id="@+id/tv_home_linkzip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Link.zip"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textSize="20sp"
+                        android:letterSpacing="-0.025"
+                        android:lineHeight="28dp"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toEndOf="@id/view_home_toolbar_mg1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <View
-                android:id="@+id/view_home_toolbar_mg2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintWidth_percent="0.0667" />
+                    <View
+                        android:id="@+id/view_home_toolbar_mg2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintWidth_percent="0.0667" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_home_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                    <ImageView
+                        android:id="@+id/iv_home_alarm_nothing"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_main_alarm_nothing"
+                        app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:visibility="visible"/>
 
-                <ImageView
-                    android:id="@+id/iv_home_alarm_nothing"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_main_alarm_nothing"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:visibility="visible"/>
+                    <ImageView
+                        android:id="@+id/iv_home_alarm_exist"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_main_alarm_exist"
+                        app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:visibility="invisible"/>
 
-                <ImageView
-                    android:id="@+id/iv_home_alarm_exist"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_main_alarm_exist"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:visibility="invisible"/>
+                    <View
+                        android:id="@+id/view_home_toolbar_mg3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_home_alarm_nothing"
+                        app:layout_constraintWidth_percent="0.0444" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/iv_home_search"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_main_search"
+                        app:layout_constraintTop_toTopOf="@id/iv_home_alarm_nothing"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_home_alarm_nothing"
+                        app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg3"/>
 
-            <View
-                android:id="@+id/view_home_toolbar_mg3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cl_home_alarm"
-                app:layout_constraintWidth_percent="0.0444" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/iv_home_search"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_main_search"
-                app:layout_constraintTop_toTopOf="@id/cl_home_alarm"
-                app:layout_constraintBottom_toBottomOf="@id/cl_home_alarm"
-                app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg3"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/sv_home"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -110,6 +101,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingTop="37.5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -138,7 +130,7 @@
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintWidth_percent="0.114"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/sv_home_link" />
+                    app:layout_constraintTop_toBottomOf="@id/hsv_home_link" />
 
                 <View
                     android:id="@+id/view_home_bgmg3"
@@ -177,12 +169,12 @@
                     app:layout_constraintWidth_percent="0.0667" />
 
                 <HorizontalScrollView
-                    android:id="@+id/sv_home_link"
+                    android:id="@+id/hsv_home_link"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg1"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg1"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
                     <LinearLayout
@@ -191,7 +183,8 @@
                         android:layout_height="wrap_content">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/layout_home_link"
+                            android:id="@+id/cl_home_link"
+                            android:layout_marginStart="24dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -302,7 +295,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/layout_home_oldlink"
+                            android:id="@+id/cl_home_oldlink"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
@@ -357,7 +350,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/layout_home_likelink"
+                            android:id="@+id/cl_home_likelink"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp">
@@ -430,7 +423,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="24:54"
-                    app:layout_constraintTop_toBottomOf="@id/sv_home_link"
+                    app:layout_constraintTop_toBottomOf="@id/hsv_home_link"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintWidth_percent="0.0667" />
 
@@ -457,28 +450,35 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
                     app:layout_constraintWidth_percent="0.0667" />
 
-                <ImageView
-                    android:id="@+id/iv_home_more"
+                <LinearLayout
+                    android:id="@+id/ll_home_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_gnb_details"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     app:layout_constraintTop_toTopOf="@id/tv_home_recent"
                     app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
-                    app:layout_constraintEnd_toStartOf="@id/view_home_mg3"/>
+                    app:layout_constraintEnd_toStartOf="@id/view_home_mg3">
 
-                <TextView
-                    android:id="@+id/tv_home_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="더보기"
-                    android:textColor="@color/nav_selected"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/pretendard_medium"
-                    android:lineHeight="16dp"
-                    android:letterSpacing="-0.025"
-                    app:layout_constraintEnd_toStartOf="@id/iv_home_more"
-                    app:layout_constraintTop_toTopOf="@id/iv_home_more"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_home_more" />
+                    <TextView
+                        android:id="@+id/tv_home_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="더보기"
+                        android:textColor="@color/nav_selected"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/pretendard_medium"
+                        android:lineHeight="16dp"
+                        android:letterSpacing="-0.025"/>
+
+                    <ImageView
+                        android:id="@+id/iv_home_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_gnb_details"/>
+
+
+                </LinearLayout>
 
                 <View
                     android:id="@+id/view_home_mg4"
@@ -496,7 +496,11 @@
                     tools:listitem="@layout/item_home_recent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg4"
+                    tools:itemCount="10"
+                    android:clipToPadding="false"
+                    android:paddingStart="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_home_mg4"/>
 
                 <View
@@ -530,15 +534,175 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_home_recommend"
                     app:layout_constraintWidth_percent="0.0667" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_recommend"
+                <HorizontalScrollView
+                    android:id="@+id/hsv_home_recommend"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_home_recommend"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg6"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg6"/>
+                    android:scrollbars="none"
+                    app:layout_constraintTop_toBottomOf="@id/view_home_mg6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_home_recommend1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="24dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_home_recommend1_img"
+                                android:layout_width="140dp"
+                                android:layout_height="190dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="0dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
+                                <ImageView
+                                    android:id="@+id/iv_home_recommend1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/img_home_recommend1"
+                                    android:scaleType="fitStart"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <ImageView
+                                    android:id="@+id/iv_home_recommend1_bg"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/bg_home_recommend"
+                                    android:scaleType="fitStart"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/tv_home_recommend1_title"
+                                android:layout_width="124dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="132dp"
+                                android:layout_marginHorizontal="8dp"
+                                android:text="핀터레스트(Pinterest)"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:lineHeight="24dp"
+                                android:letterSpacing="-0.025"
+                                android:gravity="center"
+                                app:layout_constraintStart_toStartOf="@id/cv_home_recommend1_img"
+                                app:layout_constraintTop_toTopOf="@id/cv_home_recommend1_img" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_home_recommend2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_home_recommend2_img"
+                                android:layout_width="140dp"
+                                android:layout_height="190dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="0dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
+                                <ImageView
+                                    android:id="@+id/iv_home_recommend2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/img_home_recommend2"
+                                    android:scaleType="fitStart"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <ImageView
+                                    android:id="@+id/iv_home_recommend1_bg2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/bg_home_recommend"
+                                    android:scaleType="fitStart"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/tv_home_recommend2_title"
+                                android:layout_width="124dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="132dp"
+                                android:layout_marginHorizontal="8dp"
+                                android:text="티스토리"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:lineHeight="24dp"
+                                android:letterSpacing="-0.025"
+                                android:gravity="center"
+                                app:layout_constraintStart_toStartOf="@id/cv_home_recommend2_img"
+                                app:layout_constraintTop_toTopOf="@id/cv_home_recommend2_img" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_home_recommend3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cv_home_recommend3_img"
+                                android:layout_width="140dp"
+                                android:layout_height="190dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="0dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
+                                <ImageView
+                                    android:id="@+id/iv_home_recommend3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/img_home_recommend3"
+                                    android:scaleType="fitStart"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <ImageView
+                                    android:id="@+id/iv_home_recommend3_bg"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/bg_home_recommend"
+                                    android:scaleType="fitStart"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/tv_home_recommend3_title"
+                                android:layout_width="124dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="132dp"
+                                android:layout_marginHorizontal="8dp"
+                                android:text="핀터레스트(Pinterest)"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:lineHeight="24dp"
+                                android:letterSpacing="-0.025"
+                                android:gravity="center"
+                                app:layout_constraintStart_toStartOf="@id/cv_home_recommend3_img"
+                                app:layout_constraintTop_toTopOf="@id/cv_home_recommend3_img" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </HorizontalScrollView>
 
                 <View
                     android:id="@+id/view_home_mg7"
@@ -546,10 +710,10 @@
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_home_recommend"
+                    app:layout_constraintTop_toBottomOf="@id/hsv_home_recommend"
                     app:layout_constraintWidth_percent="0.139" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

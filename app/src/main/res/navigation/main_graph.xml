@@ -8,14 +8,17 @@
         android:name="umc.link.zip.presentation.home.HomeFragment"
         android:label="HomeFragment">
         <action
+            android:id="@+id/action_homeFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
             android:id="@+id/action_homeFragment_to_alarmFragment"
-            app:destination="@id/alarmFragment"/>
+            app:destination="@id/alarmFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
-        android:label="ListFragment" />
+        android:label="ListFragment">
+    </fragment>
 
     <fragment
         android:id="@+id/mypageFragment"
