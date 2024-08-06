@@ -150,6 +150,7 @@
                     app:layout_constraintWidth_percent="0.0666" />
 
                 <!-- 최신순 버튼 -->
+
                 <ImageView
                     android:id="@+id/sort_button"
                     android:layout_width="wrap_content"
@@ -164,7 +165,7 @@
                     tools:ignore="SmallTouchTarget" />
 
                 <ImageView
-                    android:id="@+id/all_selected_btn_black"
+                    android:id="@+id/all_selected_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
@@ -176,7 +177,6 @@
                     app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg4"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SmallTouchTarget" />
-
 
                 <TextView
                     android:id="@+id/all_selected_tv"
@@ -192,7 +192,7 @@
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg1"
-                    app:layout_constraintStart_toEndOf="@id/all_selected_btn_black"
+                    app:layout_constraintStart_toEndOf="@id/all_selected_btn"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
@@ -222,7 +222,7 @@
                     app:layout_constraintStart_toEndOf="@id/fragment_zip_msg1"
                     app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_msg2"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     />
 
                 <TextView
@@ -242,7 +242,7 @@
                     app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_msg2"
                     app:layout_constraintStart_toEndOf="@id/fragment_zip_msg1"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     />
 
                 <View

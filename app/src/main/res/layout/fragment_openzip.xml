@@ -69,12 +69,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
-
+        <!-- 스크롤 할 때 사라져야 하는 영역1-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragment_openzip_icon_cl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@id/toolbar_openzip">
 
         <View
@@ -139,7 +139,6 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.6333"
-
                 app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg4"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -150,7 +149,7 @@
                     android:fontFamily="@font/pretendard_medium"
                     android:layout_marginEnd="4dp"
                     android:letterSpacing="-0.03"
-                    android:text="인사이트인사이트ddfsfdsfdfdfdjfhdjhaljfhdjfskfjddshfsj"
+                    android:text="Test Test Test Test Test Test Test Test Test Test"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -210,17 +209,21 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- 스크롤 할 때 layout_constraintHeight_percent가 0.020으로 변경되어야 함-->
         <View
             android:id="@+id/fragment_openzip_mg4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="visible"
             app:layout_constraintHeight_percent="0.038"
             app:layout_constraintTop_toBottomOf="@id/fragment_openzip_icon_cl" />
 
+    <!--저장한 링크가 없는 openzip1 cl-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_openzip_sort_cl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/fragment_openzip_mg4">
 
         <View
@@ -297,11 +300,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--저장한 링크가 없는 openzip1땐 gone 해야 하는 여백-->
         <View
             android:id="@+id/fragment_openzip_mg6"
             android:layout_width="match_parent"
             android:layout_height="12dp"
             app:layout_constraintStart_toStartOf="parent"
+            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@id/fragment_openzip_sort_cl" />
 
         <View
@@ -311,7 +316,9 @@
             android:background="@drawable/shadow_zip_bg2"
             app:layout_constraintTop_toBottomOf="@id/fragment_openzip_mg6" />
 
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_openzip_item_link_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#fbfbfb"
@@ -321,6 +328,146 @@
             tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/item_link" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/fragment_zip_msg2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:57"
+            app:layout_constraintWidth_percent="0.0666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cv_mypage_profile_user_info_box_bg"
+            app:layout_constraintTop_toTopOf="@id/cv_mypage_profile_user_info_box_bg"/>
 
+
+        <View
+            android:id="@+id/fragment_zip_msg3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:57"
+            app:layout_constraintWidth_percent="0.0666"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cv_mypage_profile_user_info_box_bg"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_mypage_profile_user_info_box_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="50dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toEndOf="@id/fragment_zip_msg2"
+            app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg3"
+            app:layout_constraintBottom_toTopOf="@id/cl_profileset_finish_btn_2"
+            app:layout_constraintDimensionRatio="312:57"
+            app:layout_constraintWidth_percent="0.8666">
+
+        <umc.link.zip.presentation.mypage.CornerView
+            android:id="@+id/cv_mypage_profile_user_info_box_bg2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/iv_mypage_profile_user_info_box_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="4dp"
+            >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_profileset_finish_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_zip_make_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="Zip 이동하기"
+                android:textColor="#999999"
+                android:textSize="18sp"
+                android:background="@drawable/btn_openzip_movezipinact"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </eightbitlab.com.blurview.BlurView>
+        </umc.link.zip.presentation.mypage.CornerView>
+        </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_profileset_finish_btn_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/fragment_zip_msg2"
+        app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg3"
+        app:layout_constraintBottom_toTopOf="@id/view_profileset_mg10"
+        >
+
+        <ImageView
+            android:id="@+id/iv_profileset_grayshadow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="-5dp"
+            android:src="@drawable/shadow_graybtn"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_zip_make_btn_2"
+            app:layout_constraintWidth_default="spread"
+            app:layout_constraintHeight_percent="0.75"
+            app:layout_constraintEnd_toEndOf="@id/fragment_zip_make_btn_2"
+            app:layout_constraintStart_toStartOf="@id/fragment_zip_make_btn_2"
+            app:layout_constraintTop_toTopOf="@id/fragment_zip_make_btn_2"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/iv_profileset_blueshadow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="-5dp"
+            android:src="@drawable/shadow_bluebtn"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_zip_make_btn_2"
+            app:layout_constraintHeight_percent="0.75"
+            app:layout_constraintEnd_toEndOf="@id/fragment_zip_make_btn_2"
+            app:layout_constraintStart_toStartOf="@id/fragment_zip_make_btn_2"
+            app:layout_constraintTop_toTopOf="@id/fragment_zip_make_btn_2"
+            android:scaleType="fitXY"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fragment_zip_make_btn_2"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rect_1191ad_fill"
+            android:clickable="false"
+            android:fontFamily="@font/pretendard_semibold"
+            android:letterSpacing="-0.025"
+            android:lineHeight="25dp"
+            android:text="Zip 만들기"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/view_profileset_mg10"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="360:30"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
