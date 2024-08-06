@@ -3,21 +3,21 @@ package umc.link.zip.presentation.create
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
-import umc.link.zip.databinding.FragmentSavelinkZipBinding
+import umc.link.zip.databinding.FragmentCustomlinkZipBinding
 import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class SavelinkZipFragment : BaseFragment<FragmentSavelinkZipBinding>(R.layout.fragment_savelink_zip){
+class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layout.fragment_customlink_zip){
     override fun initObserver() {
 
     }
 
     override fun initView() {
-        binding.ivSaveLinkZipToolbarBack.setOnClickListener{
+        binding.ivCustomLinkZipToolbarBack.setOnClickListener{
             navigateToCreate()
         }
 
-        binding.clSaveLinkZipNextBtn.setOnClickListener{
+        binding.clCustomLinkZipNextBtn.setOnClickListener{
             navigateToCustom()
         }
     }

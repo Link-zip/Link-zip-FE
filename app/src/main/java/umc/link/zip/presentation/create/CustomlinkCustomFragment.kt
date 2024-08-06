@@ -3,29 +3,29 @@ package umc.link.zip.presentation.create
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
-import umc.link.zip.databinding.FragmentSavelinkCustomBinding
+import umc.link.zip.databinding.FragmentCustomlinkCustomBinding
 import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class SavelinkCustomFragment : BaseFragment<FragmentSavelinkCustomBinding>(R.layout.fragment_savelink_custom){
+class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R.layout.fragment_customlink_custom){
     override fun initObserver() {
 
     }
 
     override fun initView() {
-        binding.ivSaveLinkCustomToolbarBack.setOnClickListener{
+        binding.ivCustomLinkCustomToolbarBack.setOnClickListener{
             navigateToZip()
         }
 
-        binding.btnSaveLinkCustomMemo.setOnClickListener{
+        binding.btnCustomLinkCustomMemo.setOnClickListener{
             navigateToMemo()
         }
 
-        binding.btnSaveLinkCustomAlarm.setOnClickListener{
+        binding.btnCustomLinkCustomAlarm.setOnClickListener{
             navigateToAlarm()
         }
 
-        binding.clSaveLinkCustomSaveBtn.setOnClickListener {
+        binding.clCustomLinkCustomSaveBtn.setOnClickListener {
             navigateToOpenLink()
         }
     }

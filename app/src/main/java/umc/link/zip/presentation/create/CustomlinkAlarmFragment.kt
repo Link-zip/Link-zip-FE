@@ -1,24 +1,22 @@
 package umc.link.zip.presentation.create
 
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
-import umc.link.zip.databinding.FragmentCustomtextAlarmBinding
-import umc.link.zip.databinding.FragmentSavelinkAlarmBinding
+import umc.link.zip.databinding.FragmentCustomlinkAlarmBinding
 import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
-class SavelinkAlarmFragment : BaseFragment<FragmentSavelinkAlarmBinding>(R.layout.fragment_savelink_alarm){
+class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.layout.fragment_customlink_alarm){
     override fun initObserver() {
 
     }
 
     override fun initView() {
-        binding.ivSaveLinkAlarmToolbarBack.setOnClickListener{
+        binding.ivCustomLinkAlarmToolbarBack.setOnClickListener{
             navigateToCustom()
         }
-        binding.clSaveLinkAlarmCompleteBtn.setOnClickListener {
+        binding.clCustomLinkAlarmCompleteBtn.setOnClickListener {
             navigateToCustom()
         }
     }

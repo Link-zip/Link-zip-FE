@@ -77,7 +77,7 @@
 
     <fragment
         android:id="@+id/savelinkZipFragment"
-        android:name="umc.link.zip.presentation.create.SavelinkZipFragment"
+        android:name="umc.link.zip.presentation.create.CustomlinkZipFragment"
         android:label="SavelinkZipFragment">
         <action
             android:id="@+id/action_savelinkZipFragment_to_createFragment"
@@ -125,7 +125,7 @@
 
     <fragment
         android:id="@+id/savelinkCustomFragment"
-        android:name="umc.link.zip.presentation.create.SavelinkCustomFragment"
+        android:name="umc.link.zip.presentation.create.CustomlinkCustomFragment"
         android:label="SavelinkCustomFragment">
         <action
             android:id="@+id/action_savelinkCustomFragment_to_savelinkZipFragment"
@@ -143,7 +143,7 @@
 
     <fragment
         android:id="@+id/savelinkAlarmFragment"
-        android:name="umc.link.zip.presentation.create.SavelinkAlarmFragment"
+        android:name="umc.link.zip.presentation.create.CustomlinkAlarmFragment"
         android:label="SavelinkAlarmFragment">
         <action
             android:id="@+id/action_savelinkAlarmFragment_to_savelinkCustomFragment"
@@ -152,7 +152,7 @@
 
     <fragment
         android:id="@+id/savelinkMemoFragment"
-        android:name="umc.link.zip.presentation.create.SavelinkMemoFragment"
+        android:name="umc.link.zip.presentation.create.CustomlinkMemoFragment"
         android:label="SavelinkMemoFragment">
         <action
             android:id="@+id/action_savelinkMemoFragment_to_savelinkCustomFragment"
