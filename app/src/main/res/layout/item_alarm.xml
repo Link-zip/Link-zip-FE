@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="alarm"
+            type="umc.link.zip.presentation.home.alarm.Alarm"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,7 +130,8 @@
             android:id="@+id/tv_itemAlarm_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="“(링크 제목)” 리마인드 알림이 도착했어요!  ## 제목은 최대 2줄"
+            android:hint="“(링크 제목)” 리마인드 알림이 도착했어요!  ## 제목은 최대 2줄"
+            android:text="@{alarm.alarm_title}"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:fontFamily="@font/pretendard_semibold"
@@ -155,11 +159,29 @@
             app:layout_constraintEnd_toStartOf="@id/view_itemAlarm_mg2"
             app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg4">
 
+
+            <TextView
+                android:id="@+id/tv_itemAlarm_memo_show"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="저장된 메모 | "
+                android:textSize="14sp"
+                android:textColor="@color/nav_selected"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"/>
+
             <TextView
                 android:id="@+id/tv_itemAlarm_memo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="저장된 메모 | "
+                android:hint="어쩌고저쩌고"
+                android:text="@{alarm.alarm_content}"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/pretendard_regular"
@@ -167,7 +189,7 @@
                 android:lineSpacingExtra="3sp"
                 android:maxLines="3"
                 android:ellipsize="end"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_itemAlarm_memo_show"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="visible"/>

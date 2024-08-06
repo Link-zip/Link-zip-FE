@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="alarm"
+            type="umc.link.zip.presentation.home.alarm.Alarm"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
