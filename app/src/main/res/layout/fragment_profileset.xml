@@ -157,6 +157,8 @@
             android:letterSpacing="-0.025"
             android:textColor="@color/black"
             android:background="@drawable/shape_profileset_edittext"
+            android:singleLine="true"
+            android:maxLines="1"
             app:layout_constraintTop_toBottomOf="@id/view_profileset_mg6"
             app:layout_constraintStart_toEndOf="@id/view_profileset_mg1"
             app:layout_constraintEnd_toStartOf="@id/view_profileset_mg7" />
