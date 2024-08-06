@@ -18,10 +18,6 @@
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
         android:label="ListFragment">
-        <argument
-            android:name="tabIndex"
-            app:argType="integer"
-            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/mypageFragment"

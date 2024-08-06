@@ -3,29 +3,31 @@ package umc.link.zip.presentation.home
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import eightbitlab.com.blurview.BlurView
-import eightbitlab.com.blurview.RenderScriptBlur
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentHomeBinding
 import umc.link.zip.domain.model.Link
 import umc.link.zip.domain.model.Zip
 import umc.link.zip.presentation.base.BaseFragment
 
+
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private var recentList = ArrayList<Link>()
     private val navigator by lazy { findNavController() }
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun initObserver() {
 
     }
 
     override fun initView() {
+        sharedViewModel = ViewModelProvider(requireActivity()).get<SharedViewModel>(SharedViewModel::class.java)
+
         setClickListener()
         setScrollListener()
         setRecentList()
@@ -48,8 +50,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         binding.rvHomeRecent.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    private fun toListFragment(index: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToListFragment(tabIndex = index) // 원하는 탭 인덱스 전달
+    private fun toListFragment() {
+        val action = HomeFragmentDirections.actionHomeFragmentToListFragment() // 원하는 탭 인덱스 전달
         findNavController().navigate(action)
     }
 
@@ -73,7 +75,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         }
 
         binding.llHomeMore.setOnClickListener {
-            toListFragment(1)
+            sharedViewModel.selectItem("recent")
+            toListFragment()
         }
 
         binding.ivHomeSearch.setOnClickListener {
@@ -89,15 +92,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         }
 
         binding.clHomeLink.setOnClickListener {
-            toListFragment(0)
+            sharedViewModel.selectItem("wait")
+            toListFragment()
         }
 
         binding.clHomeOldlink.setOnClickListener {
-            toListFragment(0)
+            sharedViewModel.selectItem("old")
+            toListFragment()
         }
 
         binding.clHomeLikelink.setOnClickListener {
-            toListFragment(2)
+            sharedViewModel.selectItem("like")
+            toListFragment()
         }
     }
 
