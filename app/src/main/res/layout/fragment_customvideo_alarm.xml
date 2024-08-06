@@ -11,7 +11,7 @@
 
         <!--appbar-->
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_saveLink_alarm"
+            android:id="@+id/toolbar_customVideo_alarm"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:contentInsetStart="0dp"
@@ -31,7 +31,7 @@
                 android:layout_height="match_parent">
 
                 <View
-                    android:id="@+id/view_saveLink_alarm_mg1"
+                    android:id="@+id/view_customVideo_alarm_mg1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -39,21 +39,21 @@
                     app:layout_constraintWidth_percent="0.066667" />
 
                 <ImageView
-                    android:id="@+id/iv_saveLink_alarm_toolbar_back"
+                    android:id="@+id/iv_customVideo_alarm_toolbar_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="뒤로가기"
                     android:src="@drawable/ic_appbar_back"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg1"
+                    app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg1"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_saveLink_alarm_toolbar_title"
+                    android:id="@+id/tv_customVideo_alarm_toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="링크 커스터마이징"
+                    android:text="텍스트 커스터마이징"
                     android:textAppearance="@style/appbar_title"
                     android:textColor="@android:color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -67,14 +67,14 @@
 
         <!--view-->
         <ImageView
-            android:id="@+id/iv_saveLink_alarm_topImg"
+            android:id="@+id/iv_customVideo_alarm_topImg"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_link_topimg"
+            android:src="@drawable/img_video_topimg"
             app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_saveLink_alarm" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_customVideo_alarm" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -84,19 +84,19 @@
             android:src="@drawable/shape_rect_gradiant"
             app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_saveLink_alarm_topImg" />
+            app:layout_constraintTop_toTopOf="@id/iv_customVideo_alarm_topImg" />
 
         <View
-            android:id="@+id/view_saveLink_alarm_mg4"
+            android:id="@+id/view_customVideo_alarm_mg4"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="24:40"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_saveLink_alarm_topImg"
+            app:layout_constraintTop_toBottomOf="@id/iv_customVideo_alarm_topImg"
             app:layout_constraintWidth_percent="0.066" />
 
         <TextView
-            android:id="@+id/tv_saveLink_alarm_setAlarm"
+            android:id="@+id/tv_customVideo_alarm_setAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_semibold"
@@ -104,21 +104,21 @@
             android:text="알림 설정하기"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg4"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg4" />
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg4"
+            app:layout_constraintTop_toBottomOf="@id/view_customVideo_alarm_mg4" />
 
         <View
-            android:id="@+id/view_saveLink_alarm_mg5"
+            android:id="@+id/view_customVideo_alarm_mg5"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_saveLink_alarm_setAlarm"
+            app:layout_constraintTop_toBottomOf="@id/tv_customVideo_alarm_setAlarm"
             app:layout_constraintWidth_percent="0.088" />
 
         <!-- 날짜 선택 -->
         <TextView
-            android:id="@+id/tv_saveLink_alarm_it1"
+            android:id="@+id/tv_customVideo_alarm_it1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_regular"
@@ -126,8 +126,8 @@
             android:text="날짜 선택"
             android:textColor="@color/nav_selected"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg5"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg5" />
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg5"
+            app:layout_constraintTop_toBottomOf="@id/view_customVideo_alarm_mg5" />
 
         <ImageView
             android:layout_width="0dp"
@@ -137,51 +137,51 @@
             android:layout_marginBottom="-10dp"
             android:scaleType="fitXY"
             android:src="@drawable/shadow_graybtn"
-            app:layout_constraintBottom_toBottomOf="@id/btn_saveLink_alarm_date"
-            app:layout_constraintEnd_toEndOf="@id/btn_saveLink_alarm_date"
-            app:layout_constraintStart_toStartOf="@id/btn_saveLink_alarm_date"
-            app:layout_constraintTop_toTopOf="@id/btn_saveLink_alarm_date" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_customVideo_alarm_date"
+            app:layout_constraintEnd_toEndOf="@id/btn_customVideo_alarm_date"
+            app:layout_constraintStart_toStartOf="@id/btn_customVideo_alarm_date"
+            app:layout_constraintTop_toTopOf="@id/btn_customVideo_alarm_date" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_saveLink_alarm_date"
+            android:id="@+id/btn_customVideo_alarm_date"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_8_white_fill"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="@id/cl_saveLink_alarm_date_set"
-            app:layout_constraintEnd_toStartOf="@id/view_saveLink_alarm_mg10"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg9"
-            app:layout_constraintTop_toTopOf="@id/cl_saveLink_alarm_date_set" />
+            app:layout_constraintBottom_toBottomOf="@id/cl_customVideo_alarm_date_set"
+            app:layout_constraintEnd_toStartOf="@id/view_customVideo_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg9"
+            app:layout_constraintTop_toTopOf="@id/cl_customVideo_alarm_date_set" />
 
         <View
-            android:id="@+id/view_saveLink_alarm_mg6"
+            android:id="@+id/view_customVideo_alarm_mg6"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="32:17"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_saveLink_alarm_it1"
+            app:layout_constraintTop_toBottomOf="@id/tv_customVideo_alarm_it1"
             app:layout_constraintWidth_percent="0.088" />
 
         <ImageView
-            android:id="@+id/iv_saveLink_alarm_date"
+            android:id="@+id/iv_customVideo_alarm_date"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/ic_alarm_date"
-            app:layout_constraintBottom_toBottomOf="@id/cl_saveLink_alarm_date_set"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg6"
-            app:layout_constraintTop_toTopOf="@id/cl_saveLink_alarm_date_set" />
+            app:layout_constraintBottom_toBottomOf="@id/cl_customVideo_alarm_date_set"
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg6"
+            app:layout_constraintTop_toTopOf="@id/cl_customVideo_alarm_date_set" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_saveLink_alarm_date_set"
+            android:id="@+id/cl_customVideo_alarm_date_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
-            app:layout_constraintStart_toEndOf="@id/iv_saveLink_alarm_date"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg6">
+            app:layout_constraintStart_toEndOf="@id/iv_customVideo_alarm_date"
+            app:layout_constraintTop_toBottomOf="@id/view_customVideo_alarm_mg6">
 
             <TextView
-                android:id="@+id/tv_saveLink_alarm_date_default"
+                android:id="@+id/tv_customVideo_alarm_date_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
@@ -195,7 +195,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_saveLink_alarm_date"
+                android:id="@+id/tv_customVideo_alarm_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
@@ -211,16 +211,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view_saveLink_alarm_mg7"
+            android:id="@+id/view_customVideo_alarm_mg7"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="32:24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_saveLink_alarm_date"
+            app:layout_constraintTop_toBottomOf="@id/btn_customVideo_alarm_date"
             app:layout_constraintWidth_percent="0.088" />
 
         <TextView
-            android:id="@+id/tv_saveLink_alarm_it3"
+            android:id="@+id/tv_customVideo_alarm_it3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_regular"
@@ -228,8 +228,8 @@
             android:text="시간 선택"
             android:textColor="@color/nav_selected"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg7"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg7" />
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg7"
+            app:layout_constraintTop_toBottomOf="@id/view_customVideo_alarm_mg7" />
 
         <!-- 시간 선택 -->
         <ImageView
@@ -240,50 +240,50 @@
             android:layout_marginBottom="-10dp"
             android:scaleType="fitXY"
             android:src="@drawable/shadow_graybtn"
-            app:layout_constraintBottom_toBottomOf="@id/btn_saveLink_alarm_time"
-            app:layout_constraintEnd_toEndOf="@id/btn_saveLink_alarm_time"
-            app:layout_constraintStart_toStartOf="@id/btn_saveLink_alarm_time"
-            app:layout_constraintTop_toTopOf="@id/btn_saveLink_alarm_time" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_customVideo_alarm_time"
+            app:layout_constraintEnd_toEndOf="@id/btn_customVideo_alarm_time"
+            app:layout_constraintStart_toStartOf="@id/btn_customVideo_alarm_time"
+            app:layout_constraintTop_toTopOf="@id/btn_customVideo_alarm_time" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_saveLink_alarm_time"
+            android:id="@+id/btn_customVideo_alarm_time"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_rect_8_white_fill"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="@id/cl_saveLink_alarm_time_set"
-            app:layout_constraintEnd_toStartOf="@id/view_saveLink_alarm_mg10"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg9"
-            app:layout_constraintTop_toTopOf="@id/cl_saveLink_alarm_time_set" />
+            app:layout_constraintBottom_toBottomOf="@id/cl_customVideo_alarm_time_set"
+            app:layout_constraintEnd_toStartOf="@id/view_customVideo_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg9"
+            app:layout_constraintTop_toTopOf="@id/cl_customVideo_alarm_time_set" />
 
         <View
-            android:id="@+id/view_saveLink_alarm_mg8"
+            android:id="@+id/view_customVideo_alarm_mg8"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="32:17"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_saveLink_alarm_it3"
+            app:layout_constraintTop_toBottomOf="@id/tv_customVideo_alarm_it3"
             app:layout_constraintWidth_percent="0.088" />
 
         <ImageView
-            android:id="@+id/iv_saveLink_alarm_time"
+            android:id="@+id/iv_customVideo_alarm_time"
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/ic_alarm_time"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg8"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg8" />
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg8"
+            app:layout_constraintTop_toBottomOf="@id/view_customVideo_alarm_mg8" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_saveLink_alarm_time_set"
+            android:id="@+id/cl_customVideo_alarm_time_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
-            app:layout_constraintStart_toEndOf="@id/iv_saveLink_alarm_date"
-            app:layout_constraintTop_toBottomOf="@id/view_saveLink_alarm_mg8">
+            app:layout_constraintStart_toEndOf="@id/iv_customVideo_alarm_date"
+            app:layout_constraintTop_toBottomOf="@id/view_customVideo_alarm_mg8">
 
             <TextView
-                android:id="@+id/tv_saveLink_alarm_time_default"
+                android:id="@+id/tv_customVideo_alarm_time_default"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
@@ -296,7 +296,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_saveLink_alarm_time"
+                android:id="@+id/tv_customVideo_alarm_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
@@ -310,44 +310,43 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- 삭제 버튼 -->
+        <!-- 알림 삭제 버튼 -->
         <TextView
-            android:id="@+id/tv_saveLink_alarm_delete"
+            android:id="@+id/tv_customVideo_alarm_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
             android:text="날짜/시간 초기화"
             android:textColor="@color/nav_selected"
             android:textSize="16sp"
-            android:fontFamily="@font/pretendard_regular"
-            android:letterSpacing="-0.03"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cl_customVideo_alarm_save_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/cl_saveLink_alarm_complete_btn"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/nav_selected"
             android:layout_marginStart="-2dp"
-            android:layout_marginEnd="-2dp"
             android:layout_marginTop="-1dp"
-            app:layout_constraintStart_toStartOf="@id/tv_saveLink_alarm_delete"
-            app:layout_constraintEnd_toEndOf="@id/tv_saveLink_alarm_delete"
-            app:layout_constraintTop_toBottomOf="@id/tv_saveLink_alarm_delete"/>
+            android:layout_marginEnd="-2dp"
+            android:background="@color/nav_selected"
+            app:layout_constraintEnd_toEndOf="@id/tv_customVideo_alarm_delete"
+            app:layout_constraintStart_toStartOf="@id/tv_customVideo_alarm_delete"
+            app:layout_constraintTop_toBottomOf="@id/tv_customVideo_alarm_delete" />
 
-
-        <!-- 저장 버튼 -->
+        <!-- 완료 버튼 -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_saveLink_alarm_complete_btn"
+            android:id="@+id/cl_customVideo_alarm_save_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/view_saveLink_alarm_mg10"
-            app:layout_constraintStart_toEndOf="@id/view_saveLink_alarm_mg9">
+            app:layout_constraintEnd_toStartOf="@id/view_customVideo_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_customVideo_alarm_mg9">
 
             <ImageView
-                android:id="@+id/iv_saveLink_custom_blueshadow"
+                android:id="@+id/iv_customVideo_alarm_blueshadow"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="19dp"
@@ -355,14 +354,14 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/shadow_bluebtn"
                 android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@id/btn_saveLink_alarm_complete"
-                app:layout_constraintEnd_toEndOf="@id/btn_saveLink_alarm_complete"
+                app:layout_constraintBottom_toBottomOf="@id/btn_customVideo_alarm_complete"
+                app:layout_constraintEnd_toEndOf="@id/btn_customVideo_alarm_complete"
                 app:layout_constraintHeight_percent="0.75"
-                app:layout_constraintStart_toStartOf="@id/btn_saveLink_alarm_complete"
-                app:layout_constraintTop_toTopOf="@id/btn_saveLink_alarm_complete" />
+                app:layout_constraintStart_toStartOf="@id/btn_customVideo_alarm_complete"
+                app:layout_constraintTop_toTopOf="@id/btn_customVideo_alarm_complete" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_saveLink_alarm_complete"
+                android:id="@+id/btn_customVideo_alarm_complete"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -380,16 +379,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                android:id="@+id/view_saveLink_alarm_mg11"
+                android:id="@+id/view_customVideo_alarm_mg11"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="360:30"
-                app:layout_constraintTop_toBottomOf="@id/btn_saveLink_alarm_complete" />
+                app:layout_constraintTop_toBottomOf="@id/btn_customVideo_alarm_complete" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view_saveLink_alarm_mg9"
+            android:id="@+id/view_customVideo_alarm_mg9"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -398,7 +397,7 @@
             app:layout_constraintWidth_percent="0.066" />
 
         <View
-            android:id="@+id/view_saveLink_alarm_mg10"
+            android:id="@+id/view_customVideo_alarm_mg10"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -17,11 +17,11 @@ class SavelinkCustomFragment : BaseFragment<FragmentSavelinkCustomBinding>(R.lay
             navigateToZip()
         }
 
-        binding.clSaveLinkCustomMemoBtn.setOnClickListener{
+        binding.btnSaveLinkCustomMemo.setOnClickListener{
             navigateToMemo()
         }
 
-        binding.clSaveLinkCustomAlarmBtn.setOnClickListener{
+        binding.btnSaveLinkCustomAlarm.setOnClickListener{
             navigateToAlarm()
         }
 

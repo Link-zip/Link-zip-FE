@@ -318,7 +318,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/pretendard_regular"
             android:letterSpacing="-0.03"
-            android:text="알림 삭제하기"
+            android:text="날짜/시간 초기화"
             android:textColor="@color/nav_selected"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/cl_customText_alarm_save_btn"

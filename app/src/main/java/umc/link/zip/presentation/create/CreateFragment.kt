@@ -17,11 +17,11 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
             navigateToHome()
         }
 
-        binding.btnCreateSaveLink.setOnClickListener{
+        binding.btnCreateSaveText.setOnClickListener{
             navigateToText()
         }
 
-        binding.btnCreateSaveText.setOnClickListener{
+        binding.btnCreateSaveLink.setOnClickListener{
             navigateToLink()
         }
     }
