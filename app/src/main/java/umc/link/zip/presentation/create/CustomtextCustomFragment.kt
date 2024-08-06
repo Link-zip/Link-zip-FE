@@ -17,11 +17,11 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
             navigateToZip()
         }
 
-        binding.clCustomTextCustomMemoBtn.setOnClickListener{
+        binding.btnCustomTextCustomMemo.setOnClickListener{
             navigateToMemo()
         }
 
-        binding.clCustomTextCustomAlarmBtn.setOnClickListener{
+        binding.btnCustomTextCustomAlarm.setOnClickListener{
             navigateToAlarm()
         }
 
