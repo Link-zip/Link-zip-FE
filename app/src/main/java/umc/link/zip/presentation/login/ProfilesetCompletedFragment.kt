@@ -21,9 +21,5 @@ class ProfilesetCompletedFragment : BaseFragment<FragmentProfilesetcompletedBind
         binding.btnProfilesetcompletedStart.setOnClickListener {
             startActivity(Intent(activity, MainActivity::class.java))
         }
-
-        binding.ivProfilesetcompletedToolbarBack.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
     }
 }
