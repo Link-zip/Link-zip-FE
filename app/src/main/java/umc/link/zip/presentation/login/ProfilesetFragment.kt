@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentProfilesetBinding
@@ -75,21 +76,15 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
 
     private fun setClickListener() {
         binding.btnProfilesetFinish.setOnClickListener {
-            requireActivity()
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_view_login, ProfilesetCompletedFragment())
-                .commit()
+            parentFragmentManager.commit {
+                replace(R.id.fragment_view_login, ProfilesetCompletedFragment())
+                addToBackStack(null)
+            }
         }
 
         binding.ivProfilesetToolbarBack.setOnClickListener {
-            requireActivity().supportFragmentManager.findFragmentByTag("profileset")?.let {
-                requireActivity()
-                    .supportFragmentManager
-                    .beginTransaction()
-                    .remove(it)
-                    .commit()
-            }
+            (activity as LoginActivity).enableLoginBtn()
+            parentFragmentManager.popBackStack()
         }
 
         binding.btnProfilesetDelete.setOnClickListener {

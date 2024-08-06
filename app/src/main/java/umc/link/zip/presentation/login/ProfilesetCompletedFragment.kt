@@ -23,11 +23,7 @@ class ProfilesetCompletedFragment : BaseFragment<FragmentProfilesetcompletedBind
         }
 
         binding.ivProfilesetcompletedToolbarBack.setOnClickListener {
-            requireActivity()
-                .supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragment_view_login, ProfilesetFragment(), "profileset")
-                .commit()
+            parentFragmentManager.popBackStack()
         }
     }
 }
