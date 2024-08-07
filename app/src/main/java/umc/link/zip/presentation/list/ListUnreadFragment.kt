@@ -1,14 +1,11 @@
 package umc.link.zip.presentation.list
 
-import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.presentation.base.BaseFragment
@@ -18,16 +15,20 @@ import umc.link.zip.databinding.FragmentListRvBinding
 import umc.link.zip.domain.model.List.Link
 import umc.link.zip.domain.model.List.Zip
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
+import umc.link.zip.util.extension.setOnSingleClickListener
 
+@AndroidEntryPoint
 class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment_list_rv) {
     private val navigator by lazy {
         findNavController()
     }
     private val viewModel: ListUnreadViewModel by viewModels({requireParentFragment()})
 
-    private val listUnreadDialogSharedViewModel: ListUnreadDialogSharedViewModel by activityViewModels()
+    private val listUnreadLineDialogSharedViewModel: ListUnreadLineDialogSharedViewModel by activityViewModels()
+    private val listUnreadListDialogSharedViewModel: ListUnreadListDialogSharedViewModel by activityViewModels()
 
     private var userSelectedLineup = "latest"
+    private var userSelectedListselect = "all"
     private val listUnreadRVA by lazy {
         ListUnreadRVA{
             /* 링크 페이지 연결
@@ -40,18 +41,36 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
     }
 
     override fun initObserver() {
+        // lineup
         viewLifecycleOwner.lifecycleScope.launch {
-            listUnreadDialogSharedViewModel.selectedData.collectLatest { data ->
+            listUnreadLineDialogSharedViewModel.selectedData.collectLatest { data ->
                 userSelectedLineup = data
                 setLineupOnDialog(userSelectedLineup)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            listUnreadDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
+            listUnreadLineDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
                 if (dismissed) {
                     setLineupDismissDialog(userSelectedLineup)
-                    listUnreadDialogSharedViewModel.resetDialogDismissed()
+                    listUnreadLineDialogSharedViewModel.resetDialogDismissed()
+                }
+            }
+        }
+
+        //listselect
+        viewLifecycleOwner.lifecycleScope.launch {
+            listUnreadListDialogSharedViewModel.selectedData.collectLatest { data ->
+                userSelectedListselect = data
+                setListOnDialog(userSelectedListselect)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            listUnreadListDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
+                if (dismissed) {
+                    setListDismissDialog(userSelectedListselect)
+                    listUnreadListDialogSharedViewModel.resetDialogDismissed()
                 }
             }
         }
@@ -91,9 +110,41 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
         }
     }
 
+    private fun setListOnDialog(selected: String) {
+        when (selected) {
+            "all" -> {
+                binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_allselect_selected))
+            }
+            "link" -> {
+                binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_linkselect_selected))
+            }
+            "text" -> {
+                binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_textlinkselect_selected))
+            }
+        }
+    }
+
+    private fun setListDismissDialog(selected: String) {
+        when (selected) {
+            "all" -> {
+                binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_allselect_unselected))
+            }
+            "link" -> {
+                binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_linkselect_unselected))
+            }
+            "text" -> {
+                binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_textlinkselect_unselected))
+            }
+        }
+    }
+
+
+
     override fun initView() {
         initPostListRVAdapter()
         setupClickListener()
+        setLineupDismissDialog(userSelectedLineup)
+        setListDismissDialog(userSelectedListselect)
     }
 
     private fun initPostListRVAdapter() {
@@ -114,15 +165,20 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
     }
 
     private fun setupClickListener() {
-        binding.ivListRvDrawerbtnLineup.setOnClickListener {
+        //한번만 클릭 허용
+        binding.ivListRvDrawerbtnLineup.setOnSingleClickListener {
             setLineupOnDialog(userSelectedLineup)
             viewLifecycleOwner.lifecycleScope.launch {
-                listUnreadDialogSharedViewModel.setSelectedData(userSelectedLineup)
+                listUnreadLineDialogSharedViewModel.setSelectedData(userSelectedLineup)
             }
             val dialogFragment = ListDialogueLineupFragment()
             dialogFragment.show(parentFragmentManager, "ListDialogueLineupFragment")
         }
-        binding.ivListRvDrawerbtnAll.setOnClickListener {
+        binding.ivListRvDrawerbtnAll.setOnSingleClickListener {
+            setListOnDialog(userSelectedListselect)
+            viewLifecycleOwner.lifecycleScope.launch {
+                listUnreadListDialogSharedViewModel.setSelectedData(userSelectedListselect)
+            }
             val dialogFragment = ListDialogueListselectFragment()
             dialogFragment.show(parentFragmentManager, "ListDialogueListselectFragment")
         }

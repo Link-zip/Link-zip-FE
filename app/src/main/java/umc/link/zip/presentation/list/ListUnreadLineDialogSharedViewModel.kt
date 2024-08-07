@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 
-class ListUnreadDialogSharedViewModel : ViewModel() {
+class ListUnreadLineDialogSharedViewModel : ViewModel() {
     private val _selectedData = MutableSharedFlow<String>(replay = 1)
     val selectedData: SharedFlow<String> get() = _selectedData
 

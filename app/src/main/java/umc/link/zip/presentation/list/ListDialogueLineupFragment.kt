@@ -6,9 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +21,7 @@ import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
 @AndroidEntryPoint
 class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogueLineupBinding>(R.layout.fragment_dialogue_lineup) {
 
-    private val listUnreadDialogSharedViewModel: ListUnreadDialogSharedViewModel by activityViewModels()
+    private val listUnreadLineDialogSharedViewModel: ListUnreadLineDialogSharedViewModel by activityViewModels()
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -46,20 +44,20 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
         // 기존 데이터 가져오기 위함
         reset()
         lifecycleScope.launch {
-            listUnreadDialogSharedViewModel.selectedData.collectLatest {
+            listUnreadLineDialogSharedViewModel.selectedData.collectLatest {
                 data ->
                 when (data) {
                     "latest" -> {
-                        selected(binding.tvViewDialogueLineupItem1, binding.viewDialogueLineupChkLatest)
+                        selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
                     }
                     "oldest" -> {
-                        selected(binding.tvViewDialogueLineupItem2, binding.viewDialogueLineupChkOldest)
+                        selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
                     }
                     "ganada" -> {
-                        selected(binding.tvViewDialogueLineupItem3, binding.viewDialogueLineupChkGanada)
+                        selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
                     }
                     "visit" -> {
-                        selected(binding.tvViewDialogueLineupItem4, binding.viewDialogueLineupChkVisit)
+                        selected(binding.tvViewDialogueLineupItem4, binding.ivDialogueLineupChkVisit)
                     }
                 }
             }
@@ -70,30 +68,33 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
         binding.clDialogueLineupItem1.setOnClickListener {
             lifecycleScope.launch {
                 reset()
-                selected(binding.tvViewDialogueLineupItem1, binding.viewDialogueLineupChkLatest)
-                listUnreadDialogSharedViewModel.setSelectedData("latest")
+                selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
+                listUnreadLineDialogSharedViewModel.setSelectedData("latest")
             }
         }
         binding.clDialogueLineupItem2.setOnClickListener {
             lifecycleScope.launch {
                 reset()
-                selected(binding.tvViewDialogueLineupItem2, binding.viewDialogueLineupChkOldest)
-                listUnreadDialogSharedViewModel.setSelectedData("oldest")
+                selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
+                listUnreadLineDialogSharedViewModel.setSelectedData("oldest")
             }
         }
         binding.clDialogueLineupItem3.setOnClickListener {
             lifecycleScope.launch {
                 reset()
-                selected(binding.tvViewDialogueLineupItem3, binding.viewDialogueLineupChkGanada)
-                listUnreadDialogSharedViewModel.setSelectedData("ganada")
+                selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
+                listUnreadLineDialogSharedViewModel.setSelectedData("ganada")
             }
         }
         binding.clDialogueLineupItem4.setOnClickListener {
             lifecycleScope.launch {
                 reset()
-                selected(binding.tvViewDialogueLineupItem4, binding.viewDialogueLineupChkVisit)
-                listUnreadDialogSharedViewModel.setSelectedData("visit")
+                selected(binding.tvViewDialogueLineupItem4, binding.ivDialogueLineupChkVisit)
+                listUnreadLineDialogSharedViewModel.setSelectedData("visit")
             }
+        }
+        binding.ivDialogueLineupClose.setOnClickListener {
+            dismiss()
         }
     }
 
@@ -107,16 +108,16 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
         binding.tvViewDialogueLineupItem2.setTextColor(ContextCompat.getColor(binding.root.context, R.color.nav_selected))
         binding.tvViewDialogueLineupItem3.setTextColor(ContextCompat.getColor(binding.root.context, R.color.nav_selected))
         binding.tvViewDialogueLineupItem4.setTextColor(ContextCompat.getColor(binding.root.context, R.color.nav_selected))
-        binding.viewDialogueLineupChkLatest.visibility = View.INVISIBLE
-        binding.viewDialogueLineupChkOldest.visibility = View.INVISIBLE
-        binding.viewDialogueLineupChkGanada.visibility = View.INVISIBLE
-        binding.viewDialogueLineupChkVisit.visibility = View.INVISIBLE
+        binding.ivDialogueLineupChkLatest.visibility = View.INVISIBLE
+        binding.ivDialogueLineupChkOldest.visibility = View.INVISIBLE
+        binding.ivDialogueLineupChkGanada.visibility = View.INVISIBLE
+        binding.ivDialogueLineupChkVisit.visibility = View.INVISIBLE
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         lifecycleScope.launch {
-            listUnreadDialogSharedViewModel.dismissDialog()
+            listUnreadLineDialogSharedViewModel.dismissDialog()
         }
     }
 }
