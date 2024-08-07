@@ -24,7 +24,7 @@
         android:title="LIST" />
 
     <item
-        android:id="@+id/mypageFragment"
+        android:id="@+id/mypageFragmentTab"
         android:icon="@drawable/bottom_nav_selector_mypage"
         android:title="My Page" />
 
