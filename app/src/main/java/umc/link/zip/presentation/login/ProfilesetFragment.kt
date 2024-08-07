@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.login
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -10,6 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,9 +21,11 @@ import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.drawableOf
 import java.util.regex.Pattern
 
+@RequiresApi(Build.VERSION_CODES.P)
 @AndroidEntryPoint
 class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.fragment_profileset){
     private var isChecked : Boolean = false
+
     override fun initObserver() {
 
     }
@@ -63,6 +67,7 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
 
                 if(isChecked) {
                     isChecked = false
+                    binding.btnProfilesetFinish.setOnClickListener(null)
                     binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_666666_fill)
                     binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
                     binding.ivProfilesetBlueshadow.visibility = View.GONE
@@ -90,6 +95,19 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
 
     }
 
+    private val finishBtnClickListener = View.OnClickListener {
+        val nickname = binding.etProfilesetNickname.text.toString()
+        val fragment = ProfilesetCompletedFragment().apply {
+            arguments = Bundle().apply {
+                putString("nickname", nickname)
+            }
+        }
+        parentFragmentManager.commit {
+            replace(R.id.fragment_view_login, fragment)
+            addToBackStack(null)
+        }
+    }
+
     private fun setClickListener() {
         binding.ivProfilesetToolbarBack.setOnClickListener {
             (activity as LoginActivity).enableLoginBtn()
@@ -110,18 +128,7 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
         }
 
         binding.btnProfilesetNamecheck.setOnClickListener {
-            binding.btnProfilesetFinish.setOnClickListener {
-                val nickname = binding.etProfilesetNickname.text.toString()
-                val fragment = ProfilesetCompletedFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("nickname", nickname)
-                    }
-                }
-                parentFragmentManager.commit {
-                    replace(R.id.fragment_view_login, fragment)
-                    addToBackStack(null)
-                }
-            }
+            binding.btnProfilesetFinish.setOnClickListener(finishBtnClickListener)
             binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_1191ad_fill)
             binding.ivProfilesetGrayshadow.visibility = View.GONE
             binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
