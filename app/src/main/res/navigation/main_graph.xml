@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
             app:destination="@id/fragment_makezip" />
+        <action
+            android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
+            app:destination="@id/fragment_openzip" />
     </fragment>
 
     <fragment
@@ -40,6 +43,16 @@
         tools:layout="@layout/fragment_makezip">
         <action
             android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
+            app:destination="@id/zipFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_openzip"
+        android:name="umc.link.zip.presentation.zip.FragmentOpenZip"
+        android:label="Fragment Open Zip"
+        tools:layout="@layout/fragment_openzip">
+        <action
+            android:id="@+id/action_fragmentOpenZip_to_fragmentZip"
             app:destination="@id/zipFragment" />
     </fragment>
 

@@ -1,40 +1,47 @@
-package umc.link.zip.presentation.zip
-
+import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
+import umc.link.zip.databinding.FragmentMakezipBinding
 import umc.link.zip.databinding.FragmentOpenzipBinding
+import umc.link.zip.domain.model.List.ZipLink
 import umc.link.zip.presentation.base.BaseFragment
-import kotlin.math.max
+import umc.link.zip.presentation.list.adapter.OpenZipItemAdapter
 
 @AndroidEntryPoint
 class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_openzip) {
     override fun initObserver() {}
-    override fun initView() {
-        setupScrollListener()
-    }
+    override fun initView() {}
 
-    private fun setupScrollListener() {
-        binding.fragmentOpenzipItemLinkRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                adjustHeaderVisibility(dy)
-            }
-        })
-    }
+    private var adapter: OpenZipItemAdapter? = null
 
-    fun adjustHeaderVisibility(dy: Int) {
-        val layoutParams = binding.fragmentOpenzipIconCl.layoutParams as ConstraintLayout.LayoutParams
-        val newTopMargin = layoutParams.topMargin - dy
-        layoutParams.topMargin = max(0, newTopMargin) // 마진이 0 아래로 내려가지 않도록 보장
-        binding.fragmentOpenzipIconCl.layoutParams = layoutParams
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
 
-        if (newTopMargin <= 0) {
-            binding.fragmentOpenzipIconCl.visibility = View.GONE
-        } else {
-            binding.fragmentOpenzipIconCl.visibility = View.VISIBLE
+        val toolbarBackBtn = binding.ivOpenzipToolbarBack
+        toolbarBackBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentOpenZip_to_fragmentZip)
+            Log.d("FragmentOpenZip", "Navigated to FragmentZip")
         }
+    }
+
+    private fun setupRecyclerView() {
+        adapter = OpenZipItemAdapter(loadInitialData())
+        binding.fragmentOpenzipItemLinkRv.adapter = adapter
+    }
+
+    private fun loadInitialData(): List<ZipLink> {
+        return listOf(
+            ZipLink("1", "테스트입니다1", "url", "텍스트", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 1, "2024.7.28"),
+            ZipLink("2", "테스트입니다2", "url", "텍스트", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 1, "2024.7.28")
+        )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
     }
 }

@@ -3,8 +3,6 @@ package umc.link.zip.presentation.zip
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,6 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentZipBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.zip.adapter.ZipAdapter
+import umc.link.zip.presentation.zip.adapter.ZipViewModel
 
 @AndroidEntryPoint
 class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
@@ -44,6 +44,12 @@ class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         makeZipButton.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
             Log.d("FragmentZip", "Navigated to FragmentMakeZip")
+        }
+
+        val alarmButton : View = binding.ivHomeAlarmNothing
+        alarmButton.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentZip_to_fragmentOpenZip)
+            Log.d("FragmentZip","Navigated to FragmentOpenZip")
         }
 
         setupInteractionListeners()

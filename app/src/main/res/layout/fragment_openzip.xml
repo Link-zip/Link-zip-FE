@@ -360,7 +360,8 @@
             app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg3"
             app:layout_constraintBottom_toTopOf="@id/cl_profileset_finish_btn_2"
             app:layout_constraintDimensionRatio="312:57"
-            app:layout_constraintWidth_percent="0.8666">
+            app:layout_constraintWidth_percent="0.8666"
+            android:visibility="invisible">
 
             <umc.link.zip.presentation.mypage.CornerView
                 android:id="@+id/cv_mypage_profile_user_info_box_bg2"
@@ -413,6 +414,7 @@
             app:layout_constraintStart_toEndOf="@id/fragment_zip_msg2"
             app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg3"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"
             >
 
             <ImageView

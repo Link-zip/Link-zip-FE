@@ -23,6 +23,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentMakezipBinding
 import umc.link.zip.domain.model.ZipItem
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.zip.adapter.ZipViewModel
 
 
 //한글은 2글자, 영어는 1글자로 취급해 주는 함수

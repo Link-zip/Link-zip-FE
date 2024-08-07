@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
 }
 
 android {
@@ -16,9 +16,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -30,7 +28,6 @@ android {
             )
         }
     }
-
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -46,7 +43,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -62,43 +58,40 @@ dependencies {
 
     // Hilt Dependency Injection
     implementation("com.google.dagger:hilt-android:2.49")
-    ksp("com.google.dagger:hilt-compiler:2.49")
+    kapt("com.google.dagger:hilt-compiler:2.49")
 
-    //gson
+    // Gson
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     implementation("com.google.code.gson:gson:2.10.1")
 
-    //Retrofit
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 
-    // https://github.com/square/okhttp
+    // OkHttp
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
-
-    // https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 
-    //lifecycle
+    // Lifecycle
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
-    //viewModel
+    // ViewModel
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // Glide Image Loading Library
     implementation("com.github.bumptech.glide:glide:4.14.2")
-    ksp("com.github.bumptech.glide:ksp:4.14.2")
+    kapt("com.github.bumptech.glide:ksp:4.14.2")
 
-    //CardView
+    // CardView
     implementation("androidx.cardview:cardview:1.0.0")
 
     // Coroutines Dependency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    //blur
+    // Blur
     implementation("jp.wasabeef:blurry:4.0.1")
-    implementation ("com.github.Dimezis:BlurView:version-2.0.3")
-
+    implementation("com.github.Dimezis:BlurView:version-2.0.3")
 }

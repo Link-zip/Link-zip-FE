@@ -1,4 +1,4 @@
-package umc.link.zip.presentation.zip
+package umc.link.zip.presentation.zip.adapter
 
 import android.util.Log
 import androidx.lifecycle.LiveData

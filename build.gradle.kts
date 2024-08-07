@@ -9,12 +9,9 @@ plugins {
 buildscript {
     repositories {
         google()
-        mavenCentral()
     }
     dependencies {
         val nav_version = "2.7.7"
-        val hilt_version = "2.49"
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:$hilt_version")
     }
 }
