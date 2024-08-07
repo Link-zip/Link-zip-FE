@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.link.zip.presentation.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
@@ -36,6 +42,14 @@
         android:id="@+id/mypageProfileFragment"
         android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
         android:label="MypageProfileFragment" />
+    <fragment
+        android:id="@+id/profilesetFragment"
+        android:name="umc.link.zip.presentation.login.ProfilesetFragment"
+        android:label="ProfilesetFragment" />
+    <fragment
+        android:id="@+id/profilesetCompletedFragment"
+        android:name="umc.link.zip.presentation.login.ProfilesetCompletedFragment"
+        android:label="ProfilesetCompletedFragment" />
     <fragment
         android:id="@+id/alarmFragment"
         android:name="umc.link.zip.presentation.home.AlarmFragment"
