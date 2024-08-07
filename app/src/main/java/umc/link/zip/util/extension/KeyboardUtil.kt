@@ -10,7 +10,7 @@ import androidx.core.widget.NestedScrollView
 object KeyboardUtil {
     private var globalLayoutListener: ViewTreeObserver.OnGlobalLayoutListener? = null
 
-    fun registerKeyboardVisibilityListener(rootView: View, scrollView: NestedScrollView, targetView: View) {
+    fun registerKeyboardVisibilityListener(rootView: View, scrollView: NestedScrollView, targetView: View, noneView :View) {
         globalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
             val rect = Rect()
             rootView.getWindowVisibleDisplayFrame(rect)
@@ -26,11 +26,13 @@ object KeyboardUtil {
             if (keypadHeight > screenHeight * 0.2) {
                 scrollView.post {
                     scrollView.smoothScrollTo(0, targetView.bottom)
+                    noneView.visibility = View.GONE
                 }
             } else {
                 // 키보드가 사라졌을 때의 처리 (원래 위치로 스크롤)
                 scrollView.post {
                     scrollView.smoothScrollTo(0, 0)
+                    noneView.visibility = View.VISIBLE
                 }
             }
         }

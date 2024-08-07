@@ -36,7 +36,6 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.nicknameState.collect { state ->
-                    Log.d("MypageProfileFragment", "State collected: $state")
                     when (state) {
                         is NicknameState.Empty -> hideNickNameInfo()
                         is NicknameState.Valid -> {
@@ -64,7 +63,7 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         setNickname()
         setupClickListeners()
 
-        KeyboardUtil.registerKeyboardVisibilityListener(binding.clMypageProfile, binding.nsvMypageProfile, binding.cvMypageProfileUserInfoBoxBg)
+        KeyboardUtil.registerKeyboardVisibilityListener(binding.clMypageProfile, binding.nsvMypageProfile, binding.cvMypageProfileUserInfoBoxBg, binding.cvMypageProfileUserInfoBoxBg)
     }
 
     private fun applyBlurToImageView(view: BlurView) {
@@ -149,7 +148,6 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             val newNickname = binding.etMypageProfile.text.toString()
             var nowNickname = binding.tvMypageProfileNickname.text.toString()
             nowNickname = "old" // 예시
-            Log.d("MypageProfileFragment", "Check duplicate button clicked with nickname: $newNickname")
             if (newNickname.isNotEmpty() && nowNickname != newNickname) {
                 viewModel.checkNickname(newNickname)
             }
@@ -196,9 +194,4 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
     }
 
-    override fun onDestroyView() {
-        // 키보드 가시성 리스너 해제
-        binding?.let { KeyboardUtil.unregisterKeyboardVisibilityListener(it.root) }
-        super.onDestroyView()
-    }
 }
