@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentMypageProfileBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.KeyboardUtil
 import umc.link.zip.util.extension.takeWhileIndexed
 
 @AndroidEntryPoint
@@ -62,6 +63,8 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         }
         setNickname()
         setupClickListeners()
+
+        KeyboardUtil.registerKeyboardVisibilityListener(binding.clMypageProfile, binding.nsvMypageProfile, binding.cvMypageProfileUserInfoBoxBg)
     }
 
     private fun applyBlurToImageView(view: BlurView) {
@@ -191,5 +194,11 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     private fun enableSaveButton() {
         binding.viewMypageProfileBtnSave.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // 키보드 가시성 리스너 해제
+        KeyboardUtil.unregisterKeyboardVisibilityListener(binding.clMypageProfile)
     }
 }

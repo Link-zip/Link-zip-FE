@@ -8,6 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_mypage_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -79,6 +80,7 @@
 
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_mypage_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
