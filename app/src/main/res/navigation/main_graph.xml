@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.link.zip.presentation.home.HomeFragment"
-        android:label="HomeFragment" />
-
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
-        android:label="ListFragment" />
-
+        android:label="ListFragment">
+    </fragment>
     <fragment
         android:id="@+id/mypageFragment"
         android:name="umc.link.zip.presentation.mypage.MypageFragment"
@@ -23,46 +27,20 @@
             android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
             app:destination="@id/mypageProfileFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/zipFragment"
-        android:name="umc.link.zip.presentation.zip.FragmentZip"
-        android:label="ZipFragment">
-        <action
-            android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
-            app:destination="@id/fragment_makezip" />
-        <action
-            android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
-            app:destination="@id/fragment_openzip" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_makezip"
-        android:name="umc.link.zip.presentation.zip.FragmentMakeZip"
-        android:label="Fragment Make Zip"
-        tools:layout="@layout/fragment_makezip">
-        <action
-            android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
-            app:destination="@id/zipFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_openzip"
-        android:name="umc.link.zip.presentation.zip.FragmentOpenZip"
-        android:label="Fragment Open Zip"
-        tools:layout="@layout/fragment_openzip">
-        <action
-            android:id="@+id/action_fragmentOpenZip_to_fragmentZip"
-            app:destination="@id/zipFragment" />
-    </fragment>
-
+        android:name="umc.link.zip.presentation.zip.ZipFragment"
+        android:label="ZipFragment" />
     <fragment
         android:id="@+id/createFragment"
         android:name="umc.link.zip.presentation.create.CreateFragment"
         android:label="CreateFragment" />
-
     <fragment
         android:id="@+id/mypageProfileFragment"
         android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
         android:label="MypageProfileFragment" />
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="umc.link.zip.presentation.home.AlarmFragment"
+        android:label="AlarmFragment" />
 </navigation>
