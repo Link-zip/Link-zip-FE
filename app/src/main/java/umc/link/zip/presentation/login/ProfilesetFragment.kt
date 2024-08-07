@@ -1,12 +1,15 @@
 package umc.link.zip.presentation.login
 
+import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,9 +17,11 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentProfilesetBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.drawableOf
+import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.fragment_profileset){
+    private var isChecked : Boolean = false
     override fun initObserver() {
 
     }
@@ -29,6 +34,7 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
     private fun setEditText() {
         binding.etProfilesetNickname.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -55,13 +61,23 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
                     binding.etProfilesetNickname.setSelection(truncatedText?.length ?: 0)
                 }
 
+                if(isChecked) {
+                    isChecked = false
+                    binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_666666_fill)
+                    binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
+                    binding.ivProfilesetBlueshadow.visibility = View.GONE
+                    binding.tvProfilesetResult.visibility = View.GONE
+                    binding.viewProfilesetMg8.visibility = View.GONE
+                    binding.etProfilesetNickname.background = drawableOf(R.drawable.shape_profileset_edittext_default)
+                }
+
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
         })
 
-        binding.etProfilesetNickname.filters = arrayOf(android.text.InputFilter.LengthFilter(30))
+        binding.etProfilesetNickname.filters = arrayOf(InputFilter.LengthFilter(30))
 
         view?.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -75,27 +91,46 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
     }
 
     private fun setClickListener() {
-        binding.btnProfilesetFinish.setOnClickListener {
-            parentFragmentManager.commit {
-                replace(R.id.fragment_view_login, ProfilesetCompletedFragment())
-                addToBackStack(null)
-            }
-        }
-
         binding.ivProfilesetToolbarBack.setOnClickListener {
             (activity as LoginActivity).enableLoginBtn()
             parentFragmentManager.popBackStack()
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as LoginActivity).enableLoginBtn()
+                parentFragmentManager.popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+
 
         binding.btnProfilesetDelete.setOnClickListener {
             binding.etProfilesetNickname.text.clear()
         }
 
         binding.btnProfilesetNamecheck.setOnClickListener {
+            binding.btnProfilesetFinish.setOnClickListener {
+                val nickname = binding.etProfilesetNickname.text.toString()
+                val fragment = ProfilesetCompletedFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("nickname", nickname)
+                    }
+                }
+                parentFragmentManager.commit {
+                    replace(R.id.fragment_view_login, fragment)
+                    addToBackStack(null)
+                }
+            }
             binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_1191ad_fill)
             binding.ivProfilesetGrayshadow.visibility = View.GONE
             binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
+            binding.tvProfilesetResult.visibility = View.VISIBLE
+            binding.viewProfilesetMg8.visibility = View.VISIBLE
+            binding.etProfilesetNickname.background = drawableOf(R.drawable.shape_profileset_edittext_able)
+            isChecked = true
         }
+
     }
 
     private fun CharSequence.takeWhileIndexed(predicate: (Int, Char) -> Boolean): String {
