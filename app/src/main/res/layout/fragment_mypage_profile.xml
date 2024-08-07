@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_mypage_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="37.5dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_mypage_profile"
