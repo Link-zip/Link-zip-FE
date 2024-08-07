@@ -1,4 +1,4 @@
-package umc.link.zip.presentation.create
+package umc.link.zip.presentation.home
 
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
