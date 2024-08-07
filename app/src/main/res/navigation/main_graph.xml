@@ -40,6 +40,14 @@
         android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
         android:label="MypageProfileFragment" />
     <fragment
+        android:id="@+id/profilesetFragment"
+        android:name="umc.link.zip.presentation.login.ProfilesetFragment"
+        android:label="ProfilesetFragment" />
+    <fragment
+        android:id="@+id/profilesetCompletedFragment"
+        android:name="umc.link.zip.presentation.login.ProfilesetCompletedFragment"
+        android:label="ProfilesetCompletedFragment" />
+    <fragment
         android:id="@+id/alarmFragment"
         android:name="umc.link.zip.presentation.home.AlarmFragment"
         android:label="AlarmFragment" />
