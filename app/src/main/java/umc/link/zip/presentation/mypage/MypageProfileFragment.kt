@@ -196,9 +196,9 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         // 키보드 가시성 리스너 해제
-        KeyboardUtil.unregisterKeyboardVisibilityListener(binding.clMypageProfile)
+        binding?.let { KeyboardUtil.unregisterKeyboardVisibilityListener(it.root) }
+        super.onDestroyView()
     }
 }
