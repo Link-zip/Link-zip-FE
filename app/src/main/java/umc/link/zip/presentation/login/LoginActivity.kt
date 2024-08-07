@@ -40,15 +40,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     fun enableLoginBtn() {
         binding.btnLoginKakaologin.isClickable = true
     }
-
-    /*override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack()
-            if (supportFragmentManager.backStackEntryCount == 1) {
-                enableLoginBtn()
-            }
-        } else {
-            super.onBackPressed()
-        }
-    }*/
 }
