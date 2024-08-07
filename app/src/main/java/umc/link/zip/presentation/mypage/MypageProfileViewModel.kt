@@ -23,7 +23,7 @@ class MypageProfileViewModel @Inject constructor(
             Log.d("MypageProfileViewModel", "checkNickname called with: $nickname")
             // 상태를 방출
             _nicknameState.emit(NicknameState.Empty)
-            val result = "no" // 임시 결과
+            val result = "ok" // 임시 결과
             val newState = if (result == "no") {
                 NicknameState.Invalid("이미 사용 중인 유저가 있어요!", R.color.disabled_color)
             } else {

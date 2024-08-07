@@ -25,6 +25,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentMypageProfileBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.KeyboardUtil
+import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.extension.takeWhileIndexed
 
 @AndroidEntryPoint
@@ -114,7 +115,7 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
                 if (binding.etMypageProfile.text.isNotEmpty()) {
                     val newNickname = binding.etMypageProfile.text.toString()
                     var nowNickname = binding.tvMypageProfileNickname.text.toString()
-                    nowNickname = "old" // 예시
+                    nowNickname = "뉴비" // 예시
                     if (newNickname == nowNickname) {
                         setNickNameInfo("기존의 닉네임이에요!", R.color.disabled_color)
                         disableSaveButton()
@@ -144,7 +145,7 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
 
     private fun setupClickListeners() {
         //중복 확인 로직
-        binding.viewMypageProfileBtnChkDup.setOnClickListener {
+        binding.viewMypageProfileBtnChkDup.setOnSingleClickListener {
             val newNickname = binding.etMypageProfile.text.toString()
             var nowNickname = binding.tvMypageProfileNickname.text.toString()
             nowNickname = "old" // 예시
@@ -153,6 +154,12 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
             }
         }
         // 완료 버튼 로직 추가 필요
+
+        //회원 탈퇴
+        binding.tvMypageWithdrawal.setOnSingleClickListener {
+            navigator.navigate(R.id.action_mypageProfileFragment_to_mypageWithdrawalFragment)
+        }
+
     }
 
     private fun customLength(s: String?): Int {
