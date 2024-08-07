@@ -130,7 +130,7 @@
             android:id="@+id/tv_itemAlarm_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="“(링크 제목)” 리마인드 알림이 도착했어요!  ## 제목은 최대 2줄"
+            android:hint="## 제목은 최대 2줄"
             android:text="@{alarm.alarm_title}"
             android:textSize="16sp"
             android:textColor="@color/black"
