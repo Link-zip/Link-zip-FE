@@ -64,7 +64,7 @@
             app:layout_constraintDimensionRatio="84:36"
             app:layout_constraintWidth_percent="0.2333"
             app:layout_constraintBottom_toBottomOf="@id/view_list_rv_bg"
-            android:src="@drawable/drawerbtn_lineup_early_unselected"
+            android:src="@drawable/drawerbtn_lineup_ganada_selected"
             app:layout_constraintStart_toEndOf="@id/view_list_rv_mg2"
             app:layout_constraintTop_toTopOf="parent" />
 
