@@ -48,6 +48,12 @@ class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             Log.d("FragmentZip", "Navigated to FragmentOpenZip")
         }
 
+        val MakeZipBtn = binding.fragmentZipMakeBtn
+        MakeZipBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
+            Log.d("FragmentZip", "Navigated to FragmentMakeZip")
+        }
+
         binding.fragmentZipEditBtn.setOnClickListener(editClickListener)
         binding.allSelectedBtn.setOnClickListener(allSelectedListener)
         binding.allSelectedTv.setOnClickListener(allSelectedListener)
