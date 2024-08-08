@@ -14,7 +14,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
     override fun initView() {
         binding.ivCustomTextCustomToolbarBack.setOnClickListener{
-            navigateToZip()
+            findNavController().navigateUp()
         }
 
         binding.btnCustomTextCustomMemo.setOnClickListener{
@@ -30,9 +30,6 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         }
     }
 
-    private fun navigateToZip() {
-        findNavController().navigate(R.id.action_customtextCustomFragment_to_customtextZipFragment)
-    }
 
     private fun navigateToMemo() {
         findNavController().navigate(R.id.action_customtextCustomFragment_to_customtextMemoFragment)

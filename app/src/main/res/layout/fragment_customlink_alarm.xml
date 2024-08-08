@@ -83,7 +83,7 @@
             android:layout_height="0dp"
             android:alpha="0.3"
             android:scaleType="fitXY"
-            android:src="@drawable/shape_rect_gradiant"
+            android:src="@drawable/shape_rect_gradiant_up"
             app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_customLink_alarm_topImg" />

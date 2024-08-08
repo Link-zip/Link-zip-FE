@@ -14,7 +14,7 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
 
     override fun initView() {
         binding.ivCustomTextMemoToolbarBack.setOnClickListener{
-            navigateToCustom()
+            findNavController().navigateUp()
         }
         binding.clCustomTextMemoCompleteBtn.setOnClickListener {
             navigateToCustom()

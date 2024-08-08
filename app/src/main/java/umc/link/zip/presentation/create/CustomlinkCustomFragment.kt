@@ -14,7 +14,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
 
     override fun initView() {
         binding.ivCustomLinkCustomToolbarBack.setOnClickListener{
-            navigateToZip()
+            findNavController().navigateUp()
         }
 
         binding.btnCustomLinkCustomMemo.setOnClickListener{
@@ -28,10 +28,6 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         binding.clCustomLinkCustomSaveBtn.setOnClickListener {
             navigateToOpenLink()
         }
-    }
-
-    private fun navigateToZip() {
-        findNavController().navigate(R.id.action_customlinkCustomFragment_to_customlinkZipFragment)
     }
 
     private fun navigateToMemo() {

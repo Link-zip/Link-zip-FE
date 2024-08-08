@@ -39,9 +39,6 @@
         android:name="umc.link.zip.presentation.create.CreateFragment"
         android:label="CreateFragment">
         <action
-            android:id="@+id/action_createFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
-        <action
             android:id="@+id/action_createFragment_to_customtextZipFragment"
             app:destination="@id/customtextZipFragment"/>
         <action
@@ -78,9 +75,6 @@
         android:name="umc.link.zip.presentation.create.CustomtextZipFragment"
         android:label="CustomtextZipFragment">
         <action
-            android:id="@+id/action_customtextZipFragment_to_createFragment"
-            app:destination="@id/createFragment"/>
-        <action
             android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
             app:destination="@id/customtextCustomFragment"/>
     </fragment>
@@ -90,9 +84,6 @@
         android:name="umc.link.zip.presentation.create.CustomlinkZipFragment"
         android:label="CustomlinkZipFragment">
         <action
-            android:id="@+id/action_customlinkZipFragment_to_createFragment"
-            app:destination="@id/createFragment"/>
-        <action
             android:id="@+id/action_customlinkZipFragment_to_customlinkCustomFragment"
             app:destination="@id/customlinkCustomFragment"/>
     </fragment>
@@ -101,9 +92,6 @@
         android:id="@+id/customtextCustomFragment"
         android:name="umc.link.zip.presentation.create.CustomtextCustomFragment"
         android:label="CustomtextCustomFragment">
-        <action
-            android:id="@+id/action_customtextCustomFragment_to_customtextZipFragment"
-            app:destination="@id/customtextZipFragment"/>
         <action
             android:id="@+id/action_customtextCustomFragment_to_customtextAlarmFragment"
             app:destination="@id/customtextAlarmFragment"/>
@@ -137,9 +125,6 @@
         android:id="@+id/customlinkCustomFragment"
         android:name="umc.link.zip.presentation.create.CustomlinkCustomFragment"
         android:label="CustomlinkCustomFragment">
-        <action
-            android:id="@+id/action_customlinkCustomFragment_to_customlinkZipFragment"
-            app:destination="@id/customlinkZipFragment"/>
         <action
             android:id="@+id/action_customlinkCustomFragment_to_customlinkAlarmFragment"
             app:destination="@id/customlinkAlarmFragment"/>

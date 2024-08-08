@@ -14,7 +14,7 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
 
     override fun initView() {
         binding.ivCustomTextAlarmToolbarBack.setOnClickListener{
-            navigateToCustom()
+            findNavController().navigateUp()
         }
         binding.clCustomTextAlarmSaveBtn.setOnClickListener {
             navigateToCustom()

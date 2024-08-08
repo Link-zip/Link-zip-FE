@@ -14,7 +14,7 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
 
     override fun initView() {
         binding.ivCustomLinkAlarmToolbarBack.setOnClickListener{
-            navigateToCustom()
+            findNavController().navigateUp()
         }
         binding.clCustomLinkAlarmCompleteBtn.setOnClickListener {
             navigateToCustom()

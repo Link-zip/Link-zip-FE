@@ -14,7 +14,7 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
 
     override fun initView() {
         binding.ivCustomLinkMemoToolbarBack.setOnClickListener{
-            navigateToCustom()
+            findNavController().navigateUp()
         }
         binding.clCustomLinkMemoCompleteBtn.setOnClickListener {
             navigateToCustom()
