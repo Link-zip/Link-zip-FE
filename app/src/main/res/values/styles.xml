@@ -131,13 +131,13 @@
 
     <style name="dialogue_lineup_item_selected">
         <item name="fontFamily">@font/pretendard_medium</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="dialogue_lineup_item_unselected">
         <item name="fontFamily">@font/pretendard_medium</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:letterSpacing">-0.025</item>
         <item name="android:textColor">@color/nav_selected</item>
     </style>
@@ -176,5 +176,13 @@
         <item name="android:background">@drawable/bg_transparent</item>
     </style>
 
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+    </style>
 
 </resources>

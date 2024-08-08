@@ -16,10 +16,10 @@
     <TextView
         android:id="@+id/tv_item_notice_title"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:lineSpacingExtra="5sp"
-        android:text="공지사항 제목공지사항 제목공지사항 제목공지사항 제목 ##최대 2줄로"
+        android:text="공지사항 제목공지사항 "
         android:textAppearance="@style/item_list_linktitle"
         app:layout_constraintStart_toEndOf="@id/view_item_notice_mg1"
         app:layout_constraintEnd_toStartOf="@id/view_item_notice_mg2"
