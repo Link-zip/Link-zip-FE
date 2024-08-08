@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="20dp">
+        android:paddingTop="37.5dp">
 
         <View
             android:id="@+id/fragment_openzip_withdrawal_mg1"
@@ -432,8 +432,6 @@
                             android:textColor="#999999"
                             android:textSize="18sp"
                             android:background="@drawable/btn_openzip_movezipinact"
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="0dp"
                             />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </eightbitlab.com.blurview.BlurView>

@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/Fragment_Openzip"
-        android:name="umc.link.zip.presentation.zip.FragmentOpenZip.FragmentOpenZip"
+        android:name="umc.link.zip.presentation.zip.FragmentOpenZip"
         android:label="Fragment_Openzip" >
         <action
             android:id="@+id/action_fragmentOpenZip_to_fragmentZip"

@@ -1,4 +1,4 @@
-package umc.link.zip.presentation.zip.FragmentOpenZip
+package umc.link.zip.presentation.zip
 
 import OpenZipViewModel
 import android.graphics.Color
@@ -141,8 +141,8 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentZipMakeBtn.setTextColor(Color.parseColor("#999999"))
         binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.btn_openzip_movezipinact)
         binding.fragmentZipMakeBtn2.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
-        binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
-        binding.ivProfilesetGrayshadow.visibility = View.GONE
+        binding.ivProfilesetBlueshadow.visibility = View.GONE
+        binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
     }
 
     private fun updateBackgroundColorOfItems() {
@@ -150,8 +150,9 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         for (i in 0 until recyclerView.childCount) {
             val itemView = recyclerView.getChildAt(i)
             val itemMainLayout: ConstraintLayout = itemView.findViewById(R.id.item_link_main_cl)
-            itemMainLayout.setBackgroundColor(Color.parseColor("#F5F4FD"))
+            itemMainLayout.setBackgroundColor(Color.parseColor("#F1F0FF"))
         }
+        binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg3)
     }
 
     private fun resetBackgroundColorOfItems() {
@@ -161,5 +162,6 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             val itemMainLayout: ConstraintLayout = itemView.findViewById(R.id.item_link_main_cl)
             itemMainLayout.setBackgroundColor(Color.parseColor("#FBFBFB"))
         }
+        binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg2)
     }
 }

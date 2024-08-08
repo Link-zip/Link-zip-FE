@@ -1,13 +1,12 @@
 package umc.link.zip.presentation.zip
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentZipBinding
@@ -18,103 +17,147 @@ import umc.link.zip.presentation.zip.adapter.ZipViewModel
 @AndroidEntryPoint
 class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
 
-    private val zipViewModel: ZipViewModel by viewModels()
-    private lateinit var zipAdapter: ZipAdapter
-
     override fun initObserver() {}
     override fun initView() {}
+
+    private val viewModel: ZipViewModel by viewModels()
+    private var adapter: ZipAdapter? = null
+    private var isEditMode = false
+    private var isAllSelectedMode = false
+
+    private val editClickListener = View.OnClickListener {
+        toggleEditMode()
+    }
+
+    private val allSelectedListener = View.OnClickListener {
+        if (isEditMode) {
+            setAllSelectedMode()
+        } else if (isAllSelectedMode) {
+            setEditMode()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // RecyclerView setup
-        val recyclerView: RecyclerView = binding.fragmentZipRecyclerview
-        zipAdapter = ZipAdapter()
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = zipAdapter
+        setupRecyclerView()
 
-        // Observe ViewModel's zipItems to update RecyclerView
-        zipViewModel.zipItems.observe(viewLifecycleOwner) { zipItems ->
-            zipAdapter.submitList(zipItems)
-            Log.d("FragmentZip", "zipItems updated: $zipItems")
-        }
-
-        // Zip creation button setup
-        val makeZipButton: View = binding.fragmentZipMakeBtn
-        makeZipButton.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
-            Log.d("FragmentZip", "Navigated to FragmentMakeZip")
-        }
-
-        val alarmButton : View = binding.ivHomeAlarmNothing
-        alarmButton.setOnClickListener {
+        val toolbarBackBtn = binding.ivHomeAlarmNothing
+        toolbarBackBtn.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentZip_to_fragmentOpenZip)
-            Log.d("FragmentZip","Navigated to FragmentOpenZip")
+            Log.d("FragmentZip", "Navigated to FragmentOpenZip")
         }
 
-        setupInteractionListeners()
+        binding.fragmentZipEditBtn.setOnClickListener(editClickListener)
+        binding.allSelectedBtn.setOnClickListener(allSelectedListener)
+        binding.allSelectedTv.setOnClickListener(allSelectedListener)
+
+        // Initialize in NormalMode
+        setNormalMode()
     }
 
     override fun onResume() {
         super.onResume()
-        zipAdapter.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
     }
 
-    private fun setupInteractionListeners() {
-        val sortButton = binding.sortButton  // Make sure the ID matches your layout
-
-        sortButton.setOnClickListener {
-            // Toggle the image resource
-            val isUnselected = sortButton.tag == null || sortButton.tag == true
-            val newDrawable = if (isUnselected) R.drawable.drawerbtn_lineup_early_selected else R.drawable.drawerbtn_lineup_early_unselected
-            sortButton.setImageResource(newDrawable)
-            sortButton.tag = !isUnselected
+    private fun setupRecyclerView() {
+        adapter = ZipAdapter { zipItem, isSelected ->
+            if (isSelected) {
+                switchToSelectedMode()
+            }
         }
+        binding.fragmentZipRecyclerview.layoutManager = LinearLayoutManager(context)
+        binding.fragmentZipRecyclerview.adapter = adapter
 
-        binding.fragmentZipEditBtn.setOnClickListener {
-            toggleEditingMode(true)
+        viewModel.zipItems.observe(viewLifecycleOwner) { zipItems ->
+            adapter?.submitList(zipItems)
         }
-
-        binding.fragmentZipFinishBtn.setOnClickListener {
-            toggleEditingMode(false)
-        }
-
-        // Listener for allSelectedBtnBlack and allSelectedTv
-        val toggleSelectionListener = View.OnClickListener {
-            binding.allSelectedTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.color1191ad))  // Assuming #1191AD is defined as colorPrimary in your colors.xml
-            binding.allSelectedBtn.visibility = View.GONE
-        }
-
-        binding.allSelectedBtn.setOnClickListener(toggleSelectionListener)
-        binding.allSelectedTv.setOnClickListener(toggleSelectionListener)
     }
 
-    private fun toggleEditingMode(isEditing: Boolean) {
-        if (isEditing) {
-            // Edit mode
-            binding.sortButton.visibility = View.GONE
-            binding.fragmentZipEditBtn.visibility = View.GONE
-            binding.allSelectedBtn.visibility = View.VISIBLE
-            binding.allSelectedTv.visibility = View.VISIBLE
-            binding.fragmentZipFinishBtn.visibility = View.VISIBLE
-            binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
-            binding.fragmentZipMakeBtn.text = "삭제"
-            binding.ivProfilesetBlueshadow.visibility = View.GONE
-            binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
+    }
+
+    private fun toggleEditMode() {
+        if (isEditMode) {
+            setNormalMode()
         } else {
-            // Normal mode
-            binding.sortButton.visibility = View.VISIBLE
-            binding.fragmentZipEditBtn.visibility = View.VISIBLE
-            binding.allSelectedBtn.visibility = View.GONE
-            binding.allSelectedTv.visibility = View.GONE
-            binding.fragmentZipFinishBtn.visibility = View.GONE
-            binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
-            binding.fragmentZipMakeBtn.text = "ZIP 만들기"
-            binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
-            binding.ivProfilesetGrayshadow.visibility = View.GONE
-            // Reset text color and visibility states to default
-            binding.allSelectedTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.black)) // Reset to default color
+            setEditMode()
         }
     }
 
+    private fun setNormalMode() {
+        isEditMode = false
+        isAllSelectedMode = false
+        resetAllSelectedMode()
+        resetBackgroundColorOfItems()
+        binding.sortButton.visibility = View.VISIBLE
+        binding.allSelectedBtn.visibility = View.GONE
+        binding.allSelectedTv.visibility = View.GONE
+        binding.fragmentZipMakeBtn.text = getString(R.string.zip_create)
+        binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
+        binding.ivProfilesetBlueshadow.visibility = View.GONE
+        binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
+        binding.fragmentZipEditBtn.text = "편집"
+        binding.fragmentZipEditBtn.setTextColor(Color.parseColor("#000000"))
+        binding.fragmentZipFinishBtn.visibility = View.GONE
+        adapter?.clearSelections()
+    }
+
+    private fun setEditMode() {
+        isEditMode = true
+        isAllSelectedMode = false
+        resetAllSelectedMode()
+        binding.sortButton.visibility = View.GONE
+        binding.allSelectedBtn.visibility = View.VISIBLE
+        binding.allSelectedTv.visibility = View.VISIBLE
+        binding.fragmentZipMakeBtn.text = getString(R.string.delete)
+        binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
+        binding.ivProfilesetBlueshadow.visibility = View.GONE
+        binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
+        binding.fragmentZipEditBtn.text = "완료"
+        binding.fragmentZipEditBtn.setTextColor(Color.parseColor("#1191AD"))
+        binding.fragmentZipEditBtn.visibility = View.VISIBLE
+        binding.fragmentZipFinishBtn.visibility = View.GONE
+        resetBackgroundColorOfItems() // Ensure the background color is reset when entering EditMode
+    }
+
+    private fun setAllSelectedMode() {
+        isAllSelectedMode = true
+        isEditMode = false
+        binding.allSelectedBtn.setImageResource(R.drawable.ic_checkunselected_blue)
+        binding.allSelectedTv.setTextColor(Color.parseColor("#1191AD"))
+        binding.fragmentZipMakeBtn.text = getString(R.string.delete)
+        binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.shape_rect_005773_fill)
+        binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
+        binding.ivProfilesetGrayshadow.visibility = View.GONE
+        adapter?.selectAllItems()
+        updateBackgroundColorOfItems(true)
+    }
+
+    private fun resetAllSelectedMode() {
+        binding.allSelectedBtn.setImageResource(R.drawable.ic_checkunselected_black)
+        binding.allSelectedTv.setTextColor(Color.parseColor("#000000"))
+        binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
+        binding.ivProfilesetBlueshadow.visibility = View.GONE
+        binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
+    }
+
+    private fun switchToSelectedMode() {
+        binding.fragmentZipMakeBtn.text = getString(R.string.delete)
+        binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.shape_rect_005773_fill)
+        binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
+        binding.ivProfilesetGrayshadow.visibility = View.GONE
+    }
+
+    private fun updateBackgroundColorOfItems(isAllSelected: Boolean) {
+        val color = if (isAllSelected) "#F4F5F6" else "#FBFBFB"
+        adapter?.updateBackgroundColorOfItems(Color.parseColor(color))
+    }
+
+    private fun resetBackgroundColorOfItems() {
+        adapter?.updateBackgroundColorOfItems(Color.parseColor("#FBFBFB"))
+    }
 }
