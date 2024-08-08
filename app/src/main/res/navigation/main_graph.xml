@@ -27,10 +27,37 @@
             android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
             app:destination="@id/mypageProfileFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/zipFragment"
-        android:name="umc.link.zip.presentation.zip.ZipFragment"
-        android:label="ZipFragment" />
+        android:name="umc.link.zip.presentation.zip.FragmentZip"
+        android:label="ZipFragment" >
+        <action
+            android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
+            app:destination="@id/Fragment_Makezip" />
+        <action
+            android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
+            app:destination="@id/Fragment_Openzip" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Fragment_Openzip"
+        android:name="umc.link.zip.presentation.zip.FragmentOpenZip.FragmentOpenZip"
+        android:label="Fragment_Openzip" >
+        <action
+            android:id="@+id/action_fragmentOpenZip_to_fragmentZip"
+            app:destination="@id/zipFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Fragment_Makezip"
+        android:name="umc.link.zip.presentation.zip.FragmentMakeZip"
+        android:label="Fragment_Makezip" >
+        <action
+            android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
+            app:destination="@id/zipFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/createFragment"
         android:name="umc.link.zip.presentation.create.CreateFragment"

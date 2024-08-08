@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="20dp">
 
         <View
             android:id="@+id/fragment_openzip_withdrawal_mg1"
@@ -149,7 +154,7 @@
                     android:fontFamily="@font/pretendard_medium"
                     android:layout_marginEnd="4dp"
                     android:letterSpacing="-0.03"
-                    android:text="Test Test Test Test Test Test Test Test Test Test"
+                    android:text="Test입니다"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -261,6 +266,37 @@
                 android:src="@drawable/drawerbtn_lineup_early_unselected"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fragment_openzip_mg5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/all_selected_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_checkunselected_black"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg10"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SmallTouchTarget" />
+
+            <TextView
+                android:id="@+id/all_selected_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                android:text="전체 선택"
+                android:textAppearance="@style/some_id"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:translationY="-1.65sp"
+                android:visibility="visible"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/all_selected_btn"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
@@ -270,7 +306,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="124:36"
                 app:layout_constraintEnd_toStartOf="@id/fragment_openzip_edit_iv"
-                app:layout_constraintStart_toEndOf="@id/fragment_openzip_recent_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.3444" />
 
@@ -361,7 +396,7 @@
             app:layout_constraintBottom_toTopOf="@id/cl_profileset_finish_btn_2"
             app:layout_constraintDimensionRatio="312:57"
             app:layout_constraintWidth_percent="0.8666"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <umc.link.zip.presentation.mypage.CornerView
                 android:id="@+id/cv_mypage_profile_user_info_box_bg2"
@@ -414,7 +449,7 @@
             app:layout_constraintStart_toEndOf="@id/fragment_zip_msg2"
             app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg3"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="invisible"
+            android:visibility="visible"
             >
 
             <ImageView
@@ -468,6 +503,5 @@
                 tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

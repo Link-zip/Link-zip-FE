@@ -21,7 +21,7 @@ class ZipViewModel : ViewModel() {
         // 초기 데이터를 설정합니다.
         _zipItems.value = listOf(
             ZipItem(id = "1", user_id = "user1", title = "빠른저장", color = R.drawable.ic_zip_clip_shadow),
-            ZipItem(id = "2", user_id = "user2", title = "Title 2", color = R.drawable.ic_zip_shadow_2)
+            ZipItem(id = "2", user_id = "user2", title = "인사이트", color = R.drawable.ic_zip_shadow_2)
         )
     }
 

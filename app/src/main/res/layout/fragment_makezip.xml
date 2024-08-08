@@ -12,6 +12,7 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="20dp"
         android:focusable="false"
         tools:context=".presentation.MainActivity">
 
@@ -211,7 +212,7 @@
                     android:textSize="16dp"
                     android:inputType="textMultiLine"
                     android:maxLines="3"
-                    android:text="ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"
+                    android:text=""
                     app:layout_constraintEnd_toStartOf="@id/fragment_makezip_delete_ic"
                     app:layout_constraintStart_toEndOf="@id/makezip_msg11"
                     app:layout_constraintTop_toTopOf="parent" />
