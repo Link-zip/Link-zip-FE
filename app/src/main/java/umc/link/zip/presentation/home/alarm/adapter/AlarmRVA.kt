@@ -1,4 +1,4 @@
-package umc.link.zip.presentation.home.alarm
+package umc.link.zip.presentation.home.alarm.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import umc.link.zip.databinding.ItemAlarmBinding
+import umc.link.zip.domain.model.alarm.Alarm
 
-class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.AlarmViewHolder>(AlarmDiffCallback()) {
+class AlarmRVA : ListAdapter<Alarm, AlarmRVA.AlarmViewHolder>(AlarmDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
         val binding = ItemAlarmBinding.inflate(LayoutInflater.from(parent.context), parent, false)

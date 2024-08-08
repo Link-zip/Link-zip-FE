@@ -37,11 +37,6 @@
         android:label="CreateFragment" />
 
     <fragment
-        android:id="@+id/mypageProfileFragment"
-        android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
-        android:label="MypageProfileFragment" />
-
-    <fragment
         android:id="@+id/profilesetFragment"
         android:name="umc.link.zip.presentation.login.ProfilesetFragment"
         android:label="ProfilesetFragment" />
@@ -54,11 +49,7 @@
     <fragment
         android:id="@+id/alarmFragment"
         android:name="umc.link.zip.presentation.home.alarm.AlarmFragment"
-        android:label="AlarmFragment">
-        <action
-            android:id="@+id/action_alarmFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
-    </fragment>
+        android:label="AlarmFragment"/>
 
     <navigation
         android:id="@+id/mypageFragmentTab"

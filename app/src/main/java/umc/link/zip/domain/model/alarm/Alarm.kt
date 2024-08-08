@@ -1,4 +1,4 @@
-package umc.link.zip.presentation.home.alarm
+package umc.link.zip.domain.model.alarm
 
 data class Alarm(
         val id: Int,           // 링크 id

@@ -1,15 +1,17 @@
 package umc.link.zip.presentation.home.alarm
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import umc.link.zip.domain.model.alarm.Alarm
 import javax.inject.Inject
 
-class AlarmRepository @Inject constructor(){
-    fun getAlarms(): LiveData<List<Alarm>> {
-        val alarms = MutableLiveData<List<Alarm>>()
+class AlarmRepository @Inject constructor() {
+    private val _alarms = MutableStateFlow<List<Alarm>>(emptyList())
+    val alarms: StateFlow<List<Alarm>> get() = _alarms
 
-        // 더미 데이터
-        alarms.value = listOf(
+    init {
+        // 더미 데이터 설정
+        _alarms.value = listOf(
                 Alarm(
                         1,
                         0,
@@ -49,7 +51,5 @@ class AlarmRepository @Inject constructor(){
                         "제목제목",
                         "메모메모")
         )
-
-        return alarms
     }
 }
