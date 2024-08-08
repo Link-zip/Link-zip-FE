@@ -22,6 +22,6 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
     }
 
     private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_savelinkMemoFragment_to_savelinkCustomFragment)
+        findNavController().navigate(R.id.action_customlinkMemoFragment_to_customlinkCustomFragment)
     }
 }

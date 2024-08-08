@@ -2,7 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="umc.link.zip.presentation.create.LinkViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -130,7 +132,7 @@
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/pretendard_medium"
                     android:letterSpacing="-0.03"
-                    android:text="인사이트"
+                    android:text="@{viewModel.linkData.zipId}"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_openLink_zipimg"
@@ -187,7 +189,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/pretendard_semibold"
                     android:letterSpacing="-0.03"
-                    android:text="하계 인턴 모음"
+                    android:text="@{viewModel.linkData.title}"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     app:layout_constraintTop_toBottomOf="@id/tv_openLink_it1"
@@ -221,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_medium"
                     android:letterSpacing="-0.03"
-                    android:text="대한항공 인턴 자소서 마감 ~6.20"
+                    android:text="@{viewModel.linkData.memo}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginTop="8dp"
@@ -257,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_medium"
                     android:letterSpacing="-0.03"
-                    android:text="2024.01.24 PM 06:00"
+                    android:text="@{viewModel.linkData.alertDate}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginTop="8dp"

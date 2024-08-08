@@ -45,8 +45,8 @@
             android:id="@+id/action_createFragment_to_customtextZipFragment"
             app:destination="@id/customtextZipFragment"/>
         <action
-            android:id="@+id/action_createFragment_to_savelinkZipFragment"
-            app:destination="@id/savelinkZipFragment"/>
+            android:id="@+id/action_createFragment_to_customlinkZipFragment"
+            app:destination="@id/customlinkZipFragment"/>
     </fragment>
 
     <fragment
@@ -76,15 +76,15 @@
     </fragment>
 
     <fragment
-        android:id="@+id/savelinkZipFragment"
+        android:id="@+id/customlinkZipFragment"
         android:name="umc.link.zip.presentation.create.CustomlinkZipFragment"
-        android:label="SavelinkZipFragment">
+        android:label="CustomlinkZipFragment">
         <action
-            android:id="@+id/action_savelinkZipFragment_to_createFragment"
+            android:id="@+id/action_customlinkZipFragment_to_createFragment"
             app:destination="@id/createFragment"/>
         <action
-            android:id="@+id/action_savelinkZipFragment_to_savelinkCustomFragment"
-            app:destination="@id/savelinkCustomFragment"/>
+            android:id="@+id/action_customlinkZipFragment_to_customlinkCustomFragment"
+            app:destination="@id/customlinkCustomFragment"/>
     </fragment>
 
     <fragment
@@ -124,39 +124,39 @@
     </fragment>
 
     <fragment
-        android:id="@+id/savelinkCustomFragment"
+        android:id="@+id/customlinkCustomFragment"
         android:name="umc.link.zip.presentation.create.CustomlinkCustomFragment"
-        android:label="SavelinkCustomFragment">
+        android:label="CustomlinkCustomFragment">
         <action
-            android:id="@+id/action_savelinkCustomFragment_to_savelinkZipFragment"
-            app:destination="@id/savelinkZipFragment"/>
+            android:id="@+id/action_customlinkCustomFragment_to_customlinkZipFragment"
+            app:destination="@id/customlinkZipFragment"/>
         <action
-            android:id="@+id/action_savelinkCustomFragment_to_savelinkAlarmFragment"
-            app:destination="@id/savelinkAlarmFragment"/>
+            android:id="@+id/action_customlinkCustomFragment_to_customlinkAlarmFragment"
+            app:destination="@id/customlinkAlarmFragment"/>
         <action
-            android:id="@+id/action_savelinkCustomFragment_to_savelinkMemoFragment"
-            app:destination="@id/savelinkMemoFragment"/>
+            android:id="@+id/action_customlinkCustomFragment_to_customlinkMemoFragment"
+            app:destination="@id/customlinkMemoFragment"/>
         <action
-            android:id="@+id/action_savelinkCustomFragment_to_openLinkFragment"
+            android:id="@+id/action_customlinkCustomFragment_to_openLinkFragment"
             app:destination="@id/openLinkFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/savelinkAlarmFragment"
+        android:id="@+id/customlinkAlarmFragment"
         android:name="umc.link.zip.presentation.create.CustomlinkAlarmFragment"
-        android:label="SavelinkAlarmFragment">
+        android:label="CustomlinkAlarmFragment">
         <action
-            android:id="@+id/action_savelinkAlarmFragment_to_savelinkCustomFragment"
-            app:destination="@id/savelinkCustomFragment"/>
+            android:id="@+id/action_customlinkAlarmFragment_to_customlinkCustomFragment"
+            app:destination="@id/customlinkCustomFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/savelinkMemoFragment"
+        android:id="@+id/customlinkMemoFragment"
         android:name="umc.link.zip.presentation.create.CustomlinkMemoFragment"
-        android:label="SavelinkMemoFragment">
+        android:label="CustomlinkMemoFragment">
         <action
-            android:id="@+id/action_savelinkMemoFragment_to_savelinkCustomFragment"
-            app:destination="@id/savelinkCustomFragment"/>
+            android:id="@+id/action_customlinkMemoFragment_to_customlinkCustomFragment"
+            app:destination="@id/customlinkCustomFragment"/>
     </fragment>
 
     <fragment

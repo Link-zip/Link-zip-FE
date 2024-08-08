@@ -31,18 +31,18 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
     }
 
     private fun navigateToZip() {
-        findNavController().navigate(R.id.action_savelinkCustomFragment_to_savelinkZipFragment)
+        findNavController().navigate(R.id.action_customlinkCustomFragment_to_customlinkZipFragment)
     }
 
     private fun navigateToMemo() {
-        findNavController().navigate(R.id.action_savelinkCustomFragment_to_savelinkMemoFragment)
+        findNavController().navigate(R.id.action_customlinkCustomFragment_to_customlinkMemoFragment)
     }
 
     private fun navigateToAlarm() {
-        findNavController().navigate(R.id.action_savelinkCustomFragment_to_savelinkAlarmFragment)
+        findNavController().navigate(R.id.action_customlinkCustomFragment_to_customlinkAlarmFragment)
     }
 
     private fun navigateToOpenLink() {
-        findNavController().navigate(R.id.action_savelinkCustomFragment_to_openLinkFragment)
+        findNavController().navigate(R.id.action_customlinkCustomFragment_to_openLinkFragment)
     }
 }

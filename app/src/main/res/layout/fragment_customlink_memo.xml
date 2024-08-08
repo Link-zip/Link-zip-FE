@@ -2,7 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="umc.link.zip.presentation.create.LinkViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

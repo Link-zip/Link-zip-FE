@@ -22,6 +22,6 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
     }
 
     private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_savelinkAlarmFragment_to_savelinkCustomFragment)
+        findNavController().navigate(R.id.action_customlinkAlarmFragment_to_customlinkCustomFragment)
     }
 }

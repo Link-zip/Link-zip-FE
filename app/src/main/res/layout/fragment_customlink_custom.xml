@@ -2,7 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="umc.link.zip.presentation.create.LinkViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -175,7 +177,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_regular"
-            android:hint="Instagram의 제로베이스님 : “여름방학 알바 어쩌고"
+            android:hint="Instagram의 제로베이스님 : “여름방학 알차게 보내고 싶다면"
+            android:text=""
             android:letterSpacing="-0.03"
             android:layout_marginStart="12dp"
             android:textSize="16sp"

@@ -180,6 +180,7 @@
             app:layout_constraintStart_toEndOf="@id/iv_customText_alarm_date"
             app:layout_constraintTop_toBottomOf="@id/view_customText_alarm_mg6">
 
+            <!-- 초기화 클릭 시 -->
             <TextView
                 android:id="@+id/tv_customText_alarm_date_default"
                 android:layout_width="wrap_content"
@@ -189,21 +190,22 @@
                 android:text="설정된 알림이 없습니다."
                 android:textColor="@color/nav_selected"
                 android:textSize="16sp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <!-- 현재 날짜 -->
             <TextView
                 android:id="@+id/tv_customText_alarm_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
                 android:letterSpacing="-0.03"
-                android:text="2024.06.21"
+                android:hint="2024.06.21"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -282,6 +284,7 @@
             app:layout_constraintStart_toEndOf="@id/iv_customText_alarm_date"
             app:layout_constraintTop_toBottomOf="@id/view_customText_alarm_mg8">
 
+            <!-- 초기화 클릭 시 -->
             <TextView
                 android:id="@+id/tv_customText_alarm_time_default"
                 android:layout_width="wrap_content"
@@ -291,20 +294,21 @@
                 android:text="설정된 알림이 없습니다."
                 android:textColor="@color/nav_selected"
                 android:textSize="16sp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <!-- 현재 날짜 -->
             <TextView
                 android:id="@+id/tv_customText_alarm_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_regular"
                 android:letterSpacing="-0.03"
-                android:text="PM 06:00"
+                android:hint="PM 06:00"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
