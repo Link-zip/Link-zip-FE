@@ -3,4 +3,5 @@
     <declare-styleable name="CornerView">
         <attr name="radius" format="dimension"/>
     </declare-styleable>
+    <attr name="statusBarBackground" format="color"/>
 </resources>

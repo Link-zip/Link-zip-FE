@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:paddingTop="37.5dp">
 
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_mypage_setting"
             android:layout_width="match_parent"

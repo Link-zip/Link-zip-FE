@@ -19,7 +19,11 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
-        android:label="ListFragment" />
+        android:label="ListFragment" >
+        <action
+            android:id="@+id/action_listFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment" />
+    </fragment>
     <fragment
         android:id="@+id/zipFragment"
         android:name="umc.link.zip.presentation.zip.ZipFragment"
