@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import umc.link.zip.databinding.ItemAlarmBinding
 import umc.link.zip.domain.model.alarm.Alarm
 
-class AlarmRVA : ListAdapter<Alarm, AlarmRVA.AlarmViewHolder>(AlarmDiffCallback()) {
+class AlarmRVA(private val onItemClick: (Alarm) -> Unit) : ListAdapter<Alarm, AlarmRVA.AlarmViewHolder>(AlarmDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
         val binding = ItemAlarmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,7 +17,8 @@ class AlarmRVA : ListAdapter<Alarm, AlarmRVA.AlarmViewHolder>(AlarmDiffCallback(
     }
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val alarm = getItem(position)
+        holder.bind(alarm)
     }
 
     inner class AlarmViewHolder(private val binding: ItemAlarmBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -27,6 +28,11 @@ class AlarmRVA : ListAdapter<Alarm, AlarmRVA.AlarmViewHolder>(AlarmDiffCallback(
 
             // 아이콘 visibility 설정
             setIconVisibility(alarm)
+
+            // 아이템 클릭 리스너 설정
+            binding.root.setOnClickListener {
+                onItemClick(alarm)
+            }
         }
 
         private fun setIconVisibility(alarm: Alarm) {

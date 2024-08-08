@@ -58,13 +58,15 @@
         android:id="@+id/profilesetFragment"
         android:name="umc.link.zip.presentation.login.ProfilesetFragment"
         android:label="ProfilesetFragment" />
+
     <fragment
         android:id="@+id/profilesetCompletedFragment"
         android:name="umc.link.zip.presentation.login.ProfilesetCompletedFragment"
         android:label="ProfilesetCompletedFragment" />
+
     <fragment
         android:id="@+id/alarmFragment"
-        android:name="umc.link.zip.presentation.home.AlarmFragment"
+        android:name="umc.link.zip.presentation.home.alarm.AlarmFragment"
         android:label="AlarmFragment">
         <action
             android:id="@+id/action_alarmFragment_to_homeFragment"
@@ -180,6 +182,7 @@
     <navigation
         android:id="@+id/mypageFragmentTab"
         app:startDestination="@id/mypageFragment">
+
         <fragment
             android:id="@+id/mypageFragment"
             android:name="umc.link.zip.presentation.mypage.MypageFragment"
@@ -191,6 +194,7 @@
                 android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
                 app:destination="@id/mypageProfileFragment" />
         </fragment>
+
         <fragment
             android:id="@+id/mypageSettingFragment"
             android:name="umc.link.zip.presentation.mypage.MypageSettingFragment"
@@ -200,6 +204,7 @@
                 android:id="@+id/action_mypageSettingFragment_to_noticeFragment"
                 app:destination="@id/noticeFragment" />
         </fragment>
+
         <fragment
             android:id="@+id/noticeFragment"
             android:name="umc.link.zip.presentation.mypage.NoticeFragment"
@@ -209,11 +214,13 @@
                 android:id="@+id/action_noticeFragment_to_noticeDetailFragment"
                 app:destination="@id/noticeDetailFragment" />
         </fragment>
+
         <fragment
             android:id="@+id/noticeDetailFragment"
             android:name="umc.link.zip.presentation.mypage.NoticeDetailFragment"
             android:label="NoticeDetailFragment"
             tools:layout="@layout/fragment_notice_detail"/>
+
         <fragment
             android:id="@+id/mypageProfileFragment"
             android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
@@ -223,6 +230,7 @@
                 android:id="@+id/action_mypageProfileFragment_to_mypageWithdrawalFragment"
                 app:destination="@id/mypageWithdrawalFragment" />
         </fragment>
+
         <fragment
             android:id="@+id/mypageWithdrawalFragment"
             android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
