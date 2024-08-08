@@ -42,7 +42,7 @@ class OpenZipItemAdapter(private var links: List<ZipLinkItem>) :
                 Glide.with(ivItemLinkImgMain.context)
                     .load(link.thumbnail)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivItemLinkImgIv)
+                    .into(ivItemLinkImgMain)
 
                 // Adjust visibility based on whether the text field is empty or not
                 ivItemLinkTypeText.visibility = if (link.text.isNotEmpty()) View.VISIBLE else View.GONE
