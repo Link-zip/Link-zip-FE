@@ -9,7 +9,7 @@ import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create) {
-    private val viewModel: LinkViewModel by viewModels()
+    private val viewModel: CustomLinkViewModel by viewModels()
 
     override fun initObserver() {
         viewModel.linkData.observe(viewLifecycleOwner) { linkData ->

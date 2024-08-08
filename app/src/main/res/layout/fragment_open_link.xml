@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="umc.link.zip.presentation.create.LinkViewModel" />
+            type="umc.link.zip.presentation.create.CustomLinkViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -95,6 +95,15 @@
                     android:src="@drawable/shape_rect_gradiant"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_openLink_heart"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_heart_unselected"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintEnd_toEndOf="@id/tv_openLink_counting"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_openLink_topImg"/>
 
                 <View
                     android:id="@+id/view_openLink_mg4"

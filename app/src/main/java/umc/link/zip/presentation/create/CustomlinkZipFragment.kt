@@ -9,7 +9,7 @@ import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
 class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layout.fragment_customlink_zip) {
-    private val viewModel: LinkViewModel by viewModels()
+    private val viewModel: CustomLinkViewModel by viewModels()
 
     override fun initObserver() {
         // ViewModel의 LiveData를 관찰합니다.
