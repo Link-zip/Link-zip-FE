@@ -12,7 +12,7 @@ import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
-    //    private val viewModel: ListViewModel by viewModels()
+//    private val viewModel: ListViewModel by viewModels()
     private var _listVPA: ListVPA? = null
     private val listVPA get() = _listVPA
     private val navigator by lazy { findNavController() }
@@ -43,9 +43,7 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
 
     private fun setupButtonListeners() {
         binding.ivListAlarm.setOnClickListener {
-            /* 알림 페이지 이동
             navigator.navigate(R.id.action_listFragment_to_alarmFragment)
-             */
         }
     }
 
@@ -55,6 +53,7 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
     }
 
     companion object {
-        private val tabTitles = listOf("미열람 링크", "좋아요 한 링크", "최근 저장한 링크")
+        private val tabTitles = listOf("미열람 링크", "좋아요 누른 링크", "최근 저장한 링크")
     }
 }
+

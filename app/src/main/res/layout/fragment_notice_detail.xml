@@ -1,145 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_notice_detail"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/bg_transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/black">
+        android:layout_height="match_parent"
+        android:paddingTop="37.5dp">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_notice_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp">
 
-            <ImageView
-                android:id="@+id/iv_notice_detail_toolbar_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/ic_mypage_profile_back"
-                android:contentDescription="뒤로가기" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_notice_detail_toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:text="공지사항"
-                android:textAppearance="@style/appbar_title"
-                android:gravity="center"
-                android:textColor="@android:color/black" />
-        </RelativeLayout>
+                <View
+                    android:id="@+id/toolbar_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintWidth_percent="0.066667"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.appcompat.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/iv_notice_detail_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/toolbar_mg1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_mypage_profile_back"
+                    android:contentDescription="뒤로가기" />
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_notice_detail">
+                <TextView
+                    android:id="@+id/tv_notice_detail_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="설정"
+                    android:textAppearance="@style/appbar_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@android:color/black" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_notice_detail">
 
-            <View
-                android:id="@+id/view_notice_detail_mg1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="24:24"
-                app:layout_constraintWidth_percent="0.0666666666666667"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_notice_detail_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2024.06.29"
-                android:textAppearance="@style/notice_detail_date"
-                app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg1"
-                app:layout_constraintStart_toEndOf="@id/view_notice_detail_mg1"
-                android:lineSpacingExtra="3sp"
-                android:translationY="-1.65sp"
-                android:gravity="top"
-                />
+                <View
+                    android:id="@+id/view_notice_detail_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:24"
+                    app:layout_constraintWidth_percent="0.0666666666666667"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <View
-                android:id="@+id/view_notice_detail_mg2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="24:16"
-                app:layout_constraintWidth_percent="0.0666666666666667"
-                app:layout_constraintTop_toBottomOf="@id/tv_notice_detail_date"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                <TextView
+                    android:id="@+id/tv_notice_detail_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2024.06.29"
+                    android:textAppearance="@style/notice_detail_date"
+                    app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg1"
+                    app:layout_constraintStart_toEndOf="@id/view_notice_detail_mg1"
+                    android:lineSpacingExtra="3sp"
+                    android:translationY="-1.65sp"
+                    android:gravity="top" />
 
-            <TextView
-                android:id="@+id/tv_notice_detail_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="공지사항 제목공지사항 제목공지사항 제목공지사항 제목 ##최대 2줄로"
-                android:textAppearance="@style/notice_detail_title"
-                app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg2"
-                app:layout_constraintStart_toStartOf="@id/tv_notice_detail_date"
-                app:layout_constraintEnd_toStartOf="@id/view_notice_detail_mg2"
-                android:lineSpacingExtra="4sp"
-                android:translationY="-1.76sp"
-                android:gravity="top"
-                />
+                <View
+                    android:id="@+id/view_notice_detail_mg2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:16"
+                    app:layout_constraintWidth_percent="0.0666666666666667"
+                    app:layout_constraintTop_toBottomOf="@id/tv_notice_detail_date"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <View
-                android:id="@+id/view_notice_detail_mg3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="24:32"
-                app:layout_constraintWidth_percent="0.0666666666666667"
-                app:layout_constraintTop_toBottomOf="@id/tv_notice_detail_title"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                <TextView
+                    android:id="@+id/tv_notice_detail_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="공지사항 제목공지사항 제목공지사항 제목공지사항 제목 ##최대 2줄로"
+                    android:textAppearance="@style/notice_detail_title"
+                    app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg2"
+                    app:layout_constraintStart_toStartOf="@id/tv_notice_detail_date"
+                    app:layout_constraintEnd_toStartOf="@id/view_notice_detail_mg2"
+                    android:lineSpacingExtra="4sp"
+                    android:translationY="-1.76sp"
+                    android:gravity="top" />
 
-            <View
-                android:id="@+id/view_notice_detail_line"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@color/nav_unselected"
-                app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg3"
-                app:layout_constraintStart_toStartOf="@id/tv_notice_detail_title"
-                app:layout_constraintEnd_toEndOf="@id/tv_notice_detail_title"
-                />
+                <View
+                    android:id="@+id/view_notice_detail_mg3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:32"
+                    app:layout_constraintWidth_percent="0.0666666666666667"
+                    app:layout_constraintTop_toBottomOf="@id/tv_notice_detail_title"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <View
-                android:id="@+id/view_notice_detail_mg4"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="24:24"
-                app:layout_constraintWidth_percent="0.0666666666666667"
-                app:layout_constraintTop_toBottomOf="@id/view_notice_detail_line"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                <View
+                    android:id="@+id/view_notice_detail_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/nav_unselected"
+                    app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg3"
+                    app:layout_constraintStart_toStartOf="@id/tv_notice_detail_title"
+                    app:layout_constraintEnd_toEndOf="@id/tv_notice_detail_title" />
 
-            <TextView
-                android:id="@+id/tv_notice_detail_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="공지사항 내용"
-                android:textAppearance="@style/notice_detail_date"
-                android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg4"
-                app:layout_constraintStart_toStartOf="@id/tv_notice_detail_title"
-                app:layout_constraintEnd_toEndOf="@id/tv_notice_detail_title"
-                android:lineSpacingExtra="3sp"
-                android:translationY="-1.65sp"
-                android:gravity="top"
-                />
+                <View
+                    android:id="@+id/view_notice_detail_mg4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:24"
+                    app:layout_constraintWidth_percent="0.0666666666666667"
+                    app:layout_constraintTop_toBottomOf="@id/view_notice_detail_line"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/tv_notice_detail_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="공지사항 내용"
+                    android:textAppearance="@style/notice_detail_date"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/view_notice_detail_mg4"
+                    app:layout_constraintStart_toStartOf="@id/tv_notice_detail_title"
+                    app:layout_constraintEnd_toEndOf="@id/tv_notice_detail_title"
+                    android:lineSpacingExtra="3sp"
+                    android:translationY="-1.65sp"
+                    android:gravity="top" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

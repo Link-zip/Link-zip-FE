@@ -688,7 +688,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="132dp"
                                 android:layout_marginHorizontal="8dp"
-                                android:text="핀터레스트(Pinterest)"
+                                android:text="뉴닉"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/pretendard_semibold"

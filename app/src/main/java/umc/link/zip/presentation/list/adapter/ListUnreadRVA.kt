@@ -41,8 +41,7 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
                 if (link.text.isNotEmpty()) { // text 존재시 텍스트 요약
                     ivItemListTypeText.visibility = View.VISIBLE
                     ivItemListTypeLink.visibility = View.GONE
-                }
-                if (link.text.isEmpty()) { // 링크 저장
+                }else{ // 링크 저장
                     ivItemListTypeText.visibility = View.GONE
                     ivItemListTypeLink.visibility = View.VISIBLE
                 }
@@ -54,10 +53,9 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
                 // zip 사진
                 returnZipColor(link.zip.color, ivItemListZip)
                 // 좋아요
-                if(link.likes == 1){
-                    ivItemLike.setImageResource(R.drawable.ic_heart_selected)
-                }else {
-                    ivItemLike.setImageResource(R.drawable.ic_heart_unselected)
+                setLike(link, ivItemLike) { updatedLink ->
+                    // 서버에 변경 사항 반영
+                    // updateLikeStatusOnServer(updatedLink)
                 }
                 root.setOnClickListener {
                     unreadLink(link.id.toInt())
@@ -78,6 +76,27 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
             else -> null
         }
         view.setImageDrawable(drawable)
+    }
+
+    fun setLike(link: Link, view: ImageView, onLikeChanged: (Link) -> Unit) {
+        // 초기 상태 설정
+        if (link.likes == 1) {
+            view.setImageResource(R.drawable.ic_heart_selected)
+        } else {
+            view.setImageResource(R.drawable.ic_heart_unselected)
+        }
+
+        // 클릭 리스너 설정
+        view.setOnClickListener {
+            link.likes = if (link.likes == 1) 0 else 1
+            if (link.likes == 1) {
+                view.setImageResource(R.drawable.ic_heart_selected)
+            } else {
+                view.setImageResource(R.drawable.ic_heart_unselected)
+            }
+            // 좋아요 상태가 변경되었음을 외부에 알림
+            onLikeChanged(link)
+        }
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Link>() {
