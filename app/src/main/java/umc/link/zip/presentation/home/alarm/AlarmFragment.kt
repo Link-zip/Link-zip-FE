@@ -1,16 +1,12 @@
-package umc.link.zip.presentation.home.alarm
-
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentAlarmBinding
 import umc.link.zip.presentation.base.BaseFragment
-import umc.link.zip.presentation.home.alarm.adapter.AlarmRVA
 
 @AndroidEntryPoint
 class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm) {
@@ -44,7 +40,9 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
         }
 
         // 어댑터
-        adapter = AlarmRVA()
+        adapter = AlarmRVA { alarm ->
+            viewModel.updateAlarmStatus(alarm.id)
+        }
         binding.profilePostRv.adapter = adapter
     }
 }

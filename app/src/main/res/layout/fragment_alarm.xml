@@ -14,6 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:id="@+id/toolbar_alarm_mg0"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- shadow -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:alpha="0.1"
+            android:scaleType="fitXY"
+            android:src="@drawable/shape_rect_gradiant_down"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <!-- toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_alarm"
@@ -21,7 +38,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm_mg0"
             android:contentInsetStart="0dp"
             android:contentInsetLeft="0dp"
             android:contentInsetRight="0dp"
@@ -89,8 +106,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_alarm_none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm_mg0"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="visible">
 
@@ -127,16 +145,6 @@
                 app:layout_constraintDimensionRatio="360:40"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
-
-            <!-- shadow -->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:alpha="0.1"
-                android:scaleType="fitXY"
-                android:src="@drawable/shape_rect_gradiant_down"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
