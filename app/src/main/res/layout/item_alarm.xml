@@ -3,25 +3,85 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="alarm"
+            type="umc.link.zip.domain.model.alarm.Alarm"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_itemAlarm_icon"
+        <View
+            android:id="@+id/view_itemAlarm_mg1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <View
+            android:id="@+id/view_itemAlarm_mg2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- icon -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_itemAlarm_icon"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:src="@drawable/ic_alarm_notmissnotcheck"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/view_itemAlarm_mg1"
+            app:layout_constraintTop_toTopOf="@id/tv_itemAlarm_type_original"
+            app:layout_constraintBottom_toBottomOf="@id/tv_itemAlarm_type_original">
+
+            <ImageView
+                android:id="@+id/iv_itemAlarm_original0_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_alarm_notmissnotcheck"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/iv_itemAlarm_original1_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_alarm_notmisscheck"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/iv_itemAlarm_remind0_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_alarm_missnotcheck"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/iv_itemAlarm_remind1_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_alarm_misscheck"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <TextView
-            android:id="@+id/tv_itemAlarm_type"
+            android:id="@+id/tv_itemAlarm_type_original"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="리마인드 알림"
@@ -30,60 +90,158 @@
             android:fontFamily="@font/pretendard_regular"
             android:letterSpacing="-0.03"
             android:paddingStart="8dp"
-            app:layout_constraintStart_toEndOf="@id/iv_itemAlarm_icon"
-            app:layout_constraintTop_toTopOf="@id/iv_itemAlarm_icon"
-            app:layout_constraintBottom_toBottomOf="@id/iv_itemAlarm_icon"/>
+            app:layout_constraintStart_toEndOf="@id/cl_itemAlarm_icon"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg1"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_itemAlarm_type_remind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="놓친 리마인드 알림"
+            android:textSize="12sp"
+            android:textColor="@color/nav_selected"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            android:paddingStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/cl_itemAlarm_icon"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg1"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_itemAlarm_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="분 전"
+            android:textSize="12sp"
+            android:textColor="@color/dark_gray"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg2"
+            app:layout_constraintEnd_toStartOf="@id/view_itemAlarm_mg2"/>
 
         <TextView
             android:id="@+id/tv_itemAlarm_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20분 전"
+            android:text="20"
             android:textSize="12sp"
             android:textColor="@color/dark_gray"
             android:fontFamily="@font/pretendard_regular"
             android:letterSpacing="-0.03"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_itemAlarm_icon"
-            app:layout_constraintBottom_toBottomOf="@id/iv_itemAlarm_icon"/>
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg2"
+            app:layout_constraintEnd_toStartOf="@id/tv_itemAlarm_min"/>
+
+        <View
+            android:id="@+id/view_itemAlarm_mg3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toBottomOf="@id/tv_itemAlarm_type_original"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_itemAlarm_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="“(링크 제목)” 리마인드 알림이 도착했어요!  ## 제목은 최대 2줄"
+            android:hint="## 제목은 최대 2줄"
+            android:text="@{alarm.alarm_title}"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:fontFamily="@font/pretendard_semibold"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="5sp"
             android:maxLines="2"
-            android:layout_marginTop="18dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_itemAlarm_icon"/>
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg3"
+            app:layout_constraintStart_toEndOf="@id/view_itemAlarm_mg3"
+            app:layout_constraintEnd_toStartOf="@id/view_itemAlarm_mg2"/>
 
-        <TextView
-            android:id="@+id/tv_itemAlarm_memo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="해당 링크에 커스터마이징된 ‘메모’를 삽입. 메모가 없다면 “ Link.zip에서 리마인드 알림을 보내드려요! 지금 바로 링크의 내용을 확인해보세요.”를 표시   ## 내용은 최대 3줄"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/pretendard_regular"
-            android:letterSpacing="-0.03"
-            android:lineSpacingExtra="3sp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:maxLines="3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <View
+            android:id="@+id/view_itemAlarm_mg4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:12"
+            app:layout_constraintWidth_percent="0.066667"
             app:layout_constraintTop_toBottomOf="@id/tv_itemAlarm_title"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_itemAlarm_memo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/view_itemAlarm_mg4"
+            app:layout_constraintEnd_toStartOf="@id/view_itemAlarm_mg2"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg4">
+
+
+            <TextView
+                android:id="@+id/tv_itemAlarm_memo_show"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="저장된 메모 | "
+                android:textSize="14sp"
+                android:textColor="@color/nav_selected"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_itemAlarm_memo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="어쩌고저쩌고"
+                android:text="@{alarm.alarm_content}"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:layout_constraintStart_toEndOf="@id/tv_itemAlarm_memo_show"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tv_itemAlarm_memo_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Link.zip에서 리마인드 알림을 보내드려요! 지금 바로 링크의 내용을 확인해보세요."
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_itemAlarm_mg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toBottomOf="@id/cl_itemAlarm_memo"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/nav_unselected"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlarm_mg5"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
