@@ -8,7 +8,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="37.5dp">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_mypage_setting"
@@ -85,6 +87,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/cl_mypage_setting_alarm" />
 
             <ImageView
+                android:id="@+id/iv_mypage_setting_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/toggle_mypage_setting_alarm"

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.link.zip.presentation.home.HomeFragment"
@@ -21,14 +23,6 @@
         <action
             android:id="@+id/action_listFragment_to_alarmFragment"
             app:destination="@id/alarmFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mypageFragment"
-        android:name="umc.link.zip.presentation.mypage.MypageFragment"
-        android:label="MypageFragment">
-        <action
-            android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
-            app:destination="@id/mypageProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/zipFragment"
@@ -54,4 +48,56 @@
         android:id="@+id/alarmFragment"
         android:name="umc.link.zip.presentation.home.AlarmFragment"
         android:label="AlarmFragment" />
+    <navigation
+        android:id="@+id/mypageFragmentTab"
+        app:startDestination="@id/mypageFragment">
+        <fragment
+            android:id="@+id/mypageFragment"
+            android:name="umc.link.zip.presentation.mypage.MypageFragment"
+            android:label="MypageFragment">
+            <action
+                android:id="@+id/action_mypageFragment_to_mypageSettingFragment"
+                app:destination="@id/mypageSettingFragment"/>
+            <action
+                android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
+                app:destination="@id/mypageProfileFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/mypageSettingFragment"
+            android:name="umc.link.zip.presentation.mypage.MypageSettingFragment"
+            android:label="MypageSettingFragment"
+            tools:layout="@layout/fragment_mypage_setting">
+            <action
+                android:id="@+id/action_mypageSettingFragment_to_noticeFragment"
+                app:destination="@id/noticeFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/noticeFragment"
+            android:name="umc.link.zip.presentation.mypage.NoticeFragment"
+            android:label="NoticeFragment"
+            tools:layout="@layout/fragment_notice">
+            <action
+                android:id="@+id/action_noticeFragment_to_noticeDetailFragment"
+                app:destination="@id/noticeDetailFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/noticeDetailFragment"
+            android:name="umc.link.zip.presentation.mypage.NoticeDetailFragment"
+            android:label="NoticeDetailFragment"
+            tools:layout="@layout/fragment_notice_detail"/>
+        <fragment
+            android:id="@+id/mypageProfileFragment"
+            android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
+            android:label="MypageProfileFragment"
+            tools:layout="@layout/fragment_mypage_profile">
+            <action
+                android:id="@+id/action_mypageProfileFragment_to_mypageWithdrawalFragment"
+                app:destination="@id/mypageWithdrawalFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/mypageWithdrawalFragment"
+            android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
+            android:label="MypageWithdrawalFragment"
+            tools:layout="@layout/fragment_mypage_withdrawal"/>
+    </navigation>
 </navigation>
