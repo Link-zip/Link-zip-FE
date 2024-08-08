@@ -1,8 +1,13 @@
 package umc.link.zip.presentation.create
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkZipBinding
 import umc.link.zip.presentation.base.BaseFragment
@@ -12,9 +17,13 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     private val viewModel: CustomLinkViewModel by viewModels()
 
     override fun initObserver() {
-        // ViewModel의 LiveData를 관찰합니다.
-        viewModel.linkData.observe(viewLifecycleOwner) { linkData ->
-            // 필요시 데이터를 UI에 반영합니다.
+        // ViewModel의 StateFlow를 관찰합니다.
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.link.collectLatest { linkData ->
+                    // 필요시 데이터를 UI에 반영합니다.
+                }
+            }
         }
     }
 
@@ -26,7 +35,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         }
 
         binding.clCustomLinkZipNextBtn.setOnClickListener {
-            viewModel.setZipId("chosenZipId") // Zip 선택 로직 추가 필요
+            // 실제 Zip 선택 로직 필요
+            // viewModel.setZip("chosenZipId")
             navigateToCustom()
         }
     }

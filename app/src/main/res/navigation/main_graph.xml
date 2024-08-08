@@ -15,7 +15,11 @@
         <action
             android:id="@+id/action_homeFragment_to_alarmFragment"
             app:destination="@id/alarmFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_customLinkAlarmFragment"
+            app:destination="@id/customlinkAlarmFragment"/>
     </fragment>
+
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
