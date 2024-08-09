@@ -1,6 +1,7 @@
 package umc.link.zip.presentation.create
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenLinkBinding
@@ -15,9 +16,22 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
     }
 
     override fun initView() {
+        binding.ivOpenLinkToolbarBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.btnOpenLinkEdit.setOnClickListener {
+            navigateToCustomLinkCustom()
+        }
     }
 
-    /*private fun setLike(link: Link, view: ImageView, onLikeChanged: (Link) -> Unit) {
+    private fun navigateToCustomLinkCustom() {
+        findNavController().navigate(R.id.action_openLinkFragment_to_customLinkCustomFragment)
+    }
+
+
+    /*
+    private fun setLike(link: Link, view: ImageView, onLikeChanged: (Link) -> Unit) {
         // 초기 상태 설정
         if (link.likes == 1) {
             view.setImageResource(R.drawable.ic_heart_selected)

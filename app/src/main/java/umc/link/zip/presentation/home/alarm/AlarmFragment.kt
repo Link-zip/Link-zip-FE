@@ -55,7 +55,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
             viewModel.updateAlarmStatus(alarm.id)
         }
         binding.profilePostRv.adapter = alarmRVA
-/*
+
         // 더미 데이터 설정
         val dummyAlarms = listOf(
             Alarm(
@@ -109,6 +109,6 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
         )
 
         // ViewModel에 더미 데이터를 설정합니다.
-        viewModel.setAlarms(dummyAlarms)*/
+        viewModel.setAlarms(dummyAlarms)
     }
 }

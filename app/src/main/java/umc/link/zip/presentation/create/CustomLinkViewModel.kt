@@ -10,18 +10,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CustomLinkViewModel @Inject constructor() : ViewModel() {
 
-    private val _link = MutableStateFlow<Link>(
-            Link(
-                    id = "",
-                    title = "",
-                    url = "",
-                    text = "",
-                    thumbnail = "",
-                    likes = 0,
-                    createdAt = "",
-                    zip = Zip(id = "", title = "", color = "")
-            )
-    )
-
-
+        private val _link = MutableStateFlow<Link>(
+                Link(
+                        zipId = 0,           // 초기값으로 0 사용
+                        title = "",
+                        text = "",
+                        url = "",
+                        memo = "",
+                        alertDate = ""
+                )
+        )
 }

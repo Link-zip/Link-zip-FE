@@ -5,12 +5,19 @@
     <data>
         <variable
             name="viewModel"
-            type="umc.link.zip.presentation.create.CustomLinkViewModel" />
+            type="umc.link.zip.presentation.create.CreateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/toolbar_create_mg0"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <!-- appbar -->
         <androidx.appcompat.widget.Toolbar
@@ -27,7 +34,7 @@
             app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create_mg0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -233,7 +240,7 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:alpha="0.5"
+                android:alpha="0.4"
                 android:background="@drawable/shape_rect_8_white_fill_312_96_gradient"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -258,6 +265,7 @@
             app:layout_constraintTop_toBottomOf="@id/view_create_mg9"
             app:layout_constraintStart_toEndOf="@id/view_create_mg9">
 
+            <!-- ET empty -->
             <ImageView
                 android:id="@+id/iv_create_link_oval_gray"
                 android:layout_width="wrap_content"
@@ -280,6 +288,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_create_link_oval_gray"
                 app:layout_constraintBottom_toBottomOf="@id/iv_create_link_oval_gray"/>
 
+            <!-- ET not empty -->
             <ImageView
                 android:id="@+id/iv_create_link_oval_blue"
                 android:layout_width="wrap_content"
@@ -290,7 +299,7 @@
                 android:visibility="invisible"/>
 
             <TextView
-                android:id="@+id/tv_create_oval_link_blue"
+                android:id="@+id/tv_create_link_oval_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_semibold"
@@ -388,7 +397,7 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:alpha="0.5"
+                android:alpha="0.4"
                 android:background="@drawable/shape_rect_8_white_fill_312_96_gradient"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -413,6 +422,7 @@
             app:layout_constraintTop_toBottomOf="@id/view_create_mg12"
             app:layout_constraintStart_toEndOf="@id/view_create_mg12">
 
+            <!-- ET empty -->
             <ImageView
                 android:id="@+id/iv_create_text_oval_gray"
                 android:layout_width="wrap_content"
@@ -422,7 +432,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tv_create_text_oval_link_gray"
+                android:id="@+id/tv_create_text_oval_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_semibold"
@@ -435,6 +445,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_create_text_oval_gray"
                 app:layout_constraintBottom_toBottomOf="@id/iv_create_text_oval_gray"/>
 
+            <!-- ET not empty -->
             <ImageView
                 android:id="@+id/iv_create_text_oval_blue"
                 android:layout_width="wrap_content"
@@ -445,7 +456,7 @@
                 android:visibility="invisible"/>
 
             <TextView
-                android:id="@+id/tv_create_text_oval_link_blue"
+                android:id="@+id/tv_create_text_oval_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_semibold"

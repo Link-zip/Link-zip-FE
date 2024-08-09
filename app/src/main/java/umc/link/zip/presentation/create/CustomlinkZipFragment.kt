@@ -23,10 +23,18 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.clCustomLinkZipNextBtn.setOnClickListener {
             navigateToCustom()
         }
+
+        binding.clCustomLinkZipEasySaveBtn.setOnClickListener {
+            navigateToOpenLink()
+        }
     }
 
 
     private fun navigateToCustom() {
         findNavController().navigate(R.id.action_customlinkZipFragment_to_customlinkCustomFragment)
+    }
+
+    private fun navigateToOpenLink(){
+        findNavController().navigate(R.id.action_customlinkZipFragment_to_openLinkFragment)
     }
 }

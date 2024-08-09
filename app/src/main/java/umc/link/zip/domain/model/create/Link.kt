@@ -1,13 +1,11 @@
 package umc.link.zip.domain.model.create
 
 data class Link(
-        val id: String,
+        var zipId: Int,
         var title: String,
-        var url: String,
         var text: String,
-        var thumbnail: String,
-        var likes: Int,
-        var createdAt: String,
-        var zip: Zip
+        var url: String,
+        var memo: String,
+        var alertDate: String
 )
 

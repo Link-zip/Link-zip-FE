@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_customlinkZipFragment_to_customlinkCustomFragment"
             app:destination="@id/customlinkCustomFragment"/>
+        <action
+            android:id="@+id/action_customlinkZipFragment_to_openLinkFragment"
+            app:destination="@+id/openLinkFragment"/>
     </fragment>
 
     <fragment
@@ -157,12 +160,20 @@
     <fragment
         android:id="@+id/openTextFragment"
         android:name="umc.link.zip.presentation.create.OpenTextFragment"
-        android:label="OpenTextFragment"/>
+        android:label="OpenTextFragment">
+        <action
+            android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
+            app:destination="@id/customtextCustomFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/openLinkFragment"
         android:name="umc.link.zip.presentation.create.OpenLinkFragment"
-        android:label="OpenLinkFragment"/>
+        android:label="OpenLinkFragment">
+        <action
+            android:id="@+id/action_openLinkFragment_to_customLinkCustomFragment"
+            app:destination="@id/customlinkCustomFragment"/>
+    </fragment>
 
     <navigation
         android:id="@+id/mypageFragmentTab"

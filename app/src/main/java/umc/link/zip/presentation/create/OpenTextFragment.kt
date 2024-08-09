@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.create
 
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenTextBinding
@@ -12,6 +13,16 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
     }
 
     override fun initView() {
+        binding.ivOpenTextToolbarBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
+        binding.btnOpenTextEdit.setOnClickListener {
+            navigateToCustomTextCustom()
+        }
+    }
+
+    private fun navigateToCustomTextCustom() {
+        findNavController().navigate(R.id.action_openTextFragment_to_customTextCustomFragment)
     }
 }

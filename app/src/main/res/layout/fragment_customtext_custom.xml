@@ -9,6 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:id="@+id/toolbar_customText_custom_mg0"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <!--appbar-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_customText_custom"
@@ -24,7 +31,7 @@
             app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/toolbar_customText_custom_mg0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -100,7 +107,7 @@
             android:letterSpacing="0"
             android:lineSpacingExtra="4dp"
             android:minHeight="100dp"
-            android:hint="이제는 좁고 뾰족한 타겟을 두고 있는 마이크로/나노 인플루언서와의 협업을 통한 마케팅 전략이 대세이다. 상대적으로 저렴한 비용으로 브랜드의 메세지를 전달해 낼 수 있다는 것이 가장 큰 장점이다. 하지만 이들과의 협업 과정에서는 커뮤니케이션이 무엇보다 중요하기 때문에 상세하고 정확한 가이드라인이 가장 중요하다."
+            android:text="이제는 좁고 뾰족한 타겟을 두고 있는 마이크로/나노 인플루언서와의 협업을 통한 마케팅 전략이 대세이다. 상대적으로 저렴한 비용으로 브랜드의 메세지를 전달해 낼 수 있다는 것이 가장 큰 장점이다. 하지만 이들과의 협업 과정에서는 커뮤니케이션이 무엇보다 중요하기 때문에 상세하고 정확한 가이드라인이 가장 중요하다."
             android:textColor="@color/nav_selected"
             android:textSize="12sp"
             android:layout_marginTop="8dp"
