@@ -4,26 +4,92 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentZipBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.list.ListDialogueLineupFragment
 import umc.link.zip.presentation.zip.adapter.ZipAdapter
+import umc.link.zip.presentation.zip.adapter.ZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.ZipViewModel
+import umc.link.zip.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
-
-    override fun initObserver() {}
-    override fun initView() {}
-
     private val viewModel: ZipViewModel by viewModels()
     private var adapter: ZipAdapter? = null
     private var isEditMode = false
     private var isAllSelectedMode = false
+
+    private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by activityViewModels()
+    private var userSelectedLineup = "latest"
+
+    override fun initObserver() {
+        // lineup
+        viewLifecycleOwner.lifecycleScope.launch {
+            zipLineDialogSharedViewModel.selectedData.collectLatest { data ->
+                userSelectedLineup = data
+                setLineupOnDialog(userSelectedLineup)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            zipLineDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
+                if (dismissed) {
+                    setLineupDismissDialog(userSelectedLineup)
+                    zipLineDialogSharedViewModel.resetDialogDismissed()
+                }
+            }
+        }
+    }
+
+    private fun setLineupOnDialog(selected: String) {
+        when (selected) {
+            "latest" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_early_selected))
+            }
+            "oldest" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_old_selected))
+            }
+            "ganada" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_ganada_selected))
+            }
+            "visit" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_visit_selected))
+            }
+        }
+    }
+
+    private fun setLineupDismissDialog(selected: String) {
+        when (selected) {
+            "latest" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_early_unselected))
+            }
+            "oldest" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_old_unselected))
+            }
+            "ganada" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_ganada_unselected))
+            }
+            "visit" -> {
+                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_visit_unselected))
+            }
+        }
+    }
+
+    override fun initView() {
+        setupClickListener()
+        setLineupDismissDialog((userSelectedLineup))
+    }
+
 
     private val editClickListener = View.OnClickListener {
         toggleEditMode()
@@ -166,4 +232,17 @@ class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     private fun resetBackgroundColorOfItems() {
         adapter?.updateBackgroundColorOfItems(Color.parseColor("#FBFBFB"))
     }
+
+    private fun setupClickListener() {
+        //한번만 클릭 허용
+        binding.sortButton.setOnSingleClickListener {
+            setLineupOnDialog(userSelectedLineup)
+            viewLifecycleOwner.lifecycleScope.launch {
+                zipLineDialogSharedViewModel.setSelectedData(userSelectedLineup)
+            }
+            val dialogFragment = ListDialogueLineupFragment()
+            dialogFragment.show(parentFragmentManager, "ListDialogueLineupFragment")
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -60,7 +61,7 @@ dependencies {
 
     // Hilt Dependency Injection
     implementation("com.google.dagger:hilt-android:2.49")
-    ksp("com.google.dagger:hilt-compiler:2.49")
+    kapt("com.google.dagger:hilt-compiler:2.49")
 
     //gson
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
@@ -86,7 +87,7 @@ dependencies {
 
     // Glide Image Loading Library
     implementation("com.github.bumptech.glide:glide:4.14.2")
-    ksp("com.github.bumptech.glide:ksp:4.14.2")
+    kapt("com.github.bumptech.glide:ksp:4.14.2")
 
     //CardView
     implementation("androidx.cardview:cardview:1.0.0")
