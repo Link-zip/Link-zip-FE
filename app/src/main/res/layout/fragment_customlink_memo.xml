@@ -183,6 +183,7 @@
             android:letterSpacing="-0.03"
             android:maxLines="12"
             android:ellipsize="end"
+            android:singleLine="true"
             android:padding="8dp"
             android:scrollHorizontally="false"
             android:text=""

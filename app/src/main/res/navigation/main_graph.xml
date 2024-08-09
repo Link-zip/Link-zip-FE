@@ -44,6 +44,19 @@
         <action
             android:id="@+id/action_createFragment_to_customlinkZipFragment"
             app:destination="@id/customlinkZipFragment"/>
+
+        <action
+            android:id="@+id/action_createFragment_to_createLoadingFragment"
+            app:destination="@id/createLoadingFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createLoadingFragment"
+        android:name="umc.link.zip.presentation.create.CreateLoadingFragment"
+        android:label="CreateLoadingFragment">
+        <action
+            android:id="@+id/action_createLoadingFragment_to_customTextZipFragment"
+            app:destination="@id/customtextZipFragment"/>
     </fragment>
 
     <fragment
@@ -74,6 +87,9 @@
         android:id="@+id/customtextZipFragment"
         android:name="umc.link.zip.presentation.create.CustomtextZipFragment"
         android:label="CustomtextZipFragment">
+        <action
+            android:id="@+id/action_customtextZipFragment_to_createFragment"
+            app:destination="@+id/createFragment"/>
         <action
             android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
             app:destination="@id/customtextCustomFragment"/>

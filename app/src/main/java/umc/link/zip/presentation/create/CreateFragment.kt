@@ -52,7 +52,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         }
 
         binding.btnCreateSaveText.setOnClickListener {
-            navigateToText()
+            navigateToLoading()
         }
 
         binding.btnCreateSaveLink.setOnClickListener {
@@ -81,5 +81,9 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
     private fun navigateToLink() {
         findNavController().navigate(R.id.action_createFragment_to_customlinkZipFragment)
+    }
+
+    private fun navigateToLoading() {
+        findNavController().navigate(R.id.action_createFragment_to_createLoadingFragment)
     }
 }

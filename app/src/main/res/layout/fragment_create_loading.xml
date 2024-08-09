@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="umc.link.zip.presentation.create.CreateLoadingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,7 +77,7 @@
 
         <!-- 1번째 -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_create_loading1"
+            android:id="@+id/cl_create_loading3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +141,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create_loading_mg0"
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="invisible">
 
@@ -193,12 +195,12 @@
 
         <!-- 3번째 -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_create_loading3"
+            android:id="@+id/cl_create_loading1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create_loading_mg0"
             app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="invisible">
 
@@ -255,8 +257,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintHeight_percent="0.0338"
-            app:layout_constraintTop_toBottomOf="@id/cl_create_loading1" />
+            app:layout_constraintHeight_percent="0.03"
+            app:layout_constraintTop_toBottomOf="@id/cl_create_loading1"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tv_customText_custom_linkTitle"

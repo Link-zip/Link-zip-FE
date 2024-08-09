@@ -14,7 +14,7 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
 
     override fun initView() {
         binding.ivCustomTextZipToolbarBack.setOnClickListener{
-            findNavController().navigateUp()
+            navigateToCreate()
         }
 
         binding.clCustomTextZipNextBtn.setOnClickListener{
@@ -22,6 +22,9 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         }
     }
 
+    private fun navigateToCreate() {
+        findNavController().navigate(R.id.action_customtextZipFragment_to_createFragment)
+    }
 
     private fun navigateToCustom() {
         findNavController().navigate(R.id.action_customtextZipFragment_to_customtextCustomFragment)
