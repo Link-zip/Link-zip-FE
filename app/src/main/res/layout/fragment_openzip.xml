@@ -144,6 +144,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.6333"
+                app:layout_constraintEnd_toStartOf="@id/fragment_openzip_withdrawal_mg11"
                 app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg4"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -154,21 +155,24 @@
                     android:fontFamily="@font/pretendard_medium"
                     android:layout_marginEnd="4dp"
                     android:letterSpacing="-0.03"
-                    android:text="Test입니다"
+                    android:text="TextText"
                     android:textColor="@color/black"
                     android:textSize="16dp"
+                    android:maxLines="2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/fragment_openzip_dropdown_iv"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
 
                 <ImageView
                     android:id="@+id/fragment_openzip_dropdown_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:src="@drawable/ic_dropdown_arrow"
                     android:scaleType="matrix"
-                    android:layout_marginTop="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fragment_openzip_insite_tv"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -205,9 +209,10 @@
                 android:id="@+id/fragment_openzip_withdrawal_mg11"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:minWidth="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/zip_name_space"
                 app:layout_constraintDimensionRatio="24:76"
                 app:layout_constraintWidth_percent="0.0666" />
