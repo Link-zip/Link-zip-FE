@@ -1,5 +1,7 @@
 package umc.link.zip.presentation.create
 
+import android.content.Intent
+import android.net.Uri
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.Toast
@@ -49,6 +51,15 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
         binding.btnOpenLinkEdit.setOnClickListener {
             navigateToCustomLinkCustom()
+        }
+
+        // 원본 링크 이동
+        binding.btnOpenLinkMove.setOnClickListener {
+            viewModel.link.value?.url?.let { url ->
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                startActivity(intent)
+            }
         }
 
         // Toast 표시

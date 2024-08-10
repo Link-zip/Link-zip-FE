@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateViewModel @Inject constructor() : ViewModel() {
 
-    private val _link = MutableStateFlow<Link>(
+    private val _link = MutableStateFlow(
         Link(
             zipId = 0,           // 초기값으로 0 사용
             title = "",
@@ -27,32 +27,38 @@ class CreateViewModel @Inject constructor() : ViewModel() {
     private val dummyLinks = listOf(
         Link(
             zipId = 1,
-            title = "url1의 제목입니다",
+            title = "url1의 제목입니다 (네이버)",
             text = "url1의 텍스트입니다",
-            url = "url1",
-            memo = "",
+            url = "https://www.naver.com",
+            memo = "url1의 메모입니다",
             alertDate = "2024-08-10T10:00:00Z"
         ),
         Link(
             zipId = 2,
-            title = "url2의 제목입니다",
+            title = "url2의 제목입니다 (유튜브)",
             text = "url2의 텍스트입니다",
-            url = "url2",
-            memo = "",
+            url = "https://www.youtube.com",
+            memo = "url2의 메모입니다",
             alertDate = "2024-08-20T14:00:00Z"
         )
     )
 
     // URL을 통해 더미 데이터에서 Link 가져오기
     fun fetchLinkByUrl(url: String) {
-        _link.value = dummyLinks.find { it.url == url } ?: Link(
-            zipId = 0,
-            title = "Unknown Title",
-            text = "Unknown Text",
-            url = url,
-            memo = "",
-            alertDate = ""
-        )
+        val foundLink = dummyLinks.find { it.url == url }
+        if (foundLink != null) {
+            _link.value = foundLink
+        } else {
+            // URL이 목록에 없을 때 기본 값을 설정
+            _link.value = Link(
+                zipId = 0,
+                title = "Unknown Title",
+                text = "Unknown Text",
+                url = url,
+                memo = "",
+                alertDate = ""
+            )
+        }
     }
 
     // EditText의 내용을 감지하는 StateFlow
