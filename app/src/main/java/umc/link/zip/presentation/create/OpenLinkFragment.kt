@@ -75,7 +75,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         val layout = inflater.inflate(R.layout.custom_toast, null)
 
         val toast = Toast(requireActivity()).apply {
-            duration = Toast.LENGTH_LONG
+            duration = Toast.LENGTH_SHORT
             view = layout
             setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 250)
         }
