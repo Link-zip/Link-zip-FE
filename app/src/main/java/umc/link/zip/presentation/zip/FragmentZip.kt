@@ -17,6 +17,8 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentZipBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.list.ListDialogueLineupFragment
+import umc.link.zip.presentation.list.ListUnreadViewModel
+import umc.link.zip.presentation.zip.adapter.OpenZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.ZipAdapter
 import umc.link.zip.presentation.zip.adapter.ZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.ZipViewModel
@@ -24,40 +26,44 @@ import umc.link.zip.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
-    private val viewModel: ZipViewModel by viewModels()
+    private val navigator by lazy {
+        findNavController()
+    }
+
+    private val viewModel: ZipViewModel by viewModels({requireParentFragment()})
     private var adapter: ZipAdapter? = null
     private var isEditMode = false
     private var isAllSelectedMode = false
 
-    private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by activityViewModels()
+    private val OpenZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by activityViewModels()
     private var userSelectedLineup = "latest"
 
     override fun initObserver() {
         // lineup
         viewLifecycleOwner.lifecycleScope.launch {
-            zipLineDialogSharedViewModel.selectedData.collectLatest { data ->
+            OpenZipLineDialogSharedViewModel.selectedData.collectLatest { data ->
                 userSelectedLineup = data
                 setLineupOnDialog(userSelectedLineup)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            zipLineDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
+            OpenZipLineDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
                 if (dismissed) {
                     setLineupDismissDialog(userSelectedLineup)
-                    zipLineDialogSharedViewModel.resetDialogDismissed()
+                    OpenZipLineDialogSharedViewModel.resetDialogDismissed()
                 }
             }
         }
     }
 
-    private fun setLineupOnDialog(selected: String) {
-        when (selected) {
+    private fun setLineupOnDialog(Lineselected: String) {
+        when (Lineselected) {
             "latest" -> {
-                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_early_selected))
+                binding.sortButton.setImageResource( R.drawable.drawerbtn_lineup_early_selected)
             }
             "oldest" -> {
-                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_old_selected))
+                binding.sortButton.setImageResource( R.drawable.drawerbtn_lineup_old_selected)
             }
             "ganada" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_ganada_selected))
@@ -68,10 +74,10 @@ class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         }
     }
 
-    private fun setLineupDismissDialog(selected: String) {
-        when (selected) {
+    private fun setLineupDismissDialog(Lineselected: String) {
+        when (Lineselected) {
             "latest" -> {
-                binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_early_unselected))
+                binding.sortButton.setImageResource( R.drawable.drawerbtn_lineup_early_unselected)
             }
             "oldest" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_old_unselected))
@@ -238,7 +244,7 @@ class FragmentZip : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.sortButton.setOnSingleClickListener {
             setLineupOnDialog(userSelectedLineup)
             viewLifecycleOwner.lifecycleScope.launch {
-                zipLineDialogSharedViewModel.setSelectedData(userSelectedLineup)
+                OpenZipLineDialogSharedViewModel.setSelectedData(userSelectedLineup)
             }
             val dialogFragment = ListDialogueLineupFragment()
             dialogFragment.show(parentFragmentManager, "ListDialogueLineupFragment")

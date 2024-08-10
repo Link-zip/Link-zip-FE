@@ -19,11 +19,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentDialogueLineupBinding
+import umc.link.zip.databinding.FragmentDialogueLineupOpenzipBinding
 import umc.link.zip.databinding.FragmentDialogueListselectBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
 
 @AndroidEntryPoint
-class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogueLineupBinding>(R.layout.fragment_dialogue_lineup){
+class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogueLineupOpenzipBinding>(R.layout.fragment_dialogue_lineup_openzip){
 
     private val OpenZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by activityViewModels()
 

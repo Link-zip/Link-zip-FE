@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import umc.link.zip.data.service.TestService
+import umc.link.zip.data.service.ZipService
+import umc.link.zip.domain.model.Zip
 import javax.inject.Singleton
 
 @Module
@@ -18,6 +20,12 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideTestService(retrofit: Retrofit): TestService {
+        return retrofit.buildService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideZipService(retrofit: Retrofit): ZipService {
         return retrofit.buildService()
     }
 

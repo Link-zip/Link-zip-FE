@@ -233,7 +233,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_deletex"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@id/makezip_msg13"
                     app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
                     app:layout_constraintTop_toTopOf="parent" />

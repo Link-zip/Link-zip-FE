@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -20,8 +21,6 @@ import umc.link.zip.databinding.FragmentOpenzipBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.list.ListDialogueLineupFragment
 import umc.link.zip.presentation.list.ListDialogueListselectFragment
-import umc.link.zip.presentation.list.ListUnreadLineDialogSharedViewModel
-import umc.link.zip.presentation.list.ListUnreadListDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipItemAdapter.OpenZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.OpenZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipListDialogSharedViewModel
@@ -33,10 +32,10 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         findNavController()
     }
 
-    private val OpenZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by activityViewModels()
-    private val OpenZipListDialogSharedViewModel: OpenZipLineDialogSharedViewModel by activityViewModels()
+    private val openZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by activityViewModels()
+    private val openZipListDialogSharedViewModel: OpenZipListDialogSharedViewModel by activityViewModels()
 
-    private val viewModel: OpenZipViewModel by viewModels()
+    private val viewModel: OpenZipViewModel by viewModels({requireParentFragment()})
     private var adapter: OpenZipItemAdapter? = null
     private var isEditMode = false
     private var isAllSelectedMode = false
@@ -47,34 +46,34 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     override fun initObserver() {
         // lineup
         viewLifecycleOwner.lifecycleScope.launch {
-            OpenZipLineDialogSharedViewModel.selectedData.collectLatest { data ->
+            openZipLineDialogSharedViewModel.selectedData.collectLatest { data ->
                 userSelectedLineup = data
                 setLineupOnDialog(userSelectedLineup)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            OpenZipLineDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
+            openZipLineDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
                 if (dismissed) {
                     setLineupDismissDialog(userSelectedLineup)
-                    OpenZipLineDialogSharedViewModel.resetDialogDismissed()
+                    openZipLineDialogSharedViewModel.resetDialogDismissed()
                 }
             }
         }
 
-        //listselect
+        // listselect
         viewLifecycleOwner.lifecycleScope.launch {
-            OpenZipListDialogSharedViewModel.selectedData.collectLatest { data ->
+            openZipListDialogSharedViewModel.selectedData.collectLatest { data ->
                 userSelectedListselect = data
                 setListOnDialog(userSelectedListselect)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            OpenZipListDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
+            openZipListDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
                 if (dismissed) {
                     setListDismissDialog(userSelectedListselect)
-                    OpenZipListDialogSharedViewModel.resetDialogDismissed()
+                    openZipListDialogSharedViewModel.resetDialogDismissed()
                 }
             }
         }
@@ -85,66 +84,97 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     }
 
     private fun setLineupOnDialog(selected: String) {
+        Log.d("FragmentOpenZip", "setLineupOnDialog called with selected: $selected")
         when (selected) {
             "latest" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_early_selected))
+                Log.d("FragmentOpenZip", "Set latest lineup selected")
             }
             "oldest" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_old_selected))
+                Log.d("FragmentOpenZip", "Set oldest lineup selected")
             }
             "ganada" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_ganada_selected))
+                Log.d("FragmentOpenZip", "Set ganada lineup selected")
             }
             "visit" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_visit_selected))
+                Log.d("FragmentOpenZip", "Set visit lineup selected")
+            }
+            else -> {
+                Log.d("FragmentOpenZip", "Unknown selection in setLineupOnDialog: $selected")
             }
         }
     }
 
     private fun setLineupDismissDialog(selected: String) {
+        Log.d("FragmentOpenZip", "setLineupDismissDialog called with selected: $selected")
         when (selected) {
             "latest" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_early_unselected))
+                Log.d("FragmentOpenZip", "Set latest lineup unselected")
             }
             "oldest" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_old_unselected))
+                Log.d("FragmentOpenZip", "Set oldest lineup unselected")
             }
             "ganada" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_ganada_unselected))
+                Log.d("FragmentOpenZip", "Set ganada lineup unselected")
             }
             "visit" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_visit_unselected))
+                Log.d("FragmentOpenZip", "Set visit lineup unselected")
+            }
+            else -> {
+                Log.d("FragmentOpenZip", "Unknown selection in setLineupDismissDialog: $selected")
             }
         }
     }
 
     private fun setListOnDialog(selected: String) {
+        Log.d("FragmentOpenZip", "setListOnDialog called with selected: $selected")
         when (selected) {
             "all" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_allselect_selected))
+                Log.d("FragmentOpenZip", "Set all list selected")
             }
             "link" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_linkselect_selected))
+                Log.d("FragmentOpenZip", "Set link list selected")
             }
             "text" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_textlinkselect_selected))
+                Log.d("FragmentOpenZip", "Set text list selected")
+            }
+            else -> {
+                Log.d("FragmentOpenZip", "Unknown selection in setListOnDialog: $selected")
             }
         }
     }
 
     private fun setListDismissDialog(selected: String) {
+        Log.d("FragmentOpenZip", "setListDismissDialog called with selected: $selected")
         when (selected) {
             "all" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_allselect_unselected))
+                Log.d("FragmentOpenZip", "Set all list unselected")
             }
             "link" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_linkselect_unselected))
+                Log.d("FragmentOpenZip", "Set link list unselected")
             }
             "text" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_textlinkselect_unselected))
+                Log.d("FragmentOpenZip", "Set text list unselected")
+            }
+            else -> {
+                Log.d("FragmentOpenZip", "Unknown selection in setListDismissDialog: $selected")
             }
         }
     }
+
 
     private val editClickListener = View.OnClickListener {
         if (isAllSelectedMode) {
@@ -290,7 +320,7 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentOpenzipRecentIv.setOnSingleClickListener {
             setLineupOnDialog(userSelectedLineup)
             viewLifecycleOwner.lifecycleScope.launch {
-                OpenZipLineDialogSharedViewModel.setSelectedData(userSelectedLineup)
+                openZipLineDialogSharedViewModel.setSelectedData(userSelectedLineup)
             }
             val dialogFragment = ListDialogueLineupFragment()
             dialogFragment.show(parentFragmentManager, "ListDialogueLineupFragment")
@@ -298,7 +328,7 @@ class FragmentOpenZip : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentOpenzipAllIv.setOnSingleClickListener {
             setListOnDialog(userSelectedListselect)
             viewLifecycleOwner.lifecycleScope.launch {
-                OpenZipListDialogSharedViewModel.setSelectedData(userSelectedListselect)
+                openZipListDialogSharedViewModel.setSelectedData(userSelectedListselect)
             }
             val dialogFragment = ListDialogueListselectFragment()
             dialogFragment.show(parentFragmentManager, "ListDialogueListselectFragment")

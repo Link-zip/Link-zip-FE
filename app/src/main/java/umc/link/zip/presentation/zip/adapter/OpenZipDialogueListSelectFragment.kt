@@ -5,27 +5,21 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
-import umc.link.zip.databinding.FragmentDialogueLineupBinding
-import umc.link.zip.databinding.FragmentDialogueListselectBinding
+import umc.link.zip.databinding.FragmentDialogueListselectOpenzipBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
-import umc.link.zip.presentation.list.ListUnreadListDialogSharedViewModel
 
 @AndroidEntryPoint
-class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<FragmentDialogueListselectBinding>(R.layout.fragment_dialogue_listselect){
+class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<FragmentDialogueListselectOpenzipBinding>(R.layout.fragment_dialogue_listselect_openzip){
 
     private val OpenZipListDialogSharedViewModel: OpenZipListDialogSharedViewModel by activityViewModels()
 

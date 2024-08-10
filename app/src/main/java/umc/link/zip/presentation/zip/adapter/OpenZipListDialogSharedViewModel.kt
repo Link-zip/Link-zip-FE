@@ -23,3 +23,4 @@ class OpenZipListDialogSharedViewModel : ViewModel() {
         _dialogDismissed.emit(false)
     }
 }
+
