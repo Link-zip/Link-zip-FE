@@ -1,18 +1,43 @@
 package umc.link.zip.presentation.create
 
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenLinkBinding
 import umc.link.zip.presentation.base.BaseFragment
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment_open_link) {
 
-    private val viewModel: CustomLinkViewModel by viewModels()
+    private val viewModel: CreateViewModel by activityViewModels()
 
     override fun initObserver() {
+        lifecycleScope.launch {
+            viewModel.link.collectLatest { link ->
+                // 제목
+                binding.tvOpenLinkTitle.text = link.title ?: "No Title"
+
+                // 메모
+                binding.tvOpenLinkMemo.text = link.memo ?: "No Memo"
+
+                // 알림
+                val alertDate = link.alertDate ?: ""
+                if (alertDate.isNotEmpty()) {
+                    val alert = alertDate.removeSuffix("Z")
+                    val formattedAlarm = formatAlarm(alert)
+                    binding.tvOpenLinkAlarm.text = formattedAlarm
+                } else {
+                    binding.tvOpenLinkAlarm.text = "No Alarm"
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -27,6 +52,18 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
     private fun navigateToCustomLinkCustom() {
         findNavController().navigate(R.id.action_openLinkFragment_to_customLinkCustomFragment)
+    }
+
+    private fun formatAlarm(alert: String): String {
+        return try {
+            // 수정된 inputFormat
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("yyyy.MM.dd a hh:mm", Locale.ENGLISH)
+            val parsedAlert = inputFormat.parse(alert)
+            outputFormat.format(parsedAlert)
+        } catch (e: Exception) {
+            "Invalid Date"
+        }
     }
 
 

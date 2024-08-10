@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,7 +17,7 @@ import umc.link.zip.presentation.base.BaseFragment
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create) {
 
-    private val viewModel: CreateViewModel by viewModels()
+    private val viewModel: CreateViewModel by activityViewModels()
 
     override fun initObserver() {
         lifecycleScope.launchWhenStarted {
@@ -56,6 +57,8 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         }
 
         binding.btnCreateSaveLink.setOnClickListener {
+            val url = binding.etCreateLink.text.toString()
+            viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
             navigateToLink()
         }
 

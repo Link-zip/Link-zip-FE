@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="umc.link.zip.presentation.create.CustomLinkViewModel" />
+            type="umc.link.zip.presentation.create.CreateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -187,7 +187,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_regular"
             android:hint="Instagram의 제로베이스님 : “여름방학 알차게 보내고 싶다면"
-            android:text=""
+            android:text="@{viewModel.link.title}"
             android:letterSpacing="-0.03"
             android:layout_marginStart="12dp"
             android:textSize="16sp"

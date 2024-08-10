@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="umc.link.zip.presentation.create.CustomLinkViewModel" />
+            type="umc.link.zip.presentation.create.CreateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,9 +88,10 @@
                 <ImageView
                     android:id="@+id/iv_openLink_topImg"
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_link_topimg"
+                    app:layout_constraintDimensionRatio="360:200"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
