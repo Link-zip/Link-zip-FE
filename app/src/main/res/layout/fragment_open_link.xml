@@ -97,12 +97,13 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="230dp"
+                    android:layout_height="0dp"
                     android:alpha="0.3"
                     android:scaleType="fitXY"
                     android:src="@drawable/shape_rect_gradiant_up"
+                    app:layout_constraintDimensionRatio="360:200"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
                     android:id="@+id/iv_openLink_heart"

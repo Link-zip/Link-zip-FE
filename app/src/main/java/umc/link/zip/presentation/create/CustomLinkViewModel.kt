@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import umc.link.zip.domain.model.create.Link
-import umc.link.zip.domain.model.create.Zip
 import javax.inject.Inject
 
 @HiltViewModel

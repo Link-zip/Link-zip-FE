@@ -1,7 +1,9 @@
 package umc.link.zip.presentation.create
 
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +50,9 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         binding.btnOpenLinkEdit.setOnClickListener {
             navigateToCustomLinkCustom()
         }
+
+        // Toast 표시
+        showCustomToast()
     }
 
     private fun navigateToCustomLinkCustom() {
@@ -56,7 +61,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
     private fun formatAlarm(alert: String): String {
         return try {
-            // 수정된 inputFormat
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
             val outputFormat = SimpleDateFormat("yyyy.MM.dd a hh:mm", Locale.ENGLISH)
             val parsedAlert = inputFormat.parse(alert)
@@ -66,26 +70,41 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         }
     }
 
+    private fun showCustomToast() {
+        val inflater = LayoutInflater.from(requireActivity()) // requireActivity()를 사용
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_LONG
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 250)
+        }
+
+        toast.show()
+    }
+
+
 
     /*
-    private fun setLike(link: Link, view: ImageView, onLikeChanged: (Link) -> Unit) {
-        // 초기 상태 설정
+private fun setLike(link: Link, view: ImageView, onLikeChanged: (Link) -> Unit) {
+    // 초기 상태 설정
+    if (link.likes == 1) {
+        view.setImageResource(R.drawable.ic_heart_selected)
+    } else {
+        view.setImageResource(R.drawable.ic_heart_unselected)
+    }
+
+    // 클릭 리스너 설정
+    view.setOnClickListener {
+        link.likes = if (link.likes == 1) 0 else 1
         if (link.likes == 1) {
             view.setImageResource(R.drawable.ic_heart_selected)
         } else {
             view.setImageResource(R.drawable.ic_heart_unselected)
         }
+        // 좋아요 상태가 변경되었음을 외부에 알림
+        onLikeChanged(link)
+    }
+}*/
 
-        // 클릭 리스너 설정
-        view.setOnClickListener {
-            link.likes = if (link.likes == 1) 0 else 1
-            if (link.likes == 1) {
-                view.setImageResource(R.drawable.ic_heart_selected)
-            } else {
-                view.setImageResource(R.drawable.ic_heart_unselected)
-            }
-            // 좋아요 상태가 변경되었음을 외부에 알림
-            onLikeChanged(link)
-        }
-    }*/
 }
