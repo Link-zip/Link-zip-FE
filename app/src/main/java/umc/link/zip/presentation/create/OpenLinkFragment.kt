@@ -77,7 +77,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         val toast = Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT
             view = layout
-            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 250)
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
         }
 
         toast.show()
