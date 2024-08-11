@@ -12,13 +12,32 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import umc.link.zip.R
+import umc.link.zip.data.dto.request.LoginRequest
+import umc.link.zip.data.dto.response.LoginResponse
+import umc.link.zip.data.service.ApiService
 import umc.link.zip.databinding.ActivityLoginBinding
 import umc.link.zip.presentation.base.BaseActivity
 import java.net.URLEncoder
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
+
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl("http://linkzip6.store:3000") // Replace with your actual base URL
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private val apiService by lazy {
+        retrofit.create(ApiService::class.java)
+    }
 
     override fun initView() {
         setClickListener()
@@ -40,8 +59,36 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             Log.d("login", "Access Token Expires : ${token.accessTokenExpiresAt}")
             Log.d("login", "Refresh Token : ${token.refreshToken}")
             Log.d("login", "Refresh Token Expires : ${token.refreshTokenExpiresAt}")
+            sendLoginRequest(token)
             replaceFragment(ProfilesetFragment())
         }
+    }
+
+    private fun sendLoginRequest(token: OAuthToken) {
+        val request = LoginRequest(
+            accessToken = token.accessToken,
+            accessTokenExpiresAt = token.accessTokenExpiresAt.toString(),
+            refreshToken = token.refreshToken,
+            refreshTokenExpiresAt = token.refreshTokenExpiresAt.toString()
+        )
+
+        apiService.login(request).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        Log.d("login", "Login successful: ${it.message}")
+                        // Handle success, navigate to another screen, etc.
+                        replaceFragment(ProfilesetFragment())
+                    }
+                } else {
+                    Log.e("login", "Login failed: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Log.e("login", "Login request failed", t)
+            }
+        })
     }
 
     private fun setClickListener() {
