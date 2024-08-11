@@ -1,6 +1,8 @@
 package umc.link.zip.data.repositoryImpl
 
+import LinkGetModel
 import umc.link.zip.data.dto.BaseResponse
+import umc.link.zip.data.dto.link.response.LinkGetResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.data.dto.zip.request.ZipEditRequest
 import umc.link.zip.data.dto.zip.request.ZipRmRequest
@@ -23,7 +25,9 @@ import javax.inject.Inject
 class LinkRepositoryImpl @Inject constructor(
     private val linkService: LinkService
 ) : LinkRepository {
-
+    override suspend fun getLinkData(zip_id : Int, tag : String): NetworkResult<LinkGetModel> {
+        return handleApi({ linkService.getLinkData(zip_id, tag) }) { response: BaseResponse<LinkGetResponse> -> response.result.toModel() }
+    }
 }
 
 

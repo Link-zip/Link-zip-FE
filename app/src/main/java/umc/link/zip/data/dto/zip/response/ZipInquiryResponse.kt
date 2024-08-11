@@ -7,6 +7,5 @@ import umc.link.zip.domain.model.zip.ZipInquiryItemModel
 class ZipInquiryResponse : ArrayList<ZipInquiryItemResponse>() {
     fun toModel() = ZipInquiryModel(
     )
-
 }
 
