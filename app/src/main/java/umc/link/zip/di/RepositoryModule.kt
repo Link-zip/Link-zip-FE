@@ -32,10 +32,4 @@ object RepositoryModule {
         zipService: ZipService
     ): ZipRepository = ZipRepositoryImpl(zipService)
 
-    @ViewModelScoped
-    @Provides
-    fun inquiryZipRepository(
-        zipService: ZipService
-    ): ZipRepository = ZipRepositoryImpl(zipService)
-
 }

@@ -4,10 +4,13 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
+import umc.link.zip.data.dto.zip.request.ZipEditRequest
 import umc.link.zip.data.dto.zip.response.ZipCreateResponse
+import umc.link.zip.data.dto.zip.response.ZipEditResponse
 import umc.link.zip.data.dto.zip.response.ZipInquiryResponse
 
 interface ZipService {
@@ -20,4 +23,9 @@ interface ZipService {
     suspend fun getInquiryZip(
         @Query ("sort") sort : String
     ) : Response<BaseResponse<ZipInquiryResponse>>
+
+    @PATCH("zips")
+    suspend fun patchEditZip(
+        @Query ("body") zipEditRequest: ZipEditRequest
+    ) : Response<BaseResponse<ZipEditResponse>>
 }

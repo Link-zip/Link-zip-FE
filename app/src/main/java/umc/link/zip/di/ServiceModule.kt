@@ -28,11 +28,4 @@ object ServiceModule {
     fun provideZipService(retrofit: Retrofit): ZipService {
         return retrofit.buildService()
     }
-
-    @Provides
-    @Singleton
-    fun getZipInquiry(retrofit: Retrofit): ZipService {
-        return retrofit.buildService()
-    }
-
 }
