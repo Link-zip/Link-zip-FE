@@ -427,90 +427,99 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintWidth_percent="0.0667" />
 
-                <TextView
-                    android:id="@+id/tv_home_recent"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_home_recent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="최근 저장한 링크"
-                    android:textColor="@color/black"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/pretendard_semibold"
-                    android:lineHeight="30dp"
-                    android:letterSpacing="-0.025"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg2"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg2" />
-
-                <View
-                    android:id="@+id/view_home_mg3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_home_recent"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
-                    app:layout_constraintWidth_percent="0.0667" />
-
-                <LinearLayout
-                    android:id="@+id/ll_home_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    app:layout_constraintTop_toTopOf="@id/tv_home_recent"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
-                    app:layout_constraintEnd_toStartOf="@id/view_home_mg3">
+                    app:layout_constraintTop_toBottomOf="@id/view_home_mg2"
+                    android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/tv_home_more"
+                        android:id="@+id/tv_home_recent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="더보기"
-                        android:textColor="@color/nav_selected"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/pretendard_medium"
-                        android:lineHeight="16dp"
-                        android:letterSpacing="-0.025"/>
+                        android:text="최근 저장한 링크"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:lineHeight="30dp"
+                        android:letterSpacing="-0.025"
+                        app:layout_constraintStart_toEndOf="@id/view_home_mg4"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/iv_home_more"
+                    <View
+                        android:id="@+id/view_home_mg3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_home_recent"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
+                        app:layout_constraintWidth_percent="0.0667" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_home_more"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_gnb_details"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        app:layout_constraintTop_toTopOf="@id/tv_home_recent"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_home_recent"
+                        app:layout_constraintEnd_toStartOf="@id/view_home_mg3">
+
+                        <TextView
+                            android:id="@+id/tv_home_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="더보기"
+                            android:textColor="@color/nav_selected"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:lineHeight="16dp"
+                            android:letterSpacing="-0.025"/>
+
+                        <ImageView
+                            android:id="@+id/iv_home_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_gnb_details"/>
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
-                <View
-                    android:id="@+id/view_home_mg4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="24:16"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_home_recent"
-                    app:layout_constraintWidth_percent="0.0667" />
+                    <View
+                        android:id="@+id/view_home_mg4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="24:16"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_home_recent"
+                        app:layout_constraintWidth_percent="0.0667" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_recent"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_home_recent"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="horizontal"
-                    tools:itemCount="10"
-                    android:clipToPadding="false"
-                    android:paddingStart="24dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg4"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_recent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_home_recent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        tools:itemCount="10"
+                        android:clipToPadding="false"
+                        android:paddingStart="24dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view_home_mg4"/>
 
-                <View
-                    android:id="@+id/view_home_mg5"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintDimensionRatio="24:50"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_home_recent"
-                    app:layout_constraintWidth_percent="0.0667" />
+                    <View
+                        android:id="@+id/view_home_mg5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="24:50"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_home_recent"
+                        app:layout_constraintWidth_percent="0.0667" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/tv_home_recommend"
@@ -522,8 +531,8 @@
                     android:fontFamily="@font/pretendard_semibold"
                     android:lineHeight="30dp"
                     android:letterSpacing="-0.025"
-                    app:layout_constraintStart_toEndOf="@id/view_home_mg5"
-                    app:layout_constraintTop_toBottomOf="@id/view_home_mg5" />
+                    app:layout_constraintStart_toEndOf="@id/view_home_mg2"
+                    app:layout_constraintTop_toBottomOf="@id/cl_home_recent" />
 
                 <View
                     android:id="@+id/view_home_mg6"

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import umc.link.zip.databinding.ItemHomeRecentBinding
-import umc.link.zip.domain.model.Link
+import umc.link.zip.domain.model.home.Link
 
 class RecentRVAdapter(private val recentList: ArrayList<Link>, private val context: Context)
     : RecyclerView.Adapter<RecentRVAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package umc.link.zip.domain.model
+package umc.link.zip.domain.model.home
 
 data class Link(
     var id: String,

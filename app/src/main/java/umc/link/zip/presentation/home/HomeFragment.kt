@@ -3,15 +3,19 @@ package umc.link.zip.presentation.home
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
+import android.view.View
+import android.widget.Toast
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentHomeBinding
-import umc.link.zip.domain.model.Link
-import umc.link.zip.domain.model.Zip
+import umc.link.zip.domain.model.home.Link
+import umc.link.zip.domain.model.home.Zip
 import umc.link.zip.presentation.base.BaseFragment
 
 
@@ -20,14 +24,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private var recentList = ArrayList<Link>()
     private val navigator by lazy { findNavController() }
     private lateinit var sharedViewModel: SharedViewModel
+    private val homeViewModel: HomeViewModel by viewModels()
+    private lateinit var recentRVAdapter: RecentRVAdapter
 
     override fun initObserver() {
+        homeViewModel.recentLinks.observe(viewLifecycleOwner, Observer { links->
+            if(links.isEmpty()) {
+                binding.clHomeRecent.visibility = View.GONE
+            } else {
+                recentList.clear()
+                recentList.addAll(links)
+                recentRVAdapter.notifyDataSetChanged()
+                binding.clHomeRecent.visibility = View.VISIBLE
+            }
+        })
 
+        homeViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun initView() {
-        sharedViewModel = ViewModelProvider(requireActivity()).get<SharedViewModel>(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
+        homeViewModel.fetchRecentLinks()
         setClickListener()
         setScrollListener()
         setRecentList()
@@ -45,7 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     }
 
     private fun setRVAdapter() {
-        val recentRVAdapter = RecentRVAdapter(recentList, requireContext())
+        recentRVAdapter = RecentRVAdapter(recentList, requireContext())
         binding.rvHomeRecent.adapter = recentRVAdapter
         binding.rvHomeRecent.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
