@@ -5,13 +5,16 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.navGraphViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,14 +22,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentDialogueLineupBinding
-import umc.link.zip.databinding.FragmentDialogueLineupOpenzipBinding
 import umc.link.zip.databinding.FragmentDialogueListselectBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
+import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
-class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogueLineupOpenzipBinding>(R.layout.fragment_dialogue_lineup_openzip){
+class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogueLineupBinding>(R.layout.fragment_dialogue_lineup){
 
-    private val OpenZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by activityViewModels()
+    private val openZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by viewModels(ownerProducer = {requireParentFragment()})
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -38,18 +41,20 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
         return dialog
     }
 
-    override fun initObserver() {}
-
-    override fun initView() {
+    override fun initObserver() {
         setStart()
         setOnClick()
+    }
+
+    override fun initView() {
+        Log.d("DialogOpenZip", "OpenZipLineDialogSharedViewModel instance: $openZipLineDialogSharedViewModel")
     }
 
     private fun setStart() {
         // 기존 데이터 가져오기 위함
         reset()
-        lifecycleScope.launch {
-            OpenZipLineDialogSharedViewModel.selectedData.collectLatest {
+        repeatOnStarted {
+            openZipLineDialogSharedViewModel.selectedData.collectLatest {
                     data ->
                 when (data) {
                     "latest" -> {
@@ -71,34 +76,34 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
 
     private fun setOnClick() {
         binding.clDialogueLineupItem1.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
-                OpenZipLineDialogSharedViewModel.setSelectedData("latest")
+                openZipLineDialogSharedViewModel.setSelectedData("latest")
             }
         }
 
         binding.clDialogueLineupItem2.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
-                OpenZipLineDialogSharedViewModel.setSelectedData("oldest")
+                openZipLineDialogSharedViewModel.setSelectedData("oldest")
             }
         }
 
         binding.clDialogueLineupItem3.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
-                OpenZipLineDialogSharedViewModel.setSelectedData("ganada")
+                openZipLineDialogSharedViewModel.setSelectedData("ganada")
             }
         }
 
         binding.clDialogueLineupItem4.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem4, binding.ivDialogueLineupChkVisit)
-                OpenZipLineDialogSharedViewModel.setSelectedData("visit")
+                openZipLineDialogSharedViewModel.setSelectedData("visit")
             }
         }
     }
@@ -115,15 +120,15 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
         binding.ivDialogueLineupChkVisit.visibility = View.INVISIBLE
     }
 
-    private fun selected(textView: TextView, imageView: ImageView) {
+    private fun selected(textView: TextView, view: View) {
         textView.setTextAppearance(R.style.dialogue_lineup_item_selected)
-        imageView.visibility = View.VISIBLE
+        view.visibility = View.VISIBLE
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        lifecycleScope.launch {
-            OpenZipLineDialogSharedViewModel.dismissDialog()
+        repeatOnStarted {
+            openZipLineDialogSharedViewModel.dismissDialog()
         }
     }
 }

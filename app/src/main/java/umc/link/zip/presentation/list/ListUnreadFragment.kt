@@ -12,8 +12,8 @@ import umc.link.zip.presentation.base.BaseFragment
 
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentListRvBinding
-import umc.link.zip.domain.model.List.Link
-import umc.link.zip.domain.model.List.Zip
+import umc.link.zip.domain.model.list.Link
+import umc.link.zip.domain.model.list.Zip
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
 import umc.link.zip.util.extension.setOnSingleClickListener
 

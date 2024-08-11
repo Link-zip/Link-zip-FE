@@ -1,10 +1,15 @@
 package umc.link.zip.presentation.zip.adapter
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import javax.inject.Inject
 
-class OpenZipListDialogSharedViewModel : ViewModel() {
+@HiltViewModel
+class OpenZipListDialogSharedViewModel @Inject constructor(
+
+) : ViewModel() {
     private val _selectedData = MutableSharedFlow<String>(replay = 1)
     val selectedData: SharedFlow<String> get() = _selectedData
 
@@ -23,4 +28,3 @@ class OpenZipListDialogSharedViewModel : ViewModel() {
         _dialogDismissed.emit(false)
     }
 }
-

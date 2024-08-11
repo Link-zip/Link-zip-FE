@@ -5,23 +5,31 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
-import umc.link.zip.databinding.FragmentDialogueListselectOpenzipBinding
+import umc.link.zip.databinding.FragmentDialogueLineupBinding
+import umc.link.zip.databinding.FragmentDialogueListselectBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
+import umc.link.zip.presentation.list.ListUnreadListDialogSharedViewModel
+import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
-class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<FragmentDialogueListselectOpenzipBinding>(R.layout.fragment_dialogue_listselect_openzip){
+class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<FragmentDialogueListselectBinding>(R.layout.fragment_dialogue_listselect){
 
-    private val OpenZipListDialogSharedViewModel: OpenZipListDialogSharedViewModel by activityViewModels()
+    private val openZipListDialogSharedViewModel: OpenZipListDialogSharedViewModel by viewModels(ownerProducer = {requireParentFragment()})
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -33,18 +41,18 @@ class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<Fragment
         return dialog
     }
 
-    override fun initObserver() {}
-
-    override fun initView() {
+    override fun initObserver() {
         setStart()
         setOnClick()
     }
 
+    override fun initView() {}
+
     private fun setStart() {
         // 기존 데이터 가져오기 위함
         reset()
-        lifecycleScope.launch {
-            OpenZipListDialogSharedViewModel.selectedData.collectLatest {
+        repeatOnStarted {
+            openZipListDialogSharedViewModel.selectedData.collectLatest {
                     data ->
                 when (data) {
                     "all" -> {
@@ -63,24 +71,24 @@ class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<Fragment
 
     private fun setOnClick() {
         binding.clDialogueListselectItem1.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvDialogueListselectItem1, binding.ivDialogueListselectChkAll)
-                OpenZipListDialogSharedViewModel.setSelectedData("all")
+                openZipListDialogSharedViewModel.setSelectedData("all")
             }
         }
         binding.clDialogueListselectItem2.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvDialogueListselectItem2, binding.ivDialogueListselectChkLink)
-                OpenZipListDialogSharedViewModel.setSelectedData("link")
+                openZipListDialogSharedViewModel.setSelectedData("link")
             }
         }
         binding.clDialogueListselectItem3.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvDialogueListselectItem3, binding.ivDialogueListselectChkText)
-                OpenZipListDialogSharedViewModel.setSelectedData("text")
+                openZipListDialogSharedViewModel.setSelectedData("text")
             }
         }
         binding.ivDialogueListselectClose.setOnClickListener {
@@ -104,8 +112,8 @@ class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<Fragment
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        lifecycleScope.launch {
-            OpenZipListDialogSharedViewModel.dismissDialog()
+        repeatOnStarted {
+            openZipListDialogSharedViewModel.dismissDialog()
         }
     }
 }

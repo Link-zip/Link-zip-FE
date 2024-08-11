@@ -3,9 +3,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.domain.model.ZipLinkItem
+import javax.inject.Inject
 
 
-class OpenZipViewModel : ViewModel() {
+class OpenZipViewModel @Inject constructor(
+
+) : ViewModel() {
 
     private val _zipLinks = MutableLiveData<List<ZipLinkItem>>()
     val zipLinks: LiveData<List<ZipLinkItem>> get() = _zipLinks

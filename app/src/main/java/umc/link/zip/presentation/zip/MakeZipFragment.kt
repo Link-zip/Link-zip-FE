@@ -25,19 +25,8 @@ import umc.link.zip.domain.model.ZipItem
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.zip.adapter.ZipViewModel
 
-
-//한글은 2글자, 영어는 1글자로 취급해 주는 함수
-fun customLength(s: String?): Int {
-    if (s == null) return 0
-    var length = 0
-    for (char in s) {
-        length += if (char.toString().matches(Regex("[가-힣]"))) 2 else 1
-    }
-    return length
-}
-
 @AndroidEntryPoint
-class FragmentMakeZip : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_makezip) {
+class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_makezip) {
 
     private val zipViewModel: ZipViewModel by viewModels()
     private var selectedDrawable: Int = R.drawable.ic_zip_shadow_1
@@ -96,6 +85,24 @@ class FragmentMakeZip : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
         val fragmentZipMakeBtn: View = binding.fragmentZipMakeBtn
         val ivProfilesetGrayshadow: ImageView = binding.ivProfilesetGrayshadow
         val ivProfilesetBlueshadow: ImageView = binding.ivProfilesetBlueshadow
+
+        //한글은 2글자, 영어는 1글자로 취급해 주는 함수
+        fun customLength(s: String?): Int {
+            if (s == null) return 0
+            var length = 0
+            for (char in s) {
+                length += if (char.toString().matches(Regex("[가-힣]"))) 2 else 1
+            }
+            return length
+        }
+        fun CharSequence.takeWhileIndexed(predicate: (Int, Char) -> Boolean): String {
+            val sb = StringBuilder()
+            for ((index, element) in this.withIndex()) {
+                if (!predicate(index, element)) break
+                sb.append(element)
+            }
+            return sb.toString()
+        }
 
         // Add TextWatcher to EditText
         zipNameEnterTv.addTextChangedListener(object : TextWatcher {
@@ -182,7 +189,6 @@ class FragmentMakeZip : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
             }
         })
         //여기까지가 텍스트 입력 및 키보드 내리기, 삭제 버튼 보였다가 지우기, 등등입니다.
-
         // Add item and navigate to FragmentZip on button click
         fragmentZipMakeBtn.setOnClickListener {
             val title = zipNameEnterTv.text.toString()
@@ -215,15 +221,5 @@ class FragmentMakeZip : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
             findNavController().navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
             Log.d("FragmentMakeZip", "Navigated to FragmentZip")
         }
-    }
-
-    // Utility function to handle string length check with custom character count
-    private fun CharSequence.takeWhileIndexed(predicate: (Int, Char) -> Boolean): String {
-        val sb = StringBuilder()
-        for ((index, element) in this.withIndex()) {
-            if (!predicate(index, element)) break
-            sb.append(element)
-        }
-        return sb.toString()
     }
 }

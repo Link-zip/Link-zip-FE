@@ -1,4 +1,4 @@
-package umc.link.zip.domain.model.List
+package umc.link.zip.domain.model.list
 
 data class Link(
     val id: String,

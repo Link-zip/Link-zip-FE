@@ -4,10 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import umc.link.zip.R
 import umc.link.zip.domain.model.ZipItem
+import javax.inject.Inject
 
-class ZipViewModel : ViewModel() {
+@HiltViewModel
+class ZipViewModel @Inject constructor(
+
+) : ViewModel() {
 
     private val _zipItems = MutableLiveData<List<ZipItem>>()
     val zipItems: LiveData<List<ZipItem>> get() = _zipItems
