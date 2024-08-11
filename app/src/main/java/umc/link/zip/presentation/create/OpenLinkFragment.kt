@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenLinkBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.repeatOnStarted
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -23,7 +24,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
     private val viewModel: CreateViewModel by activityViewModels()
 
     override fun initObserver() {
-        lifecycleScope.launch {
+        repeatOnStarted {
             viewModel.link.collectLatest { link ->
                 // 제목
                 binding.tvOpenLinkTitle.text = link.title ?: "No Title"

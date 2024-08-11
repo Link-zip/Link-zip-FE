@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkCustomBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R.layout.fragment_customlink_custom){
@@ -16,7 +17,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
     private val viewModel: CreateViewModel by activityViewModels()
 
     override fun initObserver() {
-        lifecycleScope.launch {
+        repeatOnStarted {
             viewModel.link.collectLatest { link ->
                 binding.etCustomLinkCustomLinkTitle.hint = link.title
             }

@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkAlarmBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.repeatOnStarted
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -19,7 +20,7 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
     private val viewModel: CreateViewModel by activityViewModels()
 
     override fun initObserver() {
-        lifecycleScope.launch {
+        repeatOnStarted {
             viewModel.link.collectLatest { link ->
                 val alertDate = link.alertDate
 

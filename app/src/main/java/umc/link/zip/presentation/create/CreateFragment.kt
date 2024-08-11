@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCreateBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create) {
@@ -18,7 +19,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     private val viewModel: CreateViewModel by activityViewModels()
 
     override fun initObserver() {
-        lifecycleScope.launchWhenStarted {
+        repeatOnStarted {
             viewModel.isSaveButtonVisible.collectLatest { isVisible ->
                 binding.btnCreateSaveLink.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.ivCreateLinkOvalBlue.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
@@ -30,13 +31,13 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        repeatOnStarted {
             viewModel.isLinkIconVisible.collectLatest { isVisible ->
                 binding.ivCreateLink.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
             }
         }
 
-        lifecycleScope.launchWhenStarted {
+        repeatOnStarted {
             viewModel.isDeleteIconVisible.collectLatest { isVisible ->
                 binding.ivCreateDelete.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
             }

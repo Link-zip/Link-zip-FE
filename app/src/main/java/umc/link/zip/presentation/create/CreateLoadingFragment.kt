@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCreateLoadingBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CreateLoadingFragment : BaseFragment<FragmentCreateLoadingBinding>(R.layout.fragment_create_loading) {
@@ -17,14 +18,14 @@ class CreateLoadingFragment : BaseFragment<FragmentCreateLoadingBinding>(R.layou
 
     override fun initObserver() {
         // currentVisibleView 관찰
-        lifecycleScope.launch {
+        repeatOnStarted {
             viewModel.currentVisibleView.collect { index ->
                 updateVisibility(index)
             }
         }
 
         // animationFinished 관찰
-        lifecycleScope.launch {
+        repeatOnStarted {
             viewModel.animationFinished.collect { isFinished ->
                 if (isFinished) {
                     navigateToCustomTextZipFragment()
