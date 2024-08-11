@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,11 +18,12 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentDialogueLineupBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
+import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogueLineupBinding>(R.layout.fragment_dialogue_lineup) {
 
-    private val listUnreadLineDialogSharedViewModel: ListUnreadLineDialogSharedViewModel by activityViewModels()
+    private val listUnreadLineDialogSharedViewModel: ListUnreadLineDialogSharedViewModel by viewModels(ownerProducer = {requireParentFragment()})
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -33,17 +35,17 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
         return dialog
     }
 
-    override fun initObserver() {}
-
-    override fun initView() {
+    override fun initObserver() {
         setStart()
         setOnClick()
     }
 
+    override fun initView() {}
+
     private fun setStart() {
         // 기존 데이터 가져오기 위함
         reset()
-        lifecycleScope.launch {
+        repeatOnStarted {
             listUnreadLineDialogSharedViewModel.selectedData.collectLatest {
                 data ->
                 when (data) {
@@ -66,28 +68,28 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
 
     private fun setOnClick() {
         binding.clDialogueLineupItem1.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
                 listUnreadLineDialogSharedViewModel.setSelectedData("latest")
             }
         }
         binding.clDialogueLineupItem2.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
                 listUnreadLineDialogSharedViewModel.setSelectedData("oldest")
             }
         }
         binding.clDialogueLineupItem3.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
                 listUnreadLineDialogSharedViewModel.setSelectedData("ganada")
             }
         }
         binding.clDialogueLineupItem4.setOnClickListener {
-            lifecycleScope.launch {
+            repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem4, binding.ivDialogueLineupChkVisit)
                 listUnreadLineDialogSharedViewModel.setSelectedData("visit")
@@ -116,7 +118,7 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-        lifecycleScope.launch {
+        repeatOnStarted {
             listUnreadLineDialogSharedViewModel.dismissDialog()
         }
     }
