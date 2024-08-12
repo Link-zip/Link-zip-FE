@@ -5,14 +5,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
-import umc.link.zip.domain.model.create.Link
+import umc.link.zip.domain.model.create.CreateLink
 import javax.inject.Inject
 
 @HiltViewModel
 class CreateViewModel @Inject constructor() : ViewModel() {
 
-    private val _link = MutableStateFlow(
-        Link(
+    private val _Create_link = MutableStateFlow(
+        CreateLink(
             zipId = 0,           // 초기값으로 0 사용
             title = "",
             text = "",
@@ -21,36 +21,56 @@ class CreateViewModel @Inject constructor() : ViewModel() {
             alertDate = ""
         )
     )
-    val link = _link.asStateFlow()
+    val link = _Create_link.asStateFlow()
 
     // 더미 데이터 목록
-    private val dummyLinks = listOf(
-        Link(
+    private val dummyCreateLinks = listOf(
+        CreateLink(
             zipId = 1,
-            title = "url1의 제목입니다 (네이버)",
+            title = "url1의 제목입니다 네이버 네이버 네이버 네이버 네이버",
             text = "url1의 텍스트입니다",
             url = "https://www.naver.com",
-            memo = "url1의 메모입니다",
+            memo = "",
             alertDate = "2024-08-10T10:00:00Z"
         ),
-        Link(
+        CreateLink(
             zipId = 2,
             title = "url2의 제목입니다 (유튜브)",
             text = "url2의 텍스트입니다",
             url = "https://www.youtube.com",
-            memo = "url2의 메모입니다",
+            memo = "",
             alertDate = "2024-08-20T14:00:00Z"
         )
     )
 
+    // 현재 링크 데이터 중 title 업데이트
+    fun updateTitle(title: String) {
+        _Create_link.value = _Create_link.value.copy(title = title)
+
+        // dummyLinks에서 해당 URL의 데이터를 찾아 업데이트
+        dummyCreateLinks.find { it.url == _Create_link.value.url }?.apply {
+            this.title = title
+        }
+    }
+
+    // 현재 링크 데이터 중 memo 업데이트
+    fun updateMemo(memo: String) {
+        _Create_link.value = _Create_link.value.copy(memo = memo)
+
+        // dummyLinks에서 해당 URL의 데이터를 찾아 업데이트
+        dummyCreateLinks.find { it.url == _Create_link.value.url }?.apply {
+            this.memo = memo
+        }
+    }
+
     // URL을 통해 더미 데이터에서 Link 가져오기
     fun fetchLinkByUrl(url: String) {
-        val foundLink = dummyLinks.find { it.url == url }
+        val foundLink = dummyCreateLinks.find { it.url == url }
         if (foundLink != null) {
-            _link.value = foundLink
+            _Create_link.value = foundLink
         } else {
             // URL이 목록에 없을 때 기본 값을 설정
-            _link.value = Link(
+            _Create_link.value = CreateLink(
                 zipId = 0,
                 title = "Unknown Title",
                 text = "Unknown Text",

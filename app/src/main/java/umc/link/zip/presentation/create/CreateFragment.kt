@@ -47,7 +47,25 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     override fun initView() {
         binding.viewModel = viewModel // ViewModel을 데이터 바인딩에 설정
 
+
+        binding.etCreateLink.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.updateLinkInput(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        setOnClickListener()
+    }
+
+
+    private fun setOnClickListener(){
         binding.ivCreateToolbarBack.setOnClickListener {
+            viewModel.clearLinkInput()
+            binding.etCreateLink.text.clear() // EditText의 내용 초기화
+
             findNavController().navigateUp()
         }
 
@@ -60,15 +78,6 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
             viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
             navigateToLink()
         }
-
-        binding.etCreateLink.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.updateLinkInput(s.toString())
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
 
         // Delete 버튼 클릭 리스너 설정
         binding.ivCreateDelete.setOnClickListener {

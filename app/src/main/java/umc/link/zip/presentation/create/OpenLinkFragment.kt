@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenLinkBinding
+import umc.link.zip.domain.model.create.Link
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.repeatOnStarted
 import java.text.SimpleDateFormat
@@ -21,16 +23,17 @@ import java.util.Locale
 @AndroidEntryPoint
 class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment_open_link) {
 
-    private val viewModel: CreateViewModel by activityViewModels()
+    private val createViewModel: CreateViewModel by activityViewModels()
+    private val openViewModel: OpenViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.link.collectLatest { link ->
+            createViewModel.link.collectLatest { link ->
                 // 제목
-                binding.tvOpenLinkTitle.text = link.title ?: "No Title"
+                binding.tvOpenLinkTitle.text = link.title ?: "설정된 제목이 없습니다."
 
                 // 메모
-                binding.tvOpenLinkMemo.text = link.memo ?: "No Memo"
+                binding.tvOpenLinkMemo.text = link.memo ?: "설정된 메모가 없습니다."
 
                 // 알림
                 val alertDate = link.alertDate ?: ""
@@ -39,7 +42,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                     val formattedAlarm = formatAlarm(alert)
                     binding.tvOpenLinkAlarm.text = formattedAlarm
                 } else {
-                    binding.tvOpenLinkAlarm.text = "No Alarm"
+                    binding.tvOpenLinkAlarm.text = "설정된 알림이 없습니다."
                 }
             }
         }
@@ -56,7 +59,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
         // 원본 링크 이동
         binding.btnOpenLinkMove.setOnClickListener {
-            viewModel.link.value?.url?.let { url ->
+            createViewModel.link.value?.url?.let { url ->
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = Uri.parse(url)
                 startActivity(intent)
@@ -94,29 +97,5 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
         toast.show()
     }
-
-
-
-    /*
-private fun setLike(link: Link, view: ImageView, onLikeChanged: (Link) -> Unit) {
-    // 초기 상태 설정
-    if (link.likes == 1) {
-        view.setImageResource(R.drawable.ic_heart_selected)
-    } else {
-        view.setImageResource(R.drawable.ic_heart_unselected)
-    }
-
-    // 클릭 리스너 설정
-    view.setOnClickListener {
-        link.likes = if (link.likes == 1) 0 else 1
-        if (link.likes == 1) {
-            view.setImageResource(R.drawable.ic_heart_selected)
-        } else {
-            view.setImageResource(R.drawable.ic_heart_unselected)
-        }
-        // 좋아요 상태가 변경되었음을 외부에 알림
-        onLikeChanged(link)
-    }
-}*/
 
 }

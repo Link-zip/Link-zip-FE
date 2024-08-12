@@ -106,7 +106,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
-                    android:id="@+id/iv_openLink_heart"
+                    android:id="@+id/iv_openLink_like"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@drawable/ic_heart_unselected"

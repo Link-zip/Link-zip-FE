@@ -30,6 +30,10 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
             findNavController().navigateUp()
         }
         binding.clCustomLinkMemoCompleteBtn.setOnClickListener {
+            // 메모 업데이트
+            val updatedMemo = binding.etCustomLinkMemoAddMemo.text.toString()
+            viewModel.updateMemo(memo = updatedMemo)
+
             navigateToCustom()
         }
     }
