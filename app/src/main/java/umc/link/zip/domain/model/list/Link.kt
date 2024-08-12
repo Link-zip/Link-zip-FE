@@ -4,9 +4,9 @@ data class Link(
     val id: String,
     var title: String,
     var url: String,
-    var text: String,
+    var tag: String,
     var thumbnail: String,
-    var likes: Int,
+    var like: Int,
     var createdAt: String,
     var zip: Zip
 )
