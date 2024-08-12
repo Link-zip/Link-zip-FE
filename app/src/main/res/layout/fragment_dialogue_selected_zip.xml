@@ -61,17 +61,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.06667" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_zip_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_dialogue_lineup_mg3"
-        tools:itemCount="4"
-        tools:listitem="@layout/item_selected_zip" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_zip_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_dialogue_lineup_mg3"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_selected_zip" />
 
-    <View
+        <View
         android:id="@+id/view_dialogue_lineup_mg5"
         android:layout_width="0dp"
         android:layout_height="0dp"

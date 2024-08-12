@@ -138,7 +138,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/pretendard_regular"
                     android:letterSpacing="-0.03"
-                    android:text="@{zipItem.user_id}"
+                    android:text="0개"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"

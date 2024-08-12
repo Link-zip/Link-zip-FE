@@ -8,6 +8,7 @@ import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
@@ -18,75 +19,67 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentMakezipBinding
 import umc.link.zip.domain.model.ZipItem
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.zip.adapter.ZipAdapter
 import umc.link.zip.presentation.zip.adapter.ZipViewModel
 
 @AndroidEntryPoint
 class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_makezip) {
 
     private val zipViewModel: ZipViewModel by viewModels()
-    private var selectedDrawable: Int = R.drawable.ic_zip_shadow_1
-    private val navigator by lazy { findNavController() }
-
+    private lateinit var selectedColor: String
     override fun initObserver() {}
+
     override fun initView() {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // iv_openzip_toolbar_back 클릭 리스너 설정
-        val backButton: View = binding.ivOpenzipToolbarBack
-        backButton.setOnClickListener {
-            navigator.navigateUp()
-        }
-
-        // Get the ImageView that will change drawable
         val fragmentMakezipExzipIc: ImageView = binding.fragmentMakezipExzipIc
+        val zipNameEnterTv = binding.zipNameEnterTv
+        val fragmentMakezipDeleteIc = binding.fragmentMakezipDeleteIc
+        val fragmentMakezipCntTxt = binding.fragmentMakezipCntTxt
+        val fragmentZipMakeBtn = binding.fragmentZipMakeBtn
+        val ivProfilesetGrayshadow = binding.ivProfilesetGrayshadow
+        val ivProfilesetBlueshadow = binding.ivProfilesetBlueshadow
 
-        // Set click listeners for each rectangle
-        view.findViewById<View>(R.id.rectangle_1).setOnClickListener {
-            selectedDrawable = R.drawable.ic_zip_shadow_1
-            fragmentMakezipExzipIc.setImageResource(selectedDrawable)
+        // Set click listeners for each rectangle and store the selected color
+        view.findViewById<View>(R.id.rectangle_1)?.setOnClickListener {
+            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_1)
+            selectedColor = "yellow"  // 예시로 'yellow'를 설정
         }
-        view.findViewById<View>(R.id.rectangle_2).setOnClickListener {
-            selectedDrawable = R.drawable.ic_zip_shadow_2
-            fragmentMakezipExzipIc.setImageResource(selectedDrawable)
+        view.findViewById<View>(R.id.rectangle_2)?.setOnClickListener {
+            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_2)
+            selectedColor = "lightgreen"  // 예시로 'blue'를 설정
         }
-        view.findViewById<View>(R.id.rectangle_3).setOnClickListener {
-            selectedDrawable = R.drawable.ic_zip_shadow_3
-            fragmentMakezipExzipIc.setImageResource(selectedDrawable)
+        view.findViewById<View>(R.id.rectangle_3)?.setOnClickListener {
+            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_3)
+            selectedColor = "green"  // 예시로 'red'를 설정
         }
-        view.findViewById<View>(R.id.rectangle_4).setOnClickListener {
-            selectedDrawable = R.drawable.ic_zip_shadow_4
-            fragmentMakezipExzipIc.setImageResource(selectedDrawable)
+        view.findViewById<View>(R.id.rectangle_4)?.setOnClickListener {
+            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_4)
+            selectedColor = "lightblue"  // 예시로 'red'를 설정
         }
-        view.findViewById<View>(R.id.rectangle_5).setOnClickListener {
-            selectedDrawable = R.drawable.ic_zip_shadow_5
-            fragmentMakezipExzipIc.setImageResource(selectedDrawable)
+        view.findViewById<View>(R.id.rectangle_5)?.setOnClickListener {
+            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_5)
+            selectedColor = "blue"  // 예시로 'red'를 설정
         }
-        view.findViewById<View>(R.id.rectangle_6).setOnClickListener {
-            selectedDrawable = R.drawable.ic_zip_shadow_6
-            fragmentMakezipExzipIc.setImageResource(selectedDrawable)
+        view.findViewById<View>(R.id.rectangle_6)?.setOnClickListener {
+            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_6)
+            selectedColor = "darkpurple"  // 예시로 'red'를 설정
         }
-        view.findViewById<View>(R.id.rectangle_7).setOnClickListener {
-            selectedDrawable = R.drawable.ic_zip_shadow_7
-            fragmentMakezipExzipIc.setImageResource(selectedDrawable)
+        view.findViewById<View>(R.id.rectangle_7)?.setOnClickListener {
+            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_7)
+            selectedColor = "purple"  // 예시로 'red'를 설정
         }
+        // 색상 설정
 
-        // Get the EditText, TextView, and ImageView
-        val zipNameEnterTv: EditText = binding.zipNameEnterTv
-        val fragmentMakezipZipNameTv: TextView = binding.fragmentMakezipZipNameTv
-        val fragmentMakezipCntTxt: TextView = binding.fragmentMakezipCntTxt
-        val fragmentMakezipDeleteIc: ImageView = binding.fragmentMakezipDeleteIc
-        val fragmentZipMakeBtn: View = binding.fragmentZipMakeBtn
-        val ivProfilesetGrayshadow: ImageView = binding.ivProfilesetGrayshadow
-        val ivProfilesetBlueshadow: ImageView = binding.ivProfilesetBlueshadow
-
-        //한글은 2글자, 영어는 1글자로 취급해 주는 함수
+        // 한글은 2글자, 영어는 1글자로 취급해 주는 함수
         fun customLength(s: String?): Int {
             if (s == null) return 0
             var length = 0
@@ -95,6 +88,7 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
             }
             return length
         }
+
         fun CharSequence.takeWhileIndexed(predicate: (Int, Char) -> Boolean): String {
             val sb = StringBuilder()
             for ((index, element) in this.withIndex()) {
@@ -139,7 +133,7 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
             override fun afterTextChanged(s: Editable?) {
                 // Update the TextView with up to the first 5 characters
                 val text = s.toString()
-                fragmentMakezipZipNameTv.text = text.take(5)
+                binding.fragmentMakezipZipNameTv.text = text.take(5)
             }
         })
 
@@ -188,7 +182,7 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
                 }
             }
         })
-        //여기까지가 텍스트 입력 및 키보드 내리기, 삭제 버튼 보였다가 지우기, 등등입니다.
+
         // Add item and navigate to FragmentZip on button click
         fragmentZipMakeBtn.setOnClickListener {
             val title = zipNameEnterTv.text.toString()
@@ -198,24 +192,8 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
                 return@setOnClickListener
             }
 
-            // Get userId from SharedPreferences
-            val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-            val userId = sharedPreferences.getString("user_id", "") ?: ""
-            if (userId.isEmpty()) {
-                // Handle the case where userId is not available
-                Log.d("FragmentMakeZip", "User ID is empty")
-                return@setOnClickListener
-            }
-
-            // Add item to ViewModel
-            val zipItem = ZipItem(
-                id = userId + System.currentTimeMillis().toString(),
-                user_id = userId,
-                title = title,
-                color = selectedDrawable
-            )
-            zipViewModel.addZipItem(zipItem)
-            Log.d("FragmentMakeZip", "Added ZipItem to ViewModel: $zipItem")
+            // Zip 생성 API 호출
+            zipViewModel.createZipItem(title, selectedColor)
 
             // Navigate to FragmentZip
             findNavController().navigate(R.id.action_fragmentMakeZip_to_fragmentZip)

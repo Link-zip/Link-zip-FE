@@ -87,9 +87,8 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
 
     override fun initView() {
         setupClickListener()
-        setLineupDismissDialog((userSelectedLineup))
+        setLineupDismissDialog(userSelectedLineup)
     }
-
 
     private val editClickListener = View.OnClickListener {
         toggleEditMode()

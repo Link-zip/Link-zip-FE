@@ -29,11 +29,11 @@ interface ZipService {
 
     @PATCH("zips")
     suspend fun patchEditZip(
-        @Query ("body") zipEditRequest: ZipEditRequest
+        @Body zipEditRequest: ZipEditRequest
     ) : Response<BaseResponse<ZipEditResponse>>
 
     @DELETE("zips")
     suspend fun deleteRmZip(
-        @Query ("body") zipRmRequest: ZipRmRequest
+        @Body zipRmRequest: ZipRmRequest
     ) : Response<BaseResponse<ZipRmResponse>>
 }

@@ -33,6 +33,7 @@ class ZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogue
         return R.style.BottomSheetDialogTheme
     }
 
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
