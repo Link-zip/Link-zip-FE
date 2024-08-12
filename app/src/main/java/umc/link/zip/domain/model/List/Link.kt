@@ -1,5 +1,6 @@
 package umc.link.zip.domain.model.List
 
+
 data class Link(
     val id: String,
     var title: String,

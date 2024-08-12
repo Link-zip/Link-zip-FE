@@ -1,4 +1,4 @@
-package umc.link.zip.domain.model.Link
+package umc.link.zip.domain.model.Links
 
 data class LinkGetItemModel(
     val alert_date: String,

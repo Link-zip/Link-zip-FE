@@ -1,7 +1,6 @@
 package umc.link.zip.data.dto.link.response
 
-import umc.link.zip.domain.model.Link.LinkGetItemModel
-import umc.link.zip.domain.model.zip.ZipInquiryItemModel
+import umc.link.zip.domain.model.Links.LinkGetItemModel
 
 data class LinkGetResponseItem(
     val alert_date: String,
