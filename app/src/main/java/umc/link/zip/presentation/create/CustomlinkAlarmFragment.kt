@@ -45,7 +45,7 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
         }
 
         binding.clCustomLinkAlarmCompleteBtn.setOnClickListener {
-            navigateToCustom()
+            findNavController().navigateUp()
         }
 
         binding.tvCustomLinkAlarmDelete.setOnClickListener {
@@ -53,9 +53,6 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
         }
     }
 
-    private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_customlinkAlarmFragment_to_customlinkCustomFragment)
-    }
 
     private fun formatDate(date: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

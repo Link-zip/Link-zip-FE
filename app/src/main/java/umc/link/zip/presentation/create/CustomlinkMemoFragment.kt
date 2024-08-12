@@ -34,11 +34,7 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
             val updatedMemo = binding.etCustomLinkMemoAddMemo.text.toString()
             viewModel.updateMemo(memo = updatedMemo)
 
-            navigateToCustom()
+            findNavController().navigateUp()
         }
-    }
-
-    private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_customlinkMemoFragment_to_customlinkCustomFragment)
     }
 }

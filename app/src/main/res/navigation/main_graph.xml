@@ -158,20 +158,12 @@
     <fragment
         android:id="@+id/customlinkAlarmFragment"
         android:name="umc.link.zip.presentation.create.CustomlinkAlarmFragment"
-        android:label="CustomlinkAlarmFragment">
-        <action
-            android:id="@+id/action_customlinkAlarmFragment_to_customlinkCustomFragment"
-            app:destination="@id/customlinkCustomFragment"/>
-    </fragment>
+        android:label="CustomlinkAlarmFragment"/>
 
     <fragment
         android:id="@+id/customlinkMemoFragment"
         android:name="umc.link.zip.presentation.create.CustomlinkMemoFragment"
-        android:label="CustomlinkMemoFragment">
-        <action
-            android:id="@+id/action_customlinkMemoFragment_to_customlinkCustomFragment"
-            app:destination="@id/customlinkCustomFragment"/>
-    </fragment>
+        android:label="CustomlinkMemoFragment"/>
 
     <fragment
         android:id="@+id/openTextFragment"
