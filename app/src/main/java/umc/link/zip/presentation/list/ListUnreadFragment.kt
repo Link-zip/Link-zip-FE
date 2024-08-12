@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -12,12 +14,14 @@ import kotlinx.coroutines.launch
 import umc.link.zip.presentation.base.BaseFragment
 
 import umc.link.zip.R
+import umc.link.zip.data.dto.list.request.UnreadRequest
 import umc.link.zip.databinding.FragmentListRvBinding
 import umc.link.zip.domain.model.list.Link
 import umc.link.zip.domain.model.list.Zip
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment_list_rv) {
@@ -96,6 +100,32 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                 }
             }
         }
+
+        // StateFlow를 관찰하여 RecyclerView Adapter에 데이터를 전달
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { uiState ->
+                    when (uiState) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                        }
+
+                        is UiState.Success<*> -> {
+                            listUnreadRVA.submitList(uiState.data as List<Link>)
+                        }
+
+                        is UiState.Error -> {
+                            // 에러 상태 처리
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun fnUnreadRVApi(){
+        val request = UnreadRequest(userSelectedLineup, userSelectedListselect) //sort, filter
+        viewModel.fetchUnreadList(request)
     }
 
     private fun setLineupOnDialog(selected: String) {
@@ -160,17 +190,26 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
         }
     }
 
-
+    // 다시 페이지로 돌아올 때 반영되게.
+    override fun onResume() {
+        super.onResume()
+        setLineupDismissDialog(userSelectedLineup)
+        setListDismissDialog(userSelectedListselect)
+        //api 또 호출
+        fnUnreadRVApi()
+    }
 
     override fun initView() {
         initPostListRVAdapter()
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
         setListDismissDialog(userSelectedListselect)
+        fnUnreadRVApi()
     }
 
     private fun initPostListRVAdapter() {
         binding.rvList.adapter = listUnreadRVA
+        /* 더미데이터
         val zip = Zip("1", "Zip Title", "blue")
         val zip2 = Zip("1", "인사이트", "yellow")
         val list = listOf(
@@ -184,6 +223,7 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
             Link("8", "테스트입니다8", "url", "텍스트", R.drawable.btn_bottomnav_create.toString(), 1, "2024.7.31", zip)
         )
         listUnreadRVA.submitList(list)
+         */
     }
 
     private fun setupClickListener() {

@@ -38,10 +38,10 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
                 tvItemListLinkName.text = link.title
                 tvItemListLinkDate.text = link.createdAt
                 tvItemListZipName.text = link.zip.title
-                if (link.text.isNotEmpty()) { // text 존재시 텍스트 요약
+                if (link.tag=="text") { // text 존재시 텍스트 요약
                     ivItemListTypeText.visibility = View.VISIBLE
                     ivItemListTypeLink.visibility = View.GONE
-                }else{ // 링크 저장
+                }else{ // 링크 저장 tag =="link"
                     ivItemListTypeText.visibility = View.GONE
                     ivItemListTypeLink.visibility = View.VISIBLE
                 }
@@ -80,7 +80,7 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
 
     fun setLike(link: Link, view: ImageView, onLikeChanged: (Link) -> Unit) {
         // 초기 상태 설정
-        if (link.likes == 1) {
+        if (link.like == 1) {
             view.setImageResource(R.drawable.ic_heart_selected)
         } else {
             view.setImageResource(R.drawable.ic_heart_unselected)
@@ -88,8 +88,8 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
 
         // 클릭 리스너 설정
         view.setOnClickListener {
-            link.likes = if (link.likes == 1) 0 else 1
-            if (link.likes == 1) {
+            link.like = if (link.like == 1) 0 else 1
+            if (link.like == 1) {
                 view.setImageResource(R.drawable.ic_heart_selected)
             } else {
                 view.setImageResource(R.drawable.ic_heart_unselected)
