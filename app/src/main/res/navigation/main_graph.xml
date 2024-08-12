@@ -27,20 +27,20 @@
 
     <fragment
         android:id="@+id/zipFragment"
-        android:name="umc.link.zip.presentation.zip.FragmentZip"
+        android:name="umc.link.zip.presentation.zip.ZipFragment"
         android:label="ZipFragment" >
         <action
             android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
             app:destination="@id/Fragment_Makezip" />
         <action
             android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
-            app:destination="@id/Fragment_Openzip" />
+            app:destination="@id/openZipFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/Fragment_Openzip"
-        android:name="umc.link.zip.presentation.zip.FragmentOpenZip"
-        android:label="Fragment_Openzip" >
+        android:id="@+id/openZipFragment"
+        android:name="umc.link.zip.presentation.zip.OpenZipFragment"
+        android:label="OpenZipFragment" >
         <action
             android:id="@+id/action_fragmentOpenZip_to_fragmentZip"
             app:destination="@id/zipFragment" />

@@ -1,4 +1,6 @@
-package umc.link.zip.domain.model.List
+package umc.link.zip.domain.model.list
+
+import umc.link.zip.domain.model.Zip
 
 
 data class Link(
