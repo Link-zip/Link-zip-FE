@@ -66,10 +66,10 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="312:40"
-            app:layout_constraintWidth_percent="0.866"
-            app:layout_constraintTop_toBottomOf="@id/view_dialogue_lineup_mg3"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/view_dialogue_lineup_mg3"
+            app:layout_constraintWidth_percent="0.866">
 
             <TextView
                 android:id="@+id/tv_view_dialogue_lineup_item1"
@@ -77,18 +77,18 @@
                 android:layout_height="wrap_content"
                 android:text="최신순"
                 android:textAppearance="@style/dialogue_lineup_item_selected"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_dialogue_lineup_chk_latest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_drawer_dialogue_selectcheck"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
