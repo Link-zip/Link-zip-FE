@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawer_list_lineup"
+        android:layout_margin="1dp"
+        android:elevation="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TimePicker
+                android:id="@+id/custom_timePicker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 완료 버튼 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_custom_datePicker_save_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/view_custom_timePicker_mg2"
+                app:layout_constraintStart_toEndOf="@id/view_custom_timePicker_mg1"
+                app:layout_constraintTop_toBottomOf="@id/custom_timePicker">
+
+                <ImageView
+                    android:id="@+id/iv_custom_timePicker_blueshadow"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="-5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shadow_bluebtn"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_custom_timePicker_complete"
+                    app:layout_constraintEnd_toEndOf="@id/btn_custom_timePicker_complete"
+                    app:layout_constraintHeight_percent="0.75"
+                    app:layout_constraintStart_toStartOf="@id/btn_custom_timePicker_complete"
+                    app:layout_constraintTop_toTopOf="@id/btn_custom_timePicker_complete" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_custom_timePicker_complete"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rect_8_1191ad_fill"
+                    android:clickable="false"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:letterSpacing="-0.025"
+                    android:lineHeight="25dp"
+                    android:text="완료"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_custom_datePicker_mg11"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="360:30"
+                    app:layout_constraintTop_toBottomOf="@id/btn_custom_timePicker_complete" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <View
+                android:id="@+id/view_custom_timePicker_mg1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent="0.066" />
+
+            <View
+                android:id="@+id/view_custom_timePicker_mg2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.066" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

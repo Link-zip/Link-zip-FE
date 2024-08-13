@@ -4,17 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenLinkBinding
-import umc.link.zip.domain.model.create.Link
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.repeatOnStarted
 import java.text.SimpleDateFormat
@@ -30,19 +27,17 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         repeatOnStarted {
             createViewModel.link.collectLatest { link ->
                 // 제목
-                binding.tvOpenLinkTitle.text = link.title ?: "설정된 제목이 없습니다."
+                binding.tvOpenLinkTitle.text = link.title ?: "No Title"
 
                 // 메모
-                binding.tvOpenLinkMemo.text = link.memo ?: "설정된 메모가 없습니다."
+                binding.tvOpenLinkMemo.text = link.memo.ifEmpty { "설정된 메모가 없습니다." }
 
                 // 알림
                 val alertDate = link.alertDate ?: ""
-                if (alertDate.isNotEmpty()) {
-                    val alert = alertDate.removeSuffix("Z")
-                    val formattedAlarm = formatAlarm(alert)
-                    binding.tvOpenLinkAlarm.text = formattedAlarm
+                binding.tvOpenLinkAlarm.text = if (alertDate.isNotEmpty()) {
+                    formatAlarm(alertDate)
                 } else {
-                    binding.tvOpenLinkAlarm.text = "설정된 알림이 없습니다."
+                    "설정된 알림이 없습니다."
                 }
             }
         }
@@ -60,8 +55,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         // 원본 링크 이동
         binding.btnOpenLinkMove.setOnClickListener {
             createViewModel.link.value?.url?.let { url ->
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(url)
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             }
         }
@@ -74,19 +68,19 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         findNavController().navigate(R.id.action_openLinkFragment_to_customLinkCustomFragment)
     }
 
-    private fun formatAlarm(alert: String): String {
+    private fun formatAlarm(alertDate: String): String {
         return try {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("yyyy.MM.dd a hh:mm", Locale.ENGLISH)
-            val parsedAlert = inputFormat.parse(alert)
-            outputFormat.format(parsedAlert)
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("yyyy.MM.dd a hh:mm", Locale.getDefault())
+            val parsedDate = inputFormat.parse(alertDate)
+            parsedDate?.let { outputFormat.format(it) } ?: "Invalid Date"
         } catch (e: Exception) {
             "Invalid Date"
         }
     }
 
     private fun showCustomToast() {
-        val inflater = LayoutInflater.from(requireActivity()) // requireActivity()를 사용
+        val inflater = LayoutInflater.from(requireActivity())
         val layout = inflater.inflate(R.layout.custom_toast, null)
 
         val toast = Toast(requireActivity()).apply {
@@ -97,5 +91,4 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
         toast.show()
     }
-
 }

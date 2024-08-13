@@ -159,7 +159,7 @@
 
         <TextView
             android:id="@+id/tv_customLink_memo_linkTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_semibold"
             android:letterSpacing="-0.025"
@@ -167,6 +167,7 @@
             android:textColor="@color/black"
             android:textSize="22sp"
             app:layout_constraintStart_toEndOf="@id/view_customLink_memo_mg6"
+            app:layout_constraintEnd_toStartOf="@id/view_customLink_memo_mg7"
             app:layout_constraintTop_toBottomOf="@id/view_customLink_memo_mg6" />
 
         <EditText

@@ -1,11 +1,14 @@
 package umc.link.zip.presentation.create
 
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import umc.link.zip.domain.model.create.CreateLink
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,7 +21,7 @@ class CreateViewModel @Inject constructor() : ViewModel() {
             text = "",
             url = "",
             memo = "",
-            alertDate = ""
+            alertDate = null
         )
     )
     val link = _Create_link.asStateFlow()
@@ -31,7 +34,7 @@ class CreateViewModel @Inject constructor() : ViewModel() {
             text = "url1의 텍스트입니다",
             url = "https://www.naver.com",
             memo = "",
-            alertDate = "2024-08-10T10:00:00Z"
+            alertDate = null
         ),
         CreateLink(
             zipId = 2,
@@ -63,6 +66,26 @@ class CreateViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    // 현재 링크 데이터 중 date alarm 업데이트
+    fun updateAlertDate(date: String?, time: String?) {
+        val newDate = date
+        val newTime = time
+
+        val updatedAlertDate = if (newDate != null && newTime != null) {
+            "${newDate}T${newTime}Z"
+        } else {
+            null
+        }
+
+        // _Create_link의 alertDate 값 업데이트
+        _Create_link.value = _Create_link.value.copy(alertDate = updatedAlertDate)
+
+        // dummyCreateLinks에서 해당 URL의 데이터를 찾아 alertDate 값 업데이트
+        dummyCreateLinks.find { it.url == _Create_link.value.url }?.apply {
+            this.alertDate = updatedAlertDate
+        }
+    }
+
     // URL을 통해 더미 데이터에서 Link 가져오기
     fun fetchLinkByUrl(url: String) {
         val foundLink = dummyCreateLinks.find { it.url == url }
@@ -76,7 +99,7 @@ class CreateViewModel @Inject constructor() : ViewModel() {
                 text = "Unknown Text",
                 url = url,
                 memo = "",
-                alertDate = ""
+                alertDate = null
             )
         }
     }
