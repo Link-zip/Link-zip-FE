@@ -75,6 +75,9 @@
             <action
                 android:id="@+id/action_mypageSettingFragment_to_noticeFragment"
                 app:destination="@id/noticeFragment" />
+            <action
+                android:id="@+id/action_mypageSettingFragment_to_mypageSettingPdfFragment"
+                app:destination="@id/mypageSettingPdfFragment" />
         </fragment>
 
         <fragment
@@ -108,5 +111,11 @@
             android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
             android:label="MypageWithdrawalFragment"
             tools:layout="@layout/fragment_mypage_withdrawal"/>
+
+        <fragment
+            android:id="@+id/mypageSettingPdfFragment"
+            android:name="umc.link.zip.presentation.mypage.MypageSettingPdfFragment"
+            android:label="MypageSettingPdfFragment"
+            tools:layout="@layout/fragment_mypage_setting_pdf"/>
     </navigation>
 </navigation>
