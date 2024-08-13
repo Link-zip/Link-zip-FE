@@ -30,6 +30,9 @@ class MypageSettingFragment : BaseFragment<FragmentMypageSettingBinding>(R.layou
         binding.clMypageSettingPolicies.setOnClickListener {
             navigator.navigate(R.id.action_mypageSettingFragment_to_mypageSettingPdfFragment)
         }
+        binding.clMypageSettingPrivacy.setOnClickListener {
+            navigator.navigate(R.id.action_mypageSettingFragment_to_mypageSettingPersonalPdfFragment)
+        }
 
         // 알람 아이콘 클릭 리스너 설정
         binding.ivMypageSettingAlarm.setOnClickListener {
