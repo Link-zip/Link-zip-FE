@@ -2,7 +2,7 @@ package umc.link.zip.data.dto.link.response
 
 import umc.link.zip.domain.model.link.LinkGetItemModel
 
-data class LinkGetResponseItem(
+data class LinkGetItemResponse(
     val alert_date: String,
     val created_at: String,
     val id: Int,

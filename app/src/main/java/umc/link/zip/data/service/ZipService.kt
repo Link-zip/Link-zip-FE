@@ -13,7 +13,7 @@ import umc.link.zip.data.dto.zip.request.ZipEditRequest
 import umc.link.zip.data.dto.zip.request.ZipRmRequest
 import umc.link.zip.data.dto.zip.response.ZipCreateResponse
 import umc.link.zip.data.dto.zip.response.ZipEditResponse
-import umc.link.zip.data.dto.zip.response.ZipInquiryResponse
+import umc.link.zip.data.dto.zip.response.ZipGetResponse
 import umc.link.zip.data.dto.zip.response.ZipRmResponse
 
 interface ZipService {
@@ -23,9 +23,9 @@ interface ZipService {
     ): Response<BaseResponse<ZipCreateResponse>>
 
     @GET("zips")
-    suspend fun getInquiryZip(
+    suspend fun getGetZip(
         @Query ("sort") sort : String
-    ) : Response<BaseResponse<ZipInquiryResponse>>
+    ) : Response<BaseResponse<ZipGetResponse>>
 
     @PATCH("zips")
     suspend fun patchEditZip(

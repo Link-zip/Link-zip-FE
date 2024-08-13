@@ -236,8 +236,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         isEditMode = false
         binding.allSelectedBtn.setImageResource(R.drawable.ic_checkunselected_blue)
         binding.allSelectedTv.setTextColor(Color.parseColor("#1191AD"))
-        binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.btn_openzip_movezipact_black)
-        binding.fragmentZipMakeBtn.setTextColor(Color.parseColor("#000000"))
+        binding.fragmentMakezipMakeBtn.setBackgroundResource(R.drawable.btn_openzip_movezipact_black)
+        binding.fragmentMakezipMakeBtn.setTextColor(Color.parseColor("#000000"))
         binding.fragmentZipMakeBtn2.setBackgroundResource(R.drawable.shape_rect_005773_fill)
         binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
         binding.ivProfilesetGrayshadow.visibility = View.GONE
@@ -256,8 +256,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         // Reset UI elements to default states
         binding.allSelectedBtn.setImageResource(R.drawable.ic_checkunselected_black)
         binding.allSelectedTv.setTextColor(Color.parseColor("#000000"))
-        binding.fragmentZipMakeBtn.setTextColor(Color.parseColor("#999999"))
-        binding.fragmentZipMakeBtn.setBackgroundResource(R.drawable.btn_openzip_movezipinact)
+        binding.fragmentMakezipMakeBtn.setTextColor(Color.parseColor("#999999"))
+        binding.fragmentMakezipMakeBtn.setBackgroundResource(R.drawable.btn_openzip_movezipinact)
         binding.fragmentZipMakeBtn2.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         binding.ivProfilesetBlueshadow.visibility = View.GONE
         binding.ivProfilesetGrayshadow.visibility = View.VISIBLE

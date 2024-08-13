@@ -155,7 +155,7 @@
                     android:fontFamily="@font/pretendard_medium"
                     android:layout_marginEnd="4dp"
                     android:letterSpacing="-0.03"
-                    android:text="TextTextTextTextTextTextTextText"
+                    android:text="Text"
                     android:textColor="@color/black"
                     android:textSize="16dp"
                     android:maxWidth="210dp"
@@ -421,7 +421,7 @@
                         >
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/fragment_zip_make_btn"
+                            android:id="@+id/fragment_makezip_make_btn"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

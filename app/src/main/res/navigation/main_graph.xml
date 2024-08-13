@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/Fragment_Makezip"
-        android:name="umc.link.zip.presentation.zip.FragmentMakeZip"
+        android:name="umc.link.zip.presentation.zip.MakeZipFragment"
         android:label="Fragment_Makezip" >
         <action
             android:id="@+id/action_fragmentMakeZip_to_fragmentZip"

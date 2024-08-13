@@ -8,7 +8,6 @@ import umc.link.zip.domain.model.link.LinkGetModel
 import umc.link.zip.domain.model.link.MoveLinkToNewZipModel
 import umc.link.zip.domain.model.zip.ZipCreateModel
 import umc.link.zip.domain.model.zip.ZipEditModel
-import umc.link.zip.domain.model.zip.ZipInquiryModel
 import umc.link.zip.domain.model.zip.ZipRmModel
 import umc.link.zip.util.network.NetworkResult
 

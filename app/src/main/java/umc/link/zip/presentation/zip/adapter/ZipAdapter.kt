@@ -70,7 +70,7 @@ class ZipAdapter(private val onItemSelected: (ZipItem, Boolean) -> Unit) : Recyc
         }
 
         private fun setBackgroundBasedOnColor(imageView: ImageView, color: String) {
-            when (color.toLowerCase()) {
+            when (color.lowercase()) {
                 "yellow" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_1)
                 "lightgreen" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_2)
                 "green" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_3)

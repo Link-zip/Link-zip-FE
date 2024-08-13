@@ -1,6 +1,6 @@
 package umc.link.zip.domain.model.zip
 
-data class ZipInquiryItemModel(
+data class ZipGetItemModel(
     val color: String,
     val link_count: Int,
     val title: String,

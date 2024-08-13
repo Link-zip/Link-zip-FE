@@ -16,7 +16,6 @@ import umc.link.zip.data.dto.zip.request.ZipEditRequest
 import umc.link.zip.data.dto.zip.request.ZipRmRequest
 import umc.link.zip.data.dto.zip.response.ZipCreateResponse
 import umc.link.zip.data.dto.zip.response.ZipEditResponse
-import umc.link.zip.data.dto.zip.response.ZipInquiryResponse
 import umc.link.zip.data.dto.zip.response.ZipRmResponse
 
 interface LinkService {
