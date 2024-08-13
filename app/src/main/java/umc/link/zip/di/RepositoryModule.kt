@@ -6,9 +6,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import umc.link.zip.data.repositoryImpl.LoginRepositoryImpl
 import umc.link.zip.data.repositoryImpl.TestRepositoryImpl
+import umc.link.zip.data.service.LoginService
 import umc.link.zip.data.service.TestService
 import umc.link.zip.domain.repository.TestRepository
+import umc.link.zip.domain.repository.login.LoginRepository
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -23,6 +26,10 @@ object RepositoryModule {
         testService: TestService
     ): TestRepository = TestRepositoryImpl(testService)
 
-
+    @ViewModelScoped
+    @Provides
+    fun providesLoginRepository(
+        loginService: LoginService
+    ): LoginRepository = LoginRepositoryImpl(loginService)
 
 }

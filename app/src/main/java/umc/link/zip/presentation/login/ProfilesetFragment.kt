@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.login
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -14,20 +15,51 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentProfilesetBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.colorOf
 import umc.link.zip.util.extension.drawableOf
-import java.util.regex.Pattern
+import umc.link.zip.util.network.NetworkResult
 
 @RequiresApi(Build.VERSION_CODES.P)
 @AndroidEntryPoint
 class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.fragment_profileset){
     private var isChecked : Boolean = false
+    private val viewModel : ProfilesetViewModel by viewModels()
 
     override fun initObserver() {
+        viewModel.nameCheckResult.observe(this) { result ->
+            when (result) {
+                is NetworkResult.Success -> {
+                    if(result.data.isSuccess) {
+                        binding.btnProfilesetFinish.setOnClickListener(finishBtnClickListener)
+                        binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_1191ad_fill)
+                        binding.ivProfilesetGrayshadow.visibility = View.GONE
+                        binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
+                        binding.tvProfilesetResult.text = "환상적인 닉네임이에요!"
+                        context?.let { binding.tvProfilesetResult.setTextColor(it.colorOf(R.color.abled_color)) }
+                        binding.etProfilesetNickname.background = drawableOf(R.drawable.shape_profileset_edittext_able)
+                    } else {
+                        binding.tvProfilesetResult.text = "이미 사용 중인 유저가 있어요!"
+                        context?.let { binding.tvProfilesetResult.setTextColor(it.colorOf(R.color.disabled_color)) }
+                        binding.etProfilesetNickname.background = drawableOf(R.drawable.shape_profileset_edittext_disable)
+                    }
+                    binding.tvProfilesetResult.visibility = View.VISIBLE
+                    binding.viewProfilesetMg8.visibility = View.VISIBLE
+                    isChecked = true
+                }
+                is NetworkResult.Error -> {
+                    // Handle error
+                }
 
+                is NetworkResult.Fail -> {
+
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -128,14 +160,8 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
         }
 
         binding.btnProfilesetNamecheck.setOnClickListener {
-            binding.btnProfilesetFinish.setOnClickListener(finishBtnClickListener)
-            binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_1191ad_fill)
-            binding.ivProfilesetGrayshadow.visibility = View.GONE
-            binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
-            binding.tvProfilesetResult.visibility = View.VISIBLE
-            binding.viewProfilesetMg8.visibility = View.VISIBLE
-            binding.etProfilesetNickname.background = drawableOf(R.drawable.shape_profileset_edittext_able)
-            isChecked = true
+            val nickname = binding.etProfilesetNickname.text.toString()
+            viewModel.nameCheck(nickname)
         }
 
     }
