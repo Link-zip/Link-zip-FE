@@ -5,5 +5,5 @@ data class BaseResponse<T>(
     val code: String,
     val message: String,
     val isSuccess : Boolean,
-    val result : T //result로 통일 필요
+    val result : T
 )

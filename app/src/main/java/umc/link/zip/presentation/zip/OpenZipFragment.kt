@@ -161,6 +161,12 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        setLineupDismissDialog(userSelectedLineup)
+        setListDismissDialog(userSelectedListselect)
+    }
+
     override fun initView() {
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)

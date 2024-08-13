@@ -138,6 +138,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     override fun onResume() {
         super.onResume()
         viewModel.getZipList()
+        setLineupDismissDialog(userSelectedLineup)
     }
 
     private fun setupRecyclerView() {
