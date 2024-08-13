@@ -15,7 +15,8 @@ class ListRepositoryImpl @Inject constructor(
     private val listService: ListService
 ) : ListRepository {
     override suspend fun getUnreadList(request: UnreadRequest): NetworkResult<UnreadModel> {
-        return handleApi({ listService.getUnreadList(request) }) { response: BaseResponse<UnreadResponseList> -> response.result.toLinkModelList() // toLinkModelList()를 사용하여 List<Link>로 변환
+        return handleApi({ listService.getUnreadList(sort = request.sort,
+            filter = request.filter) }) { response: BaseResponse<UnreadResponseList> -> response.result.toLinkModelList() // toLinkModelList()를 사용하여 List<Link>로 변환
         }
     }
 }
