@@ -2,9 +2,8 @@ package umc.link.zip.presentation.login
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.kakao.sdk.auth.model.OAuthToken
@@ -12,39 +11,47 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import umc.link.zip.R
 import umc.link.zip.data.dto.request.LoginRequest
-import umc.link.zip.data.dto.response.LoginResponse
-import umc.link.zip.data.service.ApiService
+import umc.link.zip.data.service.LoginService
 import umc.link.zip.databinding.ActivityLoginBinding
+import umc.link.zip.di.NetworkModule
+import umc.link.zip.presentation.MainActivity
 import umc.link.zip.presentation.base.BaseActivity
-import java.net.URLEncoder
+import umc.link.zip.util.network.NetworkResult
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
-    private val retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("http://linkzip6.store:3000") // Replace with your actual base URL
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    private val retrofit by lazy { NetworkModule.providesRetrofit(
+        NetworkModule.providesOkHttpClient(),
+        NetworkModule.providesConverterFactory()
+    ) }
+
+    private val loginService by lazy {
+        retrofit.create(LoginService::class.java)
     }
 
-    private val apiService by lazy {
-        retrofit.create(ApiService::class.java)
-    }
+    private val viewModel : LoginViewModel by viewModels()
 
     override fun initView() {
         setClickListener()
     }
 
     override fun initObserver() {
-
+        viewModel.loginResult.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> {}
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    /*//신규 회원인 경우
+                    replaceFragment(ProfilesetFragment())
+                    //기존 회원인 경우
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()*/
+                }
+            }
+        }
     }
 
     // 카카오 로그인
@@ -60,7 +67,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             Log.d("login", "Refresh Token : ${token.refreshToken}")
             Log.d("login", "Refresh Token Expires : ${token.refreshTokenExpiresAt}")
             sendLoginRequest(token)
-            replaceFragment(ProfilesetFragment())
         }
     }
 
@@ -72,7 +78,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             refreshTokenExpiresAt = token.refreshTokenExpiresAt.toString()
         )
 
-        apiService.login(request).enqueue(object : Callback<LoginResponse> {
+        viewModel.login(request)
+
+        /*loginService.login(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -88,7 +96,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Log.e("login", "Login request failed", t)
             }
-        })
+        })*/
     }
 
     private fun setClickListener() {

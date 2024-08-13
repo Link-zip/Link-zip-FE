@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
     private fun kakaoLogIn() {
-        // 토큰이 유효한지 확인합니다.
+        // 토큰이 유효한지 확인
         if (AuthApiClient.instance.hasToken()) {
             UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
                 if (error != null) {
