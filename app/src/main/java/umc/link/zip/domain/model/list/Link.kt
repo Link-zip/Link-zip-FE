@@ -1,8 +1,5 @@
 package umc.link.zip.domain.model.list
 
-import umc.link.zip.domain.model.Zip
-
-
 data class Link(
     val id: String,
     var title: String,

@@ -95,11 +95,11 @@ dependencies {
     // Coroutines Dependency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    
+
     //blur
     implementation("jp.wasabeef:blurry:4.0.1")
     implementation ("com.github.Dimezis:BlurView:version-2.0.3")
 
-/*    //kakao login
-    implementation("com.kakao.sdk:v2-user:2.20.3")*/
+    /*    //kakao login
+        implementation("com.kakao.sdk:v2-user:2.20.3")*/
 }
