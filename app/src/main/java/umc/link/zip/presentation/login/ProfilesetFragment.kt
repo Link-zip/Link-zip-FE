@@ -31,6 +31,15 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
     private val viewModel : ProfilesetViewModel by viewModels()
 
     override fun initObserver() {
+        setNameCheckObserver()
+    }
+
+    override fun initView() {
+        setClickListener()
+        setEditText()
+    }
+
+    private fun setNameCheckObserver() {
         viewModel.nameCheckResult.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
@@ -51,20 +60,16 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
                     binding.viewProfilesetMg8.visibility = View.VISIBLE
                     isChecked = true
                 }
+
                 is NetworkResult.Error -> {
                     // Handle error
                 }
 
                 is NetworkResult.Fail -> {
-
+                    // Handle fail
                 }
             }
         }
-    }
-
-    override fun initView() {
-        setClickListener()
-        setEditText()
     }
 
     private fun setEditText() {
