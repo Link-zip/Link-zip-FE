@@ -10,7 +10,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:context=".DeleteZipFragment">
+        tools:context=".presentation.zip.DeleteZipFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
