@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.ListFragment"
-        android:layout_marginTop="37.5dp">
+        android:paddingTop="37.5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_list_toolbar"

@@ -6,6 +6,7 @@ import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +27,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private lateinit var sharedViewModel: SharedViewModel
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var recentRVAdapter: RecentRVAdapter
+    private val viewModel: HomeActivityViewModel by activityViewModels()
 
     override fun initObserver() {
         homeViewModel.recentLinks.observe(viewLifecycleOwner, Observer { links->
@@ -71,8 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     }
 
     private fun toListFragment() {
-        val action = HomeFragmentDirections.actionHomeFragmentToListFragment() // 원하는 탭 인덱스 전달
-        findNavController().navigate(action)
+        viewModel.navigateToListFragment()
     }
 
     private fun setClickListener() {
