@@ -38,6 +38,8 @@ object RepositoryModule {
         loginService: LoginService
     ): LoginRepository = LoginRepositoryImpl(loginService)
 
+    @ViewModelScoped
+    @Provides
     fun provideZipRepository(
         zipService: ZipService
     ): ZipRepository = ZipRepositoryImpl(zipService)

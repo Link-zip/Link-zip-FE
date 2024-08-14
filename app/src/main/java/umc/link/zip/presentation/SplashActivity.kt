@@ -10,6 +10,7 @@ import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
+import umc.link.zip.data.UserPreferences
 import umc.link.zip.databinding.ActivitySplashBinding
 import umc.link.zip.presentation.base.BaseActivity
 import umc.link.zip.presentation.login.LoginActivity
@@ -28,11 +29,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
     private fun checkJwt() {
-        val sharedPref = getSharedPreferences("linkzip_prefs", Context.MODE_PRIVATE)
-        val accessToken = sharedPref.getString("access_token", null)
+        val userId = UserPreferences(this).getUserId()
 
-        if (accessToken != null) {
-            Log.d("login", "JWT 발견 $accessToken")
+        if (userId != null) {
+            Log.d("login", "JWT 발견 $userId")
             navigateToMainActivity()
         } else {
             Log.d("login", "JWT 없음")

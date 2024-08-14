@@ -5,12 +5,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="some_id">편집</string>
 
-<<<<<<< HEAD
     <string name="kakao_app_key">33c04056149fbfff237d63a38e1731ce</string>
     <string name="kakao_native_key">kakao33c04056149fbfff237d63a38e1731ce</string>
-=======
+
     <string name="zip_create">Zip 만들기</string>
     <string name="delete">삭제</string>
-
->>>>>>> feb206495fe3428a637c493f3892c9226563b5b6
 </resources>

@@ -13,6 +13,7 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
+import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.request.LoginRequest
 import umc.link.zip.data.service.LoginService
 import umc.link.zip.databinding.ActivityLoginBinding
@@ -43,21 +44,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     Log.d("login", "Token 발급 성공 : ${result.data.accessToken}")
                     saveAccessToken(result.data.accessToken)
                     /*//신규 회원인 경우
-                    replaceFragment(ProfilesetFragment())
+                    replaceFragment(ProfilesetFragment())*/
                     //기존 회원인 경우
                     startActivity(Intent(this, MainActivity::class.java))
-                    finish()*/
+                    finish()
                 }
             }
         }
     }
 
     private fun saveAccessToken(accessToken: String) {
-        val sharedPref = getSharedPreferences("linkzip_prefs", Context.MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            putString("access_token", accessToken)
-            apply()
-        }
+        UserPreferences(this).saveUserId(accessToken)
     }
 
     // 카카오 로그인
