@@ -155,12 +155,8 @@
             android:name="umc.link.zip.presentation.create.CreateFragment"
             android:label="CreateFragment">
             <action
-                android:id="@+id/action_createFragment_to_customtextZipFragment"
-                app:destination="@id/customtextZipFragment" />
-            <action
                 android:id="@+id/action_createFragment_to_customlinkZipFragment"
                 app:destination="@id/customlinkZipFragment" />
-
             <action
                 android:id="@+id/action_createFragment_to_createLoadingFragment"
                 app:destination="@id/createLoadingFragment" />
@@ -217,20 +213,12 @@
         <fragment
             android:id="@+id/customtextAlarmFragment"
             android:name="umc.link.zip.presentation.create.CustomtextAlarmFragment"
-            android:label="CustomtextAlarmFragment">
-            <action
-                android:id="@+id/action_customtextAlarmFragment_to_customtextCustomFragment"
-                app:destination="@id/customtextCustomFragment" />
-        </fragment>
+            android:label="CustomtextAlarmFragment"/>
 
         <fragment
             android:id="@+id/customtextMemoFragment"
             android:name="umc.link.zip.presentation.create.CustomtextMemoFragment"
-            android:label="CustomtextMemoFragment">
-            <action
-                android:id="@+id/action_customtextMemoFragment_to_customtextCustomFragment"
-                app:destination="@id/customtextCustomFragment" />
-        </fragment>
+            android:label="CustomtextMemoFragment"/>
 
         <fragment
             android:id="@+id/customlinkCustomFragment"

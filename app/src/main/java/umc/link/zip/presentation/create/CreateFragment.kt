@@ -86,10 +86,6 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         }
     }
 
-    private fun navigateToText() {
-        findNavController().navigate(R.id.action_createFragment_to_customtextZipFragment)
-    }
-
     private fun navigateToLink() {
         findNavController().navigate(R.id.action_createFragment_to_customlinkZipFragment)
     }

@@ -44,6 +44,22 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
     }
 
     override fun initView() {
+        setOnClickListener()
+    }
+
+    private fun setOnClickListener() {
+        binding.btnCustomLinkAlarmDate.setOnClickListener {
+            val datePicker = DatePickerDialogueFragment()
+            datePicker.setDatePickerListener(this)
+            datePicker.show(childFragmentManager, "DatePicker")
+        }
+
+        binding.btnCustomLinkAlarmTime.setOnClickListener {
+            val timePicker = TimePickerDialogueFragment()
+            timePicker.setTimePickerListener(this)
+            timePicker.show(childFragmentManager, "TimePicker")
+        }
+
         binding.ivCustomLinkAlarmToolbarBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -74,22 +90,6 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
                     Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-
-        setOnClickListener()
-    }
-
-    private fun setOnClickListener() {
-        binding.btnCustomLinkAlarmDate.setOnClickListener {
-            val datePicker = DatePickerDialogueFragment()
-            datePicker.setDatePickerListener(this)
-            datePicker.show(childFragmentManager, "DatePicker")
-        }
-
-        binding.btnCustomLinkAlarmTime.setOnClickListener {
-            val timePicker = TimePickerDialogueFragment()
-            timePicker.setTimePickerListener(this)
-            timePicker.show(childFragmentManager, "TimePicker")
         }
     }
 

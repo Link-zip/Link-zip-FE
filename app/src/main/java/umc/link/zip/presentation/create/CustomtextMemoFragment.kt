@@ -1,15 +1,26 @@
 package umc.link.zip.presentation.create
 
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextMemoBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.layout.fragment_customtext_memo){
-    override fun initObserver() {
 
+    private val viewModel: CreateViewModel by activityViewModels()
+
+    override fun initObserver() {
+        repeatOnStarted {
+            viewModel.link.collectLatest { link ->
+                // 제목
+                binding.tvCustomTextMemoLinkTitle.text = link.title ?: "No Title"
+            }
+        }
     }
 
     override fun initView() {
@@ -17,12 +28,12 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
             findNavController().navigateUp()
         }
         binding.clCustomTextMemoCompleteBtn.setOnClickListener {
-            navigateToCustom()
-        }
-    }
+            // 메모 업데이트
+            val updatedMemo = binding.etCustomTextMemoAddMemo.text.toString()
+            viewModel.updateMemo(memo = updatedMemo)
 
-    private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_customtextMemoFragment_to_customtextCustomFragment)
+            findNavController().navigateUp()
+        }
     }
 
 }

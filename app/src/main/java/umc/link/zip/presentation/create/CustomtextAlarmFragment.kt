@@ -1,28 +1,153 @@
 package umc.link.zip.presentation.create
 
+import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextAlarmBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.extension.repeatOnStarted
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
-class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.layout.fragment_customtext_alarm){
-    override fun initObserver() {
+class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.layout.fragment_customtext_alarm),
+    DatePickerDialogueFragment.DatePickerListener, TimePickerDialogueFragment.TimePickerListener {
 
+
+    private val viewModel: CreateViewModel by activityViewModels()
+
+    override fun initObserver() {
+        repeatOnStarted {
+            viewModel.link.collectLatest { link ->
+                val alertDate = link.alertDate
+
+                if (alertDate.isNullOrEmpty()) {
+                    clearAlarm() // 알림이 없는 경우
+                } else {
+                    val date = alertDate.substringBefore("T")
+                    val time = alertDate.substringAfter("T").removeSuffix("Z")
+
+                    // 날짜와 시간 포맷팅
+                    val formattedDate = formatDate(date)
+                    val formattedTime = formatTime(time)
+
+                    binding.tvCustomTextAlarmDate.text = formattedDate
+                    binding.tvCustomTextAlarmTime.text = formattedTime
+
+                    setAlarm() // 알림이 있는 경우
+                }
+            }
+        }
     }
 
     override fun initView() {
+        setOnClickListener()
+    }
+
+    private fun setOnClickListener(){
+        binding.btnCustomTextAlarmDate.setOnClickListener {
+            val datePicker = DatePickerDialogueFragment()
+            datePicker.setDatePickerListener(this)
+            datePicker.show(childFragmentManager, "DatePicker")
+        }
+
+        binding.btnCustomTextAlarmTime.setOnClickListener {
+            val timePicker = TimePickerDialogueFragment()
+            timePicker.setTimePickerListener(this)
+            timePicker.show(childFragmentManager, "TimePicker")
+        }
+
         binding.ivCustomTextAlarmToolbarBack.setOnClickListener{
             findNavController().navigateUp()
         }
-        binding.clCustomTextAlarmSaveBtn.setOnClickListener {
-            navigateToCustom()
+
+        binding.tvCustomTextAlarmDelete.setOnClickListener {
+            clearAlarm()
+            // 알림 삭제 후 데이터 null 설정
+            repeatOnStarted {viewModel.updateAlertDate(null, null)}
+        }
+
+        binding.btnCustomTextAlarmComplete.setOnClickListener {
+            val date = binding.tvCustomTextAlarmDate.text.toString().replace(".", "-") // yyyy.MM.dd -> yyyy-MM-dd
+            val time = binding.tvCustomTextAlarmTime.text.toString()
+
+            when {
+                date.isNotEmpty() && time.isNotEmpty() -> {
+                    repeatOnStarted{viewModel.updateAlertDate(date, formatTimeForISO(time))}
+                    findNavController().navigateUp()
+                }
+                date.isEmpty() && time.isEmpty() -> {
+                    repeatOnStarted{viewModel.updateAlertDate(null, null)}
+                    findNavController().navigateUp()
+                }
+                date.isEmpty() -> {
+                    Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
+                }
+                time.isEmpty() -> {
+                    Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
-    private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_customtextAlarmFragment_to_customtextCustomFragment)
+    override fun onDatePicked(date: String) {
+        binding.tvCustomTextAlarmDate.text = formatDate(date)
+        setAlarm()
     }
 
+    override fun onTimePicked(time: String) {
+        binding.tvCustomTextAlarmTime.text = formatTime(time)
+        setAlarm()
+    }
+
+    private fun formatDate(date: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        return try {
+            val parsedDate = inputFormat.parse(date)
+            outputFormat.format(parsedDate)
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    private fun formatTime(time: String): String {
+        val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("a hh:mm", Locale.ENGLISH)
+        return try {
+            val parsedTime = inputFormat.parse(time)
+            outputFormat.format(parsedTime)
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    private fun formatTimeForISO(time: String): String {
+        val inputFormat = SimpleDateFormat("a hh:mm", Locale.ENGLISH)
+        val outputFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        return try {
+            val parsedTime = inputFormat.parse(time)
+            outputFormat.format(parsedTime)
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    private fun clearAlarm() {
+        binding.tvCustomTextAlarmDate.visibility = View.GONE
+        binding.tvCustomTextAlarmTime.visibility = View.GONE
+        binding.tvCustomTextAlarmDateNone.visibility = View.VISIBLE
+        binding.tvCustomTextAlarmTimeNone.visibility = View.VISIBLE
+    }
+
+    private fun setAlarm() {
+        binding.tvCustomTextAlarmDate.visibility = View.VISIBLE
+        binding.tvCustomTextAlarmTime.visibility = View.VISIBLE
+        binding.tvCustomTextAlarmDateNone.visibility = View.GONE
+        binding.tvCustomTextAlarmTimeNone.visibility = View.GONE
+    }
 }
