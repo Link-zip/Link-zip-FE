@@ -1,5 +1,9 @@
 package umc.link.zip.data.repositoryImpl
 
+import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.awaitResponse
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.request.LoginRequest
 import umc.link.zip.data.dto.response.LoginResponse
@@ -13,10 +17,26 @@ import javax.inject.Inject
 class LoginRepositoryImpl @Inject constructor(
     private val loginService: LoginService
 ) : LoginRepository {
-    override suspend fun login(request: LoginRequest): NetworkResult<LoginModel> {
-        return handleApi({loginService.login(request)}) { response: BaseResponse<LoginResponse> ->
-            response.data.toModel()
+
+    override suspend fun login(): NetworkResult<LoginModel> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = loginService.login().awaitResponse()
+                handleApi({ response }) { baseResponse: BaseResponse<LoginResponse> ->
+                    Log.d("login", "Repository 정상 작동")
+                    baseResponse.result.toModel()
+                }
+            } catch (e: Exception) {
+                NetworkResult.Error(e)
+            }
         }
     }
+
+    /*override suspend fun login(): NetworkResult<LoginModel> {
+        return handleApi({loginService.login().execute()}) { response: BaseResponse<LoginResponse> ->
+            Log.d("login", "Repository 정상 작동")
+            response.result.toModel()
+        }
+    }*/
 
 }

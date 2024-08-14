@@ -68,5 +68,4 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         startActivity(intent)
         finish()
     }
-
 }

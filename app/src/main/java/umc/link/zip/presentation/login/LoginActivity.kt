@@ -1,6 +1,7 @@
 package umc.link.zip.presentation.login
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.activity.viewModels
@@ -23,15 +24,6 @@ import umc.link.zip.util.network.NetworkResult
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
-    private val retrofit by lazy { NetworkModule.providesRetrofit(
-        NetworkModule.providesOkHttpClient(),
-        NetworkModule.providesConverterFactory()
-    ) }
-
-    private val loginService by lazy {
-        retrofit.create(LoginService::class.java)
-    }
-
     private val viewModel : LoginViewModel by viewModels()
 
     override fun initView() {
@@ -41,9 +33,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun initObserver() {
         viewModel.loginResult.observe(this) { result ->
             when(result) {
-                is NetworkResult.Error -> {}
-                is NetworkResult.Fail -> {}
+                is NetworkResult.Error -> {
+                    Log.d("login", "서버 토큰 발급 중 error : ${result.exception}")
+                }
+                is NetworkResult.Fail -> {
+                    Log.d("login", "서버 토큰 발급 실패")
+                }
                 is NetworkResult.Success -> {
+                    Log.d("login", "Token 발급 성공 : ${result.data.accessToken}")
+                    saveAccessToken(result.data.accessToken)
                     /*//신규 회원인 경우
                     replaceFragment(ProfilesetFragment())
                     //기존 회원인 경우
@@ -51,6 +49,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     finish()*/
                 }
             }
+        }
+    }
+
+    private fun saveAccessToken(accessToken: String) {
+        val sharedPref = getSharedPreferences("linkzip_prefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("access_token", accessToken)
+            apply()
         }
     }
 
@@ -73,30 +79,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private fun sendLoginRequest(token: OAuthToken) {
         val request = LoginRequest(
             accessToken = token.accessToken,
-            accessTokenExpiresAt = token.accessTokenExpiresAt.toString(),
+            accessTokenExpires = token.accessTokenExpiresAt.toString(),
             refreshToken = token.refreshToken,
-            refreshTokenExpiresAt = token.refreshTokenExpiresAt.toString()
+            refreshTokenExpires = token.refreshTokenExpiresAt.toString()
         )
 
-        viewModel.login(request)
-
-        /*loginService.login(request).enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        Log.d("login", "Login successful: ${it.message}")
-                        // Handle success, navigate to another screen, etc.
-                        replaceFragment(ProfilesetFragment())
-                    }
-                } else {
-                    Log.e("login", "Login failed: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Log.e("login", "Login request failed", t)
-            }
-        })*/
+        viewModel.login()
     }
 
     private fun setClickListener() {
