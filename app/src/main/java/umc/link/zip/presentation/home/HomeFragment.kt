@@ -95,11 +95,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
             navigator.navigate(R.id.action_homeFragment_to_alarmFragment)
         }
 
-        // datepicker 임시 이동 경로
-        binding.ivHomeSearch.setOnClickListener {
-            navigator.navigate(R.id.action_homeFragment_to_customLinkAlarmFragment)
-        }
-
         binding.clHomeLink.setOnClickListener {
             sharedViewModel.selectItem("wait")
             toListFragment()

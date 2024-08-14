@@ -9,6 +9,8 @@ import retrofit2.http.PATCH
 import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
+import umc.link.zip.data.dto.link.request.LinkExtractRequest
+import umc.link.zip.data.dto.link.response.LinkExtractResponse
 import umc.link.zip.data.dto.link.response.LinkGetResponse
 import umc.link.zip.data.dto.link.response.MoveLinkToNewZipResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
@@ -30,5 +32,10 @@ interface LinkService {
         @Path ("link_id") link_id : Int,
         @Path ("new_zip_id") new_zip_id : Int
         ) : Response<BaseResponse<MoveLinkToNewZipResponse>>
+
+    @POST("link/extract")
+    suspend fun postLinkExtract(
+        @Body linkExtractRequest: LinkExtractRequest
+    ) : Response<BaseResponse<LinkExtractResponse>>
 }
 

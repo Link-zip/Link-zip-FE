@@ -67,9 +67,11 @@ class CreateViewModel @Inject constructor() : ViewModel() {
     }
 
     // 현재 링크 데이터 중 date alarm 업데이트
-    fun updateAlertDate(date: String?, time: String?) {
-        val newDate = date
-        val newTime = time
+    fun updateAlertDate(date: String? = null, time: String? = null) {
+        val existingDateTime = _Create_link.value.alertDate
+
+        val newDate = date ?: existingDateTime?.substringBefore("T")
+        val newTime = time ?: existingDateTime?.substringAfter("T")?.removeSuffix("Z")
 
         val updatedAlertDate = if (newDate != null && newTime != null) {
             "${newDate}T${newTime}Z"

@@ -55,7 +55,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         }
 
         // 저장 버튼
-        binding.clCustomLinkCustomSaveBtn.setOnClickListener {
+        binding.btnCustomLinkCustomSave.setOnClickListener {
             handleSaveAndNavigate(::navigateToOpenLink)
         }
 

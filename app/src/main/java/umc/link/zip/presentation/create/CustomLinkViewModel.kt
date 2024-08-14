@@ -16,7 +16,7 @@ class CustomLinkViewModel @Inject constructor() : ViewModel() {
                         text = "",
                         url = "",
                         memo = "",
-                        alertDate = ""
+                        alertDate = null
                 )
         )
 }
