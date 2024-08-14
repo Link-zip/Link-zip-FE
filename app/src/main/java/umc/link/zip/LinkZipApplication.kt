@@ -7,6 +7,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 import umc.link.zip.util.network.NetworkConnectionChecker
 
@@ -17,6 +18,7 @@ class LinkZipApplication : Application(), DefaultLifecycleObserver {
         super<Application>.onCreate()
         context = applicationContext
         networkConnectionChecker = NetworkConnectionChecker(context)
+        KakaoSdk.init(this, getString(R.string.kakao_app_key))
     }
 
     override fun onStop(owner: LifecycleOwner) {
