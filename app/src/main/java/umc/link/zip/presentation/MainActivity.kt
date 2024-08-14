@@ -39,43 +39,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun initNavigator() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        binding.mainBnv.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.homeFragment -> {
-                    navController.navigate(R.id.homeFragment, null, NavOptions.Builder()
-                        .setLaunchSingleTop(true)
-                        .setPopUpTo(R.id.main_graph, false)
-                        .build())
-                    true
-                }
-
-                R.id.zipFragment -> {
-                    navController.navigate(R.id.zipFragment, null, NavOptions.Builder()
-                        .setLaunchSingleTop(true)
-                        .setPopUpTo(R.id.main_graph, false)
-                        .build())
-                    true
-                }
-
-                R.id.listFragment -> {
-                    navController.navigate(R.id.listFragment, null, NavOptions.Builder()
-                        .setLaunchSingleTop(true)
-                        .setPopUpTo(R.id.main_graph, false)
-                        .build())
-                    true
-                }
-
-                R.id.mypageFragment -> {
-                    navController.navigate(R.id.mypageFragment, null, NavOptions.Builder()
-                        .setLaunchSingleTop(true)
-                        .setPopUpTo(R.id.main_graph, false)
-                        .build())
-                    true
-                }
-
-                else -> false
-            }
-        }
         binding.mainBnv.setupWithNavController(navController)
         binding.mainBnv.itemIconTintList = null;
     }
