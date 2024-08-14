@@ -18,6 +18,7 @@ import umc.link.zip.databinding.FragmentHomeBinding
 import umc.link.zip.domain.model.home.Link
 import umc.link.zip.domain.model.home.Zip
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.util.network.NetworkResult
 
 
 @AndroidEntryPoint
@@ -25,35 +26,39 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private var recentList = ArrayList<Link>()
     private val navigator by lazy { findNavController() }
     private lateinit var sharedViewModel: SharedViewModel
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var recentRVAdapter: RecentRVAdapter
-    private val viewModel: HomeActivityViewModel by activityViewModels()
 
     override fun initObserver() {
-        homeViewModel.recentLinks.observe(viewLifecycleOwner, Observer { links->
-            if(links.isEmpty()) {
-                binding.clHomeRecent.visibility = View.GONE
-            } else {
-                recentList.clear()
-                recentList.addAll(links)
-                recentRVAdapter.notifyDataSetChanged()
-                binding.clHomeRecent.visibility = View.VISIBLE
-            }
-        })
-
-        homeViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
-            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-        })
+        setHomeViewModel()
     }
 
     override fun initView() {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        homeViewModel.fetchRecentLinks()
+        homeViewModel.getRecentLinks()
         setClickListener()
         setScrollListener()
-        setRecentList()
         setRVAdapter()
+    }
+
+    private fun setHomeViewModel() {
+        homeViewModel.recentLinks.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> {}
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    if(result.data.links.isEmpty()) {
+                        binding.clHomeRecent.visibility = View.GONE
+                    } else {
+                        recentList.clear()
+                        recentList.addAll(result.data.links)
+                        recentRVAdapter.notifyDataSetChanged()
+                        binding.clHomeRecent.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
     }
 
     private fun setScrollListener() {
@@ -73,7 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     }
 
     private fun toListFragment() {
-        viewModel.navigateToListFragment()
+        homeViewModel.navigateToListFragment()
     }
 
     private fun setClickListener() {

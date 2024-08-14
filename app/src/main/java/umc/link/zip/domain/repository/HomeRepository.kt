@@ -1,8 +1,8 @@
 package umc.link.zip.domain.repository
 
-import retrofit2.Response
-import umc.link.zip.domain.model.home.Link
+import umc.link.zip.domain.model.home.HomeRecentModel
+import umc.link.zip.util.network.NetworkResult
 
 interface HomeRepository {
-    suspend fun getRecentLinks(): Response<List<Link>>
+    suspend fun getRecentLinks(): NetworkResult<HomeRecentModel>
 }

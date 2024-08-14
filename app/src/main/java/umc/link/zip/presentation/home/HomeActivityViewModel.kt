@@ -8,12 +8,4 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 
 class HomeActivityViewModel : ViewModel() {
-    private val _navigateEvent = MutableSharedFlow<Int?>()
-    val navigateEvent: SharedFlow<Int?> = _navigateEvent
-
-    fun navigateToListFragment() {
-        viewModelScope.launch {
-            _navigateEvent.emit(R.id.listFragment)
-        } // ListFragment의 메뉴 ID로 설정
     }
-}
