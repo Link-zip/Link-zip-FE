@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +15,8 @@ import umc.link.zip.databinding.FragmentHomeBinding
 import umc.link.zip.domain.model.Link
 import umc.link.zip.domain.model.Zip
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.list.ListUnreadViewModel
+import umc.link.zip.util.extension.repeatOnStarted
 
 
 @AndroidEntryPoint
@@ -20,6 +24,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private var recentList = ArrayList<Link>()
     private val navigator by lazy { findNavController() }
     private lateinit var sharedViewModel: SharedViewModel
+    private val viewModel: HomeViewModel by activityViewModels()
 
     override fun initObserver() {
 
@@ -51,8 +56,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     }
 
     private fun toListFragment() {
-        val action = HomeFragmentDirections.actionHomeFragmentToListFragment() // 원하는 탭 인덱스 전달
-        findNavController().navigate(action)
+        viewModel.navigateToListFragment()
     }
 
     private fun setClickListener() {

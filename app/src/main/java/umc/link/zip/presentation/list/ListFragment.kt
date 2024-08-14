@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.list
 
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
@@ -7,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentListBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.home.SharedViewModel
 import umc.link.zip.presentation.list.adapter.ListVPA
 import umc.link.zip.util.extension.repeatOnStarted
 
@@ -17,13 +19,41 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
     private val listVPA get() = _listVPA
     private val navigator by lazy { findNavController() }
 
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val listTabViewModel: ListTabViewModel by viewModels()
+
     override fun initObserver() {
         repeatOnStarted {
-            /* 필요하다면
-            viewModel.someEvent.collect { event ->
+            sharedViewModel.getSelectedItem().observe(viewLifecycleOwner) { selectedItem ->
+                when (selectedItem) {
+                    "recent" -> {
+                        repeatOnStarted {
+                            listTabViewModel.setSelectedLineup("latest")
+                        }
+                        binding.vpList.setCurrentItem(2, false)
+                    }
+                    "like" -> {
+                        repeatOnStarted {
+                            listTabViewModel.setSelectedLineup("latest")
+                        }
+                        binding.vpList.setCurrentItem(1, false)
+                    }
+                    "old" -> {
+                        repeatOnStarted {
+                            listTabViewModel.setSelectedLineup("oldest")
+                        }
+                        binding.vpList.setCurrentItem(0, false)
+                    }
+                    "wait" -> {
+                        repeatOnStarted {
+                            listTabViewModel.setSelectedLineup("latest")
+                        }
+                        binding.vpList.setCurrentItem(0, false)
+                    }
+                }
             }
-             */
         }
+
     }
 
     override fun initView() {

@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -16,7 +17,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -60,7 +60,7 @@ dependencies {
 
     // Hilt Dependency Injection
     implementation("com.google.dagger:hilt-android:2.49")
-    ksp("com.google.dagger:hilt-compiler:2.49")
+    kapt("com.google.dagger:hilt-compiler:2.49")
 
     //gson
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
@@ -70,6 +70,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+
 
     // https://github.com/square/okhttp
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
@@ -86,7 +87,7 @@ dependencies {
 
     // Glide Image Loading Library
     implementation("com.github.bumptech.glide:glide:4.14.2")
-    ksp("com.github.bumptech.glide:ksp:4.14.2")
+    kapt("com.github.bumptech.glide:ksp:4.14.2")
 
     //CardView
     implementation("androidx.cardview:cardview:1.0.0")
@@ -94,7 +95,7 @@ dependencies {
     // Coroutines Dependency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    
+
     //blur
     implementation("jp.wasabeef:blurry:4.0.1")
     implementation ("com.github.Dimezis:BlurView:version-2.0.3")
