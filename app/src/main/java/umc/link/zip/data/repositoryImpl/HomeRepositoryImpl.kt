@@ -2,11 +2,15 @@ package umc.link.zip.data.repositoryImpl
 
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.response.HomeAlertCountResponse
+import umc.link.zip.data.dto.response.HomeOldCountResponse
 import umc.link.zip.data.dto.response.HomeRecentResponse
+import umc.link.zip.data.dto.response.HomeTotalCountResponse
 import umc.link.zip.data.dto.response.HomeUnreadCountResponse
 import umc.link.zip.data.service.HomeService
 import umc.link.zip.domain.model.home.HomeAlertCountModel
+import umc.link.zip.domain.model.home.HomeOldCountModel
 import umc.link.zip.domain.model.home.HomeRecentModel
+import umc.link.zip.domain.model.home.HomeTotalCountModel
 import umc.link.zip.domain.model.home.HomeUnreadCountModel
 import umc.link.zip.domain.repository.HomeRepository
 import umc.link.zip.util.network.NetworkResult
@@ -30,6 +34,18 @@ class HomeRepositoryImpl @Inject constructor(
 
     override suspend fun getUnreadCount(): NetworkResult<HomeUnreadCountModel> {
         return handleApi({ homeService.getUnreadCount() }) { response: BaseResponse<HomeUnreadCountResponse> ->
+            response.result.toModel()
+        }
+    }
+
+    override suspend fun getOldCount(): NetworkResult<HomeOldCountModel> {
+        return handleApi({ homeService.getOldCount() }) { response: BaseResponse<HomeOldCountResponse> ->
+            response.result.toModel()
+        }
+    }
+
+    override suspend fun getTotalCount(): NetworkResult<HomeTotalCountModel> {
+        return handleApi({ homeService.getTotalCount() }) { response: BaseResponse<HomeTotalCountResponse> ->
             response.result.toModel()
         }
     }

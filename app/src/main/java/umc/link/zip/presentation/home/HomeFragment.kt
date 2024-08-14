@@ -2,13 +2,15 @@ package umc.link.zip.presentation.home
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TypefaceSpan
 import android.view.View
-import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +22,6 @@ import umc.link.zip.domain.model.home.Zip
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.network.NetworkResult
 
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private var recentList = ArrayList<Link>()
@@ -31,6 +32,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
 
     override fun initObserver() {
         setHomeRecentViewModel()
+        setHomeOldCountViewModel()
+        setHomeTotalCountViewModel()
     }
 
     override fun initView() {
@@ -40,6 +43,61 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         setClickListener()
         setScrollListener()
         setRVAdapter()
+    }
+
+    private fun setHomeOldCountViewModel() {
+        homeViewModel.oldCount.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> {}
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    if(result.data.oldLinksCount == 0) {
+                        binding.clHomeOldlink.visibility = View.GONE
+                    } else {
+                        val countText = "${result.data.oldLinksCount}개"
+                        val fullText = "알림을 설정한 링크 중 최근\n한 달을 넘게 안 읽은 링크\n${countText}가 있어요."
+
+                        val spannableString = SpannableString(fullText)
+
+                        val startIdx = fullText.indexOf(countText)
+                        val endIdx = startIdx + countText.length
+
+                        val myTypeface = Typeface.create(
+                            ResourcesCompat.getFont(requireContext(), R.font.pretendard_medium),
+                            Typeface.BOLD
+                        )
+                        spannableString.setSpan(
+                            TypefaceSpan(myTypeface),
+                            startIdx,
+                            endIdx,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+
+                        binding.tvHomeOldlinkNotreadcnt.text = spannableString
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setHomeTotalCountViewModel() {
+        homeViewModel.totalCount.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> {}
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    binding.tvHomeLinkAlarmcnt.text = "0개"
+                    binding.tvHomeLinkNotreadcnt.text = "0개"
+                    if(result.data.totalLinksCount == 0) {
+                        binding.tvHomeLink1month.visibility = View.VISIBLE
+                        binding.tvHomeLink1month.text = "가입을 환영해요!"
+                        binding.tvHomeLinkWait.text = "첫 번째 링크를\n저장해 보세요!"
+                    } else {
+                        setHomeAlertCountViewModel()
+                    }
+                }
+            }
+        }
     }
 
     private fun setHomeAlertCountViewModel() {
@@ -55,7 +113,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
                         binding.tvHomeLink1month.visibility = View.VISIBLE
                         binding.tvHomeLink1month.text = "최근 한 달 기준"
                         binding.tvHomeLinkAlarmcnt.text = "${result.data.recentAlertsCount}개"
-                        // 읽지 않은 링크 api
+                        setHomeUnreadCountViewModel()
                     }
                 }
             }

@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.domain.model.home.HomeAlertCountModel
+import umc.link.zip.domain.model.home.HomeOldCountModel
 import umc.link.zip.domain.model.home.HomeRecentModel
+import umc.link.zip.domain.model.home.HomeTotalCountModel
 import umc.link.zip.domain.model.home.HomeUnreadCountModel
 import umc.link.zip.domain.repository.HomeRepository
 import umc.link.zip.util.network.NetworkResult
@@ -31,6 +33,12 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private val _unreadCount = MutableLiveData<NetworkResult<HomeUnreadCountModel>>()
     val unreadCount: LiveData<NetworkResult<HomeUnreadCountModel>> get() = _unreadCount
 
+    private val _oldCount = MutableLiveData<NetworkResult<HomeOldCountModel>>()
+    val oldCount: LiveData<NetworkResult<HomeOldCountModel>> get() = _oldCount
+
+    private val _totalCount = MutableLiveData<NetworkResult<HomeTotalCountModel>>()
+    val totalCount: LiveData<NetworkResult<HomeTotalCountModel>> get() = _totalCount
+
     fun getRecentLinks() {
         viewModelScope.launch {
             _recentLinks.value = homeRepository.getRecentLinks()
@@ -46,6 +54,18 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     fun getUnreadCount() {
         viewModelScope.launch {
             _unreadCount.value = homeRepository.getUnreadCount()
+        }
+    }
+
+    fun getOldCount() {
+        viewModelScope.launch {
+            _oldCount.value = homeRepository.getOldCount()
+        }
+    }
+
+    fun getTotalCount() {
+        viewModelScope.launch {
+            _totalCount.value = homeRepository.getTotalCount()
         }
     }
 
