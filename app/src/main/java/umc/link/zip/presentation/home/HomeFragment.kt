@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private lateinit var recentRVAdapter: RecentRVAdapter
 
     override fun initObserver() {
-        setHomeViewModel()
+        setHomeRecentViewModel()
     }
 
     override fun initView() {
@@ -42,7 +42,44 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         setRVAdapter()
     }
 
-    private fun setHomeViewModel() {
+    private fun setHomeAlertCountViewModel() {
+        homeViewModel.alertCount.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> {}
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    if(result.data.recentAlertsCount == 0) {
+                        binding.tvHomeLink1month.visibility = View.INVISIBLE
+                        binding.tvHomeLinkWait.text = "링크를\n저장해보세요!"
+                    } else {
+                        binding.tvHomeLink1month.visibility = View.VISIBLE
+                        binding.tvHomeLink1month.text = "최근 한 달 기준"
+                        binding.tvHomeLinkAlarmcnt.text = "${result.data.recentAlertsCount}개"
+                        // 읽지 않은 링크 api
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setHomeUnreadCountViewModel() {
+        homeViewModel.unreadCount.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> {}
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    binding.tvHomeLinkNotreadcnt.text = "${result.data.unreadLinksCount}개"
+                    if(result.data.unreadLinksCount == 0) {
+                        binding.tvHomeLinkWait.text = "알림 설정한 모든\n링크를 읽었어요!"
+                    } else {
+                        binding.tvHomeLinkWait.text = "${result.data.unreadLinksCount}개의 링크가\n기다리고 있어요!"
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setHomeRecentViewModel() {
         homeViewModel.recentLinks.observe(this) { result ->
             when(result) {
                 is NetworkResult.Error -> {}
