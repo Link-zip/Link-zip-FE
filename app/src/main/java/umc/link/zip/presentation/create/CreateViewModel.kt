@@ -73,25 +73,35 @@ class CreateViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+
     // 현재 링크 데이터 중 date alarm 업데이트
     fun updateAlertDate(date: String? = null, time: String? = null) {
         val existingDateTime = _Create_link.value.alertDate
 
-        val newDate = date ?: existingDateTime?.substringBefore("T")
-        val newTime = time ?: existingDateTime?.substringAfter("T")?.removeSuffix("Z")
+        val currentDate = date ?: existingDateTime?.substringBefore("T")
+        val currentTime = time ?: existingDateTime?.substringAfter("T")?.removeSuffix("Z")
 
-        val updatedAlertDate = if (newDate != null && newTime != null) {
-            "${newDate}T${newTime}Z"
+        val updatedAlertDate = if (currentDate != null && currentTime != null) {
+            "${currentDate}T${currentTime}Z"
         } else {
             null
         }
 
-        // _Create_link의 alertDate 값 업데이트
         _Create_link.value = _Create_link.value.copy(alertDate = updatedAlertDate)
 
-        // dummyCreateLinks에서 해당 URL의 데이터를 찾아 alertDate 값 업데이트
+        // 더미 데이터에서도 업데이트
         dummyCreateLinks.find { it.url == _Create_link.value.url }?.apply {
             this.alertDate = updatedAlertDate
+        }
+    }
+
+    // 알람 날짜를 초기화 (null로 설정)
+    fun clearAlertDate() {
+        _Create_link.value = _Create_link.value.copy(alertDate = null)
+
+        // 더미 데이터에서도 업데이트
+        dummyCreateLinks.find { it.url == _Create_link.value.url }?.apply {
+            this.alertDate = null
         }
     }
 

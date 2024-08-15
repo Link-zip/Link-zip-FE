@@ -1,9 +1,13 @@
 package umc.link.zip.data.repositoryImpl
 
 import umc.link.zip.data.dto.BaseResponse
+import umc.link.zip.data.dto.link.request.LinkAddRequest
 import umc.link.zip.data.dto.link.request.LinkExtractRequest
+import umc.link.zip.data.dto.link.request.LinkSummaryRequest
+import umc.link.zip.data.dto.link.response.LinkAddResponse
 import umc.link.zip.data.dto.link.response.LinkExtractResponse
 import umc.link.zip.data.dto.link.response.LinkGetResponse
+import umc.link.zip.data.dto.link.response.LinkSummaryResponse
 import umc.link.zip.data.dto.link.response.MoveLinkToNewZipResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.data.dto.zip.request.ZipEditRequest
@@ -14,8 +18,10 @@ import umc.link.zip.data.dto.zip.response.ZipGetResponse
 import umc.link.zip.data.dto.zip.response.ZipRmResponse
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.data.service.ZipService
+import umc.link.zip.domain.model.link.LinkAddModel
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.domain.model.link.LinkGetModel
+import umc.link.zip.domain.model.link.LinkSummaryModel
 import umc.link.zip.domain.model.link.MoveLinkToNewZipModel
 import umc.link.zip.domain.model.zip.ZipCreateModel
 import umc.link.zip.domain.model.zip.ZipEditModel
@@ -42,6 +48,14 @@ class LinkRepositoryImpl @Inject constructor(
 
     override suspend fun ExtractLink(linkExtractRequest: LinkExtractRequest): NetworkResult<LinkExtractModel> {
         return handleApi({ linkService.postLinkExtract(linkExtractRequest) }) { response: BaseResponse<LinkExtractResponse> -> response.result.toModel() }
+    }
+
+    override suspend fun SummaryLink(linkSummaryRequest: LinkSummaryRequest): NetworkResult<LinkSummaryModel> {
+        return handleApi({ linkService.postLinkSummary(linkSummaryRequest) }) { response: BaseResponse<LinkSummaryResponse> -> response.result.toModel() }
+    }
+
+    override suspend fun AddLink(linkAddRequest: LinkAddRequest): NetworkResult<LinkAddModel> {
+        return handleApi({ linkService.postLinkAdd(linkAddRequest) }) { response: BaseResponse<LinkAddResponse> -> response.result.toModel() }
     }
 }
 

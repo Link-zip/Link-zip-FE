@@ -9,9 +9,13 @@ import retrofit2.http.PATCH
 import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
+import umc.link.zip.data.dto.link.request.LinkAddRequest
 import umc.link.zip.data.dto.link.request.LinkExtractRequest
+import umc.link.zip.data.dto.link.request.LinkSummaryRequest
+import umc.link.zip.data.dto.link.response.LinkAddResponse
 import umc.link.zip.data.dto.link.response.LinkExtractResponse
 import umc.link.zip.data.dto.link.response.LinkGetResponse
+import umc.link.zip.data.dto.link.response.LinkSummaryResponse
 import umc.link.zip.data.dto.link.response.MoveLinkToNewZipResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.data.dto.zip.request.ZipEditRequest
@@ -37,5 +41,15 @@ interface LinkService {
     suspend fun postLinkExtract(
         @Body linkExtractRequest: LinkExtractRequest
     ) : Response<BaseResponse<LinkExtractResponse>>
+
+    @POST("link/summary")
+    suspend fun postLinkSummary(
+        @Body linkSummaryRequest: LinkSummaryRequest
+    ) : Response<BaseResponse<LinkSummaryResponse>>
+
+    @POST("link/add")
+    suspend fun postLinkAdd(
+        @Body linkAddRequest: LinkAddRequest
+    ) : Response<BaseResponse<LinkAddResponse>>
 }
 
