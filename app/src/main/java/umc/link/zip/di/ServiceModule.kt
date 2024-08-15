@@ -31,12 +31,12 @@ object ServiceModule {
 
     @Provides
     @Singleton
-
     fun provideListService(retrofit: Retrofit): ListService {
         return retrofit.buildService()
     }
 
-
+    @Provides
+    @Singleton
     fun provideLoginService(retrofit: Retrofit): LoginService {
         return retrofit.buildService()
     }

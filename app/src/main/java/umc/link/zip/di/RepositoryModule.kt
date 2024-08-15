@@ -49,11 +49,12 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
-
     fun providesListRepository(
         listService: ListService
     ): ListRepository = ListRepositoryImpl(listService)
 
+    @ViewModelScoped
+    @Provides
     fun provideLinkRepository(
         linkService: LinkService
     ): LinkRepository = LinkRepositoryImpl(linkService)
