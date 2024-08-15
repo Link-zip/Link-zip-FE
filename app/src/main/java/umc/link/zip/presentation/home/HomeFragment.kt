@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentHomeBinding
 import umc.link.zip.domain.model.home.Link
-import umc.link.zip.domain.model.home.Zip
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.network.NetworkResult
 
@@ -167,7 +166,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private fun setRVAdapter() {
         recentRVAdapter = RecentRVAdapter(requireContext(), object : RecentRVAdapter.OnItemClickListener {
             override fun onItemClick(link: Link) {
-                navigator.navigate(R.id.action_homeFragment_to_openLinkFragment)
+                val action = HomeFragmentDirections.actionHomeFragmentToOpenLinkFragment(link.id)
+                navigator.navigate(action)
             }
         })
         binding.rvHomeRecent.adapter = recentRVAdapter

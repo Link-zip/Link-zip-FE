@@ -8,7 +8,7 @@ data class HomeRecentResponse(
     val links: List<RecentResponse>
 ) {
     data class RecentResponse(
-        val id: String,
+        val id: Int,
         val title: String,
         val url: String,
         val tag: String,
@@ -29,7 +29,7 @@ data class HomeRecentResponse(
         )
 
         data class ZipResponse(
-            val id: String,
+            val id: Int,
             val title: String,
             val color: String
         ) {

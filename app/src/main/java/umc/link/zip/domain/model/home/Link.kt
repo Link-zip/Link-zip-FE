@@ -1,7 +1,7 @@
 package umc.link.zip.domain.model.home
 
 data class Link(
-    val id: String,
+    val id: Int,
     val title: String,
     val url: String,
     val tag: String,
