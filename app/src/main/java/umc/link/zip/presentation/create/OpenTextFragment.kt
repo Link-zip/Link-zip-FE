@@ -37,6 +37,10 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                 } else {
                     "설정된 알림이 없습니다."
                 }
+
+                // 텍스트 요약
+                binding.tvOpenTextSummary.text = link.text.ifEmpty { "텍스트 요약이 없습니다." }
+
             }
         }
     }

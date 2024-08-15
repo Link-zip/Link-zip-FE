@@ -309,7 +309,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="#F8F8F8"
+                    android:background="#Fff"
                     app:layout_constraintTop_toTopOf="@id/view_openText_shadow_top"
                     app:layout_constraintBottom_toBottomOf="@id/view_openText_shadow_bottom"/>
 
