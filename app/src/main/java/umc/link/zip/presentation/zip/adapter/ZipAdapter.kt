@@ -1,19 +1,20 @@
 package umc.link.zip.presentation.zip.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import umc.link.zip.R
 import umc.link.zip.databinding.ItemZipBinding
 import umc.link.zip.domain.model.ZipItem
+import umc.link.zip.domain.model.zip.ZipGetItemModel
 
-class ZipAdapter(private val onItemSelected: (ZipItem, Boolean) -> Unit) : RecyclerView.Adapter<ZipAdapter.ZipViewHolder>() {
+class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit) : RecyclerView.Adapter<ZipAdapter.ZipViewHolder>() {
 
-    private var items: List<ZipItem> = emptyList()
-    private var selectedItems: MutableSet<ZipItem> = mutableSetOf()
+    private var items: List<ZipGetItemModel> = emptyList()
+    private var selectedItems: MutableSet<ZipGetItemModel> = mutableSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ZipViewHolder {
         val binding = ItemZipBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,16 +29,13 @@ class ZipAdapter(private val onItemSelected: (ZipItem, Boolean) -> Unit) : Recyc
 
     override fun getItemCount(): Int = items.size
 
-    fun submitList(newItems: List<ZipItem>) {
-        items = newItems
-        notifyDataSetChanged()
-    }
-
+    @SuppressLint("NotifyDataSetChanged")
     fun selectAllItems() {
         selectedItems.addAll(items)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun clearSelections() {
         selectedItems.clear()
         notifyDataSetChanged()
@@ -49,10 +47,20 @@ class ZipAdapter(private val onItemSelected: (ZipItem, Boolean) -> Unit) : Recyc
         }
     }
 
+    fun submitList(newItems: List<ZipGetItemModel>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
+
+
     inner class ZipViewHolder(private val binding: ItemZipBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(zipItem: ZipItem, isSelected: Boolean) {
+        fun bind(zipItem: ZipGetItemModel, isSelected: Boolean) {
+
             binding.itemTitle1.text = zipItem.title
             setBackgroundBasedOnColor(binding.itemZipFastSaveIv, zipItem.color)
+            binding.itemZipSaveTv.text = zipItem.title
+            binding.itemLinkCount.text = zipItem.link_count.toString()
+
 
             // 선택된 항목에 대한 배경색을 변경합니다.
             binding.root.setBackgroundColor(if (isSelected) Color.LTGRAY else Color.TRANSPARENT)

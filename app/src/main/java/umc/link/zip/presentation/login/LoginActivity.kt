@@ -7,6 +7,8 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -30,7 +32,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun initView() {
         setClickListener()
     }
-
     override fun initObserver() {
         viewModel.loginResult.observe(this) { result ->
             when(result) {
@@ -113,8 +114,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
+            //NAV to Zip Fragment
+            //startActivity(Intent(this, MainActivity::class.java))
         }
     }
+
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.commit {

@@ -48,7 +48,7 @@
             android:label="MakeZipFragment" >
             <action
                 android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
-                app:destination="@id/makezipFragment" />
+                app:destination="@id/zipFragment" />
         </fragment>
 
         <fragment

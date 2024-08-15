@@ -19,9 +19,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.databinding.FragmentMakezipBinding
@@ -29,12 +34,17 @@ import umc.link.zip.domain.model.ZipItem
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.zip.adapter.ZipAdapter
 import umc.link.zip.presentation.zip.adapter.ZipCreateViewModel
+import umc.link.zip.util.network.NetworkResult
 
 @AndroidEntryPoint
 class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_makezip) {
 
     private val zipViewModel: ZipCreateViewModel by viewModels()
     private lateinit var selectedColor: String
+
+    private val navigator by lazy {
+        findNavController()
+    }
 
     override fun initObserver() {}
 
@@ -51,34 +61,43 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
         val ivProfilesetGrayshadow = binding.ivProfilesetGrayshadow
         val ivProfilesetBlueshadow = binding.ivProfilesetBlueshadow
 
+        selectedColor = "yellow"
+
         // Set click listeners for each rectangle and store the selected color
         view.findViewById<View>(R.id.rectangle_1)?.setOnClickListener {
             fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_1)
             selectedColor = "yellow"
+            Log.d("MakeZipFragment","selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_2)?.setOnClickListener {
             fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_2)
             selectedColor = "lightgreen"
+            Log.d("MakeZipFragment","selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_3)?.setOnClickListener {
             fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_3)
             selectedColor = "green"
+            Log.d("MakeZipFragment","selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_4)?.setOnClickListener {
             fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_4)
             selectedColor = "lightblue"
+            Log.d("MakeZipFragment","selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_5)?.setOnClickListener {
             fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_5)
             selectedColor = "blue"
+            Log.d("MakeZipFragment","selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_6)?.setOnClickListener {
             fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_6)
             selectedColor = "darkpurple"
+            Log.d("MakeZipFragment","selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_7)?.setOnClickListener {
             fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_7)
             selectedColor = "purple"
+            Log.d("MakeZipFragment","selectedColor = ${selectedColor}")
         }
 
         // 한글은 2글자, 영어는 1글자로 취급해 주는 함수
@@ -187,19 +206,23 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
         // Add item and navigate to FragmentZip on button click
         fragmentMakezipMakeBtn.setOnClickListener {
             val title = zipNameEnterTv.text.toString()
-            if (title.isEmpty()) {
-                // Handle the case where title is empty
-                Log.d("FragmentMakeZip", "Title is empty")
-                return@setOnClickListener
-            }
-
-            // Navigate to FragmentZip
-            findNavController().navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
-            Log.d("FragmentMakeZip", "Navigated to FragmentZip")
-
-            // Zip 생성 API 호출
             val request = ZipCreateRequest(selectedColor, title)
+
             zipViewModel.createZip(request)
+            navigator.navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
+            Log.d("MakeZipFragment", "selectedColor = ${selectedColor}, title = ${title}")
+            Log.d("MakeZipFragment", "Navigated to FragmentZip")
         }
+
+        // createResponse 상태를 관찰하여 결과를 처리
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                zipViewModel.createResponse.collectLatest { response ->
+                    Log.d("ZipCreateViewModel_MakeZip", "API Response: $response")
+                }
+            }
+        }
+
+
     }
 }

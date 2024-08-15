@@ -24,6 +24,7 @@ import umc.link.zip.presentation.zip.adapter.ZipLineDialogSharedViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     private val viewModel: ZipGetViewModel by viewModels()
@@ -107,10 +108,9 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.zipList.collect { zipList ->
-                // zipList에 따라 UI를 업데이트합니다.
+                adapter?.submitList(zipList )
             }
         }
         setupRecyclerView()
@@ -147,10 +147,8 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
                 switchToSelectedMode()
             }
         }
-        binding.fragmentZipRecyclerview.layoutManager = LinearLayoutManager(context)
+        binding.fragmentZipRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.fragmentZipRecyclerview.adapter = adapter
-
-
     }
 
     override fun onDestroyView() {
