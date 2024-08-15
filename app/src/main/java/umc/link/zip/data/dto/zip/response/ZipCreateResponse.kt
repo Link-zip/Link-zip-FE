@@ -8,5 +8,4 @@ data class ZipCreateResponse(
     fun toModel() = ZipCreateModel(
         message = this.message
     )
-
 }
