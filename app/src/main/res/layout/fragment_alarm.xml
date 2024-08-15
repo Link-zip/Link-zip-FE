@@ -6,7 +6,7 @@
     <data>
         <variable
             name="alarm"
-            type="umc.link.zip.domain.model.alarm.Alarm"
+            type="umc.link.zip.domain.model.alert.Alert"
             />
     </data>
 

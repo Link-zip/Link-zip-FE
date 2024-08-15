@@ -10,7 +10,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentAlarmBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.home.alarm.adapter.AlarmRVA
-import umc.link.zip.domain.model.alarm.Alarm
+import umc.link.zip.domain.model.alert.Alert
 
 @AndroidEntryPoint
 class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm) {
@@ -57,8 +57,8 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
         binding.profilePostRv.adapter = alarmRVA
 
         // 더미 데이터 설정
-        val dummyAlarms = listOf(
-            Alarm(
+        val dummyAlerts = listOf(
+            Alert(
                 1,
                 0,
                 "original",
@@ -66,7 +66,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
                 "\"마이크로/나노 인플루언서 마케팅 전략\" 리마인드 알림이 도착했어요!",
                 "트렌드 파악!"
             ),
-            Alarm(
+            Alert(
                 2,
                 0,
                 "original",
@@ -74,7 +74,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
                 "제목1",
                 "메모1"
             ),
-            Alarm(
+            Alert(
                 3,
                 0,
                 "reminder",
@@ -82,7 +82,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
                 "제목2\n최대 2줄",
                 "메모메모"
             ),
-            Alarm(
+            Alert(
                 4,
                 0,
                 "reminder",
@@ -90,7 +90,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
                 "제목3",
                 "메모3"
             ),
-            Alarm(
+            Alert(
                 5,
                 0,
                 "original",
@@ -98,7 +98,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
                 "제목4",
                 "메모4"
             ),
-            Alarm(
+            Alert(
                 6,
                 0,
                 "reminder",
@@ -109,6 +109,6 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
         )
 
         // ViewModel에 더미 데이터를 설정합니다.
-        viewModel.setAlarms(dummyAlarms)
+        viewModel.setAlarms(dummyAlerts)
     }
 }

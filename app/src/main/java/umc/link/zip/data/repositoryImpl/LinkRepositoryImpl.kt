@@ -34,7 +34,11 @@ import javax.inject.Inject
 class LinkRepositoryImpl @Inject constructor(
     private val linkService: LinkService
 ) : LinkRepository {
-    override suspend fun getLinkData(zip_id : Int, tag : String): NetworkResult<LinkGetModel> {
+
+    override suspend fun getLinkData(
+        zip_id : Int,
+        tag : String
+    ): NetworkResult<LinkGetModel> {
         return handleApi({ linkService.getLinkData(zip_id, tag) }) { response: BaseResponse<LinkGetResponse> -> response.result.toModel() }
     }
 

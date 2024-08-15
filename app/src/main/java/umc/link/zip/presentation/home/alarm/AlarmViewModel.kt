@@ -6,13 +6,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import umc.link.zip.domain.model.alarm.Alarm
+import umc.link.zip.domain.model.alert.Alert
 import javax.inject.Inject
 
 @HiltViewModel
 class AlarmViewModel @Inject constructor() : ViewModel() {
-    private val _alarms = MutableStateFlow<List<Alarm>>(emptyList())
-    val alarms: StateFlow<List<Alarm>> get() = _alarms
+    private val _alarms = MutableStateFlow<List<Alert>>(emptyList())
+    val alarms: StateFlow<List<Alert>> get() = _alarms
 
     fun updateAlarmStatus(alarmId: Int) {
         viewModelScope.launch {
@@ -27,7 +27,7 @@ class AlarmViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun setAlarms(alarms: List<Alarm>) {
-        _alarms.value = alarms
+    fun setAlarms(alerts: List<Alert>) {
+        _alarms.value = alerts
     }
 }

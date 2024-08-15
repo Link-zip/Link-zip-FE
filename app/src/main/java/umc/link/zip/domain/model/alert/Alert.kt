@@ -1,6 +1,6 @@
-package umc.link.zip.domain.model.alarm
+package umc.link.zip.domain.model.alert
 
-data class Alarm(
+data class Alert(
         val id: Int,           // 링크 id
         val alarm_status: Int, // 0: 미확인, 1: 확인
         val alarm_type: String, // "original" 또는 "reminder"
