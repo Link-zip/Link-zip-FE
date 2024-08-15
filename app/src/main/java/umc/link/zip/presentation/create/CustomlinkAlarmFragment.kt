@@ -47,7 +47,7 @@ class CustomlinkAlarmFragment :
 
     override fun initView() {
         binding.ivCustomLinkAlarmToolbarBack.setOnClickListener {
-            findNavController().navigateUp()
+            navigator.navigateUp()
         }
 
         binding.tvCustomLinkAlarmDelete.setOnClickListener {
@@ -65,7 +65,7 @@ class CustomlinkAlarmFragment :
                 repeatOnStarted {
                     viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
                 }
-                findNavController().navigateUp()
+                navigator.navigateUp()
             }
             else {
                 when {
@@ -73,15 +73,8 @@ class CustomlinkAlarmFragment :
                         repeatOnStarted {
                             viewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
                         }
-                        findNavController().navigateUp()
+                        navigator.navigateUp()
                     }
-
-                    /*date.isEmpty() && time.isEmpty() -> {
-                        repeatOnStarted {
-                            viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
-                        }
-                        findNavController().navigateUp()
-                    }*/
 
                     date.isEmpty() && time.isNotEmpty() -> {
                         Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
@@ -166,6 +159,10 @@ class CustomlinkAlarmFragment :
         binding.tvCustomLinkAlarmTime.visibility = View.VISIBLE
         binding.tvCustomLinkAlarmDateNone.visibility = View.GONE
         binding.tvCustomLinkAlarmTimeNone.visibility = View.GONE
+    }
+
+    private val navigator by lazy {
+        findNavController()
     }
 }
 

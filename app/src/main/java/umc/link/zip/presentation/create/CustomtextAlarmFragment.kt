@@ -47,38 +47,42 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
 
     override fun initView() {
         binding.ivCustomTextAlarmToolbarBack.setOnClickListener {
-            findNavController().navigateUp()
+            navigator.navigateUp()
         }
 
         binding.tvCustomTextAlarmDelete.setOnClickListener {
             clearAlarm() // UI 초기화
-            repeatOnStarted {
-                viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
-            }
         }
 
         binding.btnCustomTextAlarmComplete.setOnClickListener {
-            val date = binding.tvCustomTextAlarmDate.text.toString().replace(".", "-") // yyyy.MM.dd -> yyyy-MM-dd
+            val date = binding.tvCustomTextAlarmDate.text.toString()
+                .replace(".", "-") // yyyy.MM.dd -> yyyy-MM-dd
             val time = binding.tvCustomTextAlarmTime.text.toString()
 
-            when {
-                date.isNotEmpty() && time.isNotEmpty() -> {
-                    repeatOnStarted {
-                        viewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+            if (binding.tvCustomTextAlarmDateNone.visibility == View.VISIBLE &&
+                binding.tvCustomTextAlarmTimeNone.visibility == View.VISIBLE
+            ) {
+                repeatOnStarted {
+                    viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
+                }
+                navigator.navigateUp()
+            }
+            else {
+                when {
+                    date.isNotEmpty() && time.isNotEmpty() -> {
+                        repeatOnStarted {
+                            viewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+                        }
+                        navigator.navigateUp()
                     }
-                    findNavController().navigateUp()
-                }
-                date.isEmpty() && time.isEmpty() -> {
-                    repeatOnStarted {
-                        viewModel.clearAlertDate() // 알림 초기화
+
+                    date.isEmpty() && time.isNotEmpty() -> {
+                        Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
-                    findNavController().navigateUp()
-                }
-                date.isEmpty() -> {
-                    Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
-                }
-                time.isEmpty() -> {
-                    Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+
+                    time.isEmpty() && date.isNotEmpty() -> {
+                        Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -155,5 +159,9 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
         binding.tvCustomTextAlarmTime.visibility = View.VISIBLE
         binding.tvCustomTextAlarmDateNone.visibility = View.GONE
         binding.tvCustomTextAlarmTimeNone.visibility = View.GONE
+    }
+
+    private val navigator by lazy {
+        findNavController()
     }
 }
