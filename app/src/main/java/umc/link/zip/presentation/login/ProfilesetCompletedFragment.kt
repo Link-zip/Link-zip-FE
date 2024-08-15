@@ -35,6 +35,7 @@ class ProfilesetCompletedFragment : BaseFragment<FragmentProfilesetcompletedBind
     private fun setClickListener() {
         binding.btnProfilesetcompletedStart.setOnClickListener {
             startActivity(Intent(activity, MainActivity::class.java))
+            requireActivity().finish()
         }
     }
 

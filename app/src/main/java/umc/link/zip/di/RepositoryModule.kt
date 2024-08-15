@@ -6,17 +6,18 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import retrofit2.Retrofit
 import umc.link.zip.data.repositoryImpl.LinkRepositoryImpl
+import umc.link.zip.data.repositoryImpl.LoginRepositoryImpl
 import umc.link.zip.data.repositoryImpl.TestRepositoryImpl
 import umc.link.zip.data.repositoryImpl.ZipRepositoryImpl
 import umc.link.zip.data.service.LinkService
+import umc.link.zip.data.service.LoginService
 import umc.link.zip.data.service.TestService
 import umc.link.zip.data.service.ZipService
 import umc.link.zip.domain.repository.LinkRepository
+import umc.link.zip.domain.repository.LoginRepository
 import umc.link.zip.domain.repository.TestRepository
 import umc.link.zip.domain.repository.ZipRepository
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -30,6 +31,12 @@ object RepositoryModule {
     fun providesTestRepository(
         testService: TestService
     ): TestRepository = TestRepositoryImpl(testService)
+
+    @ViewModelScoped
+    @Provides
+    fun providesLoginRepository(
+        loginService: LoginService
+    ): LoginRepository = LoginRepositoryImpl(loginService)
 
     @ViewModelScoped
     @Provides
