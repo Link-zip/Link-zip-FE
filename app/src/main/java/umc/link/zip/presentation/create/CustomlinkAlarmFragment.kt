@@ -14,7 +14,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 @AndroidEntryPoint
-class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.layout.fragment_customlink_alarm),
+class CustomlinkAlarmFragment :
+    BaseFragment<FragmentCustomlinkAlarmBinding>(R.layout.fragment_customlink_alarm),
     DatePickerDialogueFragment.DatePickerListener, TimePickerDialogueFragment.TimePickerListener {
 
     private val viewModel: CreateViewModel by activityViewModels()
@@ -51,33 +52,44 @@ class CustomlinkAlarmFragment : BaseFragment<FragmentCustomlinkAlarmBinding>(R.l
 
         binding.tvCustomLinkAlarmDelete.setOnClickListener {
             clearAlarm() // UI 초기화
-            repeatOnStarted {
-                viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
-            }
         }
 
         binding.btnCustomLinkAlarmComplete.setOnClickListener {
-            val date = binding.tvCustomLinkAlarmDate.text.toString().replace(".", "-") // yyyy.MM.dd -> yyyy-MM-dd
+            val date = binding.tvCustomLinkAlarmDate.text.toString()
+                .replace(".", "-") // yyyy.MM.dd -> yyyy-MM-dd
             val time = binding.tvCustomLinkAlarmTime.text.toString()
 
-            when {
-                date.isNotEmpty() && time.isNotEmpty() -> {
-                    repeatOnStarted {
-                        viewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+            if (binding.tvCustomLinkAlarmDateNone.visibility == View.VISIBLE &&
+                binding.tvCustomLinkAlarmTimeNone.visibility == View.VISIBLE
+            ) {
+                repeatOnStarted {
+                    viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
+                }
+                findNavController().navigateUp()
+            }
+            else {
+                when {
+                    date.isNotEmpty() && time.isNotEmpty() -> {
+                        repeatOnStarted {
+                            viewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+                        }
+                        findNavController().navigateUp()
                     }
-                    findNavController().navigateUp()
-                }
-                date.isEmpty() && time.isEmpty() -> {
-                    repeatOnStarted {
-                        viewModel.clearAlertDate() // 알림 초기화
+
+                    /*date.isEmpty() && time.isEmpty() -> {
+                        repeatOnStarted {
+                            viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
+                        }
+                        findNavController().navigateUp()
+                    }*/
+
+                    date.isEmpty() && time.isNotEmpty() -> {
+                        Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
-                    findNavController().navigateUp()
-                }
-                date.isEmpty() -> {
-                    Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
-                }
-                time.isEmpty() -> {
-                    Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+
+                    time.isEmpty() && date.isNotEmpty() -> {
+                        Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
