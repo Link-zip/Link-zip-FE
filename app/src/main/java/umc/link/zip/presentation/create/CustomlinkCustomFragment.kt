@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkCustomBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.repeatOnStarted
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R.layout.fragment_customlink_custom){

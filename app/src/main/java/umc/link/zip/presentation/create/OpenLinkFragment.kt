@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

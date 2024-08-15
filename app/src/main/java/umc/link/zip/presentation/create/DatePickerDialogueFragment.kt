@@ -1,6 +1,5 @@
 package umc.link.zip.presentation.create
 
-import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.activityViewModels
 import umc.link.zip.R

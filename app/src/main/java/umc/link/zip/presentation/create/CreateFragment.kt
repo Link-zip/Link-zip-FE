@@ -4,7 +4,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -45,7 +44,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     }
 
     override fun initView() {
-        binding.viewModel = viewModel // ViewModel을 데이터 바인딩에 설정
+        binding.viewModel = viewModel
 
 
         binding.etCreateLink.addTextChangedListener(object : TextWatcher {
@@ -69,17 +68,21 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
             findNavController().navigateUp()
         }
 
+        // 텍스트 요약
         binding.btnCreateSaveText.setOnClickListener {
+            val url = binding.etCreateLink.text.toString()
+            viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
             navigateToLoading()
         }
 
+        // 링크 저장
         binding.btnCreateSaveLink.setOnClickListener {
             val url = binding.etCreateLink.text.toString()
             viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
             navigateToLink()
         }
 
-        // Delete 버튼 클릭 리스너 설정
+        // Delete 버튼
         binding.ivCreateDelete.setOnClickListener {
             viewModel.clearLinkInput()
             binding.etCreateLink.text.clear() // EditText의 내용을 직접 초기화

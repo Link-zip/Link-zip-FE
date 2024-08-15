@@ -1,14 +1,11 @@
 package umc.link.zip.presentation.create
 
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import umc.link.zip.domain.model.create.CreateLink
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,7 +36,7 @@ class CreateViewModel @Inject constructor() : ViewModel() {
         CreateLink(
             zipId = 2,
             title = "url2의 제목입니다 (유튜브)",
-            text = "url2의 텍스트입니다",
+            text = "url2의 텍스트입니다\nabc\naa\na\na\na\na\naadfwfjwie가나닫맏마ㅓㅈ다ㅓㄹ맏ㄹㅁㅈ더래ㅑㅁㄹㅁㅈ",
             url = "https://www.youtube.com",
             memo = "",
             alertDate = "2024-08-20T14:00:00Z"
@@ -63,6 +60,16 @@ class CreateViewModel @Inject constructor() : ViewModel() {
         // dummyLinks에서 해당 URL의 데이터를 찾아 업데이트
         dummyCreateLinks.find { it.url == _Create_link.value.url }?.apply {
             this.memo = memo
+        }
+    }
+
+    // 현재 링크 데이터 중 text 업데이트
+    fun updateText(text: String) {
+        _Create_link.value = _Create_link.value.copy(text = text)
+
+        // dummyLinks에서 해당 URL의 데이터를 찾아 업데이트
+        dummyCreateLinks.find { it.url == _Create_link.value.url }?.apply {
+            this.text = text
         }
     }
 

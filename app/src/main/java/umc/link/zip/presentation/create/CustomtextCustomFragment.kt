@@ -21,6 +21,9 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
             viewModel.link.collectLatest { link ->
                 // EditText 제목 설정
                 binding.etCustomTextCustomLinkTitle.setText(link.title ?: "설정된 제목이 없습니다.")
+
+                // Text 요약 설정
+                binding.etCustomTextSummaryText.setText(link.text ?: "텍스트 요약이 없습니다.")
             }
         }
     }
@@ -29,6 +32,15 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         setOnClickListener()
 
         binding.etCustomTextCustomLinkTitle.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.updateLinkInput(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.etCustomTextSummaryText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.updateLinkInput(s.toString())
             }
@@ -67,12 +79,15 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
     private fun handleSaveAndNavigate(navigateAction: () -> Unit) {
         val updatedTitle = binding.etCustomTextCustomLinkTitle.text.toString()
+        val updatedText = binding.etCustomTextSummaryText.text.toString()
+
         if (updatedTitle.isEmpty()) {
             // 제목이 비어있으면 토스트 메시지 표시
             Toast.makeText(requireContext(), "제목을 설정해주세요", Toast.LENGTH_SHORT).show()
         } else {
             // 제목이 비어있지 않으면 ViewModel에 제목 저장하고 이동
             viewModel.updateTitle(updatedTitle)
+            viewModel.updateText(updatedText)
             navigateAction()
         }
     }

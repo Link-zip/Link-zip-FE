@@ -2,10 +2,8 @@ package umc.link.zip.presentation.create
 
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCreateLoadingBinding
 import umc.link.zip.presentation.base.BaseFragment
