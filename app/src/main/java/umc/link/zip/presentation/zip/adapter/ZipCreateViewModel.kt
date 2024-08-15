@@ -25,6 +25,7 @@ class ZipCreateViewModel @Inject constructor(
     fun createZip(request: ZipCreateRequest) {
         viewModelScope.launch {
             val response = zipRepository.postCreateZip(request)
+            Log.d("ZZZipCreateViewModel_MakeZip", "Requested Data: color=${request.color}, title=${request.title}")
             Log.d("ZZZipCreateViewModel_MakeZip", "API Response: $response")
             _createResponse.value = response // API 응답 값을 업데이트
         }
