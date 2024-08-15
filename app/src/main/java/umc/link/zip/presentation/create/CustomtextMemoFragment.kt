@@ -1,5 +1,8 @@
 package umc.link.zip.presentation.create
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +22,9 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
             viewModel.link.collectLatest { link ->
                 // 제목
                 binding.tvCustomTextMemoLinkTitle.text = link.title ?: "No Title"
+
+                // 메모
+                binding.etCustomTextMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
             }
         }
     }
@@ -27,7 +33,7 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
         binding.ivCustomTextMemoToolbarBack.setOnClickListener{
             findNavController().navigateUp()
         }
-        binding.clCustomTextMemoCompleteBtn.setOnClickListener {
+        binding.btnCustomTextMemoComplete.setOnClickListener {
             // 메모 업데이트
             val updatedMemo = binding.etCustomTextMemoAddMemo.text.toString()
             viewModel.updateMemo(memo = updatedMemo)

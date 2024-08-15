@@ -19,6 +19,9 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
             viewModel.link.collectLatest { link ->
                 // 제목
                 binding.tvCustomLinkMemoLinkTitle.text = link.title ?: "No Title"
+
+                // 메모
+                binding.etCustomLinkMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
             }
         }
     }
@@ -27,7 +30,7 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
         binding.ivCustomLinkMemoToolbarBack.setOnClickListener{
             findNavController().navigateUp()
         }
-        binding.clCustomLinkMemoCompleteBtn.setOnClickListener {
+        binding.btnCustomLinkMemoComplete.setOnClickListener {
             // 메모 업데이트
             val updatedMemo = binding.etCustomLinkMemoAddMemo.text.toString()
             viewModel.updateMemo(memo = updatedMemo)
