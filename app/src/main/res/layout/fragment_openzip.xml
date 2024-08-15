@@ -3,9 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="37.5dp">
 
         <View
             android:id="@+id/fragment_openzip_withdrawal_mg1"
@@ -69,246 +74,436 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
-        <View
-            android:id="@+id/fragment_openzip_withdrawal_mg2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg6"
-            app:layout_constraintDimensionRatio="24:198"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.0666" />
-
-        <ImageView
-            android:id="@+id/fragment_openzip_insite_iv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_zip_yellow_shadow"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/fragment_openzip_withdrawal_mg4"
-            app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg2"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_openzip"
-            app:layout_constraintWidth_percent="0.1888" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:fontFamily="@font/pretendard_regular"
-            android:letterSpacing="-0.03"
-            android:text="인사이트"
-            android:textColor="@color/white"
-            android:textFontWeight="500"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_openzip_insite_iv"
-            app:layout_constraintEnd_toEndOf="@id/fragment_openzip_insite_iv"
-            app:layout_constraintStart_toStartOf="@id/fragment_openzip_insite_iv"
-            app:layout_constraintTop_toTopOf="@id/fragment_openzip_insite_iv" />
-
-        <ImageView
-            android:id="@+id/fragment_openzip_image_view1"
-            android:layout_width="37dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="65dp"
-            android:src="@drawable/btn_openzip_editzip"
-            app:layout_constraintBottom_toBottomOf="@id/fragment_openzip_insite_iv"
-            app:layout_constraintEnd_toEndOf="@id/fragment_openzip_insite_iv"
-            app:layout_constraintStart_toStartOf="@id/fragment_openzip_insite_iv"
-            app:layout_constraintTop_toTopOf="@id/fragment_openzip_insite_iv" />
-
-        <View
-            android:id="@+id/fragment_openzip_withdrawal_mg4"
-            android:layout_width="0dp"
-            android:layout_height="76dp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg4"
-            app:layout_constraintEnd_toStartOf="@id/zip_name_space"
-            app:layout_constraintStart_toEndOf="@id/fragment_openzip_insite_iv"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_openzip"
-            app:layout_constraintWidth_percent="0.0444" />
-
+        <!-- 스크롤 할 때 사라져야 하는 영역1-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/zip_name_space"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg4"
-            app:layout_constraintEnd_toStartOf="@id/fragment_openzip_withdrawal_mg5"
-            app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg4"
+            android:id="@+id/fragment_openzip_icon_cl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@id/toolbar_openzip">
 
-            <TextView
-                android:id="@+id/fragment_openzip_insite_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="4dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:letterSpacing="-0.03"
-                android:text="인사이트"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+            <View
+                android:id="@+id/fragment_openzip_withdrawal_mg2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="24:76"
+                app:layout_constraintWidth_percent="0.0666" />
 
             <ImageView
-                android:id="@+id/fragment_openzip_dropdown_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3.5dp"
-                android:fontFamily="@font/pretendard_medium"
-                android:padding="4dp"
-                android:src="@drawable/ic_downarrow"
-                app:layout_constraintBottom_toBottomOf="@id/fragment_openzip_insite_tv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@id/fragment_openzip_insite_tv"
-                app:layout_constraintTop_toTopOf="@id/fragment_openzip_insite_tv"
-                app:layout_constraintVertical_bias="1.0" />
+                android:id="@+id/fragment_openzip_insite_iv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_zip_shadow_1"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.1888" />
 
             <TextView
-                android:id="@+id/fragment_openzip_link_count_tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/pretendard_light"
+                android:layout_marginTop="13dp"
+                android:fontFamily="@font/pretendard_regular"
                 android:letterSpacing="-0.03"
-                android:text="링크개수  | "
-                android:textColor="#666666"
-                android:textFontWeight="400"
+                android:text="인사이트"
+                android:textColor="@color/white"
+                android:textFontWeight="500"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/fragment_openzip_link_count_tv2"
-                app:layout_constraintHorizontal_bias="0.444"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_openzip_insite_tv" />
+                app:layout_constraintBottom_toBottomOf="@id/fragment_openzip_insite_iv"
+                app:layout_constraintEnd_toEndOf="@id/fragment_openzip_insite_iv"
+                app:layout_constraintStart_toStartOf="@id/fragment_openzip_insite_iv"
+                app:layout_constraintTop_toTopOf="@id/fragment_openzip_insite_iv" />
 
-            <TextView
-                android:id="@+id/fragment_openzip_link_count_tv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/pretendard_light"
-                android:letterSpacing="-0.03"
-                android:text="2개"
-                android:textColor="@color/black"
-                android:textFontWeight="400"
-                android:textSize="12sp"
+            <ImageView
+                android:id="@+id/fragment_openzip_image_view1"
+                android:layout_width="37dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="65dp"
+                android:src="@drawable/btn_openzip_editzip"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_openzip_insite_iv"
+                app:layout_constraintEnd_toEndOf="@id/fragment_openzip_insite_iv"
+                app:layout_constraintStart_toStartOf="@id/fragment_openzip_insite_iv"
+                app:layout_constraintTop_toTopOf="@id/fragment_openzip_insite_iv" />
+
+            <View
+                android:id="@+id/fragment_openzip_withdrawal_mg4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_insite_iv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="16:76"
+                app:layout_constraintWidth_percent="0.0444" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/zip_name_space"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintWidth_percent="0.6333"
+                app:layout_constraintEnd_toStartOf="@id/fragment_openzip_withdrawal_mg11"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg4"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/fragment_openzip_insite_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:layout_marginEnd="4dp"
+                    android:letterSpacing="-0.03"
+                    android:text="Text"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:maxWidth="210dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <ImageView
+                    android:id="@+id/fragment_openzip_dropdown_iv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:scaleType="matrix"
+                    android:src="@drawable/ic_dropdown_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fragment_openzip_insite_tv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fragment_openzip_link_count_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/pretendard_light"
+                    android:letterSpacing="-0.03"
+                    android:text="링크개수  | "
+                    android:textColor="#666666"
+                    android:textFontWeight="400"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fragment_openzip_insite_tv" />
+
+                <TextView
+                    android:id="@+id/fragment_openzip_link_count_tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/pretendard_light"
+                    android:letterSpacing="-0.03"
+                    android:text="2개"
+                    android:textColor="@color/black"
+                    android:textFontWeight="400"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fragment_openzip_link_count_tv1"
+                    app:layout_constraintTop_toBottomOf="@id/fragment_openzip_insite_tv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/fragment_openzip_withdrawal_mg11"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:minWidth="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.444"
-                app:layout_constraintStart_toEndOf="@id/fragment_openzip_link_count_tv1"
-                app:layout_constraintTop_toBottomOf="@id/fragment_openzip_insite_tv" />
+                app:layout_constraintStart_toEndOf="@id/zip_name_space"
+                app:layout_constraintDimensionRatio="24:76"
+                app:layout_constraintWidth_percent="0.0666" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/fragment_openzip_withdrawal_mg5"
-            android:layout_width="0dp"
-            android:layout_height="76dp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/zip_name_space"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_openzip"
-            app:layout_constraintWidth_percent="0.4500" />
-
+        <!-- 스크롤 할 때 layout_constraintHeight_percent가 0.020으로 변경되어야 함-->
         <View
             android:id="@+id/fragment_openzip_mg4"
             android:layout_width="match_parent"
-            android:layout_height="24dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
             app:layout_constraintHeight_percent="0.038"
-            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_image_view1" />
+            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_icon_cl" />
 
-        <ImageView
-            android:id="@+id/fragment_openzip_all_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/drawerbtn_allselect_unselected"
-            app:layout_constraintEnd_toStartOf="@id/fragment_openzip_mg5"
-            app:layout_constraintStart_toEndOf="@+id/fragment_openzip_withdrawal_mg2"
-            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_mg4" />
-
-        <View
-            android:id="@+id/fragment_openzip_mg5"
-            android:layout_width="0dp"
+        <!--저장한 링크가 없는 openzip1 cl-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_openzip_sort_cl"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="1dp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg6"
-            app:layout_constraintDimensionRatio="8:36"
-            app:layout_constraintStart_toEndOf="@id/fragment_openzip_all_iv"
-            app:layout_constraintEnd_toStartOf="@id/fragment_openzip_recent_iv"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_openzip_mg4"
-            app:layout_constraintWidth_percent="0.0222" />
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_mg4">
 
-        <ImageView
-            android:id="@+id/fragment_openzip_recent_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/drawerbtn_lineup_early_unselected"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg6"
-            app:layout_constraintEnd_toStartOf="@id/fragment_openzip_mg7"
-            app:layout_constraintStart_toEndOf="@id/fragment_openzip_mg5"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_openzip_mg4" />
+            <View
+                android:id="@+id/fragment_openzip_withdrawal_mg10"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="24:36"
+                app:layout_constraintWidth_percent="0.0666" />
 
-        <View
-            android:id="@+id/fragment_openzip_mg7"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg6"
-            app:layout_constraintDimensionRatio="124:36"
-            app:layout_constraintEnd_toStartOf="@id/fragment_openzip_edit_iv"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_openzip_mg4"
-            app:layout_constraintWidth_percent="0.3444" />
+            <ImageView
+                android:id="@+id/fragment_openzip_all_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/drawerbtn_allselect_unselected"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg10"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/fragment_openzip_edit_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_medium"
-            android:letterSpacing="-0.03"
-            android:text="편집"
-            android:textColor="@color/black"
-            android:textFontWeight="500"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg6"
-            app:layout_constraintEnd_toStartOf="@id/fragment_openzip_mg8"
-            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_mg4" />
+            <View
+                android:id="@+id/fragment_openzip_mg5"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="8:36"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_all_iv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.0222" />
 
-        <View
-            android:id="@+id/fragment_openzip_mg8"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="1dp"
-            app:layout_constraintBottom_toTopOf="@id/fragment_openzip_mg6"
-            app:layout_constraintDimensionRatio="24:36"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_openzip_mg4"
-            app:layout_constraintWidth_percent="0.0666" />
+            <ImageView
+                android:id="@+id/fragment_openzip_recent_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/drawerbtn_lineup_early_unselected"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_mg5"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"/>
 
+            <ImageView
+                android:id="@+id/all_selected_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_checkunselected_black"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg10"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SmallTouchTarget" />
+
+            <TextView
+                android:id="@+id/all_selected_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="3sp"
+                android:text="전체 선택"
+                android:textAppearance="@style/some_id"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:translationY="-1.65sp"
+                android:visibility="gone"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/all_selected_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/fragment_openzip_mg7"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="124:36"
+                app:layout_constraintEnd_toStartOf="@id/fragment_openzip_edit_iv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3444" />
+
+            <TextView
+                android:id="@+id/fragment_openzip_edit_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_medium"
+                android:letterSpacing="-0.03"
+                android:text="편집"
+                android:textColor="@color/black"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_mg7"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/fragment_openzip_mg8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="24:36"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fragment_openzip_edit_iv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.0666" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--저장한 링크가 없는 openzip1땐 gone 해야 하는 여백-->
         <View
             android:id="@+id/fragment_openzip_mg6"
             android:layout_width="match_parent"
             android:layout_height="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_all_iv" />
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/fragment_openzip_sort_cl" />
 
         <View
             android:id="@+id/fragment_openzip_shadow"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@drawable/shadow_zip_bg"
+            android:background="@drawable/shadow_zip_bg2"
             app:layout_constraintTop_toBottomOf="@id/fragment_openzip_mg6" />
 
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_openzip_item_link_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="#fbfbfb"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_openzip_shadow"
             app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="0dp"
+            tools:listitem="@layout/item_link" />
 
+        <View
+            android:id="@+id/fragment_zip_msg2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:57"
+            app:layout_constraintWidth_percent="0.0666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cv_mypage_profile_user_info_box_bg"
+            app:layout_constraintTop_toTopOf="@id/cv_mypage_profile_user_info_box_bg"/>
+
+
+        <View
+            android:id="@+id/fragment_zip_msg3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:57"
+            app:layout_constraintWidth_percent="0.0666"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cv_mypage_profile_user_info_box_bg"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_mypage_profile_user_info_box_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="50dp"
+            app:cardCornerRadius="5dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toEndOf="@id/fragment_zip_msg2"
+            app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg3"
+            app:layout_constraintBottom_toTopOf="@id/cl_profileset_finish_btn_2"
+            app:layout_constraintDimensionRatio="312:57"
+            app:layout_constraintWidth_percent="0.8666"
+            android:visibility="visible">
+
+            <umc.link.zip.presentation.mypage.CornerView
+                android:id="@+id/cv_mypage_profile_user_info_box_bg2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <eightbitlab.com.blurview.BlurView
+                    android:id="@+id/iv_mypage_profile_user_info_box_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_profileset_finish_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/fragment_makezip_make_btn"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:clickable="false"
+                            android:elevation="50dp"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:letterSpacing="-0.025"
+                            android:lineHeight="25dp"
+                            android:text="Zip 이동하기"
+                            android:textColor="#999999"
+                            android:textSize="18sp"
+                            android:background="@drawable/btn_openzip_movezipinact"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </eightbitlab.com.blurview.BlurView>
+            </umc.link.zip.presentation.mypage.CornerView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_profileset_finish_btn_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="312:85"
+            app:layout_constraintWidth_percent="0.8666"
+            app:layout_constraintStart_toEndOf="@id/fragment_zip_msg2"
+            app:layout_constraintEnd_toStartOf="@id/fragment_zip_msg3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible"
+            >
+
+            <ImageView
+                android:id="@+id/iv_profileset_grayshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_graybtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_zip_make_btn_2"
+                app:layout_constraintWidth_default="spread"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/fragment_zip_make_btn_2"
+                app:layout_constraintStart_toStartOf="@id/fragment_zip_make_btn_2"
+                app:layout_constraintTop_toTopOf="@id/fragment_zip_make_btn_2"
+                android:scaleType="fitXY"/>
+
+            <ImageView
+                android:id="@+id/iv_profileset_blueshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_bluebtn"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_zip_make_btn_2"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/fragment_zip_make_btn_2"
+                app:layout_constraintStart_toStartOf="@id/fragment_zip_make_btn_2"
+                app:layout_constraintTop_toTopOf="@id/fragment_zip_make_btn_2"
+                android:scaleType="fitXY"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_zip_make_btn_2"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0.65"
+                android:background="@drawable/shape_rect_8_666666_fill"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="삭제"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

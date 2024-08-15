@@ -8,7 +8,7 @@
         android:title="HOME" />
 
     <item
-        android:id="@+id/zipFragment"
+        android:id="@+id/zipFragmentTab"
         android:icon="@drawable/bottom_nav_selector_zip"
         android:title="ZIP" />
 
