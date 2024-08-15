@@ -1,4 +1,4 @@
-package umc.link.zip.presentation.home.alarm
+package umc.link.zip.presentation.home.alert
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -7,36 +7,36 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import umc.link.zip.R
-import umc.link.zip.databinding.FragmentAlarmBinding
-import umc.link.zip.presentation.base.BaseFragment
-import umc.link.zip.presentation.home.alarm.adapter.AlarmRVA
+import umc.link.zip.databinding.FragmentAlertBinding
 import umc.link.zip.domain.model.alert.Alert
+import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.home.alert.adapter.AlertRVA
 
 @AndroidEntryPoint
-class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm) {
+class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert) {
 
-    private val viewModel: AlarmViewModel by viewModels()
+    private val viewModel: AlertViewModel by viewModels()
 
     // lateinit으로 선언하여 나중에 초기화
-    private lateinit var alarmRVA: AlarmRVA
+    private lateinit var alertRVA: AlertRVA
 
     override fun initObserver() {
         lifecycleScope.launch {
-            viewModel.alarms.collect { alarms ->
+            viewModel.alerts.collect { alerts ->
                 // 어댑터가 초기화된 상태인지 확인
-                if (!::alarmRVA.isInitialized) {
+                if (!::alertRVA.isInitialized) {
                     // 어댑터를 초기화
-                    initAlarmRVAdapter()
+                    initAlertRVAdapter()
                 }
 
                 // 알림 데이터가 있을 경우와 없을 경우 UI를 업데이트합니다.
-                if (alarms.isNullOrEmpty()) {
-                    binding.clAlarmNone.visibility = View.VISIBLE
+                if (alerts.isNullOrEmpty()) {
+                    binding.clAlertNone.visibility = View.VISIBLE
                     binding.profilePostRv.visibility = View.GONE
                 } else {
-                    binding.clAlarmNone.visibility = View.GONE
+                    binding.clAlertNone.visibility = View.GONE
                     binding.profilePostRv.visibility = View.VISIBLE
-                    alarmRVA.submitList(alarms)
+                    alertRVA.submitList(alerts)
                 }
             }
         }
@@ -44,17 +44,17 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
 
     override fun initView() {
         // 업버튼 설정
-        binding.ivAlarmToolbarBack.setOnClickListener {
+        binding.ivAlertToolbarBack.setOnClickListener {
             findNavController().navigateUp()
         }
     }
 
-    private fun initAlarmRVAdapter() {
+    private fun initAlertRVAdapter() {
         // 어댑터를 초기화
-        alarmRVA = AlarmRVA { alarm ->
-            viewModel.updateAlarmStatus(alarm.id)
+        alertRVA = AlertRVA { alarm ->
+            viewModel.updateAlertStatus(alarm.id)
         }
-        binding.profilePostRv.adapter = alarmRVA
+        binding.profilePostRv.adapter = alertRVA
 
         // 더미 데이터 설정
         val dummyAlerts = listOf(
@@ -109,6 +109,6 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding>(R.layout.fragment_alarm
         )
 
         // ViewModel에 더미 데이터를 설정합니다.
-        viewModel.setAlarms(dummyAlerts)
+        viewModel.setAlerts(dummyAlerts)
     }
 }

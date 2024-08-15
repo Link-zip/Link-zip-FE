@@ -13,8 +13,8 @@
             android:id="@+id/action_homeFragment_to_listFragment"
             app:destination="@id/listFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_alarmFragment"
-            app:destination="@id/alarmFragment" />
+            android:id="@+id/action_homeFragment_to_alertFragment"
+            app:destination="@id/alertFragment" />
     </fragment>
 
     <fragment
@@ -22,8 +22,8 @@
         android:name="umc.link.zip.presentation.list.ListFragment"
         android:label="ListFragment">
         <action
-            android:id="@+id/action_listFragment_to_alarmFragment"
-            app:destination="@id/alarmFragment" />
+            android:id="@+id/action_listFragment_to_alertFragment"
+            app:destination="@id/alertFragment" />
     </fragment>
 
     <navigation
@@ -78,13 +78,9 @@
         android:label="ProfilesetCompletedFragment" />
 
     <fragment
-        android:id="@+id/alarmFragment"
-        android:name="umc.link.zip.presentation.home.alarm.AlarmFragment"
-        android:label="AlarmFragment">
-        <action
-            android:id="@+id/action_alarmFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        android:id="@+id/alertFragment"
+        android:name="umc.link.zip.presentation.home.alert.AlertFragment"
+        android:label="AlertFragment"/>
 
 
     <navigation

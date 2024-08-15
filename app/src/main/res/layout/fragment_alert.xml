@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="alarm"
+            name="alert"
             type="umc.link.zip.domain.model.alert.Alert"
             />
     </data>
@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <View
-            android:id="@+id/toolbar_alarm_mg0"
+            android:id="@+id/toolbar_alert_mg0"
             android:layout_width="match_parent"
             android:layout_height="37.5dp"
             app:layout_constraintWidth_percent="0.066667"
@@ -33,12 +33,12 @@
 
         <!-- toolbar -->
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_alarm"
+            android:id="@+id/toolbar_alert"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm_mg0"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alert_mg0"
             android:contentInsetStart="0dp"
             android:contentInsetLeft="0dp"
             android:contentInsetRight="0dp"
@@ -53,7 +53,7 @@
                 android:layout_height="match_parent">
 
                 <View
-                    android:id="@+id/toolbar_alarm_mg1"
+                    android:id="@+id/toolbar_alert_mg1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     app:layout_constraintWidth_percent="0.066667"
@@ -61,17 +61,17 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <ImageView
-                    android:id="@+id/iv_alarm_toolbar_back"
+                    android:id="@+id/iv_alert_toolbar_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/toolbar_alarm_mg1"
+                    app:layout_constraintStart_toEndOf="@id/toolbar_alert_mg1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/ic_mypage_profile_back"
                     android:contentDescription="뒤로가기" />
 
                 <TextView
-                    android:id="@+id/tv_alarm_toolbar_title"
+                    android:id="@+id/tv_alert_toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -88,7 +88,7 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-        <!-- alarm O -->
+        <!-- alert O -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profile_post_rv"
             android:layout_width="match_parent"
@@ -97,32 +97,32 @@
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:listitem="@layout/item_alarm"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm"
+            tools:listitem="@layout/item_alert"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alert"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-        <!-- alarm X -->
+        <!-- alert X -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_alarm_none"
+            android:id="@+id/cl_alert_none"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_alarm_mg0"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_alert_mg0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="visible">
 
             <ImageView
-                android:id="@+id/iv_alarm_none_clip"
+                android:id="@+id/iv_alert_none_clip"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/img_alarm_clip"
+                android:src="@drawable/img_alert_clip"
                 app:layout_constraintDimensionRatio="0.62"
                 app:layout_constraintWidth_percent="0.26"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/view_alarm_mg4"/>
+                app:layout_constraintBottom_toTopOf="@id/view_alert_mg4"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -135,10 +135,10 @@
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_alarm_none_clip"/>
+                app:layout_constraintTop_toBottomOf="@id/iv_alert_none_clip"/>
 
             <View
-                android:id="@+id/view_alarm_mg4"
+                android:id="@+id/view_alert_mg4"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintWidth_percent="0.066667"

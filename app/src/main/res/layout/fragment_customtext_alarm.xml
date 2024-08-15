@@ -176,7 +176,7 @@
             android:id="@+id/iv_customText_alarm_date"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_alarm_date"
+            android:src="@drawable/ic_alert_date"
             app:layout_constraintBottom_toBottomOf="@id/cl_customText_alarm_date_set"
             app:layout_constraintStart_toEndOf="@id/view_customText_alarm_mg6"
             app:layout_constraintTop_toTopOf="@id/cl_customText_alarm_date_set" />
@@ -281,7 +281,7 @@
             android:id="@+id/iv_customText_alarm_time"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_alarm_time"
+            android:src="@drawable/ic_alert_time"
             app:layout_constraintStart_toEndOf="@id/view_customText_alarm_mg8"
             app:layout_constraintTop_toBottomOf="@id/view_customText_alarm_mg8" />
 
