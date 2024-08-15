@@ -8,6 +8,7 @@
         <item name="colorPrimary">@android:color/transparent</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="actionBarStyle">@style/TransparentAppBarTheme</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
 </resources>
