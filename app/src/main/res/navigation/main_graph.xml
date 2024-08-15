@@ -15,6 +15,13 @@
         <action
             android:id="@+id/action_homeFragment_to_alarmFragment"
             app:destination="@id/alarmFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_openLinkFragment"
+            app:destination="@id/openLinkFragment" >
+            <argument
+                android:name="linkId"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment
@@ -139,5 +146,11 @@
             android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
             android:label="MypageWithdrawalFragment"
             tools:layout="@layout/fragment_mypage_withdrawal"/>
+
+        <fragment
+            android:id="@+id/openLinkFragment"
+            android:name="umc.link.zip.presentation.create.OpenLinkFragment"
+            android:label="OpenLinkFragment"
+            tools:layout="@layout/fragment_open_link"/>
     </navigation>
 </navigation>
