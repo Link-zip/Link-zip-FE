@@ -17,6 +17,7 @@ import umc.link.zip.R
 import umc.link.zip.data.dto.list.request.UnreadRequest
 import umc.link.zip.databinding.FragmentListRvBinding
 import umc.link.zip.domain.model.list.Link
+import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.list.Zip
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
 import umc.link.zip.util.extension.repeatOnStarted
@@ -35,8 +36,8 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
 
     private val listTabViewModel : ListTabViewModel by viewModels({requireParentFragment()})
 
-    private var userSelectedLineup = "latest"
-    private var userSelectedListselect = "all"
+    private var userSelectedLineup = "recent"
+    private var userSelectedListselect = ""
     private val listUnreadRVA by lazy {
         ListUnreadRVA{
             /* 링크 페이지 연결
@@ -93,7 +94,7 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                 }
                 setLineupDismissDialog(userSelectedLineup)
                 //list도 설정해줘야 함
-                userSelectedListselect = "all"
+                userSelectedListselect = ""
                 repeatOnStarted {
                     setListDismissDialog(userSelectedListselect)
                     listUnreadListDialogSharedViewModel.resetDialogDismissed()
@@ -108,15 +109,21 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                     when (uiState) {
                         is UiState.Loading -> {
                             // 로딩 상태 처리
+                            Log.d("ListUnreadFragment", "Loading data")
                         }
 
                         is UiState.Success<*> -> {
-                            listUnreadRVA.submitList(uiState.data as List<Link>)
+                            val data = uiState.data as UnreadModel
+                            Log.d("ListUnreadFragment", "Fetched data size: ${data.links}")
+                            listUnreadRVA.submitList(data.links)
                         }
 
                         is UiState.Error -> {
                             // 에러 상태 처리
+                            Log.e("ListUnreadFragment", "Error fetching data", uiState.error)
                         }
+
+                        UiState.Empty -> Log.d("ListUnreadFragment", "isEmpty")
                     }
                 }
             }
@@ -130,64 +137,68 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
 
     private fun setLineupOnDialog(selected: String) {
         when (selected) {
-            "latest" -> {
+            "recent" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_early_selected))
             }
-            "oldest" -> {
+            "past" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_old_selected))
             }
-            "ganada" -> {
+            "dictionary" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_ganada_selected))
             }
             "visit" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_visit_selected))
             }
         }
+        fnUnreadRVApi()
     }
 
     private fun setLineupDismissDialog(selected: String) {
         when (selected) {
-            "latest" -> {
+            "recent" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_early_unselected))
             }
-            "oldest" -> {
+            "past" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_old_unselected))
             }
-            "ganada" -> {
+            "dictionary" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_ganada_unselected))
             }
             "visit" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_visit_unselected))
             }
         }
+        fnUnreadRVApi()
     }
 
     private fun setListOnDialog(selected: String) {
         when (selected) {
-            "all" -> {
+            "" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_allselect_selected))
             }
-            "link" -> {
+            "onlylink" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_linkselect_selected))
             }
-            "text" -> {
+            "onlytext" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_textlinkselect_selected))
             }
         }
+        fnUnreadRVApi()
     }
 
     private fun setListDismissDialog(selected: String) {
         when (selected) {
-            "all" -> {
+            "" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_allselect_unselected))
             }
-            "link" -> {
+            "onlylink" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_linkselect_unselected))
             }
-            "text" -> {
+            "onlytext" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_textlinkselect_unselected))
             }
         }
+        fnUnreadRVApi()
     }
 
     // 다시 페이지로 돌아올 때 반영되게.
