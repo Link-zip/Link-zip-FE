@@ -13,6 +13,7 @@ import umc.link.zip.util.network.UiState
 import javax.inject.Inject
 import umc.link.zip.data.dto.list.request.UnreadRequest
 import umc.link.zip.data.dto.request.TestRequest
+import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.util.network.onError
 import umc.link.zip.util.network.onException
 import umc.link.zip.util.network.onFail
@@ -26,8 +27,8 @@ class ListUnreadViewModel @Inject constructor(
     private val _linkId = MutableStateFlow<Int>(-1)
     val linkId: StateFlow<Int> get() = _linkId
 
-    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
-    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<UiState<UnreadModel>>(UiState.Loading)
+    val uiState: StateFlow<UiState<UnreadModel>> = _uiState.asStateFlow()
 
     fun fetchUnreadList(request: UnreadRequest) {
         viewModelScope.launch {

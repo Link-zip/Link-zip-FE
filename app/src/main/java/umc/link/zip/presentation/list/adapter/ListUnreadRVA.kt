@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -46,10 +45,14 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
                     ivItemListTypeLink.visibility = View.VISIBLE
                 }
                 // 메인 이미지
-                Glide.with(ivItemListImgMain.context)
-                    .load(link.thumbnail)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivItemListImgMain)
+                if(link.thumbnail==null){
+                    ivItemListImgMain.setImageResource(R.drawable.iv_link_thumbnail_default)
+                }else {
+                    Glide.with(ivItemListImgMain.context)
+                        .load(link.thumbnail)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(ivItemListImgMain)
+                }
                 // zip 사진
                 returnZipColor(link.zip.color, ivItemListZip)
                 // 좋아요
@@ -71,6 +74,24 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
             }
             "yellow" -> {
                 ContextCompat.getDrawable(view.context, R.drawable.ic_item_zip_yellow)
+            }
+            "darkpurple" -> {
+                ContextCompat.getDrawable(view.context, R.drawable.ic_item_zip_darkpurple)
+            }
+            "green" -> {
+                ContextCompat.getDrawable(view.context, R.drawable.ic_item_zip_green)
+            }
+            "lightblue" -> {
+                ContextCompat.getDrawable(view.context, R.drawable.ic_item_zip_lightblue)
+            }
+            "lightgreen" -> {
+                ContextCompat.getDrawable(view.context, R.drawable.ic_item_zip_lightgreen)
+            }
+            "purple" -> {
+                ContextCompat.getDrawable(view.context, R.drawable.ic_item_zip_purple)
+            }
+            "default" -> {
+                ContextCompat.getDrawable(view.context, R.drawable.ic_item_zip_default)
             }
             // 추가
             else -> null

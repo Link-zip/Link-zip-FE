@@ -7,11 +7,20 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import umc.link.zip.data.repositoryImpl.ListRepositoryImpl
+import umc.link.zip.data.repositoryImpl.LinkRepositoryImpl
+import umc.link.zip.data.repositoryImpl.LoginRepositoryImpl
 import umc.link.zip.data.repositoryImpl.TestRepositoryImpl
+import umc.link.zip.data.repositoryImpl.ZipRepositoryImpl
 import umc.link.zip.data.service.ListService
+import umc.link.zip.data.service.LinkService
+import umc.link.zip.data.service.LoginService
 import umc.link.zip.data.service.TestService
+import umc.link.zip.data.service.ZipService
+import umc.link.zip.domain.repository.LinkRepository
+import umc.link.zip.domain.repository.LoginRepository
 import umc.link.zip.domain.repository.ListRepository
 import umc.link.zip.domain.repository.TestRepository
+import umc.link.zip.domain.repository.ZipRepository
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -26,13 +35,30 @@ object RepositoryModule {
         testService: TestService
     ): TestRepository = TestRepositoryImpl(testService)
 
+    @ViewModelScoped
+    @Provides
+    fun providesLoginRepository(
+        loginService: LoginService
+    ): LoginRepository = LoginRepositoryImpl(loginService)
 
+    @ViewModelScoped
+    @Provides
+    fun provideZipRepository(
+        zipService: ZipService
+    ): ZipRepository = ZipRepositoryImpl(zipService)
 
     @ViewModelScoped
     @Provides
     fun providesListRepository(
         listService: ListService
     ): ListRepository = ListRepositoryImpl(listService)
+
+    @ViewModelScoped
+    @Provides
+    fun provideLinkRepository(
+        linkService: LinkService
+    ): LinkRepository = LinkRepositoryImpl(linkService)
+
 
 
 }
