@@ -7,3 +7,4 @@ data class BaseResponse<T>(
     val isSuccess : Boolean,
     val result : T
 )
+

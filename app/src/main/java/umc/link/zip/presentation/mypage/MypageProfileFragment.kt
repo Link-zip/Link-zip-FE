@@ -20,13 +20,20 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.list.request.UnreadRequest
+import umc.link.zip.data.dto.mypage.request.CheckNicknmRequest
 import umc.link.zip.databinding.FragmentMypageProfileBinding
+import umc.link.zip.domain.model.list.UnreadModel
+import umc.link.zip.domain.model.mypage.CheckNicknmModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.KeyboardUtil
+import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.extension.takeWhileIndexed
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layout.fragment_mypage_profile) {
@@ -34,18 +41,24 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
-        lifecycleScope.launch {
+        repeatOnStarted {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.nicknameState.collect { state ->
                     when (state) {
-                        is NicknameState.Empty -> hideNickNameInfo()
-                        is NicknameState.Valid -> {
-                            setNickNameInfo(state.message, state.color)
-                            enableSaveButton()
-                        }
-                        is NicknameState.Invalid -> {
-                            setNickNameInfo(state.message, state.color)
-                            disableSaveButton()
+                        UiState.Empty -> hideNickNameInfo()
+                        is UiState.Error ->  // 에러 상태 처리
+                            Log.e("CheckNicknm", "Error fetching data", state.error)
+                        UiState.Loading -> Log.d("CheckNicknm", "Loading data")
+                        is UiState.Success ->
+                        {
+                            val data = state.data as CheckNicknmModel
+                            if(data.availablity){
+                                setNickNameInfo("환상적인 닉네임이에요!", R.color.b005773)
+                                enableSaveButton()
+                            }else{
+                                setNickNameInfo("이미 사용 중인 유저가 있어요!", R.color.disabled_color)
+                                disableSaveButton()
+                            }
                         }
                     }
                 }
@@ -143,17 +156,26 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         }
     }
 
+    private fun fnCheckNicknmApi(nicknm:String){
+        val request = CheckNicknmRequest(nicknm) //sort, filter
+        viewModel.checkNickname(request)
+    }
+
     private fun setupClickListeners() {
         //중복 확인 로직
         binding.viewMypageProfileBtnChkDup.setOnSingleClickListener {
             val newNickname = binding.etMypageProfile.text.toString()
             var nowNickname = binding.tvMypageProfileNickname.text.toString()
             nowNickname = "old" // 예시
+
             if (newNickname.isNotEmpty() && nowNickname != newNickname) {
-                viewModel.checkNickname(newNickname)
+                fnCheckNicknmApi(newNickname)
             }
         }
         // 완료 버튼 로직 추가 필요
+        binding.viewMypageProfileBtnSave.setOnClickListener{
+
+        }
 
         //회원 탈퇴
         binding.tvMypageWithdrawal.setOnSingleClickListener {
