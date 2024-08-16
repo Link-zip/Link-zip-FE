@@ -9,4 +9,5 @@ import umc.link.zip.util.network.NetworkResult
 
 interface MypageRepository {
     suspend fun checkNicknm(request: CheckNicknmRequest): NetworkResult<CheckNicknmModel>
+    suspend fun getUserInfo(): NetworkResult<UserInfoModel>
 }

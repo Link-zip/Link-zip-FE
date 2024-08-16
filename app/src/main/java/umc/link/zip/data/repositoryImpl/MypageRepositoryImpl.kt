@@ -22,4 +22,7 @@ class MypageRepositoryImpl @Inject constructor(
     override suspend fun checkNicknm(request: CheckNicknmRequest): NetworkResult<CheckNicknmModel> {
         return handleApi({mypageService.checkNickname(request)}) {response: BaseResponse<CheckNicknmResponse> -> response.result.toNicknmModel()} // mapper를 통해 api 결과를 TestModel로 매핑
     }
+    override suspend fun getUserInfo(): NetworkResult<UserInfoModel> {
+        return handleApi({mypageService.getUserInfo()}) {response: BaseResponse<UserInfoResponse> -> response.result.toModel()}
+    }
 }

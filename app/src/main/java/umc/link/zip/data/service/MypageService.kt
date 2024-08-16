@@ -16,4 +16,6 @@ interface MypageService {
     @GET("/user")
     suspend fun checkNickname(@Query("nickname") request: CheckNicknmRequest): Response<BaseResponse<CheckNicknmResponse>>
 
+    @GET("/user/info")
+    suspend fun getUserInfo() : Response<BaseResponse<UserInfoResponse>>
 }

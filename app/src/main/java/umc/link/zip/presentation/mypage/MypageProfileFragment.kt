@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +29,7 @@ import umc.link.zip.data.dto.mypage.request.CheckNicknmRequest
 import umc.link.zip.databinding.FragmentMypageProfileBinding
 import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.mypage.CheckNicknmModel
+import umc.link.zip.domain.model.mypage.UserInfoModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.KeyboardUtil
 import umc.link.zip.util.extension.repeatOnStarted
@@ -37,7 +39,7 @@ import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layout.fragment_mypage_profile) {
-    private val viewModel: MypageProfileViewModel by viewModels()
+    private val viewModel: MypageProfileViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
 
     override fun initObserver() {
@@ -64,9 +66,27 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
                 }
             }
         }
+        //닉네임 가져오기
+        repeatOnStarted {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.userInfoState.collect { state ->
+                    when (state) {
+                        UiState.Empty -> Log.d("getUserInfo", "No data")
+                        is UiState.Error -> Log.e("getUserInfo", "Error fetching data")
+                        UiState.Loading -> Log.d("getUserInfo", "Loading data")
+                        is UiState.Success ->
+                        {
+                            val data = state.data as UserInfoModel
+                            binding.tvMypageProfileNickname.text = data.nickname
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun initView() {
+        fnGetUserInfoApi()
         // 블러 처리
         applyBlurToImageView(binding.ivMypageProfileUserInfoBoxBg)
         applyBlurToImageView(binding.ivMypageProfileUserNicknmChangeBoxBg)
@@ -157,9 +177,15 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     }
 
     private fun fnCheckNicknmApi(nicknm:String){
-        val request = CheckNicknmRequest(nicknm) //sort, filter
+        val request = CheckNicknmRequest(nicknm)
         viewModel.checkNickname(request)
     }
+
+    private fun fnGetUserInfoApi(){
+        viewModel.getUserInfo()
+    }
+
+
 
     private fun setupClickListeners() {
         //중복 확인 로직
@@ -175,6 +201,8 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         // 완료 버튼 로직 추가 필요
         binding.viewMypageProfileBtnSave.setOnClickListener{
 
+            //적용 후 불러오기
+            fnGetUserInfoApi()
         }
 
         //회원 탈퇴

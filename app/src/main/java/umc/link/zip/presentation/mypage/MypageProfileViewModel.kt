@@ -17,6 +17,7 @@ import umc.link.zip.data.dto.list.request.UnreadRequest
 import umc.link.zip.data.dto.mypage.request.CheckNicknmRequest
 import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.mypage.CheckNicknmModel
+import umc.link.zip.domain.model.mypage.UserInfoModel
 import umc.link.zip.domain.repository.MypageRepository
 import umc.link.zip.util.network.NetworkResult
 import umc.link.zip.util.network.UiState
@@ -31,6 +32,9 @@ class MypageProfileViewModel @Inject constructor(
 
     private val _nicknameState = MutableSharedFlow<UiState<NicknameState>>()
     val nicknameState: SharedFlow<UiState<NicknameState>> get() = _nicknameState.asSharedFlow()
+
+    private val _userInfoState = MutableSharedFlow<UiState<UserInfoModel>>()
+    val userInfoState: SharedFlow<UiState<UserInfoModel>> get() = _userInfoState.asSharedFlow()
 
     fun checkNickname(nickname: CheckNicknmRequest) {
         viewModelScope.launch {
@@ -64,6 +68,36 @@ class MypageProfileViewModel @Inject constructor(
                 _nicknameState.emit(UiState.Error(it))
             }.onFail {
                 _nicknameState.emit(UiState.Error(Throwable("Failed to load data")))
+            }
+
+        }
+    }
+    fun getUserInfo(){
+        viewModelScope.launch {
+            // 먼저 로딩 상태를 발행합니다.
+            _userInfoState.emit(UiState.Loading)
+
+            // repository를 통해 닉네임을 확인합니다.
+            repository.getUserInfo().apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        Log.d("MypageProfileViewModel", "userInfo called with: $userInfoState")
+
+                        _userInfoState.emit(UiState.Success(this.data))
+                    }
+                    is NetworkResult.Error -> {
+                        _userInfoState.emit(UiState.Error(this.exception))
+                    }
+                    is NetworkResult.Fail -> {
+                        _userInfoState.emit(UiState.Error(Throwable("Failed to load data")))
+                    }
+                }
+            }.onError {
+                _userInfoState.emit(UiState.Error(it))
+            }.onException {
+                _userInfoState.emit(UiState.Error(it))
+            }.onFail {
+                _userInfoState.emit(UiState.Error(Throwable("Failed to load data")))
             }
 
         }
