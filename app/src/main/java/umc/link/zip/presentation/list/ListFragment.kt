@@ -73,7 +73,7 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
 
     private fun setupButtonListeners() {
         binding.ivListAlarm.setOnClickListener {
-            navigator.navigate(R.id.action_listFragment_to_alarmFragment)
+            navigator.navigate(R.id.action_listFragment_to_alertFragment)
         }
     }
 
