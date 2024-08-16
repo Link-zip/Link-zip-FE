@@ -158,9 +158,10 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
 
     private val finishBtnClickListener = View.OnClickListener {
         val nickname = binding.etProfilesetNickname.text.toString()
+        val key = arguments?.getString("key")!!
         viewModel.signup(SignupRequest(
             nickname=nickname,
-            key=""
+            key=key
         ))
     }
 
