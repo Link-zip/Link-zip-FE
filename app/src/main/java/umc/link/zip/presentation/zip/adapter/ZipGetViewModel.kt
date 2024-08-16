@@ -29,6 +29,7 @@ class ZipGetViewModel @Inject constructor(
     fun getZipList(sort: String = "latest") {
         viewModelScope.launch {
             val response = zipRepository.getGetZip(sort)
+            Log.d("ZipGetViewModel", "Sort: $sort")
             Log.d("ZipGetViewModel", "Get API Response: $response")
             response.onSuccess { zipGetModel ->
                 _zipList.value = zipGetModel

@@ -60,16 +60,18 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             "latest" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_early_selected))
             }
-            "oldest" -> {
+            "earliest" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_old_selected))
             }
-            "ganada" -> {
+            "alphabet" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_ganada_selected))
             }
             "visit" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_visit_selected))
             }
         }
+        Log.d("ZipGetFragment", "userSelectedLineup : $userSelectedLineup")
+        viewModel.getZipList(userSelectedLineup)
     }
 
     private fun setLineupDismissDialog(selected: String) {
@@ -77,16 +79,18 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             "latest" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_early_unselected))
             }
-            "oldest" -> {
+            "earliest" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_old_unselected))
             }
-            "ganada" -> {
+            "alphabet" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_ganada_unselected))
             }
             "visit" -> {
                 binding.sortButton.setImageDrawable(ContextCompat.getDrawable(binding.sortButton.context, R.drawable.drawerbtn_lineup_visit_unselected))
             }
         }
+        Log.d("ZipGetFragment", "userSelectedLineup : $userSelectedLineup")
+        viewModel.getZipList(userSelectedLineup)
     }
 
     override fun initView() {
@@ -110,21 +114,27 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.zipList.collect { zipList ->
-                adapter?.submitList(zipList )
+                adapter?.submitList(zipList)
             }
         }
         setupRecyclerView()
 
-        val toolbarBackBtn = binding.ivHomeAlarmNothing
-        toolbarBackBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentZip_to_fragmentOpenZip)
-            Log.d("FragmentZip", "Navigated to FragmentOpenZip")
+        val alertBtn = binding.ivHomeAlarmNothing
+        alertBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_zipFragment_to_alertFragment)
+            Log.d("FragmentZip", "Navigated to FragmentAlertZip")
         }
 
         val MakeZipBtn = binding.fragmentMakezipMakeBtn
         MakeZipBtn.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
             Log.d("FragmentZip", "Navigated to FragmentMakeZip")
+        }
+
+        val imsiItemClick = binding.tvHomeLinkzip
+        imsiItemClick.setOnClickListener{
+            findNavController().navigate(R.id.action_fragmentZip_to_fragmentOpenZip)
+            Log.d("FragmentZip", "Navigated to FragmentOpenZip")
         }
 
         binding.fragmentZipEditBtn.setOnClickListener(editClickListener)
@@ -135,9 +145,10 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         setNormalMode()
     }
 
+
     override fun onResume() {
         super.onResume()
-        viewModel.getZipList()
+        viewModel.getZipList(userSelectedLineup)
         setLineupDismissDialog(userSelectedLineup)
     }
 
@@ -174,8 +185,8 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.allSelectedTv.visibility = View.GONE
         binding.fragmentMakezipMakeBtn.text = getString(R.string.zip_create)
         binding.fragmentMakezipMakeBtn.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
-        binding.ivProfilesetBlueshadow.visibility = View.GONE
-        binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
+        binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
+        binding.ivProfilesetGrayshadow.visibility = View.GONE
         binding.fragmentZipEditBtn.text = "편집"
         binding.fragmentZipEditBtn.setTextColor(Color.parseColor("#000000"))
         binding.fragmentZipFinishBtn.visibility = View.GONE

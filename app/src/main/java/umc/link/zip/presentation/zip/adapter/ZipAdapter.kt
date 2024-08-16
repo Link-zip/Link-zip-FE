@@ -15,6 +15,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit)
 
     private var items: List<ZipGetItemModel> = emptyList()
     private var selectedItems: MutableSet<ZipGetItemModel> = mutableSetOf()
+    private lateinit var zip_id : String
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ZipViewHolder {
         val binding = ItemZipBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -60,6 +61,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit)
             setBackgroundBasedOnColor(binding.itemZipFastSaveIv, zipItem.color)
             binding.itemZipSaveTv.text = zipItem.title
             binding.itemLinkCount.text = zipItem.link_count.toString()
+            zip_id = zipItem.zip_id.toString()
 
 
             // 선택된 항목에 대한 배경색을 변경합니다.

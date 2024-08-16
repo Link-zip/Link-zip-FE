@@ -75,10 +75,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             }
         }
 
-        viewModel.zipLinks.observe(viewLifecycleOwner, Observer { links ->
-            adapter?.updateData(links)
-        })
-
     }
 
     private fun setLineupOnDialog(selected: String) {
@@ -165,6 +161,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         super.onResume()
         setLineupDismissDialog(userSelectedLineup)
         setListDismissDialog(userSelectedListselect)
+        viewModel.getLinkList(zip_id, userSelectedListselect)
     }
 
     override fun initView() {
@@ -308,4 +305,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             dialogFragment.show(childFragmentManager, "OpenZipDialogueListSelectFragment")
         }
     }
+
+
 }

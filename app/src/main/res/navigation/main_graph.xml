@@ -35,6 +35,9 @@
             android:name="umc.link.zip.presentation.zip.ZipFragment"
             android:label="ZipFragment" >
             <action
+                android:id="@+id/action_zipFragment_to_alertFragment"
+                app:destination="@id/alertFragment" />
+            <action
                 android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
                 app:destination="@id/openzipFragment" />
             <action

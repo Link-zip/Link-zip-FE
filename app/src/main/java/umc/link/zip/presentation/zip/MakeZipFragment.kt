@@ -41,6 +41,7 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
 
     private val zipViewModel: ZipCreateViewModel by viewModels()
     private lateinit var selectedColor: String
+    private var textentered : Boolean = false
 
     private val navigator by lazy {
         findNavController()
@@ -132,6 +133,7 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
                 val characterCount = "$length/30"
                 val spannableString = SpannableString(characterCount)
                 if (length >= 1) {
+                    textentered = true
                     val color = ContextCompat.getColor(requireContext(), R.color.color1191ad)
                     spannableString.setSpan(
                         ForegroundColorSpan(color),
@@ -203,26 +205,38 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
             }
         })
 
-        // Add item and navigate to FragmentZip on button click
-        fragmentMakezipMakeBtn.setOnClickListener {
-            val title = zipNameEnterTv.text.toString()
-            val request = ZipCreateRequest(selectedColor, title)
-
-            zipViewModel.createZip(request)
-            navigator.navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
-            Log.d("MakeZipFragment", "selectedColor = ${selectedColor}, title = ${title}")
+        val toolbarBackkBtn = binding.ivOpenzipToolbarBack
+        toolbarBackkBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
             Log.d("MakeZipFragment", "Navigated to FragmentZip")
         }
 
+        // Add item and navigate to FragmentZip on button click
+        fragmentMakezipMakeBtn.setOnClickListener {
+            val title = zipNameEnterTv.text.toString().trim() // trim()을 사용하여 공백을 제거하고 검사
+
+            if (title.isEmpty()) {
+                // title이 비어있을 경우 로그 출력하고 더 이상 진행하지 않음
+                Log.d("MakeZipFragment", "title is empty")
+                Toast.makeText(context, "Title is empty.", Toast.LENGTH_SHORT).show()
+            } else {
+                // title이 비어있지 않은 경우 정상적으로 처리
+                val request = ZipCreateRequest(selectedColor, title)
+                zipViewModel.createZip(request)
+                navigator.navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
+                Log.d("MakeZipFragment", "selectedColor = $selectedColor, title = $title")
+                Log.d("MakeZipFragment", "Navigated to FragmentZip")
+            }
+        }
+
         // createResponse 상태를 관찰하여 결과를 처리
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                zipViewModel.createResponse.collectLatest { response ->
-                    Log.d("ZipCreateViewModel_MakeZip", "API Response: $response")
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    zipViewModel.createResponse.collectLatest { response ->
+                        Log.d("ZipCreateViewModel_MakeZip", "API Response: $response")
+                    }
                 }
             }
         }
 
-
-    }
 }
