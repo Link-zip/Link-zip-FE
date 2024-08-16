@@ -19,7 +19,6 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentProfilesetBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.drawableOf
-import java.util.regex.Pattern
 
 @RequiresApi(Build.VERSION_CODES.P)
 @AndroidEntryPoint

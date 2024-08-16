@@ -13,17 +13,17 @@
             android:id="@+id/action_homeFragment_to_listFragment"
             app:destination="@id/listFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_alarmFragment"
-            app:destination="@id/alarmFragment" />
+            android:id="@+id/action_homeFragment_to_alertFragment"
+            app:destination="@id/alertFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/listFragment"
         android:name="umc.link.zip.presentation.list.ListFragment"
-        android:label="ListFragment" >
+        android:label="ListFragment">
         <action
-            android:id="@+id/action_listFragment_to_alarmFragment"
-            app:destination="@id/alarmFragment" />
+            android:id="@+id/action_listFragment_to_alertFragment"
+            app:destination="@id/alertFragment" />
     </fragment>
 
     <navigation
@@ -63,9 +63,9 @@
 
 
     <fragment
-        android:id="@+id/createFragment"
-        android:name="umc.link.zip.presentation.create.CreateFragment"
-        android:label="CreateFragment" />
+        android:id="@+id/mypageProfileFragment"
+        android:name="umc.link.zip.presentation.mypage.MypageProfileFragment"
+        android:label="MypageProfileFragment" />
 
     <fragment
         android:id="@+id/profilesetFragment"
@@ -78,9 +78,10 @@
         android:label="ProfilesetCompletedFragment" />
 
     <fragment
-        android:id="@+id/alarmFragment"
-        android:name="umc.link.zip.presentation.home.alarm.AlarmFragment"
-        android:label="AlarmFragment"/>
+        android:id="@+id/alertFragment"
+        android:name="umc.link.zip.presentation.home.alert.AlertFragment"
+        android:label="AlertFragment"/>
+
 
     <navigation
         android:id="@+id/mypageFragmentTab"
@@ -92,7 +93,7 @@
             android:label="MypageFragment">
             <action
                 android:id="@+id/action_mypageFragment_to_mypageSettingFragment"
-                app:destination="@id/mypageSettingFragment"/>
+                app:destination="@id/mypageSettingFragment" />
             <action
                 android:id="@+id/action_mypageFragment_to_mypageProfileFragment"
                 app:destination="@id/mypageProfileFragment" />
@@ -122,7 +123,7 @@
             android:id="@+id/noticeDetailFragment"
             android:name="umc.link.zip.presentation.mypage.NoticeDetailFragment"
             android:label="NoticeDetailFragment"
-            tools:layout="@layout/fragment_notice_detail"/>
+            tools:layout="@layout/fragment_notice_detail" />
 
         <fragment
             android:id="@+id/mypageProfileFragment"
@@ -138,6 +139,126 @@
             android:id="@+id/mypageWithdrawalFragment"
             android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
             android:label="MypageWithdrawalFragment"
-            tools:layout="@layout/fragment_mypage_withdrawal"/>
+            tools:layout="@layout/fragment_mypage_withdrawal" />
     </navigation>
+
+    <navigation
+        android:id="@+id/createFragmentTab"
+        app:startDestination="@id/createFragment">
+
+        <fragment
+            android:id="@+id/createFragment"
+            android:name="umc.link.zip.presentation.create.CreateFragment"
+            android:label="CreateFragment">
+            <action
+                android:id="@+id/action_createFragment_to_customlinkZipFragment"
+                app:destination="@id/customlinkZipFragment" />
+            <action
+                android:id="@+id/action_createFragment_to_createLoadingFragment"
+                app:destination="@id/createLoadingFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/createLoadingFragment"
+            android:name="umc.link.zip.presentation.create.CreateLoadingFragment"
+            android:label="CreateLoadingFragment">
+            <action
+                android:id="@+id/action_createLoadingFragment_to_customTextZipFragment"
+                app:destination="@id/customtextZipFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/customtextZipFragment"
+            android:name="umc.link.zip.presentation.create.CustomtextZipFragment"
+            android:label="CustomtextZipFragment">
+            <action
+                android:id="@+id/action_customtextZipFragment_to_createFragment"
+                app:destination="@+id/createFragment" />
+            <action
+                android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
+                app:destination="@id/customtextCustomFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/customlinkZipFragment"
+            android:name="umc.link.zip.presentation.create.CustomlinkZipFragment"
+            android:label="CustomlinkZipFragment">
+            <action
+                android:id="@+id/action_customlinkZipFragment_to_customlinkCustomFragment"
+                app:destination="@id/customlinkCustomFragment" />
+            <action
+                android:id="@+id/action_customlinkZipFragment_to_openLinkFragment"
+                app:destination="@+id/openLinkFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/customtextCustomFragment"
+            android:name="umc.link.zip.presentation.create.CustomtextCustomFragment"
+            android:label="CustomtextCustomFragment">
+            <action
+                android:id="@+id/action_customtextCustomFragment_to_customtextAlarmFragment"
+                app:destination="@id/customtextAlarmFragment" />
+            <action
+                android:id="@+id/action_customtextCustomFragment_to_customtextMemoFragment"
+                app:destination="@id/customtextMemoFragment" />
+            <action
+                android:id="@+id/action_customtextCustomFragment_to_openTextFragment"
+                app:destination="@id/openTextFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/customtextAlarmFragment"
+            android:name="umc.link.zip.presentation.create.CustomtextAlarmFragment"
+            android:label="CustomtextAlarmFragment"/>
+
+        <fragment
+            android:id="@+id/customtextMemoFragment"
+            android:name="umc.link.zip.presentation.create.CustomtextMemoFragment"
+            android:label="CustomtextMemoFragment"/>
+
+        <fragment
+            android:id="@+id/customlinkCustomFragment"
+            android:name="umc.link.zip.presentation.create.CustomlinkCustomFragment"
+            android:label="CustomlinkCustomFragment">
+            <action
+                android:id="@+id/action_customlinkCustomFragment_to_customlinkAlarmFragment"
+                app:destination="@id/customlinkAlarmFragment" />
+            <action
+                android:id="@+id/action_customlinkCustomFragment_to_customlinkMemoFragment"
+                app:destination="@id/customlinkMemoFragment" />
+            <action
+                android:id="@+id/action_customlinkCustomFragment_to_openLinkFragment"
+                app:destination="@id/openLinkFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/customlinkAlarmFragment"
+            android:name="umc.link.zip.presentation.create.CustomlinkAlarmFragment"
+            android:label="CustomlinkAlarmFragment" />
+
+        <fragment
+            android:id="@+id/customlinkMemoFragment"
+            android:name="umc.link.zip.presentation.create.CustomlinkMemoFragment"
+            android:label="CustomlinkMemoFragment" />
+
+        <fragment
+            android:id="@+id/openTextFragment"
+            android:name="umc.link.zip.presentation.create.OpenTextFragment"
+            android:label="OpenTextFragment">
+            <action
+                android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
+                app:destination="@id/customtextCustomFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/openLinkFragment"
+            android:name="umc.link.zip.presentation.create.OpenLinkFragment"
+            android:label="OpenLinkFragment">
+            <action
+                android:id="@+id/action_openLinkFragment_to_customLinkCustomFragment"
+                app:destination="@id/customlinkCustomFragment" />
+        </fragment>
+
+    </navigation>
+
 </navigation>

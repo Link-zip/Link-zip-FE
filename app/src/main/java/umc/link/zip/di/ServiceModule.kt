@@ -3,9 +3,9 @@ package umc.link.zip.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import umc.link.zip.data.service.AlertService
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.data.service.LoginService
 import umc.link.zip.data.service.TestService
@@ -40,6 +40,12 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideLinkService(retrofit: Retrofit): LinkService {
+        return retrofit.buildService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAlertService(retrofit: Retrofit): AlertService {
         return retrofit.buildService()
     }
 }
