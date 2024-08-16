@@ -1,7 +1,6 @@
 package umc.link.zip.presentation.login
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.activity.viewModels
@@ -15,9 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.request.LoginRequest
-import umc.link.zip.data.service.LoginService
 import umc.link.zip.databinding.ActivityLoginBinding
-import umc.link.zip.di.NetworkModule
 import umc.link.zip.presentation.MainActivity
 import umc.link.zip.presentation.base.BaseActivity
 import umc.link.zip.util.network.NetworkResult

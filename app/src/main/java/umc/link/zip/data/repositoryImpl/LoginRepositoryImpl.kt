@@ -6,8 +6,10 @@ import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.request.LoginRequest
+import umc.link.zip.data.dto.response.JwtResponse
 import umc.link.zip.data.dto.response.LoginResponse
 import umc.link.zip.data.service.LoginService
+import umc.link.zip.domain.model.login.JwtModel
 import umc.link.zip.domain.model.login.LoginModel
 import umc.link.zip.domain.repository.LoginRepository
 import umc.link.zip.util.network.NetworkResult
@@ -32,11 +34,17 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    /*override suspend fun login(): NetworkResult<LoginModel> {
-        return handleApi({loginService.login().execute()}) { response: BaseResponse<LoginResponse> ->
-            Log.d("login", "Repository 정상 작동")
-            response.result.toModel()
+    override suspend fun checkJwt(): NetworkResult<JwtModel> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = loginService.checkJwt().awaitResponse()
+                handleApi({ response }) { response: BaseResponse<JwtResponse> ->
+                    response.result.toModel()
+                }
+            } catch (e: Exception) {
+                NetworkResult.Error(e)
+            }
         }
-    }*/
+    }
 
 }
