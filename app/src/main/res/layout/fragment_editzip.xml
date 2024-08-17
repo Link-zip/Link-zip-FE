@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="37.5dp"
+        android:focusable="false"
+        tools:context=".presentation.MainActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_makezip"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/toolbar_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintWidth_percent="0.066667"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/iv_openzip_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/toolbar_mg1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_mypage_profile_back"
+                    android:contentDescription="뒤로가기" />
+
+                <TextView
+                    android:id="@+id/tv_mypage_setting_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Zip 수정하기"
+                    android:textAppearance="@style/appbar_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@android:color/black" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/makezip_msg10"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/fragment_makezip_exzip_ic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.053"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_makezip" />
+
+        <ImageView
+            android:id="@+id/fragment_makezip_exzip_ic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="90:93"
+            app:layout_constraintWidth_percent="0.25"
+            android:src="@drawable/ic_zip_shadow_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/makezip_msg10"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/fragment_makezip_zip_name_tv"
+            android:layout_width="72dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="23dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="썸네일"
+            android:textColor="#FFFFFF"
+            android:textFontWeight="600"
+            android:textSize="16sp"
+            android:letterSpacing="-0.03"
+            android:layout_alignParentTop="true"
+            android:textAppearance="@style/ziptitlethu"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.45sp"
+            android:gravity="center_horizontal|top"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_makezip_exzip_ic"
+            app:layout_constraintEnd_toEndOf="@id/fragment_makezip_exzip_ic"
+            app:layout_constraintStart_toStartOf="@id/fragment_makezip_exzip_ic"
+            app:layout_constraintTop_toTopOf="@id/fragment_makezip_exzip_ic" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/makezip_option"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/fragment_makezip_exzip_ic"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/zip_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="33dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/makezip_msg3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="32:24"
+                    app:layout_constraintWidth_percent="0.0888"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/zip_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:letterSpacing="-0.03"
+                    android:text="Zip 이름"
+                    android:textColor="@color/black"
+                    android:textFontWeight="600"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg3"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <TextView
+                    android:id="@+id/fragment_makezip_cnt_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_light"
+                    android:letterSpacing="-0.03"
+                    android:text="0/30"
+                    android:textColor="#666666"
+                    android:textFontWeight="400"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/makezip_msg4"
+                    tools:ignore="MissingConstraints" />
+
+                <View
+                    android:id="@+id/makezip_msg4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="32:24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0888" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/zip_name_enter"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/zip_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <View
+                    android:id="@+id/makezip_msg11"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/zip_name_enter_tv"
+                    app:layout_constraintDimensionRatio="32:24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0888" />
+
+                <EditText
+                    android:id="@+id/zip_name_enter_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_transparent"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="Zip 이름을 입력해주세요."
+                    android:letterSpacing="-0.03"
+                    android:textColor="#666666"
+                    android:textFontWeight="400"
+                    android:textSize="16dp"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
+                    android:text=""
+                    app:layout_constraintEnd_toStartOf="@id/fragment_makezip_delete_ic"
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg11"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/makezip_msg14"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/zip_name_enter_tv"
+                    app:layout_constraintDimensionRatio="32:24"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0888" />
+
+                <ImageView
+                    android:id="@+id/fragment_makezip_delete_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_deletex"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/makezip_msg13"
+                    app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <View
+                    android:id="@+id/makezip_msg12"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:64"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/makezip_msg11"
+                    app:layout_constraintWidth_percent="0.0666" />
+
+                <View
+                    android:id="@+id/makezip_msg13"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:64"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/makezip_msg11"
+                    app:layout_constraintWidth_percent="0.0666" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="0dp"
+                    android:layout_height="2px"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/black"
+                    app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg12"
+                    app:layout_constraintTop_toBottomOf="@id/zip_name_enter_tv" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/colors"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@id/makezip_msg13"
+                    app:layout_constraintStart_toEndOf="@id/makezip_msg12"
+                    app:layout_constraintTop_toBottomOf="@id/line">
+
+                    <View
+                        android:id="@+id/rectangle_1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rectangle_1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/rectangle_2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/rectangle_2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rectangle_2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/rectangle_3"
+                        app:layout_constraintStart_toEndOf="@id/rectangle_1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/rectangle_3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rectangle_3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/rectangle_4"
+                        app:layout_constraintHorizontal_bias="0.901"
+                        app:layout_constraintStart_toEndOf="@id/rectangle_2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <View
+                        android:id="@+id/rectangle_4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rectangle_4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/rectangle_5"
+                        app:layout_constraintHorizontal_bias="0.932"
+                        app:layout_constraintStart_toEndOf="@id/rectangle_3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <View
+                        android:id="@+id/rectangle_5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rectangle_5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/rectangle_6"
+                        app:layout_constraintHorizontal_bias="0.946"
+                        app:layout_constraintStart_toEndOf="@id/rectangle_4"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <View
+                        android:id="@+id/rectangle_6"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rectangle_6"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@id/rectangle_7"
+                        app:layout_constraintHorizontal_bias="0.962"
+                        app:layout_constraintStart_toEndOf="@id/rectangle_5"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <View
+                        android:id="@+id/rectangle_7"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/rectangle_7"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/rectangle_6"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/fragment_makezip_msg1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:57"
+            app:layout_constraintWidth_percent="0.0666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cl_makezip_finish_btn"
+            app:layout_constraintTop_toTopOf="@id/cl_makezip_finish_btn"/>
+
+        <View
+            android:id="@+id/fragment_makezip_mgs2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:57"
+            app:layout_constraintWidth_percent="0.0666"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cl_makezip_finish_btn"
+            app:layout_constraintTop_toTopOf="@id/cl_makezip_finish_btn"
+            app:layout_constraintTop_toBottomOf="@id/makezip_option"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_makezip_finish_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fragment_makezip_msg1"
+            app:layout_constraintEnd_toStartOf="@id/fragment_makezip_mgs2">
+
+            <ImageView
+                android:id="@+id/iv_profileset_grayshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_graybtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_makezip_make_btn"
+                app:layout_constraintWidth_default="spread"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/fragment_makezip_make_btn"
+                app:layout_constraintStart_toStartOf="@id/fragment_makezip_make_btn"
+                app:layout_constraintTop_toTopOf="@id/fragment_makezip_make_btn"
+                android:scaleType="fitXY"/>
+
+            <ImageView
+                android:id="@+id/iv_profileset_blueshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/shadow_bluebtn"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_makezip_make_btn"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintEnd_toEndOf="@id/fragment_makezip_make_btn"
+                app:layout_constraintStart_toStartOf="@id/fragment_makezip_make_btn"
+                app:layout_constraintTop_toTopOf="@id/fragment_makezip_make_btn"
+                android:scaleType="fitXY"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_makezip_make_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_666666_fill"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="완료"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:id="@+id/view_profileset_mg10"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fragment_makezip_make_btn"
+                app:layout_constraintDimensionRatio="360:30"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
