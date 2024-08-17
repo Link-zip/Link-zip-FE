@@ -45,15 +45,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     Log.d("login", "Token 발급 성공 : ${result.data.accessToken}")
                     saveAccessToken(result.data.accessToken)
                     //신규 회원인 경우
-                    /*val fragment = ProfilesetFragment()
-                    val bundle = Bundle()
+                    val fragment = ProfilesetFragment()
+                    /*val bundle = Bundle()
                     bundle.putString("key", result.data.key)
-                    fragment.arguments = bundle
-                    replaceFragment(fragment)*/
+                    fragment.arguments = bundle*/
+                    replaceFragment(fragment)
 
                     //기존 회원인 경우
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    /*startActivity(Intent(this, MainActivity::class.java))
+                    finish()*/
                 }
             }
         }

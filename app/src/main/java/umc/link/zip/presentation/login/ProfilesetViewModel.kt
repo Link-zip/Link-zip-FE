@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import umc.link.zip.data.dto.request.SignupRequest
 import umc.link.zip.domain.model.login.NameCheckModel
@@ -12,6 +13,7 @@ import umc.link.zip.domain.repository.LoginRepository
 import umc.link.zip.util.network.NetworkResult
 import javax.inject.Inject
 
+@HiltViewModel
 class ProfilesetViewModel @Inject constructor(
     private val loginRepository: LoginRepository
 ) : ViewModel() {
