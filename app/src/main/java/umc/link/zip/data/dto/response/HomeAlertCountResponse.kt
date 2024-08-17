@@ -3,9 +3,9 @@ package umc.link.zip.data.dto.response
 import umc.link.zip.domain.model.home.HomeAlertCountModel
 
 data class HomeAlertCountResponse(
-    val recentAlertsCount : Int
+    val recent_alerts_count : Int
 ) {
     fun toModel() = HomeAlertCountModel(
-        recentAlertsCount = this.recentAlertsCount
+        recent_alerts_count = this.recent_alerts_count
     )
 }

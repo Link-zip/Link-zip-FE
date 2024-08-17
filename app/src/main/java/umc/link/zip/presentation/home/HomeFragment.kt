@@ -30,8 +30,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private lateinit var recentRVAdapter: RecentRVAdapter
 
     override fun initObserver() {
-        /*setHomeOldCountViewModel()
-        setHomeTotalCountViewModel()*/
+        setHomeOldCountViewModel()
+        setHomeTotalCountViewModel()
+        setHomeAlertCountViewModel()
+        setHomeUnreadCountViewModel()
         setHomeRecentViewModel()
     }
 
@@ -39,6 +41,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
         homeViewModel.getRecentLinks()
+        homeViewModel.getOldCount()
+        homeViewModel.getTotalCount()
         setClickListener()
         setScrollListener()
         setRVAdapter()
@@ -47,13 +51,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private fun setHomeOldCountViewModel() {
         homeViewModel.oldCount.observe(this) { result ->
             when(result) {
-                is NetworkResult.Error -> {}
+                is NetworkResult.Error -> { Log.d("home", "old link : ${result.exception}") }
                 is NetworkResult.Fail -> {}
                 is NetworkResult.Success -> {
-                    if(result.data.oldLinksCount == 0) {
+                    if(result.data.old_links_count == 0) {
                         binding.clHomeOldlink.visibility = View.GONE
                     } else {
-                        val countText = "${result.data.oldLinksCount}개"
+                        val countText = "${result.data.old_links_count}개"
                         val fullText = "알림을 설정한 링크 중 최근\n한 달을 넘게 안 읽은 링크\n${countText}가 있어요."
 
                         val spannableString = SpannableString(fullText)
@@ -82,17 +86,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private fun setHomeTotalCountViewModel() {
         homeViewModel.totalCount.observe(this) { result ->
             when(result) {
-                is NetworkResult.Error -> {}
+                is NetworkResult.Error -> { Log.d("home", "total link : ${result.exception}") }
                 is NetworkResult.Fail -> {}
                 is NetworkResult.Success -> {
                     binding.tvHomeLinkAlarmcnt.text = "0개"
                     binding.tvHomeLinkNotreadcnt.text = "0개"
-                    if(result.data.totalLinksCount == 0) {
+                    if(result.data.total_links_count == 0) {
                         binding.tvHomeLink1month.visibility = View.VISIBLE
                         binding.tvHomeLink1month.text = "가입을 환영해요!"
                         binding.tvHomeLinkWait.text = "첫 번째 링크를\n저장해 보세요!"
                     } else {
-                        setHomeAlertCountViewModel()
+                        homeViewModel.getAlertCount()
                     }
                 }
             }
@@ -102,17 +106,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private fun setHomeAlertCountViewModel() {
         homeViewModel.alertCount.observe(this) { result ->
             when(result) {
-                is NetworkResult.Error -> {}
+                is NetworkResult.Error -> { Log.d("home", "alert link : ${result.exception}") }
                 is NetworkResult.Fail -> {}
                 is NetworkResult.Success -> {
-                    if(result.data.recentAlertsCount == 0) {
+                    if(result.data.recent_alerts_count == 0) {
                         binding.tvHomeLink1month.visibility = View.INVISIBLE
                         binding.tvHomeLinkWait.text = "링크를\n저장해보세요!"
                     } else {
                         binding.tvHomeLink1month.visibility = View.VISIBLE
                         binding.tvHomeLink1month.text = "최근 한 달 기준"
-                        binding.tvHomeLinkAlarmcnt.text = "${result.data.recentAlertsCount}개"
-                        setHomeUnreadCountViewModel()
+                        binding.tvHomeLinkAlarmcnt.text = "${result.data.recent_alerts_count}개"
+                        homeViewModel.getUnreadCount()
                     }
                 }
             }
@@ -122,14 +126,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private fun setHomeUnreadCountViewModel() {
         homeViewModel.unreadCount.observe(this) { result ->
             when(result) {
-                is NetworkResult.Error -> {}
+                is NetworkResult.Error -> { Log.d("home", "unread link : ${result.exception}") }
                 is NetworkResult.Fail -> {}
                 is NetworkResult.Success -> {
-                    binding.tvHomeLinkNotreadcnt.text = "${result.data.unreadLinksCount}개"
-                    if(result.data.unreadLinksCount == 0) {
+                    binding.tvHomeLinkNotreadcnt.text = "${result.data.unread_links_count}개"
+                    if(result.data.unread_links_count == 0) {
                         binding.tvHomeLinkWait.text = "알림 설정한 모든\n링크를 읽었어요!"
                     } else {
-                        binding.tvHomeLinkWait.text = "${result.data.unreadLinksCount}개의 링크가\n기다리고 있어요!"
+                        binding.tvHomeLinkWait.text = "${result.data.unread_links_count}개의 링크가\n기다리고 있어요!"
                     }
                 }
             }

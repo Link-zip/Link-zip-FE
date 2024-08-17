@@ -4,9 +4,9 @@ import umc.link.zip.domain.model.home.HomeAlertCountModel
 import umc.link.zip.domain.model.home.HomeOldCountModel
 
 data class HomeOldCountResponse(
-    val oldLinksCount : Int
+    val old_links_count : Int
 ) {
     fun toModel() = HomeOldCountModel(
-        oldLinksCount = this.oldLinksCount
+        old_links_count = this.old_links_count
     )
 }

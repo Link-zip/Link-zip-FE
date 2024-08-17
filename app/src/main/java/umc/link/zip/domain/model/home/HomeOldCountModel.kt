@@ -1,5 +1,5 @@
 package umc.link.zip.domain.model.home
 
 data class HomeOldCountModel(
-    val oldLinksCount : Int
+    val old_links_count : Int
 )
