@@ -11,6 +11,7 @@ import umc.link.zip.data.service.ListService
 
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.data.service.LoginService
+import umc.link.zip.data.service.MypageService
 
 import umc.link.zip.data.service.TestService
 import umc.link.zip.data.service.ZipService
@@ -50,6 +51,12 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideLinkService(retrofit: Retrofit): LinkService {
+        return retrofit.buildService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMypageService(retrofit: Retrofit): MypageService {
         return retrofit.buildService()
     }
 
