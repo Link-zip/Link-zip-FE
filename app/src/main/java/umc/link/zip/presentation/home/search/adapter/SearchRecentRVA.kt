@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import umc.link.zip.databinding.ItemListBinding
 import umc.link.zip.databinding.ItemSearchBinding
 import umc.link.zip.domain.model.search.SearchRecent
-import umc.link.zip.domain.model.search.SearchResult
 
 class SearchRecentRVA (val recent: (Int) -> Unit) : ListAdapter<SearchRecent, SearchRecentRVA.SearchRecentViewHolder>(DiffCallback()) {
 
@@ -30,7 +28,10 @@ class SearchRecentRVA (val recent: (Int) -> Unit) : ListAdapter<SearchRecent, Se
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recent: SearchRecent){
             with(binding){
-
+                tvSearchTitle.text = recent.search
+                root.setOnClickListener {
+                    recent(recent.id.toInt())
+                }
             }
         }
     }
