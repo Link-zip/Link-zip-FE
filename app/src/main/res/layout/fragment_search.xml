@@ -1,289 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="37.5dp">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_search"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentInsetStart="0dp"
-            android:contentInsetLeft="0dp"
-            android:contentInsetRight="0dp"
-            android:contentInsetEnd="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetEnd="0dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <View
-                    android:id="@+id/toolbar_mg1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintWidth_percent="0.066667"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/iv_search_toolbar_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/toolbar_mg1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/ic_mypage_profile_back"
-                    android:contentDescription="뒤로가기" />
-
-                <TextView
-                    android:id="@+id/tv_search_toolbar_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="검색"
-                    android:textAppearance="@style/appbar_title"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@android:color/black" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.appcompat.widget.Toolbar>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_search"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_height="match_parent"
+            android:paddingTop="37.5dp">
 
-            <ImageView
-                android:id="@+id/iv_saveLink_memo_blueshadow"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="328:45"
-                app:layout_constraintWidth_percent="0.9111"
-                android:layout_marginTop="19dp"
-                android:layout_marginBottom="-5dp"
-                android:src="@drawable/shadow_bluebtn"
-                android:visibility="visible"
-                app:layout_constraintHeight_percent="0.75"
-                app:layout_constraintEnd_toEndOf="@id/view_search_bar"
-                app:layout_constraintStart_toStartOf="@id/view_search_bar"
-                app:layout_constraintTop_toTopOf="@id/view_search_bar"
-                android:scaleType="fitXY"
-                />
-
-            <View
-                android:id="@+id/view_search_bar"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintDimensionRatio="328:56"
-                app:layout_constraintWidth_percent="0.9111"
-                android:background="@drawable/bg_search_bar"
-                app:layout_constraintStart_toStartOf="parent"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_search"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <View
-                android:id="@+id/view_search_btn"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_search_search"
-                app:layout_constraintEnd_toEndOf="@id/view_search_bar"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintWidth_percent="0.0666"
-                app:layout_constraintTop_toTopOf="@id/view_search_bar"
-                app:layout_constraintBottom_toBottomOf="@id/view_search_bar"
-                />
-
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/bg_transparent"
-                android:hint="검색어를 입력하세요"
-                android:singleLine="true"
-                android:textAppearance="@style/mypage_profile_social"
-                android:textColorHint="@color/nav_selected"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/view_search_bar"
-                app:layout_constraintEnd_toStartOf="@id/iv_search_bar_delete"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/view_search_bar"
-                app:layout_constraintTop_toTopOf="@id/view_search_bar" />
-
-            <ImageView
-                android:id="@+id/iv_search_bar_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search_deletex"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintDimensionRatio="24:24"
-                app:layout_constraintWidth_percent="0.06666"
-                app:layout_constraintEnd_toStartOf="@id/view_search_btn"
-                app:layout_constraintTop_toTopOf="@id/view_search_bar"
-                app:layout_constraintBottom_toBottomOf="@id/view_search_bar" />
-
-            <ImageView
-                android:id="@+id/iv_search_bar_delete_after_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search_deletex"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintDimensionRatio="24:24"
-                app:layout_constraintWidth_percent="0.06666"
-                app:layout_constraintEnd_toEndOf="@id/view_search_bar"
-                app:layout_constraintTop_toTopOf="@id/view_search_bar"
-                app:layout_constraintBottom_toBottomOf="@id/view_search_bar" />
-
-            <View
-                android:id="@+id/view_search_mg1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="24:40"
-                app:layout_constraintWidth_percent="0.06666"
-                app:layout_constraintTop_toBottomOf="@id/view_search_bar"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <TextView
-                android:id="@+id/tv_search_recent_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="최근 검색어"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/view_search_mg1"
-                app:layout_constraintStart_toEndOf="@id/view_search_mg1"
-                android:textAppearance="@style/appbar_title"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/tv_search_result_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="검색된 링크"
-                app:layout_constraintTop_toBottomOf="@id/view_search_mg1"
-                app:layout_constraintStart_toEndOf="@id/view_search_mg1"
-                android:textAppearance="@style/appbar_title"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/tv_search_result_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="2dp"
-                android:text="10"
-                android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/tv_search_result_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_search_result_title"
-                app:layout_constraintStart_toEndOf="@id/tv_search_result_title"
-                android:textAppearance="@style/dialogue_lineup_item_unselected"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp" />
-
-            <View
-                android:id="@+id/view_search_mg2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="24:45"
-                app:layout_constraintWidth_percent="0.06666"
-                app:layout_constraintTop_toBottomOf="@id/view_search_bar"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <TextView
-                android:id="@+id/tv_search_delete_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전체 삭제"
-                app:layout_constraintTop_toBottomOf="@id/view_search_mg2"
-                app:layout_constraintEnd_toStartOf="@id/view_search_mg2"
-                android:textAppearance="@style/notice_detail_date"
-                android:textSize="12sp"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_search_recent"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/tv_search_recent_title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:listitem="@layout/item_search"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_search_result"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/tv_search_result_title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:listitem="@layout/item_list"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-            <View
-                android:id="@+id/view_search_mg3"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="360:32"
-                app:layout_constraintTop_toBottomOf="@id/view_search_bar"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <View
-                android:id="@+id/view_search_mg4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="360:111"
-                app:layout_constraintTop_toBottomOf="@id/view_search_mg3"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <ImageView
-                android:id="@+id/iv_search_none_clip"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/img_alarm_clip"
-                app:layout_constraintDimensionRatio="0.62"
-                app:layout_constraintWidth_percent="0.26"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_search_mg4" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentInsetStart="0dp"
+                android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp">
 
-            <TextView
-                android:id="@+id/tv_search_none"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="최근 검색어가 없어요"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/pretendard_semibold"
-                android:letterSpacing="-0.03"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_search_none_clip"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <View
+                        android:id="@+id/toolbar_mg1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintWidth_percent="0.066667"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_search_toolbar_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/toolbar_mg1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/ic_mypage_profile_back"
+                        android:contentDescription="뒤로가기" />
+
+                    <TextView
+                        android:id="@+id/tv_search_toolbar_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="검색"
+                        android:textAppearance="@style/appbar_title"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textColor="@android:color/black" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsv_search"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_search"
+                app:layout_constraintBottom_toBottomOf="parent">
 
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_search_shadow"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="328:45"
+                    app:layout_constraintWidth_percent="0.9111"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="-5dp"
+                    android:src="@drawable/shadow_graybtn"
+                    android:visibility="visible"
+                    app:layout_constraintHeight_percent="0.75"
+                    app:layout_constraintEnd_toEndOf="@id/view_search_bar"
+                    app:layout_constraintStart_toStartOf="@id/view_search_bar"
+                    app:layout_constraintTop_toTopOf="@id/view_search_bar"
+                    android:scaleType="fitXY" />
+
+                    <View
+                        android:id="@+id/view_search_bar_mg"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="24:8"
+                        app:layout_constraintWidth_percent="0.06666"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                <View
+                    android:id="@+id/view_search_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="328:56"
+                    app:layout_constraintWidth_percent="0.9111"
+                    android:background="@drawable/bg_search_bar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_bar_mg" />
+
+                <View
+                    android:id="@+id/view_search_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/ic_search_search"
+                    app:layout_constraintEnd_toEndOf="@id/view_search_bar"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintWidth_percent="0.0666"
+                    app:layout_constraintTop_toTopOf="@id/view_search_bar"
+                    app:layout_constraintBottom_toBottomOf="@id/view_search_bar" />
+
+                <EditText
+                    android:id="@+id/et_search_bar"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_transparent"
+                    android:hint="검색어를 입력하세요"
+                    android:singleLine="true"
+                    android:textAppearance="@style/mypage_profile_social"
+                    android:textColorHint="@color/nav_selected"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/view_search_bar"
+                    app:layout_constraintEnd_toStartOf="@id/iv_search_bar_delete"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/view_search_bar"
+                    app:layout_constraintTop_toTopOf="@id/view_search_bar" />
+
+                <ImageView
+                    android:id="@+id/iv_search_bar_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search_deletex"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintDimensionRatio="24:24"
+                    app:layout_constraintWidth_percent="0.06666"
+                    app:layout_constraintEnd_toStartOf="@id/view_search_btn"
+                    app:layout_constraintTop_toTopOf="@id/view_search_bar"
+                    app:layout_constraintBottom_toBottomOf="@id/view_search_bar" />
+
+                <ImageView
+                    android:id="@+id/iv_search_bar_delete_after_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search_deletex"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintDimensionRatio="24:24"
+                    app:layout_constraintWidth_percent="0.06666"
+                    app:layout_constraintEnd_toEndOf="@id/view_search_bar"
+                    app:layout_constraintTop_toTopOf="@id/view_search_bar"
+                    app:layout_constraintBottom_toBottomOf="@id/view_search_bar" />
+
+                <View
+                    android:id="@+id/view_search_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:40"
+                    app:layout_constraintWidth_percent="0.06666"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_bar"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_search_recent_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최근 검색어"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_mg1"
+                    app:layout_constraintStart_toEndOf="@id/view_search_mg1"
+                    android:textAppearance="@style/appbar_title"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_search_result_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="검색된 링크"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_mg1"
+                    app:layout_constraintStart_toEndOf="@id/view_search_mg1"
+                    android:textAppearance="@style/appbar_title"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_search_result_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:text="10"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="@id/tv_search_result_title"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_search_result_title"
+                    app:layout_constraintStart_toEndOf="@id/tv_search_result_title"
+                    android:textAppearance="@style/dialogue_lineup_item_unselected"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp" />
+
+                <View
+                    android:id="@+id/view_search_mg2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="24:45"
+                    app:layout_constraintWidth_percent="0.06666"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_bar"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_search_delete_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전체 삭제"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_mg2"
+                    app:layout_constraintEnd_toStartOf="@id/view_search_mg2"
+                    android:textAppearance="@style/notice_detail_date"
+                    android:textSize="12sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search_recent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/tv_search_recent_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:listitem="@layout/item_search"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@id/tv_search_result_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:listitem="@layout/item_list"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <View
+                    android:id="@+id/view_search_mg3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="360:32"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_bar"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:id="@+id/view_search_mg4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="360:61"
+                    app:layout_constraintTop_toBottomOf="@id/tv_search_result_title"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_search_none_clip"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/img_alarm_clip"
+                    app:layout_constraintDimensionRatio="0.62"
+                    app:layout_constraintWidth_percent="0.26"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_search_mg4" />
+
+                <TextView
+                    android:id="@+id/tv_search_none"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최근 검색어가 없어요"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:letterSpacing="-0.03"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_search_none_clip" />
 
 
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
