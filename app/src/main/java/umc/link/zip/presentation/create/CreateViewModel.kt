@@ -23,6 +23,7 @@ class CreateViewModel @Inject constructor() : ViewModel() {
     )
     val link = _Create_link.asStateFlow()
 
+
     // 더미 데이터 목록
     private val dummyCreateLinks = listOf(
         CreateLink(
@@ -36,7 +37,7 @@ class CreateViewModel @Inject constructor() : ViewModel() {
         CreateLink(
             zipId = 2,
             title = "url2의 제목입니다 (유튜브)",
-            text = "url2의 텍스트입니다\nabc\naa\na\na\na\na\naadfwfjwie가나닫맏마ㅓㅈ다ㅓㄹ맏ㄹㅁㅈ더래ㅑㅁㄹㅁㅈ",
+            text = "",
             url = "https://www.youtube.com",
             memo = "",
             alertDate = "2024-08-20T14:00:00Z"

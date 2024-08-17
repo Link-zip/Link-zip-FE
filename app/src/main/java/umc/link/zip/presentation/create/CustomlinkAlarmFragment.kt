@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkAlarmBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -18,11 +19,12 @@ class CustomlinkAlarmFragment :
     BaseFragment<FragmentCustomlinkAlarmBinding>(R.layout.fragment_customlink_alarm),
     DatePickerDialogueFragment.DatePickerListener, TimePickerDialogueFragment.TimePickerListener {
 
-    private val viewModel: CreateViewModel by activityViewModels()
+    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.link.collectLatest { link ->
+            createViewModel.link.collectLatest { link ->
                 val alertDate = link.alertDate
 
                 if (alertDate.isNullOrEmpty()) {
@@ -63,7 +65,7 @@ class CustomlinkAlarmFragment :
                 binding.tvCustomLinkAlarmTimeNone.visibility == View.VISIBLE
             ) {
                 repeatOnStarted {
-                    viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
+                    createViewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
                 }
                 navigator.navigateUp()
             }
@@ -71,7 +73,7 @@ class CustomlinkAlarmFragment :
                 when {
                     date.isNotEmpty() && time.isNotEmpty() -> {
                         repeatOnStarted {
-                            viewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+                            createViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
                         }
                         navigator.navigateUp()
                     }

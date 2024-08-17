@@ -3,8 +3,11 @@
 
     <data>
         <variable
-            name="viewModel"
+            name="createViewModel"
             type="umc.link.zip.presentation.create.CreateViewModel" />
+        <variable
+            name="linkExtractViewModel"
+            type="umc.link.zip.presentation.create.adapter.LinkExtractViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

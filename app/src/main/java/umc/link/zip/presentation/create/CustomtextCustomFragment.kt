@@ -2,6 +2,7 @@ package umc.link.zip.presentation.create
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -10,19 +11,39 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextCustomBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.network.NetworkResult
 
 @AndroidEntryPoint
 class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R.layout.fragment_customtext_custom){
 
-    private val viewModel: CreateViewModel by activityViewModels()
-    override fun initObserver() {
-        repeatOnStarted {
-            viewModel.link.collectLatest { link ->
-                // EditText 제목 설정
-                binding.etCustomTextCustomLinkTitle.setText(link.title ?: "설정된 제목이 없습니다.")
+    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkSummaryViewModel: LinkSummaryViewModel by activityViewModels()
 
-                // Text 요약 설정
+    override fun initObserver() {
+        // text 요약 API 받아옴
+        repeatOnStarted {
+            linkSummaryViewModel.summaryResponse.collectLatest { result ->
+                when (result) {
+                    is NetworkResult.Success -> {
+                        binding.etCustomTextSummaryText.setText(result.data?.summary ?: "요약이 없습니다.")
+                        Log.d("CustomtextCustomFragment", "텍스트 요약 가져오기 성공")
+                    }
+                    is NetworkResult.Error -> {
+                        Toast.makeText(requireContext(), "요약 가져오기 실패", Toast.LENGTH_SHORT).show()
+                        Log.d("CustomtextCustomFragment", "텍스트 요약 가져오기 실패")
+                    }
+                    else -> {
+                        // 진행 중 상태에 대한 처리
+                    }
+                }
+            }
+        }
+
+        repeatOnStarted {
+            createViewModel.link.collectLatest { link ->
+                binding.etCustomTextCustomLinkTitle.setText(link.title ?: "설정된 제목이 없습니다.")
                 binding.etCustomTextSummaryText.setText(link.text ?: "텍스트 요약이 없습니다.")
             }
         }
@@ -33,7 +54,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         binding.etCustomTextCustomLinkTitle.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                viewModel.updateLinkInput(s.toString())
+                createViewModel.updateLinkInput(s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -42,7 +63,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         binding.etCustomTextSummaryText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                viewModel.updateLinkInput(s.toString())
+                createViewModel.updateLinkInput(s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -72,7 +93,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         // Delete 버튼
         binding.ivCustomTextCustomDelete.setOnClickListener {
-            viewModel.clearLinkInput()
+            createViewModel.clearLinkInput()
             binding.etCustomTextCustomLinkTitle.text.clear() // EditText의 내용을 직접 초기화
         }
     }
@@ -86,8 +107,8 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
             Toast.makeText(requireContext(), "제목을 설정해주세요", Toast.LENGTH_SHORT).show()
         } else {
             // 제목이 비어있지 않으면 ViewModel에 제목 저장하고 이동
-            viewModel.updateTitle(updatedTitle)
-            viewModel.updateText(updatedText)
+            createViewModel.updateTitle(updatedTitle)
+            createViewModel.updateText(updatedText)
             navigateAction()
         }
     }

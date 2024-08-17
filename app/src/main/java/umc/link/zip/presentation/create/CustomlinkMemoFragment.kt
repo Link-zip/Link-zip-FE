@@ -7,16 +7,18 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkMemoBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.layout.fragment_customlink_memo){
 
-    private val viewModel: CreateViewModel by activityViewModels()
+    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.link.collectLatest { link ->
+            createViewModel.link.collectLatest { link ->
                 // 제목
                 binding.tvCustomLinkMemoLinkTitle.text = link.title ?: "No Title"
 
@@ -33,7 +35,7 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
         binding.btnCustomLinkMemoComplete.setOnClickListener {
             // 메모 업데이트
             val updatedMemo = binding.etCustomLinkMemoAddMemo.text.toString()
-            viewModel.updateMemo(memo = updatedMemo)
+            createViewModel.updateMemo(memo = updatedMemo)
 
             findNavController().navigateUp()
         }

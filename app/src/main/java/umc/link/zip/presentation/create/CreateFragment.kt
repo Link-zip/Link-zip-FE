@@ -10,16 +10,20 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCreateBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
+import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create) {
 
-    private val viewModel: CreateViewModel by activityViewModels()
+    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkSummaryViewModel: LinkSummaryViewModel by activityViewModels()
+    private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.isSaveButtonVisible.collectLatest { isVisible ->
+            createViewModel.isSaveButtonVisible.collectLatest { isVisible ->
                 binding.btnCreateSaveLink.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.ivCreateLinkOvalBlue.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.tvCreateLinkOvalBlue.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
@@ -31,25 +35,25 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         }
 
         repeatOnStarted {
-            viewModel.isLinkIconVisible.collectLatest { isVisible ->
+            createViewModel.isLinkIconVisible.collectLatest { isVisible ->
                 binding.ivCreateLink.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
             }
         }
 
         repeatOnStarted {
-            viewModel.isDeleteIconVisible.collectLatest { isVisible ->
+            createViewModel.isDeleteIconVisible.collectLatest { isVisible ->
                 binding.ivCreateDelete.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
             }
         }
     }
 
     override fun initView() {
-        binding.viewModel = viewModel
+        binding.viewModel = createViewModel
 
 
         binding.etCreateLink.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                viewModel.updateLinkInput(s.toString())
+                createViewModel.updateLinkInput(s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -62,7 +66,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
     private fun setOnClickListener(){
         binding.ivCreateToolbarBack.setOnClickListener {
-            viewModel.clearLinkInput()
+            createViewModel.clearLinkInput()
             binding.etCreateLink.text.clear() // EditText의 내용 초기화
 
             findNavController().navigateUp()
@@ -71,20 +75,27 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         // 텍스트 요약
         binding.btnCreateSaveText.setOnClickListener {
             val url = binding.etCreateLink.text.toString()
-            viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
+
+            // viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
+            linkSummaryViewModel.fetchLinkSummary(url)  // 텍스트 요약 API 호출
+            linkExtractViewModel.fetchLinkExtract(url)  // 제목, 썸네일 API 호출
+
             navigateToLoading()
         }
 
         // 링크 저장
         binding.btnCreateSaveLink.setOnClickListener {
             val url = binding.etCreateLink.text.toString()
-            viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
+
+            //viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
+            linkExtractViewModel.fetchLinkExtract(url)  // 제목, 썸네일 API 호출
+
             navigateToLink()
         }
 
         // Delete 버튼
         binding.ivCreateDelete.setOnClickListener {
-            viewModel.clearLinkInput()
+            createViewModel.clearLinkInput()
             binding.etCreateLink.text.clear() // EditText의 내용을 직접 초기화
         }
     }

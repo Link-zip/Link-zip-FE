@@ -2,26 +2,58 @@ package umc.link.zip.presentation.create
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkCustomBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.network.NetworkResult
 
 @AndroidEntryPoint
 class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R.layout.fragment_customlink_custom){
 
     private val viewModel: CreateViewModel by activityViewModels()
+    private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
             viewModel.link.collectLatest { link ->
                 // EditText 제목 설정
                 binding.etCustomLinkCustomLinkTitle.setText(link.title ?: "설정된 제목이 없습니다.")
+            }
+        }
+
+        // 제목, 썸네일 API 받아옴
+        repeatOnStarted {
+            linkExtractViewModel.extractResponse.collectLatest { result ->
+                when (result) {
+                    is NetworkResult.Success -> {
+                        val linkExtractModel = result.data
+                        // 제목
+                        binding.etCustomLinkCustomLinkTitle.setText(linkExtractModel.title ?: "제목 없음")
+                        // 썸네일
+                        Glide.with(this@CustomlinkCustomFragment)
+                            .load(linkExtractModel.thumb)
+                            .placeholder(R.drawable.clip) // 로딩 중 placeholder 이미지 (선택 사항)
+                            .error(R.drawable.clip) // 로딩 실패 시 error 이미지 (선택 사항)
+                            .into(binding.ivCustomLinkCustomTopImg)
+                        Log.d("CustomtextCustomFragment", "제목/썸네일 가져오기 성공")
+                    }
+                    is NetworkResult.Error -> {
+                        Toast.makeText(requireContext(), "링크 추출 실패", Toast.LENGTH_SHORT).show()
+                        Log.d("CustomtextCustomFragment", "제목/썸네일 가져오기 실패")
+                    }
+                    else -> {
+                        // 로딩 상태 또는 기타 상태 처리
+                    }
+                }
             }
         }
     }
