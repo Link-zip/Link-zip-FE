@@ -5,7 +5,7 @@ import umc.link.zip.domain.model.login.JwtModel
 data class JwtResponse(
     val userId: Int,
     val nickname: String,
-    val kakaoId: Int,
+    val kakaoId: Long,
     val createdAt: String
 ) {
     fun toModel() = JwtModel(

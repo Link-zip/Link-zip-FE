@@ -27,7 +27,6 @@ class LoginViewModel @Inject constructor(
 
     fun login(request: LoginRequest) {
         viewModelScope.launch {
-            Log.d("login", "ViewModel 정상작동")
             _loginResult.value = loginRepository.login(request)
         }
     }

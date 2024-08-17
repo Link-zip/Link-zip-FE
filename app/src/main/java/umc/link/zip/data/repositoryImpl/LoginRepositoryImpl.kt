@@ -30,7 +30,6 @@ class LoginRepositoryImpl @Inject constructor(
             try {
                 val response = loginService.login(request).awaitResponse()
                 handleApi({ response }) { baseResponse: BaseResponse<LoginResponse> ->
-                    Log.d("login", "Repository 정상 작동")
                     baseResponse.result.toModel()
                 }
             } catch (e: Exception) {
