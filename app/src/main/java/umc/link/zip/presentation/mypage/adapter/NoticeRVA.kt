@@ -30,7 +30,7 @@ class NoticeRVA (val notice: (Int) -> Unit) : ListAdapter<Notice, NoticeRVA.Noti
         fun bind(notice: Notice){
             with(binding){
                 tvItemNoticeTitle.text = notice.title
-                tvItemNoticeDate.text = notice.date
+                tvItemNoticeDate.text = notice.createdAt
                 root.setOnClickListener {
                     notice(notice.id.toInt())
                 }

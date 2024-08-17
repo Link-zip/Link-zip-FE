@@ -1,7 +1,11 @@
 package umc.link.zip.domain.model.notice
 
+import java.time.LocalDateTime
+
 data class Notice(
-    var id: String,
-    var title : String,
-    var date : String
+    val id: Int,
+    val title: String,
+    val content: String,
+    val createdAt: String,
+    val updatedAt: String
 )
