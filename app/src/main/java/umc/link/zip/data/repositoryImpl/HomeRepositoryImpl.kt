@@ -2,12 +2,14 @@ package umc.link.zip.data.repositoryImpl
 
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.response.HomeAlertCountResponse
+import umc.link.zip.data.dto.response.HomeAlertExistsResponse
 import umc.link.zip.data.dto.response.HomeOldCountResponse
 import umc.link.zip.data.dto.response.HomeRecentResponse
 import umc.link.zip.data.dto.response.HomeTotalCountResponse
 import umc.link.zip.data.dto.response.HomeUnreadCountResponse
 import umc.link.zip.data.service.HomeService
 import umc.link.zip.domain.model.home.HomeAlertCountModel
+import umc.link.zip.domain.model.home.HomeAlertExistsModel
 import umc.link.zip.domain.model.home.HomeOldCountModel
 import umc.link.zip.domain.model.home.HomeRecentModel
 import umc.link.zip.domain.model.home.HomeTotalCountModel
@@ -46,6 +48,12 @@ class HomeRepositoryImpl @Inject constructor(
 
     override suspend fun getTotalCount(): NetworkResult<HomeTotalCountModel> {
         return handleApi({ homeService.getTotalCount() }) { response: BaseResponse<HomeTotalCountResponse> ->
+            response.result.toModel()
+        }
+    }
+
+    override suspend fun getAlertExists(): NetworkResult<HomeAlertExistsModel> {
+        return handleApi({ homeService.getAlertExists() }) { response: BaseResponse<HomeAlertExistsResponse> ->
             response.result.toModel()
         }
     }

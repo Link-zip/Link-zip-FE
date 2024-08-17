@@ -35,6 +35,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         setHomeAlertCountViewModel()
         setHomeUnreadCountViewModel()
         setHomeRecentViewModel()
+        setHomeAlertExistsViewModel()
     }
 
     override fun initView() {
@@ -43,9 +44,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         homeViewModel.getRecentLinks()
         homeViewModel.getOldCount()
         homeViewModel.getTotalCount()
+        homeViewModel.getAlertExists()
         setClickListener()
         setScrollListener()
         setRVAdapter()
+    }
+
+    private fun setHomeAlertExistsViewModel() {
+        homeViewModel.alertExists.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> { Log.d("home", "alert exists : ${result.exception}") }
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    if(result.data.uncomfirmed_alert) {
+                        binding.ivHomeAlarmExist.visibility = View.VISIBLE
+                        binding.ivHomeAlarmNothing.visibility = View.INVISIBLE
+                    } else {
+                        binding.ivHomeAlarmExist.visibility = View.INVISIBLE
+                        binding.ivHomeAlarmNothing.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
     }
 
     private fun setHomeOldCountViewModel() {

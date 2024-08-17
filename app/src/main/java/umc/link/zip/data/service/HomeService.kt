@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.response.HomeAlertCountResponse
+import umc.link.zip.data.dto.response.HomeAlertExistsResponse
 import umc.link.zip.data.dto.response.HomeOldCountResponse
 import umc.link.zip.data.dto.response.HomeRecentResponse
 import umc.link.zip.data.dto.response.HomeTotalCountResponse
@@ -25,4 +26,7 @@ interface HomeService {
 
     @GET("/links/total-count")
     suspend fun getTotalCount(): Response<BaseResponse<HomeTotalCountResponse>>
+
+    @GET("/alert/unconfirmed-exists")
+    suspend fun getAlertExists(): Response<BaseResponse<HomeAlertExistsResponse>>
 }
