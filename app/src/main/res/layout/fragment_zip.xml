@@ -273,10 +273,8 @@
             android:background="#fbfbfb"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_card_view"
-            app:layout_constraintVertical_bias="0.0"
             tools:itemCount="1"
             tools:listitem="@layout/item_zip" />
 

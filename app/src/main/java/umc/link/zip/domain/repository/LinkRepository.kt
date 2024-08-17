@@ -24,7 +24,7 @@ import umc.link.zip.domain.model.zip.ZipRmModel
 import umc.link.zip.util.network.NetworkResult
 
 interface LinkRepository {
-    suspend fun getLinkData(zip_id: Int, tag: String): NetworkResult<LinkGetModel>
+    suspend fun getLinkData(zip_id: Int, tag: String, sortOrder : String): NetworkResult<LinkGetModel>
     suspend fun GetLinkByLinkID(link_id : Int): NetworkResult<LinkGetByLinkIDModel>
     suspend fun MoveLinkToNewZip(link_id : Int, new_zip_id : Int): NetworkResult<MoveLinkToNewZipModel>
     suspend fun ExtractLink(linkExtractRequest: LinkExtractRequest): NetworkResult<LinkExtractModel>

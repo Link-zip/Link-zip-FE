@@ -1,36 +1,38 @@
-package umc.link.zip.presentation.zip.adapter.OpenZipItemAdapter
+package umc.link.zip.presentation.zip.adapter
 
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.ItemLinkBinding
-import umc.link.zip.domain.model.ZipLinkItem
-import umc.link.zip.domain.model.link.LinkGetItemModel
 import umc.link.zip.domain.model.link.LinkGetModel
+import umc.link.zip.domain.model.link.LinkGetItemModel
 
-class OpenZipItemAdapter(private var links: List<LinkGetItemModel>) :
-    RecyclerView.Adapter<OpenZipItemAdapter.LinkViewHolder>() {
+class OpenZipItemAdapter(private var link: (Int) -> Unit) : ListAdapter<LinkGetItemModel, OpenZipItemAdapter.LinkViewHolder>(DiffCallback()) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinkViewHolder {
-        val binding = ItemLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LinkViewHolder(binding)
+        return LinkViewHolder(
+            ItemLinkBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
+    /*override fun onBindViewHolder(holder: LinkViewHolder, position: Int) {
+        holder.bind(links[position], links)
+    }
+*/
     override fun onBindViewHolder(holder: LinkViewHolder, position: Int) {
-        holder.bind(links[position])
-    }
-
-    override fun getItemCount(): Int = links.size
-
-    fun updateData(newLinks: List<LinkGetItemModel>) {
-        links = newLinks
-        notifyDataSetChanged()
+        holder.bind(currentList[position])
     }
 
     inner class LinkViewHolder(private val binding: ItemLinkBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -57,7 +59,17 @@ class OpenZipItemAdapter(private var links: List<LinkGetItemModel>) :
                 itemView.setOnClickListener {
                     // Implement onClick behavior here if required
                 }
+                root.setOnClickListener {
+                    link(link.id)
+                }
             }
         }
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<LinkGetItemModel>() {
+        override fun areItemsTheSame(oldItem: LinkGetItemModel, newItem: LinkGetItemModel) =
+            oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: LinkGetItemModel, newItem: LinkGetItemModel) =
+            oldItem == newItem
     }
 }

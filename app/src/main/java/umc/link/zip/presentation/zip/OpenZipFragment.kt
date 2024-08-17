@@ -1,27 +1,33 @@
 package umc.link.zip.presentation.zip
 
-import OpenZipViewModel
 import android.graphics.Color
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenzipBinding
+import umc.link.zip.domain.model.link.LinkGetModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.zip.adapter.OpenZipDialogueLineupFragment
 import umc.link.zip.presentation.zip.adapter.OpenZipDialogueListSelectFragment
-import umc.link.zip.presentation.zip.adapter.OpenZipItemAdapter.OpenZipItemAdapter
+import umc.link.zip.presentation.zip.adapter.OpenZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.OpenZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipListDialogSharedViewModel
+import umc.link.zip.presentation.zip.adapter.OpenZipViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_openzip) {
@@ -37,8 +43,13 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private var isEditMode = false
     private var isAllSelectedMode = false
 
-    private var userSelectedLineup = "latest"
-    private var userSelectedListselect = "all"
+    private var userSelectedLineup = "newest"
+    private var userSelectedListselect = ""
+
+    val args : OpenZipFragmentArgs by navArgs()
+    private val zip_id by lazy {
+        args.zipId
+    }
 
     override fun initObserver() {
         // lineup
@@ -75,23 +86,56 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             }
         }
 
+        // StateFlow를 관찰하여 RecyclerView Adapter에 데이터를 전달
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { uiState ->
+                    when (uiState) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("OpenZipFragment", "Loading data")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = uiState.data as LinkGetModel
+                            Log.d("OpenZipFragment", "Fetched data size: ${data.link_data}")
+                            adapter?.submitList(data.link_data)
+                        }
+
+                        is UiState.Error -> {
+                            // 에러 상태 처리
+                            Log.e("OpenZipFragment", "Error fetching data", uiState.error)
+                        }
+
+                        UiState.Empty -> Log.d("OpenZipFragment", "isEmpty")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getLinkListApi(){
+       //zip_id, tag, sortOrder
+        viewModel.getLinkList(zip_id,  userSelectedListselect, userSelectedLineup)
+        Log.d("OpenZipFragment", "getApi 호출됨")
     }
 
     private fun setLineupOnDialog(selected: String) {
         when (selected) {
-            "latest" -> {
+            "newest" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_early_selected))
             }
             "oldest" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_old_selected))
             }
-            "ganada" -> {
+            "alphabetical" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_ganada_selected))
             }
-            "visit" -> {
+            "most_visited" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_visit_selected))
             }
         }
+        getLinkListApi()
     }
 
     private fun setLineupDismissDialog(selected: String) {
@@ -102,18 +146,19 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             "oldest" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_old_unselected))
             }
-            "ganada" -> {
+            "alphabetical" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_ganada_unselected))
             }
-            "visit" -> {
+            "most_visited" -> {
                 binding.fragmentOpenzipRecentIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipRecentIv.context, R.drawable.drawerbtn_lineup_visit_unselected))
             }
         }
+        getLinkListApi()
     }
 
     private fun setListOnDialog(selected: String) {
         when (selected) {
-            "all" -> {
+            "" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_allselect_selected))
             }
             "link" -> {
@@ -123,11 +168,12 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_textlinkselect_selected))
             }
         }
+        getLinkListApi()
     }
 
     private fun setListDismissDialog(selected: String) {
         when (selected) {
-            "all" -> {
+            "" -> {
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_allselect_unselected))
             }
             "link" -> {
@@ -137,6 +183,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                 binding.fragmentOpenzipAllIv.setImageDrawable(ContextCompat.getDrawable(binding.fragmentOpenzipAllIv.context, R.drawable.drawerbtn_textlinkselect_unselected))
             }
         }
+        getLinkListApi()
     }
 
     private val editClickListener = View.OnClickListener {
@@ -157,17 +204,21 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         }
     }
 
+
+
     override fun onResume() {
         super.onResume()
         setLineupDismissDialog(userSelectedLineup)
         setListDismissDialog(userSelectedListselect)
-        viewModel.getLinkList(zip_id, userSelectedListselect)
+        viewModel.getLinkList(zip_id, userSelectedListselect, userSelectedLineup)
+        Log.d("OpenZipFragment","$zip_id")
     }
 
     override fun initView() {
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
         setListDismissDialog(userSelectedListselect)
+        viewModel.getLinkList(zip_id, userSelectedListselect, userSelectedLineup)
 
         setupRecyclerView()
 
@@ -175,6 +226,12 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         toolbarBackBtn.setOnClickListener {
             navigator.navigate(R.id.action_fragmentOpenZip_to_fragmentZip)
             Log.d("FragmentOpenZip", "Navigated to FragmentZip")
+        }
+
+        val editBtn = binding.fragmentOpenzipImageView1
+        editBtn.setOnClickListener {
+            navigator.navigate(R.id.action_fragmentOpenZip_to_fragmentEditZip)
+            Log.d("FragmentOpenZip", "Navigated to FragmentEditZip")
         }
 
         binding.fragmentOpenzipEditIv.setOnClickListener(editClickListener)
@@ -186,7 +243,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     }
 
     private fun setupRecyclerView() {
-        adapter = OpenZipItemAdapter(emptyList())
         binding.fragmentOpenzipItemLinkRv.layoutManager = LinearLayoutManager(context)
         binding.fragmentOpenzipItemLinkRv.adapter = adapter
     }
@@ -305,6 +361,4 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             dialogFragment.show(childFragmentManager, "OpenZipDialogueListSelectFragment")
         }
     }
-
-
 }

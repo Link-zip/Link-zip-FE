@@ -102,4 +102,9 @@ dependencies {
 
     //kakao login
     implementation("com.kakao.sdk:v2-user:2.20.3")
+
+    //Safe args
+    //
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
 }

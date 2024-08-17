@@ -365,10 +365,10 @@
             app:layout_constraintTop_toBottomOf="@id/fragment_openzip_shadow"
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             tools:listitem="@layout/item_link" />
 
-        <!-- alarm X -->
+        <!-- list X -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_list_none_background_cl"
             android:layout_width="0dp"
@@ -378,7 +378,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="#fbfbfb"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_list_none"

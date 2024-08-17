@@ -37,9 +37,10 @@ class LinkRepositoryImpl @Inject constructor(
 
     override suspend fun getLinkData(
         zip_id : Int,
-        tag : String
+        tag : String,
+        sortOrder : String
     ): NetworkResult<LinkGetModel> {
-        return handleApi({ linkService.getLinkData(zip_id, tag) }) { response: BaseResponse<LinkGetResponse> -> response.result.toModel() }
+        return handleApi({ linkService.getLinkData(zip_id, tag, sortOrder) }) { response: BaseResponse<LinkGetResponse> -> response.result.toModel() }
     }
 
     override suspend fun GetLinkByLinkID(

@@ -74,7 +74,7 @@ class OpenZipDialogueListSelectFragment : BaseBottomSheetDialogFragment<Fragment
             repeatOnStarted {
                 reset()
                 selected(binding.tvDialogueListselectItem1, binding.ivDialogueListselectChkAll)
-                openZipListDialogSharedViewModel.setSelectedData("all")
+                openZipListDialogSharedViewModel.setSelectedData("")
             }
         }
         binding.clDialogueListselectItem2.setOnClickListener {
