@@ -19,7 +19,6 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentProfilesetBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.drawableOf
-import java.util.regex.Pattern
 
 @RequiresApi(Build.VERSION_CODES.P)
 @AndroidEntryPoint
@@ -33,6 +32,8 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
     override fun initView() {
         setClickListener()
         setEditText()
+        binding.btnProfilesetNamecheck.isClickable = false
+        binding.btnProfilesetDelete.visibility = View.GONE
     }
 
     private fun setEditText() {
@@ -44,6 +45,7 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.btnProfilesetDelete.visibility =
                     if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                binding.btnProfilesetNamecheck.isClickable = !s.isNullOrEmpty()
 
                 val length = customLength(s?.toString())
                 val characterCount = "$length/20"
@@ -92,7 +94,6 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
             }
             false
         }
-
     }
 
     private val finishBtnClickListener = View.OnClickListener {

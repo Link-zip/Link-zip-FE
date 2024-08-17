@@ -1,5 +1,7 @@
 package umc.link.zip.di
 
+import android.app.Application
+import android.content.Context
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -11,7 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import umc.link.zip.LinkZipApplication
 import umc.link.zip.R
-
+import umc.link.zip.data.AuthInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -37,13 +39,20 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun providesAuthInterceptor(context: Context): AuthInterceptor {
+        return AuthInterceptor(context)
+    }
+
+    @Provides
+    @Singleton
     fun providesOkHttpClient(
+        authInterceptor: AuthInterceptor
     ): OkHttpClient {
         val interceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
         return OkHttpClient.Builder().apply {
-
+            addInterceptor(authInterceptor)
             addInterceptor(interceptor)
             connectTimeout(5, TimeUnit.SECONDS)
             readTimeout(5, TimeUnit.SECONDS)
@@ -62,5 +71,11 @@ object NetworkModule {
             .addConverterFactory(gsonConverterFactory)
             .client(client)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideContext(application: Application): Context {
+        return application.applicationContext
     }
 }

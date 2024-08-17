@@ -8,12 +8,12 @@
         android:title="HOME" />
 
     <item
-        android:id="@+id/zipFragment"
+        android:id="@+id/zipFragmentTab"
         android:icon="@drawable/bottom_nav_selector_zip"
         android:title="ZIP" />
 
     <item
-        android:id="@+id/createFragment"
+        android:id="@+id/createFragmentTab"
         android:icon="@null"
         android:title=""
         gom:showAsAction="never"/>

@@ -50,13 +50,13 @@ class ListDialogueListselectFragment : BaseBottomSheetDialogFragment<FragmentDia
             listUnreadListDialogSharedViewModel.selectedData.collectLatest {
                     data ->
                 when (data) {
-                    "all" -> {
+                    "" -> {
                         selected(binding.tvDialogueListselectItem1, binding.ivDialogueListselectChkAll)
                     }
-                    "link" -> {
+                    "onlylink" -> {
                         selected(binding.tvDialogueListselectItem2, binding.ivDialogueListselectChkLink)
                     }
-                    "text" -> {
+                    "onlytext" -> {
                         selected(binding.tvDialogueListselectItem3, binding.ivDialogueListselectChkText)
                     }
                 }
@@ -69,21 +69,21 @@ class ListDialogueListselectFragment : BaseBottomSheetDialogFragment<FragmentDia
             repeatOnStarted {
                 reset()
                 selected(binding.tvDialogueListselectItem1, binding.ivDialogueListselectChkAll)
-                listUnreadListDialogSharedViewModel.setSelectedData("all")
+                listUnreadListDialogSharedViewModel.setSelectedData("")
             }
         }
         binding.clDialogueListselectItem2.setOnClickListener {
             repeatOnStarted {
                 reset()
                 selected(binding.tvDialogueListselectItem2, binding.ivDialogueListselectChkLink)
-                listUnreadListDialogSharedViewModel.setSelectedData("link")
+                listUnreadListDialogSharedViewModel.setSelectedData("onlylink")
             }
         }
         binding.clDialogueListselectItem3.setOnClickListener {
             repeatOnStarted {
                 reset()
                 selected(binding.tvDialogueListselectItem3, binding.ivDialogueListselectChkText)
-                listUnreadListDialogSharedViewModel.setSelectedData("text")
+                listUnreadListDialogSharedViewModel.setSelectedData("onlytext")
             }
         }
         binding.ivDialogueListselectClose.setOnClickListener {

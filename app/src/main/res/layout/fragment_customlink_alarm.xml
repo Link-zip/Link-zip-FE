@@ -1,0 +1,424 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="umc.link.zip.presentation.create.CreateViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/toolbar_customLink_alarm_mg0"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!--appbar-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_customLink_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_customLink_alarm_mg0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view_customLink_alarm_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.066667" />
+
+                <ImageView
+                    android:id="@+id/iv_customLink_alarm_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="뒤로가기"
+                    android:src="@drawable/ic_appbar_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_customLink_alarm_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="링크 커스터마이징"
+                    android:textAppearance="@style/appbar_title"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!--view-->
+        <ImageView
+            android:id="@+id/iv_customLink_alarm_topImg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_link_topimg"
+            app:layout_constraintDimensionRatio="360:115"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_customLink_alarm" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0.3"
+            android:scaleType="fitXY"
+            android:src="@drawable/shape_rect_gradiant_up"
+            app:layout_constraintDimensionRatio="360:115"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_customLink_alarm_topImg" />
+
+        <View
+            android:id="@+id/view_customLink_alarm_mg4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:40"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_customLink_alarm_topImg"
+            app:layout_constraintWidth_percent="0.066" />
+
+        <TextView
+            android:id="@+id/tv_customLink_alarm_setAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_semibold"
+            android:letterSpacing="-0.03"
+            android:text="알림 설정하기"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg4"
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_alarm_mg4" />
+
+        <View
+            android:id="@+id/view_customLink_alarm_mg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_customLink_alarm_setAlarm"
+            app:layout_constraintWidth_percent="0.088" />
+
+        <!-- 날짜 선택 -->
+        <TextView
+            android:id="@+id/tv_customLink_alarm_it1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            android:text="날짜 선택"
+            android:textColor="@color/nav_selected"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg5"
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_alarm_mg5" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-10dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/shadow_graybtn"
+            app:layout_constraintBottom_toBottomOf="@id/btn_customLink_alarm_date"
+            app:layout_constraintEnd_toEndOf="@id/btn_customLink_alarm_date"
+            app:layout_constraintStart_toStartOf="@id/btn_customLink_alarm_date"
+            app:layout_constraintTop_toTopOf="@id/btn_customLink_alarm_date" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_customLink_alarm_date"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rect_8_white_fill"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/cl_customLink_alarm_date_set"
+            app:layout_constraintEnd_toStartOf="@id/view_customLink_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg9"
+            app:layout_constraintTop_toTopOf="@id/cl_customLink_alarm_date_set" />
+
+        <View
+            android:id="@+id/view_customLink_alarm_mg6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="32:17"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_customLink_alarm_it1"
+            app:layout_constraintWidth_percent="0.088" />
+
+        <ImageView
+            android:id="@+id/iv_customLink_alarm_date"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_alert_date"
+            app:layout_constraintBottom_toBottomOf="@id/cl_customLink_alarm_date_set"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg6"
+            app:layout_constraintTop_toTopOf="@id/cl_customLink_alarm_date_set" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_customLink_alarm_date_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            app:layout_constraintStart_toEndOf="@id/iv_customLink_alarm_date"
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_alarm_mg6">
+
+            <!-- 초기화 클릭 시 -->
+            <TextView
+                android:id="@+id/tv_customLink_alarm_date_none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:text="설정된 알림이 없습니다."
+                android:textColor="@color/nav_selected"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <!-- 현재 날짜 -->
+            <TextView
+                android:id="@+id/tv_customLink_alarm_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:hint="날짜를 선택해주세요."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_customLink_alarm_mg7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="32:24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_customLink_alarm_date"
+            app:layout_constraintWidth_percent="0.088" />
+
+        <TextView
+            android:id="@+id/tv_customLink_alarm_it3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            android:text="시간 선택"
+            android:textColor="@color/nav_selected"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg7"
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_alarm_mg7" />
+
+        <!-- 시간 선택 -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-10dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/shadow_graybtn"
+            app:layout_constraintBottom_toBottomOf="@id/btn_customLink_alarm_time"
+            app:layout_constraintEnd_toEndOf="@id/btn_customLink_alarm_time"
+            app:layout_constraintStart_toStartOf="@id/btn_customLink_alarm_time"
+            app:layout_constraintTop_toTopOf="@id/btn_customLink_alarm_time" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_customLink_alarm_time"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rect_8_white_fill"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="@id/cl_customLink_alarm_time_set"
+            app:layout_constraintEnd_toStartOf="@id/view_customLink_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg9"
+            app:layout_constraintTop_toTopOf="@id/cl_customLink_alarm_time_set" />
+
+        <View
+            android:id="@+id/view_customLink_alarm_mg8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="32:17"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_customLink_alarm_it3"
+            app:layout_constraintWidth_percent="0.088" />
+
+        <ImageView
+            android:id="@+id/iv_customLink_alarm_time"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_alert_time"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg8"
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_alarm_mg8" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_customLink_alarm_time_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            app:layout_constraintStart_toEndOf="@id/iv_customLink_alarm_date"
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_alarm_mg8">
+
+            <!-- 초기화 클릭 시 -->
+            <TextView
+                android:id="@+id/tv_customLink_alarm_time_none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:text="설정된 알림이 없습니다."
+                android:textColor="@color/nav_selected"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <!-- 현재 시각 -->
+            <TextView
+                android:id="@+id/tv_customLink_alarm_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:letterSpacing="-0.03"
+                android:hint="시간을 선택해주세요."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 삭제 버튼 -->
+        <TextView
+            android:id="@+id/tv_customLink_alarm_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜/시간 초기화"
+            android:textColor="@color/nav_selected"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cl_customLink_alarm_complete_btn"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/nav_selected"
+            android:layout_marginStart="-2dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginTop="-1dp"
+            app:layout_constraintStart_toStartOf="@id/tv_customLink_alarm_delete"
+            app:layout_constraintEnd_toEndOf="@id/tv_customLink_alarm_delete"
+            app:layout_constraintTop_toBottomOf="@id/tv_customLink_alarm_delete"/>
+
+
+        <!-- 저장 버튼 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_customLink_alarm_complete_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/view_customLink_alarm_mg10"
+            app:layout_constraintStart_toEndOf="@id/view_customLink_alarm_mg9">
+
+            <ImageView
+                android:id="@+id/iv_customLink_custom_blueshadow"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="-5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/shadow_bluebtn"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/btn_customLink_alarm_complete"
+                app:layout_constraintEnd_toEndOf="@id/btn_customLink_alarm_complete"
+                app:layout_constraintHeight_percent="0.75"
+                app:layout_constraintStart_toStartOf="@id/btn_customLink_alarm_complete"
+                app:layout_constraintTop_toTopOf="@id/btn_customLink_alarm_complete" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customLink_alarm_complete"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rect_8_1191ad_fill"
+                android:clickable="false"
+                android:fontFamily="@font/pretendard_semibold"
+                android:letterSpacing="-0.025"
+                android:lineHeight="25dp"
+                android:text="완료"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_customLink_alarm_mg11"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="360:30"
+                app:layout_constraintTop_toBottomOf="@id/btn_customLink_alarm_complete" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_customLink_alarm_mg9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.066" />
+
+        <View
+            android:id="@+id/view_customLink_alarm_mg10"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.066" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
