@@ -38,13 +38,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     Log.d("login", "서버 토큰 발급 실패")
                 }
                 is NetworkResult.Success -> {
-                    Log.d("login", "Token 발급 성공 : ${result.data.accessToken}")
-                    saveAccessToken(result.data.accessToken)
-                    /*//신규 회원인 경우
-                    replaceFragment(ProfilesetFragment())*/
-                    //기존 회원인 경우
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    if(result.data.isExists) {
+                        Log.d("login", "기존 회원 : ${result.data.tokenResponse!!.accessToken}")
+                        Log.d("login", "기존 회원 : ${result.data.tokenResponse.accessTokenExpiresIn}")
+                        saveAccessToken(result.data.tokenResponse.accessToken)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    } else {
+                        Log.d("login", "신규 회원 : ${result.data.key!!}")
+                        replaceFragment(ProfilesetFragment())
+                    }
                 }
             }
         }
@@ -78,7 +81,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             refreshTokenExpires = token.refreshTokenExpiresAt.toString()
         )
 
-        viewModel.login()
+        viewModel.login(request)
     }
 
     private fun setClickListener() {
@@ -104,7 +107,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         Log.d("login", "Refresh Token : ${token.refreshToken}")
                         Log.d("login", "Refresh Token Expires : ${token.refreshTokenExpiresAt}")
                         Log.d("login", "ID Token : ${token.idToken}")
-                        replaceFragment(ProfilesetFragment())
+                        sendLoginRequest(token)
                     }
                 }
             } else {

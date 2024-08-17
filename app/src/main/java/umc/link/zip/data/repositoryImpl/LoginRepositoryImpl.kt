@@ -20,10 +20,10 @@ class LoginRepositoryImpl @Inject constructor(
     private val loginService: LoginService
 ) : LoginRepository {
 
-    override suspend fun login(): NetworkResult<LoginModel> {
+    override suspend fun login(request: LoginRequest): NetworkResult<LoginModel> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = loginService.login().awaitResponse()
+                val response = loginService.login(request).awaitResponse()
                 handleApi({ response }) { baseResponse: BaseResponse<LoginResponse> ->
                     Log.d("login", "Repository 정상 작동")
                     baseResponse.result.toModel()

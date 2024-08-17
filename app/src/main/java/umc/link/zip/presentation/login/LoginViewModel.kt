@@ -25,10 +25,10 @@ class LoginViewModel @Inject constructor(
     private val _checkJwtResult = MutableLiveData<NetworkResult<JwtModel>>()
     val checkJwtResult : LiveData<NetworkResult<JwtModel>> = _checkJwtResult
 
-    fun login() {
+    fun login(request: LoginRequest) {
         viewModelScope.launch {
             Log.d("login", "ViewModel 정상작동")
-            _loginResult.value = loginRepository.login()
+            _loginResult.value = loginRepository.login(request)
         }
     }
 
