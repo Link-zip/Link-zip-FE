@@ -8,6 +8,7 @@ import android.text.InputFilter
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -18,6 +19,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
+import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.request.SignupRequest
 import umc.link.zip.databinding.FragmentProfilesetBinding
 import umc.link.zip.presentation.base.BaseFragment
@@ -46,9 +48,10 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
     private fun setFinishObserver() {
         viewModel.signupResult.observe(this) { result ->
             when (result) {
-                is NetworkResult.Error -> {}
-                is NetworkResult.Fail -> {}
+                is NetworkResult.Error -> { Log.d("profileset", "profileset error : ${result.exception}") }
+                is NetworkResult.Fail -> { Log.d("profileset", "profileset fail : ${result.message}") }
                 is NetworkResult.Success -> {
+                    UserPreferences(requireContext()).saveUserId(result.data.accessToken)
                     val fragment = ProfilesetCompletedFragment().apply {
                         arguments = Bundle().apply {
                             putString("nickname", binding.etProfilesetNickname.text.toString())
@@ -67,7 +70,7 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
         viewModel.nameCheckResult.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    if(result.data.isSuccess) {
+                    if(result.data.result) {
                         binding.btnProfilesetFinish.setOnClickListener(finishBtnClickListener)
                         binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_1191ad_fill)
                         binding.ivProfilesetGrayshadow.visibility = View.GONE
@@ -86,11 +89,11 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
                 }
 
                 is NetworkResult.Error -> {
-                    // Handle error
+                    Log.d("profileset", "namecheck error : ${result.exception}")
                 }
 
                 is NetworkResult.Fail -> {
-                    // Handle fail
+                    Log.d("profileset", "namecheck fail : ${result.message}")
                 }
             }
         }

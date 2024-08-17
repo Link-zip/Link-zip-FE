@@ -12,7 +12,6 @@ interface LoginRepository {
     suspend fun login(request: LoginRequest): NetworkResult<LoginModel>
 
     suspend fun checkJwt(): NetworkResult<JwtModel>
-    suspend fun login(): NetworkResult<LoginModel>
 
     suspend fun nameCheck(nickname: String): NetworkResult<NameCheckModel>
 

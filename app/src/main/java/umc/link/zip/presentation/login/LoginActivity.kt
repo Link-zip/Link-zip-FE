@@ -3,9 +3,11 @@ package umc.link.zip.presentation.login
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.kakao.sdk.auth.model.OAuthToken
@@ -32,6 +34,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         setClickListener()
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun initObserver() {
         viewModel.loginResult.observe(this) { result ->
             when(result) {
@@ -50,7 +53,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         finish()
                     } else {
                         Log.d("login", "신규 회원 : ${result.data.key!!}")
-                        replaceFragment(ProfilesetFragment())
+                        val fragment = ProfilesetFragment()
+                        val bundle = Bundle()
+                        bundle.putString("key", result.data.key)
+                        fragment.arguments = bundle
+
+                        replaceFragment(fragment)
                     }
                 }
             }

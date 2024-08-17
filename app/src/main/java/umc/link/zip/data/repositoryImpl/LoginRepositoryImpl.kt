@@ -55,8 +55,8 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun checkJwt(): NetworkResult<JwtModel> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = loginService.checkJwt().awaitResponse()
-                handleApi({ response }) { response: BaseResponse<JwtResponse> ->
+                val res = loginService.checkJwt().awaitResponse()
+                handleApi({ res }) { response: BaseResponse<JwtResponse> ->
                     response.result.toModel()
                 }
             } catch (e: Exception) {

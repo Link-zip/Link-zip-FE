@@ -10,7 +10,6 @@ import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.request.LoginRequest
 import umc.link.zip.data.dto.response.JwtResponse
-import umc.link.zip.data.dto.response.LoginResponse
 import umc.link.zip.data.dto.request.SignupRequest
 import umc.link.zip.data.dto.response.NameCheckResponse
 import umc.link.zip.data.dto.response.SignupResponse
