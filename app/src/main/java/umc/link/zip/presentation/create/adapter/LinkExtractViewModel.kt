@@ -5,11 +5,16 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import umc.link.zip.data.dto.link.request.LinkExtractRequest
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.util.network.NetworkResult
+import umc.link.zip.util.network.UiState
+import umc.link.zip.util.network.onError
+import umc.link.zip.util.network.onException
+import umc.link.zip.util.network.onFail
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,22 +23,34 @@ class LinkExtractViewModel @Inject constructor(
 ) : ViewModel() {
 
     // 추출 요청 결과를 관리하는 StateFlow
-    private val _extractResponse = MutableStateFlow<NetworkResult<LinkExtractModel>?>(null)
-    val extractResponse: StateFlow<NetworkResult<LinkExtractModel>?> get() = _extractResponse
+    private val _extractResponse = MutableStateFlow<UiState<LinkExtractModel>>(UiState.Loading)
+    val extractResponse: StateFlow<UiState<LinkExtractModel>> = _extractResponse.asStateFlow()
 
-    // URL을 기반으로 링크 추출을 요청하는 함수
-    fun fetchLinkExtract(url: String) {
+    fun fetchLinkExtract(linkExtractRequest: LinkExtractRequest) {
         viewModelScope.launch {
-            // LinkExtractRequest 객체 생성
-            val request = LinkExtractRequest(url)
-
-            // 링크 추출 요청
-            val response = linkRepository.ExtractLink(request)
-
-            // 결과를 StateFlow에 저장
-            _extractResponse.value = response
+            linkRepository.ExtractLink(linkExtractRequest).apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        _extractResponse.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
+                        _extractResponse.value = UiState.Success(this.data)
+                    }
+                    is NetworkResult.Error -> {
+                        _extractResponse.value = UiState.Error(this.exception)
+                    }
+                    is NetworkResult.Fail -> {
+                        _extractResponse.value = UiState.Error(Throwable("Failed to load data"))
+                    }
+                }
+            }.onError {
+                _extractResponse.value = UiState.Error(it)
+            }.onException {
+                _extractResponse.value = UiState.Error(it)
+            }.onFail {
+                _extractResponse.value = UiState.Error(Throwable("Failed to load data"))
+            }
         }
     }
+
 }
 
 

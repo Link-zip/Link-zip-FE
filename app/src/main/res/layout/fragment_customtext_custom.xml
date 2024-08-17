@@ -8,6 +8,9 @@
         <variable
             name="linkSummaryViewModel"
             type="umc.link.zip.presentation.create.adapter.LinkSummaryViewModel" />
+        <variable
+            name="linkExtractViewModel"
+            type="umc.link.zip.presentation.create.adapter.LinkExtractViewModel" />
 
     </data>
 

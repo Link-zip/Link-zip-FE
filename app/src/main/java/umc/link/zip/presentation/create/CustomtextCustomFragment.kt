@@ -5,37 +5,84 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextCustomBinding
+import umc.link.zip.domain.model.link.LinkExtractModel
+import umc.link.zip.domain.model.link.LinkSummaryModel
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.NetworkResult
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R.layout.fragment_customtext_custom){
 
     private val createViewModel: CreateViewModel by activityViewModels()
     private val linkSummaryViewModel: LinkSummaryViewModel by activityViewModels()
+    private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
-        // text 요약 API 받아옴
+        // text 요약 API
         repeatOnStarted {
-            linkSummaryViewModel.summaryResponse.collectLatest { result ->
-                when (result) {
-                    is NetworkResult.Success -> {
-                        binding.etCustomTextSummaryText.setText(result.data?.summary ?: "요약이 없습니다.")
-                        Log.d("CustomtextCustomFragment", "텍스트 요약 가져오기 성공")
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                linkSummaryViewModel.summaryResponse.collectLatest { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("CustomtextCustomFragment", "Loading text summary data")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = state.data as LinkSummaryModel
+                            // 요약
+                            binding.etCustomTextSummaryText.setText(data.summary ?: "요약이 없습니다.")
+                            Log.d("CustomtextCustomFragment", "텍스트 요약 가져오기 성공")
+
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(requireContext(), "요약 가져오기 실패", Toast.LENGTH_SHORT).show()
+                            Log.d("CustomtextCustomFragment", "텍스트 요약 가져오기 실패")
+                        }
+
+                        UiState.Empty -> Log.d("CustomtextCustomFragment", "isEmpty")
                     }
-                    is NetworkResult.Error -> {
-                        Toast.makeText(requireContext(), "요약 가져오기 실패", Toast.LENGTH_SHORT).show()
-                        Log.d("CustomtextCustomFragment", "텍스트 요약 가져오기 실패")
-                    }
-                    else -> {
-                        // 진행 중 상태에 대한 처리
+                }
+            }
+        }
+
+        // 제목 API
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                linkExtractViewModel.extractResponse.collectLatest { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("CustomtextCustomFragment", "Loading data")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = state.data as LinkExtractModel
+                            // 제목
+                            binding.etCustomTextCustomLinkTitle.setText(data.title ?: "제목 없음")
+                            Log.d("CustomtextCustomFragment", "제목 가져오기 성공")
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(requireContext(), "제목 가져오기 실패", Toast.LENGTH_SHORT).show()
+                            Log.d("CustomtextCustomFragment", "제목 가져오기 실패")
+                        }
+
+                        UiState.Empty -> Log.d("CustomtextCustomFragment", "isEmpty")
                     }
                 }
             }

@@ -8,6 +8,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
+import umc.link.zip.data.dto.link.request.LinkExtractRequest
+import umc.link.zip.data.dto.link.request.LinkSummaryRequest
 import umc.link.zip.databinding.FragmentCreateBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
@@ -76,9 +78,11 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         binding.btnCreateSaveText.setOnClickListener {
             val url = binding.etCreateLink.text.toString()
 
-            // viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
-            linkSummaryViewModel.fetchLinkSummary(url)  // 텍스트 요약 API 호출
-            linkExtractViewModel.fetchLinkExtract(url)  // 제목, 썸네일 API 호출
+            // 텍스트 요약 API 호출
+            linkSummaryViewModel.fetchLinkSummary(linkSummaryRequest = LinkSummaryRequest(url))  // 텍스트 요약 API 호출
+
+            // 제목, 썸네일 API 호출
+            linkExtractViewModel.fetchLinkExtract(linkExtractRequest = LinkExtractRequest(url))  // 제목, 썸네일 API 호출
 
             navigateToLoading()
         }
@@ -87,8 +91,8 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         binding.btnCreateSaveLink.setOnClickListener {
             val url = binding.etCreateLink.text.toString()
 
-            //viewModel.fetchLinkByUrl(url)  // URL에 맞는 더미 데이터 가져오기
-            linkExtractViewModel.fetchLinkExtract(url)  // 제목, 썸네일 API 호출
+            // 제목, 썸네일 API 호출
+            linkExtractViewModel.fetchLinkExtract(linkExtractRequest = LinkExtractRequest(url))  // 제목, 썸네일 API 호출
 
             navigateToLink()
         }
