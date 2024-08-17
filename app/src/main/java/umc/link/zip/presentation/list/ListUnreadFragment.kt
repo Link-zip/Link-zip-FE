@@ -39,13 +39,15 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
     private var userSelectedLineup = "recent"
     private var userSelectedListselect = ""
     private val listUnreadRVA by lazy {
-        ListUnreadRVA{
+        ListUnreadRVA{ link ->
             /* 링크 페이지 연결
             linkId ->
             val action =
                 ListUnreadFragmentDirections.actionListUnreadFragmentToLinkFragment(linkId)
             navigator.navigate(action)
              */
+            // 좋아요 상태 변경 시 동작
+            viewModel.updateLikeStatusOnServer(link.id.toInt())
         }
     }
 
@@ -128,6 +130,10 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                 }
             }
         }
+    }
+
+    fun updateLikeStatusOnServer(link: Link){
+
     }
 
     private fun fnUnreadRVApi(){

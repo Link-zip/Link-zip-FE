@@ -13,7 +13,9 @@ import umc.link.zip.util.network.UiState
 import javax.inject.Inject
 import umc.link.zip.data.dto.list.request.UnreadRequest
 import umc.link.zip.data.dto.request.TestRequest
+import umc.link.zip.domain.model.link.LinkUpdateLikeModel
 import umc.link.zip.domain.model.list.UnreadModel
+import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.util.network.onError
 import umc.link.zip.util.network.onException
 import umc.link.zip.util.network.onFail
@@ -21,14 +23,16 @@ import umc.link.zip.util.network.onSuccess
 
 @HiltViewModel
 class ListUnreadViewModel @Inject constructor(
-    private val listRepository: ListRepository
+    private val listRepository: ListRepository,
+    private val linkRepository: LinkRepository
 ) : ViewModel() {
 
-    private val _linkId = MutableStateFlow<Int>(-1)
-    val linkId: StateFlow<Int> get() = _linkId
+    private val _linkId = MutableStateFlow<UiState<LinkUpdateLikeModel>>(UiState.Loading)
+    val linkId: StateFlow<UiState<LinkUpdateLikeModel>> get() = _linkId
 
     private val _uiState = MutableStateFlow<UiState<UnreadModel>>(UiState.Loading)
     val uiState: StateFlow<UiState<UnreadModel>> = _uiState.asStateFlow()
+
 
     fun fetchUnreadList(request: UnreadRequest) {
         viewModelScope.launch {
@@ -55,7 +59,28 @@ class ListUnreadViewModel @Inject constructor(
         }
     }
 
-    fun setLinkId(linkId: Int){
-        _linkId.value = linkId
+    fun updateLikeStatusOnServer(linkId: Int) {
+        viewModelScope.launch {
+            linkRepository.UpdateLikeLink(linkId).apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        _linkId.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
+                        _linkId.value = UiState.Success(this.data)
+                    }
+                    is NetworkResult.Error -> {
+                        _linkId.value = UiState.Error(this.exception)
+                    }
+                    is NetworkResult.Fail -> {
+                        _linkId.value = UiState.Error(Throwable("Failed to load data"))
+                    }
+                }
+            }.onError {
+                _linkId.value = UiState.Error(it)
+            }.onException {
+                _linkId.value = UiState.Error(it)
+            }.onFail {
+                _linkId.value = UiState.Error(Throwable("Failed to load data"))
+            }
+        }
     }
 }

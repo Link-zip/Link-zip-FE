@@ -14,7 +14,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.ItemListBinding
 import umc.link.zip.domain.model.list.Link
 
-class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnreadRVA.ListViewHolder>(DiffCallback()) {
+class ListUnreadRVA(val unreadLink: (Link) -> Unit) : ListAdapter<Link, ListUnreadRVA.ListViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
@@ -27,12 +27,13 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        val link = getItem(position)
+        holder.bind(link, unreadLink)
     }
 
     inner class ListViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(link: Link){
+        fun bind(link: Link, likeClickListener: (Link) -> Unit){
             with(binding){
                 tvItemListLinkName.text = link.title
                 tvItemListLinkDate.text = link.createdAt
@@ -57,11 +58,10 @@ class ListUnreadRVA(val unreadLink: (Int) -> Unit) : ListAdapter<Link, ListUnrea
                 returnZipColor(link.zip.color, ivItemListZip)
                 // 좋아요
                 setLike(link, ivItemLike) { updatedLink ->
-                    // 서버에 변경 사항 반영
-                    // updateLikeStatusOnServer(updatedLink)
+                    unreadLink(updatedLink) // 좋아요 상태 변경 시 ViewModel 호출
                 }
                 root.setOnClickListener {
-                    unreadLink(link.id.toInt())
+                    unreadLink(link)
                 }
             }
         }
