@@ -26,7 +26,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
                 viewModel.userInfoState.collect { state ->
                     when (state) {
                         UiState.Empty -> Log.d("getUserInfo", "No data")
-                        is UiState.Error -> Log.e("getUserInfo", "Error fetching data")
+                        is UiState.Error -> Log.e("getUserInfo", "Error fetching data", state.error)
                         UiState.Loading -> Log.d("getUserInfo", "Loading data")
                         is UiState.Success ->
                         {
