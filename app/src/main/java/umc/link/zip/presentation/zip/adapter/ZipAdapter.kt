@@ -42,6 +42,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit)
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun toggleEditMode() {
         isEditMode = !isEditMode
         notifyDataSetChanged()
@@ -53,13 +54,13 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit)
         notifyDataSetChanged()
     }
 
-
     fun updateBackgroundColorOfItems(color: Int) {
         for (i in items.indices) {
             notifyItemChanged(i)
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(newItems: List<ZipGetItemModel>) {
         items = newItems
         notifyDataSetChanged()
@@ -82,13 +83,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit)
                     binding.itemSubtitle1.setTextColor(Color.parseColor("#1191AD"))
                     binding.itemSubtitle2.visibility = View.GONE
                     binding.itemLinkCount.visibility = View.GONE
-                } else {
-                    binding.root.setBackgroundColor(Color.parseColor("#FBFBFB"))
-                    binding.itemSubtitle1.text = "링크 개수"
-                    binding.itemSubtitle2.visibility = View.VISIBLE
-                    binding.itemLinkCount.visibility = View.VISIBLE
                 }
-
                 binding.root.setOnClickListener {
                     val currentlySelected = selectedItems.contains(zipItem)
                     if (currentlySelected) {
@@ -99,8 +94,18 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit)
                     onItemSelected(zipItem, !currentlySelected)
                 }
             } else {
+                if(position == 0)
+                {
+                    binding.root.setBackgroundColor(Color.parseColor("#FBFBFB"))
+                    binding.itemSubtitle1.text = "링크 개수"
+                    binding.itemSubtitle1.setTextColor(Color.parseColor("#666666"))
+
+                    binding.itemSubtitle2.visibility = View.VISIBLE
+                    binding.itemLinkCount.visibility = View.VISIBLE
+                }
                 // Normal mode actions
                 binding.root.setBackgroundColor(Color.TRANSPARENT)
+
                 val action = ZipFragmentDirections.actionFragmentZipToFragmentOpenZip(zipItem.zip_id)
                 binding.root.setOnClickListener {
                     // Navigate to detail page or any specific action

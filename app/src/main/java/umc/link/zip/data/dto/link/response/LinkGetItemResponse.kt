@@ -1,7 +1,6 @@
 package umc.link.zip.data.dto.link.response
 
 import umc.link.zip.domain.model.link.LinkGetItemModel
-import umc.link.zip.domain.model.link.MoveLinkToNewZipModel
 
 data class LinkGetItemResponse(
     val alert_date: String,
@@ -18,7 +17,9 @@ data class LinkGetItemResponse(
     val user_id: Int,
     val visit: Int,
     val visit_date: String,
-    val zip_id: Int
+    val zip_color: String,
+    val zip_id: Int,
+    val zip_title: String
 ){
     fun toModel() = LinkGetItemModel(
         alert_date = this.alert_date,
@@ -35,6 +36,6 @@ data class LinkGetItemResponse(
         user_id = this.user_id,
         visit = this.visit,
         visit_date = this.visit_date,
-        zip_id = this.zip_id
+        zip_id = this.zip_id,
     )
 }

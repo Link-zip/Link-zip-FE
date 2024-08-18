@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenzipBinding
+import umc.link.zip.domain.model.link.LinkGetItemModel
 import umc.link.zip.domain.model.link.LinkGetModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.zip.adapter.OpenZipDialogueLineupFragment
@@ -39,7 +40,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private val openZipListDialogSharedViewModel: OpenZipListDialogSharedViewModel by viewModels()
 
     private val viewModel: OpenZipViewModel by viewModels()
-    private var adapter: OpenZipItemAdapter? = null
     private var isEditMode = false
     private var isAllSelectedMode = false
 
@@ -49,6 +49,18 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     val args : OpenZipFragmentArgs by navArgs()
     private val zip_id by lazy {
         args.zipId
+    }
+
+    private val adapter by lazy {
+        OpenZipItemAdapter{ link ->
+            /* 링크 페이지 연결
+            linkId ->
+            val action =
+                ListUnreadFragmentDirections.actionListUnreadFragmentToLinkFragment(linkId)
+            navigator.navigate(action)
+             */
+            // 좋아요 상태 변경 시 동작
+        }
     }
 
     override fun initObserver() {
@@ -99,7 +111,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                         is UiState.Success<*> -> {
                             val data = uiState.data as LinkGetModel
                             Log.d("OpenZipFragment", "Fetched data size: ${data.link_data}")
-                            adapter?.submitList(data.link_data)
+                            adapter.submitList(data.link_data)
                         }
 
                         is UiState.Error -> {
@@ -115,7 +127,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     }
 
     private fun getLinkListApi(){
-       //zip_id, tag, sortOrder
+        //zip_id, tag, sortOrder
         viewModel.getLinkList(zip_id,  userSelectedListselect, userSelectedLineup)
         Log.d("OpenZipFragment", "getApi 호출됨")
     }
@@ -228,13 +240,12 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             Log.d("FragmentOpenZip", "Navigated to FragmentZip")
         }
 
-        val editBtn = binding.fragmentOpenzipImageView1
-        editBtn.setOnClickListener {
+        val zipEditBtn = binding.fragmentOpenzipImageView1
+        zipEditBtn.setOnClickListener {
             navigator.navigate(R.id.action_fragmentOpenZip_to_fragmentEditZip)
             Log.d("FragmentOpenZip", "Navigated to FragmentEditZip")
         }
 
-        binding.fragmentOpenzipEditIv.setOnClickListener(editClickListener)
         binding.allSelectedBtn.setOnClickListener(allSelectedListener)
         binding.allSelectedTv.setOnClickListener(allSelectedListener)
 
@@ -249,7 +260,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     override fun onDestroyView() {
         super.onDestroyView()
-        adapter = null
     }
 
     private fun toggleEditMode() {
@@ -301,11 +311,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
         binding.ivProfilesetGrayshadow.visibility = View.GONE
 
-        // Add click listener to fragmentZipMakeBtn2
-        /*binding.fragmentZipMakeBtn2.setOnClickListener {
-            updateBackgroundColorOfItems()
-        }
-*/
+
         // Update click listeners to go back to EditMode from AllSelectedMode
         binding.fragmentOpenzipEditIv.setOnClickListener(editClickListener)
         binding.allSelectedBtn.setOnClickListener(editClickListener)

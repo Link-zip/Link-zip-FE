@@ -7,10 +7,6 @@
         <variable
             name="zipItem"
             type="umc.link.zip.domain.model.ZipItem" />
-
-        <variable
-            name="isEditMode"
-            type="Boolean"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -107,7 +103,7 @@
                     android:fontFamily="@font/pretendard_regular"
                     android:letterSpacing="-0.03"
                     android:text="링크 개수"
-                    android:textColor="#666"
+                    android:textColor="#666666"
                     android:textFontWeight="400"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"

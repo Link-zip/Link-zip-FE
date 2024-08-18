@@ -55,13 +55,17 @@
         </fragment>
 
         <fragment
-            android:id="@+id/editzipFragment"
+            android:id="@+id/editZipFragment"
             android:name="umc.link.zip.presentation.zip.EditZipFragment"
             android:label="EditZipFragment" >
             <action
                 android:id="@+id/action_fragmentEditZip_to_fragmentMakeZip"
                 app:destination="@id/makezipFragment" />
+            <action
+                android:id="@+id/action_fragmentEditZip_to_fragmentOpenZip"
+                app:destination="@id/openzipFragment" />
         </fragment>
+
 
         <fragment
             android:id="@+id/openzipFragment"
@@ -72,7 +76,7 @@
                 app:destination="@id/zipFragment" />
             <action
                 android:id="@+id/action_fragmentOpenZip_to_fragmentEditZip"
-                app:destination="@id/editzipFragment" />
+                app:destination="@id/editZipFragment" />
             <argument
                 android:name="zipId"
                 app:argType="integer" />

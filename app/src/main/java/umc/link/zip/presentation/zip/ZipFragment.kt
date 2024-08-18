@@ -135,12 +135,6 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             Log.d("FragmentZip", "Navigated to FragmentMakeZip")
         }
 
-        /*val OpenZipBtn = binding.tvHomeLinkzip
-        OpenZipBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentZip_to_fragmentOpenZip)
-            Log.d("FragmentZip", "Navigated to FragmentOpenZip")
-        }*/
-
         binding.fragmentZipEditBtn.setOnClickListener(editClickListener)
         binding.allSelectedBtn.setOnClickListener(allSelectedListener)
         binding.allSelectedTv.setOnClickListener(allSelectedListener)
@@ -184,7 +178,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         isEditMode = false
         isAllSelectedMode = false
         resetAllSelectedMode()
-        resetBackgroundColorOfItems()
+        //resetBackgroundColorOfItems()
         binding.sortButton.visibility = View.VISIBLE
         binding.allSelectedBtn.visibility = View.GONE
         binding.allSelectedTv.visibility = View.GONE
@@ -215,7 +209,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.fragmentZipEditBtn.setTextColor(Color.parseColor("#1191AD"))
         binding.fragmentZipEditBtn.visibility = View.VISIBLE
         binding.fragmentZipFinishBtn.visibility = View.GONE
-        adapter?.updateBackgroundColorOfItems(Color.parseColor("#F4F5F6"))
+        //adapter?.updateBackgroundColorOfItems(Color.parseColor("#F4F5F6"))
     }
 
     private fun setAllSelectedMode() {
@@ -228,7 +222,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
         binding.ivProfilesetGrayshadow.visibility = View.GONE
         adapter?.selectAllItems()
-        adapter?.updateBackgroundColorOfItems(Color.parseColor("#F4F5F6"))
+        //adapter?.updateBackgroundColorOfItems(Color.parseColor("#F4F5F6"))
     }
 
     private fun resetAllSelectedMode() {
@@ -247,9 +241,9 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.ivProfilesetGrayshadow.visibility = View.GONE
     }
 
-    private fun resetBackgroundColorOfItems() {
+    /*private fun resetBackgroundColorOfItems() {
         adapter?.updateBackgroundColorOfItems(Color.parseColor("#FBFBFB"))
-    }
+    }*/
 
     private fun setupClickListener() {
         //한번만 클릭 허용

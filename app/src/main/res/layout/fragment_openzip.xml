@@ -119,7 +119,7 @@
 
             <ImageView
                 android:id="@+id/fragment_openzip_image_view1"
-                android:layout_width="37dp"
+                android:layout_width="50dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="65dp"
                 android:src="@drawable/btn_openzip_editzip"
@@ -250,6 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/drawerbtn_allselect_unselected"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg10"
                 app:layout_constraintTop_toTopOf="parent" />
 
