@@ -12,7 +12,7 @@ data class HomeRecentResponse(
         val title: String,
         val url: String,
         val tag: String,
-        val thumbnail: String,
+        val thumbnail: String?,
         val like: Int,
         val createdAt: String,
         val zip: ZipResponse
