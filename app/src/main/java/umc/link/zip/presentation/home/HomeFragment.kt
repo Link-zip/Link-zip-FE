@@ -4,11 +4,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
@@ -22,6 +24,7 @@ import umc.link.zip.domain.model.home.Link
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.network.NetworkResult
 
+@RequiresApi(Build.VERSION_CODES.P)
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private val navigator by lazy { findNavController() }
@@ -56,7 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
                 is NetworkResult.Error -> { Log.d("home", "alert exists : ${result.exception}") }
                 is NetworkResult.Fail -> {}
                 is NetworkResult.Success -> {
-                    if(result.data.uncomfirmed_alert) {
+                    if(result.data.uncomfirmedAlert) {
                         binding.ivHomeAlarmExist.visibility = View.VISIBLE
                         binding.ivHomeAlarmNothing.visibility = View.INVISIBLE
                     } else {
