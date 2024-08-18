@@ -2,12 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="umc.link.zip.presentation.create.CreateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/toolbar_customText_memo_mg0"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <!--appbar-->
         <androidx.appcompat.widget.Toolbar
@@ -24,7 +33,7 @@
             app:contentInsetStart="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/toolbar_customText_memo_mg0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -70,18 +79,20 @@
         <ImageView
             android:id="@+id/iv_customText_memo_topImg"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_text_topimg"
+            app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_customText_memo" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="0dp"
             android:alpha="0.3"
             android:scaleType="fitXY"
             android:src="@drawable/shape_rect_gradiant_up"
+            app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_customText_memo_topImg" />
 
@@ -177,14 +188,16 @@
             android:inputType="textMultiLine"
             android:letterSpacing="-0.03"
             android:maxLines="12"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:padding="8dp"
             android:scrollHorizontally="false"
-            app:layout_constraintBottom_toTopOf="@id/view_customText_memo_mg8"
-            app:layout_constraintEnd_toStartOf="@id/view_customText_memo_mg7"
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintEnd_toStartOf="@id/view_customText_memo_mg7"
             app:layout_constraintStart_toEndOf="@id/view_customText_memo_mg6"
             app:layout_constraintTop_toBottomOf="@id/tv_customText_memo_linkTitle"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintBottom_toTopOf="@id/view_customText_memo_mg8" />
 
         <View
             android:id="@+id/view_customText_memo_mg8"

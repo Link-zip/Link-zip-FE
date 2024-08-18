@@ -234,11 +234,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         }
 
         binding.ivHomeAlarmExist.setOnClickListener {
-            navigator.navigate(R.id.action_homeFragment_to_alarmFragment)
+            navigator.navigate(R.id.action_homeFragment_to_alertFragment)
         }
 
         binding.ivHomeAlarmNothing.setOnClickListener {
-            navigator.navigate(R.id.action_homeFragment_to_alarmFragment)
+            navigator.navigate(R.id.action_homeFragment_to_alertFragment)
         }
 
         binding.clHomeLink.setOnClickListener {

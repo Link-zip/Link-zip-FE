@@ -7,16 +7,19 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import umc.link.zip.data.repositoryImpl.HomeRepositoryImpl
+import umc.link.zip.data.repositoryImpl.AlertRepositoryImpl
 import umc.link.zip.data.repositoryImpl.LinkRepositoryImpl
 import umc.link.zip.data.repositoryImpl.LoginRepositoryImpl
 import umc.link.zip.data.repositoryImpl.TestRepositoryImpl
 import umc.link.zip.data.repositoryImpl.ZipRepositoryImpl
 import umc.link.zip.data.service.HomeService
+import umc.link.zip.data.service.AlertService
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.data.service.LoginService
 import umc.link.zip.data.service.TestService
 import umc.link.zip.data.service.ZipService
 import umc.link.zip.domain.repository.HomeRepository
+import umc.link.zip.domain.repository.AlertRepository
 import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.domain.repository.LoginRepository
 import umc.link.zip.domain.repository.TestRepository
@@ -58,4 +61,10 @@ object RepositoryModule {
     fun provideHomeRepository(
         homeService: HomeService
     ): HomeRepository = HomeRepositoryImpl(homeService)
+
+    @ViewModelScoped
+    @Provides
+    fun providesAlertRepository(
+    alertService: AlertService
+    ): AlertRepository = AlertRepositoryImpl(alertService)
 }

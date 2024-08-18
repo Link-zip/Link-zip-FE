@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="alert"
+            type="umc.link.zip.domain.model.alert.Alert"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/view_itemAlert_ad_mg1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.066667" />
+
+        <View
+            android:id="@+id/view_itemAlert_ad_mg2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.066667" />
+
+        <ImageView
+            android:id="@+id/iv_itemAlert_ad_icon"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/ic_alert_ad"
+            app:layout_constraintBottom_toBottomOf="@id/tv_itemAlert_ad_type"
+            app:layout_constraintStart_toEndOf="@id/view_itemAlert_ad_mg1"
+            app:layout_constraintTop_toTopOf="@id/tv_itemAlert_ad_type" />
+
+        <TextView
+            android:id="@+id/tv_itemAlert_ad_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            android:paddingStart="8dp"
+            android:text="광고"
+            android:textColor="@color/nav_selected"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/iv_itemAlert_ad_icon"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlert_ad_mg1" />
+
+        <TextView
+            android:id="@+id/tv_itemAlert_ad_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            android:text="20분 전"
+            android:textColor="@color/dark_gray"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/view_itemAlert_ad_mg2"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlert_ad_mg2" />
+
+        <View
+            android:id="@+id/view_itemAlert_ad_mg3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_itemAlert_ad_type"
+            app:layout_constraintWidth_percent="0.066667" />
+
+        <TextView
+            android:id="@+id/tv_itemAlert_ad_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_semibold"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="5sp"
+            android:maxLines="2"
+            android:hint="(광고 문구)  ## 제목은 최대 2줄"
+            android:text="@{alert.alert_title}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/view_itemAlert_ad_mg2"
+            app:layout_constraintStart_toEndOf="@id/view_itemAlert_ad_mg3"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlert_ad_mg3" />
+
+        <View
+            android:id="@+id/view_itemAlert_ad_mg4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_itemAlert_ad_title"
+            app:layout_constraintWidth_percent="0.066667" />
+
+        <TextView
+            android:id="@+id/tv_itemAlert_ad_memo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_regular"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="3sp"
+            android:maxLines="3"
+            android:hint="광고 내용 출력"
+            android:text="@{alert.alert_content}"
+            android:textColor="@color/nav_selected"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/view_itemAlert_ad_mg1"
+            app:layout_constraintEnd_toStartOf="@id/view_itemAlert_ad_mg2"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlert_ad_mg4" />
+
+        <View
+            android:id="@+id/view_itemAlert_ad_mg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_itemAlert_ad_memo"
+            app:layout_constraintWidth_percent="0.066667" />
+
+        <ImageView
+            android:id="@+id/iv_itemAlert_ad_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_alert_adpic"
+            app:layout_constraintDimensionRatio="3.47"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlert_ad_mg5"
+            app:layout_constraintStart_toEndOf="@id/view_itemAlert_ad_mg1"
+            app:layout_constraintEnd_toStartOf="@id/view_itemAlert_ad_mg2"/>
+
+        <View
+            android:id="@+id/view_itemAlert_ad_mg6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_itemAlert_ad_img"
+            app:layout_constraintWidth_percent="0.066667" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/nav_unselected"
+            app:layout_constraintTop_toBottomOf="@id/view_itemAlert_ad_mg6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

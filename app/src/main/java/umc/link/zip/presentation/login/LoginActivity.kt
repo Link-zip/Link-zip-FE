@@ -1,10 +1,12 @@
 package umc.link.zip.presentation.login
 
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.kakao.sdk.auth.model.OAuthToken
@@ -15,9 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.request.LoginRequest
-import umc.link.zip.data.service.LoginService
 import umc.link.zip.databinding.ActivityLoginBinding
-import umc.link.zip.di.NetworkModule
 import umc.link.zip.presentation.MainActivity
 import umc.link.zip.presentation.base.BaseActivity
 import umc.link.zip.util.network.NetworkResult
@@ -25,29 +25,40 @@ import umc.link.zip.util.network.NetworkResult
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
-    private val viewModel : LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun initView() {
         setClickListener()
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun initObserver() {
         viewModel.loginResult.observe(this) { result ->
-            when(result) {
+            when (result) {
                 is NetworkResult.Error -> {
                     Log.d("login", "서버 토큰 발급 중 error : ${result.exception}")
                 }
+
                 is NetworkResult.Fail -> {
                     Log.d("login", "서버 토큰 발급 실패")
                 }
+
                 is NetworkResult.Success -> {
-                    Log.d("login", "Token 발급 성공 : ${result.data.accessToken}")
-                    saveAccessToken(result.data.accessToken)
-                    /*//신규 회원인 경우
-                    replaceFragment(ProfilesetFragment())*/
-                    //기존 회원인 경우
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    if(result.data.isExists) {
+                        Log.d("login", "기존 회원 : ${result.data.tokenResponse!!.accessToken}")
+                        Log.d("login", "기존 회원 : ${result.data.tokenResponse.accessTokenExpiresIn}")
+                        saveAccessToken(result.data.tokenResponse.accessToken)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    } else {
+                        Log.d("login", "신규 회원 : ${result.data.key!!}")
+                        val fragment = ProfilesetFragment()
+                        val bundle = Bundle()
+                        bundle.putString("key", result.data.key)
+                        fragment.arguments = bundle
+
+                        replaceFragment(fragment)
+                    }
                 }
             }
         }
@@ -81,7 +92,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             refreshTokenExpires = token.refreshTokenExpiresAt.toString()
         )
 
-        viewModel.login()
+        viewModel.login(request)
     }
 
     private fun setClickListener() {
@@ -107,12 +118,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         Log.d("login", "Refresh Token : ${token.refreshToken}")
                         Log.d("login", "Refresh Token Expires : ${token.refreshTokenExpiresAt}")
                         Log.d("login", "ID Token : ${token.idToken}")
-                        replaceFragment(ProfilesetFragment())
+                        sendLoginRequest(token)
                     }
                 }
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
+
         }
     }
 
