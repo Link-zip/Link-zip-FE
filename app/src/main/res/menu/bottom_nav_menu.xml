@@ -13,7 +13,7 @@
         android:title="ZIP" />
 
     <item
-        android:id="@+id/createFragment"
+        android:id="@+id/createFragmentTab"
         android:icon="@null"
         android:title=""
         gom:showAsAction="never"/>

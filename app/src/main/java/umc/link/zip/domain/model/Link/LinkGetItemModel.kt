@@ -1,7 +1,5 @@
 package umc.link.zip.domain.model.link
 
-import umc.link.zip.domain.model.link.LinkGetItemModel
-
 data class LinkGetItemModel(
     val alert_date: String,
     val created_at: String,

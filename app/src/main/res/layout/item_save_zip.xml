@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+        <View
+            android:id="@+id/view_openzip_withdrawal_mg6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.0666" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg6"
+            app:layout_constraintTop_toBottomOf="@id/view_openzip_withdrawal_mg6"
+            app:layout_constraintBottom_toTopOf="@id/view_openzip_withdrawal_mg7">
+
+            <!-- 첫 번째 아이템 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <View
+                    android:id="@+id/view_openzip_withdrawal_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="24:80"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0666" />
+
+
+                <ImageView
+                    android:id="@+id/item_image_1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_zip_clip_shadow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="102:105"
+                    app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/item_zip_save_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center_horizontal|top"
+                    android:lineSpacingExtra="2sp"
+                    android:text="빠른저장"
+                    android:textAppearance="@style/ziptitlethu_2"
+                    app:layout_constraintBottom_toBottomOf="@id/item_image_1"
+                    app:layout_constraintEnd_toEndOf="@id/item_image_1"
+                    app:layout_constraintStart_toStartOf="@id/item_image_1"
+                    app:layout_constraintTop_toTopOf="@id/item_image_1" />
+
+                <View
+                    android:id="@+id/view_openzip_withdrawal_mg3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="16:80"
+                    app:layout_constraintStart_toEndOf="@id/item_image_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0444" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/text_block_1"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/view_openzip_withdrawal_mg"
+                    app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/item_title_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard_semibold"
+                        android:letterSpacing="-0.03"
+                        android:text="빠른 저장"
+                        android:textColor="@color/black"
+                        android:textFontWeight="600"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toTopOf="@id/item_subtitle_1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/item_subtitle_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:letterSpacing="-0.03"
+                        android:text="링크 개수"
+                        android:textColor="#666"
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/item_subtitle_2"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/item_title_1" />
+
+                    <TextView
+                        android:id="@+id/item_subtitle_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:letterSpacing="-0.03"
+                        android:text="|"
+                        android:textColor="#666"
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/item_subtitle_3"
+                        app:layout_constraintStart_toEndOf="@id/item_subtitle_1"
+                        app:layout_constraintTop_toBottomOf="@id/item_title_1" />
+
+                    <TextView
+                        android:id="@+id/item_subtitle_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:letterSpacing="-0.03"
+                        android:text="0개"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/item_subtitle_2"
+                        app:layout_constraintTop_toBottomOf="@id/item_title_1" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/view_openzip_withdrawal_mg"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="24:80"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.0666" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_openzip_withdrawal_mg7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="24:12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.0666" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -185,4 +185,36 @@
         <item name="android:colorBackground">@android:color/transparent</item>
     </style>
 
+    <!-- DatePicker 스타일 정의 -->
+    <style name="CustomDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerStyle">@style/CustomDatePickerStyle</item>
+    </style>
+
+    <!-- DatePicker 내부 스타일 정의 -->
+    <style name="CustomDatePickerStyle" parent="android:Widget.Material.DatePicker">
+        <item name="android:headerBackground">@color/abled_color</item>
+        <item name="android:textColorPrimary">@color/abled_color</item>
+        <item name="android:textColorSecondary">@color/abled_color</item>
+        <item name="android:calendarViewStyle">@style/CustomCalendarView</item>
+    </style>
+
+    <!-- CalendarView 스타일 정의 -->
+    <style name="CustomCalendarView" parent="android:Widget.Material.CalendarView">
+        <item name="android:headerBackground">@color/abled_color</item>
+        <item name="android:textColorPrimary">@color/abled_color</item>
+        <item name="android:textColorSecondary">@color/abled_color</item>
+        <item name="android:calendarViewStyle">@style/CustomCalendarViewStyle</item>
+    </style>
+
+    <!-- CalendarView 내부 스타일 정의 -->
+    <style name="CustomCalendarViewStyle">
+        <item name="android:dateTextAppearance">@style/CustomDateTextAppearance</item>
+    </style>
+
+    <!-- 선택된 날짜 스타일 -->
+    <style name="CustomDateTextAppearance">
+        <item name="android:background">@drawable/custom_date_picker_selected</item>
+    </style>
+
+
 </resources>
