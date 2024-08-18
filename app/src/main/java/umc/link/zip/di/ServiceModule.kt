@@ -50,7 +50,7 @@ object ServiceModule {
     fun provideLinkService(retrofit: Retrofit): LinkService {
         return retrofit.buildService()
     }
-    
+
     @Provides
     @Singleton
     fun provideAlertService(retrofit: Retrofit): AlertService {

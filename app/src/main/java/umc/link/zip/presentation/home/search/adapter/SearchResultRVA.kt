@@ -50,6 +50,7 @@ class SearchResultRVA (val result: (Int) -> Unit) : ListAdapter<SearchResult, Se
                     ivItemListTypeText.visibility = View.GONE
                     ivItemListTypeLink.visibility = View.VISIBLE
                 }
+                /*
                 // 메인 이미지
                 Glide.with(ivItemListImgMain.context)
                     .load(link.thumbnail)
@@ -62,6 +63,8 @@ class SearchResultRVA (val result: (Int) -> Unit) : ListAdapter<SearchResult, Se
                     // 서버에 변경 사항 반영
                     // updateLikeStatusOnServer(updatedLink)
                 }
+
+                 */
                 root.setOnClickListener {
                     result(result.id.toInt())
                 }

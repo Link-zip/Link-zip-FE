@@ -13,8 +13,8 @@
             android:id="@+id/action_homeFragment_to_listFragment"
             app:destination="@id/listFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_alarmFragment"
-            app:destination="@id/alarmFragment" />
+            android:id="@+id/action_homeFragment_to_alertFragment"
+            app:destination="@id/alertFragment" />
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />

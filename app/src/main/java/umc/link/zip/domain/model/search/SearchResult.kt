@@ -4,18 +4,14 @@ import java.time.LocalDateTime
 
 data class SearchResult (
     val id: Int,
+    val linkId: Int,
     val zipId: Int,
-    val userId: Int,
+    val zipColor: String,
+    val zipName: String,
     val title: String,
-    val url: String,
-    val text: String,
-    val memo: String,
     val tag: String,
-    val alertDate: LocalDateTime?,
     val thumb: String,
-    val like: Int,
-    val visit: Int,
-    val visitDate: LocalDateTime?,
     val createdAt: LocalDateTime?,
-    val updatedAt: LocalDateTime?
+    val updatedAt: LocalDateTime?,
+    val like: Int
 )

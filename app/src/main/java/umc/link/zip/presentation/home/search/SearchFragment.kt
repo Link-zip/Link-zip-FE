@@ -199,14 +199,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun initResultRVAdapter(){
         binding.rvSearchResult.adapter = resultRVA
-        val list = listOf(
-            SearchResult(1, 1, 1, "blue","인사이트","마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄", "text", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0),
-            SearchResult(1, 1, 1, "yellow","인사이트","마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄", "text", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0),
-            SearchResult(1, 1, 1, "yellow","인사이트","마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄", "text", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0),
-            SearchResult(1, 1, 1, "blue","인사이트","마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄", "text", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0),
 
-        )
-        resultRVA.submitList(list)
     }
 
     private fun initRecentRVAdapter(){

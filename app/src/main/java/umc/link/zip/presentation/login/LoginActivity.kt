@@ -2,9 +2,13 @@ package umc.link.zip.presentation.login
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.text.TextUtils.replace
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
+import android.text.TextUtils.replace
+import android.util.Log
 import androidx.databinding.adapters.ViewBindingAdapter.setClickListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -30,6 +34,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         setClickListener()
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun initObserver() {
         viewModel.loginResult.observe(this) { result ->
             when (result) {
@@ -42,13 +47,21 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 }
 
                 is NetworkResult.Success -> {
-                    Log.d("login", "Token 발급 성공 : ${result.data.accessToken}")
-                    saveAccessToken(result.data.accessToken)
-                    /*//신규 회원인 경우
-                    replaceFragment(ProfilesetFragment())*/
-                    //기존 회원인 경우
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    if(result.data.isExists) {
+                        Log.d("login", "기존 회원 : ${result.data.tokenResponse!!.accessToken}")
+                        Log.d("login", "기존 회원 : ${result.data.tokenResponse.accessTokenExpiresIn}")
+                        saveAccessToken(result.data.tokenResponse.accessToken)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    } else {
+                        Log.d("login", "신규 회원 : ${result.data.key!!}")
+                        val fragment = ProfilesetFragment()
+                        val bundle = Bundle()
+                        bundle.putString("key", result.data.key)
+                        fragment.arguments = bundle
+
+                        replaceFragment(fragment)
+                    }
                 }
             }
         }
@@ -82,7 +95,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             refreshTokenExpires = token.refreshTokenExpiresAt.toString()
         )
 
-        viewModel.login()
+        viewModel.login(request)
     }
 
     private fun setClickListener() {
@@ -108,7 +121,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         Log.d("login", "Refresh Token : ${token.refreshToken}")
                         Log.d("login", "Refresh Token Expires : ${token.refreshTokenExpiresAt}")
                         Log.d("login", "ID Token : ${token.idToken}")
-                        // replaceFragment(ProfilesetFragment())
+                        sendLoginRequest(token)
                     }
                 }
             } else {

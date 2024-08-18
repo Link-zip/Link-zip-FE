@@ -52,6 +52,18 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
+    fun provideLinkRepository(
+        linkService: LinkService
+    ): LinkRepository = LinkRepositoryImpl(linkService)
+
+    @ViewModelScoped
+    @Provides
+    fun providesAlertRepository(
+    alertService: AlertService
+    ): AlertRepository = AlertRepositoryImpl(alertService)
+
+    @ViewModelScoped
+    @Provides
     fun providesListRepository(
         listService: ListService
     ): ListRepository = ListRepositoryImpl(listService)
