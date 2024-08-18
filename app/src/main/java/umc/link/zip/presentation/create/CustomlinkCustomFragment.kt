@@ -16,10 +16,9 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkCustomBinding
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
-import umc.link.zip.util.extension.setImageResource
-import umc.link.zip.util.network.NetworkResult
 import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint

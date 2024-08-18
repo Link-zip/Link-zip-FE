@@ -1,4 +1,4 @@
-package umc.link.zip.presentation.create
+package umc.link.zip.presentation.create.adapter
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

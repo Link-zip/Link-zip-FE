@@ -151,6 +151,9 @@
             android:name="umc.link.zip.presentation.create.CreateFragment"
             android:label="CreateFragment">
             <action
+                android:id="@+id/action_createFragment_to_homeFragment"
+                app:destination="@id/homeFragment" />
+            <action
                 android:id="@+id/action_createFragment_to_customlinkZipFragment"
                 app:destination="@id/customlinkZipFragment" />
             <action

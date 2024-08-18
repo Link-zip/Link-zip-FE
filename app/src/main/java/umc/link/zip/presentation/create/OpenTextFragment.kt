@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenTextBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import java.text.SimpleDateFormat
 import java.util.Locale

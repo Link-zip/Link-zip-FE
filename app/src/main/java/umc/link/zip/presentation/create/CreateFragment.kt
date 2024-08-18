@@ -12,6 +12,7 @@ import umc.link.zip.data.dto.link.request.LinkExtractRequest
 import umc.link.zip.data.dto.link.request.LinkSummaryRequest
 import umc.link.zip.databinding.FragmentCreateBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted

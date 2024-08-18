@@ -1,16 +1,24 @@
 package umc.link.zip.presentation.create
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextAlarmBinding
+import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.network.UiState
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -42,6 +50,42 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
                     binding.tvCustomTextAlarmTime.text = formattedTime
 
                     setAlarm() // 알림이 있는 경우 UI 업데이트
+                }
+            }
+        }
+        // 제목, 썸네일 API 받아옴
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                linkExtractViewModel.extractResponse.collectLatest { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("CustomtextAlarmFragment", "Loading 썸네일")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = state.data as LinkExtractModel
+                            // 썸네일
+                            val thumbnailUrl = data.thumb
+                            if(thumbnailUrl==null){
+                                binding.ivCustomTextAlarmTopImg.setImageResource(R.drawable.iv_link_thumbnail_default)
+                            }else {
+                                Glide.with(binding.ivCustomTextAlarmTopImg.context)
+                                    .load(thumbnailUrl)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(binding.ivCustomTextAlarmTopImg)
+                            }
+                            Log.d("CustomtextAlarmFragment", "썸네일 가져오기 성공")
+
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(requireContext(), "썸네일 추출 실패", Toast.LENGTH_SHORT).show()
+                            Log.d("CustomtextAlarmFragment", "썸네일 가져오기 실패")
+                        }
+
+                        UiState.Empty -> Log.d("CustomtextAlarmFragment", "isEmpty")
+                    }
                 }
             }
         }

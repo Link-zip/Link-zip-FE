@@ -8,8 +8,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
@@ -17,10 +15,10 @@ import umc.link.zip.databinding.FragmentCustomtextCustomBinding
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.domain.model.link.LinkSummaryModel
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
-import umc.link.zip.util.network.NetworkResult
 import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
@@ -38,7 +36,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                     when (state) {
                         is UiState.Loading -> {
                             // 로딩 상태 처리
-                            Log.d("CustomtextCustomFragment", "Loading text summary data")
+                            Log.d("CustomtextCustomFragment", "Loading 텍스트 요약")
                         }
 
                         is UiState.Success<*> -> {
@@ -54,7 +52,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                             Log.d("CustomtextCustomFragment", "텍스트 요약 가져오기 실패")
                         }
 
-                        UiState.Empty -> Log.d("CustomtextCustomFragment", "isEmpty")
+                        UiState.Empty -> Log.d("CustomtextCustomFragment", "텍스트 요약 isEmpty")
                     }
                 }
             }
@@ -67,7 +65,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                     when (state) {
                         is UiState.Loading -> {
                             // 로딩 상태 처리
-                            Log.d("CustomtextCustomFragment", "Loading data")
+                            Log.d("CustomtextCustomFragment", "Loading 제목")
                         }
 
                         is UiState.Success<*> -> {
@@ -82,7 +80,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                             Log.d("CustomtextCustomFragment", "제목 가져오기 실패")
                         }
 
-                        UiState.Empty -> Log.d("CustomtextCustomFragment", "isEmpty")
+                        UiState.Empty -> Log.d("CustomtextCustomFragment", "제목 isEmpty")
                     }
                 }
             }
