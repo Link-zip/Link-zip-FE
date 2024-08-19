@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,8 @@ import umc.link.zip.databinding.FragmentZipBinding
 import umc.link.zip.domain.model.zip.ZipGetModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.zip.adapter.ZipAdapter
+import umc.link.zip.presentation.zip.adapter.ZipDeleteDialogueFragment
+import umc.link.zip.presentation.zip.adapter.ZipDeleteViewModel
 import umc.link.zip.presentation.zip.adapter.ZipDialogueLineupFragment
 import umc.link.zip.presentation.zip.adapter.ZipGetViewModel
 import umc.link.zip.presentation.zip.adapter.ZipLineDialogSharedViewModel
@@ -36,6 +39,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
 
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
+
 
     override fun initObserver() {
         // lineup
@@ -94,24 +98,40 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         viewModel.getZipList(userSelectedLineup)
     }
 
+
     override fun initView() {
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
         viewModel.getZipList(userSelectedLineup)
-    }
 
-    private val editClickListener = View.OnClickListener {
-        toggleEditMode()
-        adapter?.toggleEditMode()
-    }
-
-    private val allSelectedListener = View.OnClickListener {
-        if (isEditMode) {
-            setAllSelectedMode()
-            isAllSelectedMode
-        } else if (isAllSelectedMode) {
-            setEditMode()
+        binding.fragmentMakezipMakeBtn.setOnClickListener {
+            if (isEditMode) {
+                // 선택된 아이템이 있을 때만 삭제 다이얼로그를 띄움
+                if (adapter?.getSelectedItems()!!.isNotEmpty() == true) {
+                    Log.d("ZipFragment", "아이템이 있을 때 삭제 버튼 눌림")
+                    // 삭제 다이얼로그 띄우기
+                    val deleteDialog = ZipDeleteDialogueFragment()
+                    deleteDialog.show(childFragmentManager, "ZipDeleteDialogueFragment")
+                } else {
+                    Toast.makeText(context, "삭제할 항목을 선택하세요.", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // MakeZip 화면으로 이동
+                findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
+                Log.d("ZipFragment", "Navigated To MakeZip")
+            }
         }
+
+        // 편집 버튼 클릭 시 편집 모드로 전환
+        binding.fragmentZipEditBtn.setOnClickListener {
+            toggleEditMode()
+            adapter?.toggleEditMode()
+        }
+
+        binding.allSelectedBtn.setOnClickListener(allSelectedListener)
+        binding.allSelectedTv.setOnClickListener(allSelectedListener)
+
+        setNormalMode()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -129,16 +149,6 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             Log.d("FragmentZip", "Navigated to FragmentAlertZip")
         }
 
-        val MakeZipBtn = binding.fragmentMakezipMakeBtn
-        MakeZipBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
-            Log.d("FragmentZip", "Navigated to FragmentMakeZip")
-        }
-
-        binding.fragmentZipEditBtn.setOnClickListener(editClickListener)
-        binding.allSelectedBtn.setOnClickListener(allSelectedListener)
-        binding.allSelectedTv.setOnClickListener(allSelectedListener)
-
         // Initialize in NormalMode
         setNormalMode()
         viewModel.getZipList(userSelectedLineup)
@@ -152,11 +162,14 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     }
 
     private fun setupRecyclerView() {
-        adapter = ZipAdapter { zipItem, isSelected ->
+        adapter = ZipAdapter({ zipItem, isSelected ->
             if (isSelected) {
                 switchToSelectedMode()
             }
-        }
+        }, {
+            resetAllSelectedMode() // 선택된 아이템이 없을 때 모드 초기화
+        })
+
         binding.fragmentZipRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.fragmentZipRecyclerview.adapter = adapter
     }
@@ -167,10 +180,11 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     }
 
     private fun toggleEditMode() {
+        isEditMode = !isEditMode
         if (isEditMode) {
-            setNormalMode()
-        } else {
             setEditMode()
+        } else {
+            setNormalMode()
         }
     }
 
@@ -178,7 +192,6 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         isEditMode = false
         isAllSelectedMode = false
         resetAllSelectedMode()
-        //resetBackgroundColorOfItems()
         binding.sortButton.visibility = View.VISIBLE
         binding.allSelectedBtn.visibility = View.GONE
         binding.allSelectedTv.visibility = View.GONE
@@ -195,7 +208,6 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
 
     private fun setEditMode() {
         isEditMode = true
-        isAllSelectedMode = false
         resetAllSelectedMode()
         binding.sortButton.visibility = View.GONE
         binding.allSelectedBtn.visibility = View.VISIBLE
@@ -209,12 +221,22 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.fragmentZipEditBtn.setTextColor(Color.parseColor("#1191AD"))
         binding.fragmentZipEditBtn.visibility = View.VISIBLE
         binding.fragmentZipFinishBtn.visibility = View.GONE
-        //adapter?.updateBackgroundColorOfItems(Color.parseColor("#F4F5F6"))
+    }
+
+    private val allSelectedListener = View.OnClickListener {
+        if (isEditMode) {
+            if (isAllSelectedMode) {
+                // 전체 선택 해제
+                resetAllSelectedMode()
+            } else {
+                // 전체 선택 활성화
+                setAllSelectedMode()
+            }
+        }
     }
 
     private fun setAllSelectedMode() {
         isAllSelectedMode = true
-        isEditMode = false
         binding.allSelectedBtn.setImageResource(R.drawable.ic_checkunselected_blue)
         binding.allSelectedTv.setTextColor(Color.parseColor("#1191AD"))
         binding.fragmentMakezipMakeBtn.text = getString(R.string.delete)
@@ -222,17 +244,16 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
         binding.ivProfilesetGrayshadow.visibility = View.GONE
         adapter?.selectAllItems()
-        //adapter?.updateBackgroundColorOfItems(Color.parseColor("#F4F5F6"))
     }
 
     private fun resetAllSelectedMode() {
+        isAllSelectedMode = false
         binding.allSelectedBtn.setImageResource(R.drawable.ic_checkunselected_black)
         binding.allSelectedTv.setTextColor(Color.parseColor("#000000"))
         binding.fragmentMakezipMakeBtn.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         binding.ivProfilesetBlueshadow.visibility = View.GONE
         binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
         adapter?.clearSelections()
-
     }
 
     private fun switchToSelectedMode() {
@@ -241,9 +262,6 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.ivProfilesetGrayshadow.visibility = View.GONE
     }
 
-    /*private fun resetBackgroundColorOfItems() {
-        adapter?.updateBackgroundColorOfItems(Color.parseColor("#FBFBFB"))
-    }*/
 
     private fun setupClickListener() {
         //한번만 클릭 허용
@@ -256,5 +274,4 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             dialogFragment.show(childFragmentManager, "ZipDialogueLineupFragment")
         }
     }
-
 }
