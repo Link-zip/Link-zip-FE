@@ -37,5 +37,7 @@ data class LinkGetItemResponse(
         visit = this.visit,
         visit_date = this.visit_date,
         zip_id = this.zip_id,
+        zip_title = this.zip_title,
+        zip_color = this.zip_color
     )
 }

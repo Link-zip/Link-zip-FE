@@ -96,13 +96,16 @@
                 android:id="@+id/fragment_openzip_insite_iv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/ic_zip_shadow_1"
+                android:contentDescription="@null"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toEndOf="@id/fragment_openzip_withdrawal_mg2"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.1888" />
 
+<!--            android:src="@drawable/ic_zip_shadow_1"-->
+
             <TextView
+                android:id="@+id/fragment_openzip_zip_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"

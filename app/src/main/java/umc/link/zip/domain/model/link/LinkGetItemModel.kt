@@ -15,5 +15,7 @@ data class LinkGetItemModel(
     val user_id: Int,
     val visit: Int,
     val visit_date: String?,
-    val zip_id: Int
+    val zip_id: Int,
+    val zip_title : String,
+    val zip_color : String
 )

@@ -3,7 +3,10 @@ package umc.link.zip.presentation.zip
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -62,6 +65,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             // 좋아요 상태 변경 시 동작
         }
     }
+
 
     override fun initObserver() {
         // lineup
@@ -216,6 +220,23 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // LiveData 구독을 통한 데이터 사용
+        viewModel.zipTitle.observe(viewLifecycleOwner) { title ->
+            binding.fragmentOpenzipZipTitle.text = title
+            binding.fragmentOpenzipInsiteTv.text = title
+        }
+
+        viewModel.linkCount.observe(viewLifecycleOwner) { count ->
+            binding.fragmentOpenzipLinkCountTv2.text = count
+        }
+
+        viewModel.zipColor.observe(viewLifecycleOwner) { color ->
+            binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(color))
+        }
+    }
 
 
     override fun onResume() {
@@ -249,8 +270,35 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.allSelectedBtn.setOnClickListener(allSelectedListener)
         binding.allSelectedTv.setOnClickListener(allSelectedListener)
 
+        // LiveData 구독을 통한 데이터 사용
+        /*viewModel.zipTitle.observe(viewLifecycleOwner) { title ->
+            binding.fragmentOpenzipZipTitle.text = title
+            binding.fragmentOpenzipInsiteTv.text = title
+        }
+
+        viewModel.linkCount.observe(viewLifecycleOwner) { count ->
+            binding.fragmentOpenzipLinkCountTv2.text = count
+        }
+
+        viewModel.zipColor.observe(viewLifecycleOwner) { color ->
+            binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(color))
+        }*/
+
         // Initialize in NormalMode
         setNormalMode()
+    }
+
+    private fun setBackgroundResource(color: String): Int {
+        return when (color.lowercase()) {
+            "yellow" -> R.drawable.ic_zip_shadow_1
+            "lightgreen" -> R.drawable.ic_zip_shadow_2
+            "green" -> R.drawable.ic_zip_shadow_3
+            "lightblue" -> R.drawable.ic_zip_shadow_4
+            "blue" -> R.drawable.ic_zip_shadow_5
+            "darkpurple" -> R.drawable.ic_zip_shadow_6
+            "purple" -> R.drawable.ic_zip_shadow_7
+            else -> R.drawable.ic_zip_clip_shadow // default
+        }
     }
 
     private fun setupRecyclerView() {
