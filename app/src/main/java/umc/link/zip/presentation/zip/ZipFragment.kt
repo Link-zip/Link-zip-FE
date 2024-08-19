@@ -107,11 +107,11 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         binding.fragmentMakezipMakeBtn.setOnClickListener {
             if (isEditMode) {
                 // 선택된 아이템이 있을 때만 삭제 다이얼로그를 띄움
-                if (adapter?.getSelectedItems()!!.isNotEmpty() == true) {
-                    Log.d("ZipFragment", "아이템이 있을 때 삭제 버튼 눌림")
-                    // 삭제 다이얼로그 띄우기
-                    val deleteDialog = ZipDeleteDialogueFragment()
+                val selectedIds = adapter?.getSelectedZipIds() ?: emptyList()
+                if (selectedIds.isNotEmpty()) {
+                    val deleteDialog = ZipDeleteDialogueFragment.newInstance(selectedIds)
                     deleteDialog.show(childFragmentManager, "ZipDeleteDialogueFragment")
+                    viewModel.getZipList(userSelectedLineup)
                 } else {
                     Toast.makeText(context, "삭제할 항목을 선택하세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -121,6 +121,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
                 Log.d("ZipFragment", "Navigated To MakeZip")
             }
         }
+
 
         // 편집 버튼 클릭 시 편집 모드로 전환
         binding.fragmentZipEditBtn.setOnClickListener {

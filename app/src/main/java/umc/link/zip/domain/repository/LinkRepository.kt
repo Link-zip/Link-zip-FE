@@ -7,7 +7,6 @@ import umc.link.zip.data.dto.link.request.LinkSummaryRequest
 import umc.link.zip.data.dto.link.response.MoveLinkToNewZipResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.data.dto.zip.request.ZipEditRequest
-import umc.link.zip.data.dto.zip.request.ZipRmRequest
 import umc.link.zip.domain.model.link.LinkAddModel
 import umc.link.zip.domain.model.link.LinkDeleteModel
 import umc.link.zip.domain.model.link.LinkExtractModel

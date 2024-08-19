@@ -72,10 +72,16 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
         Log.d("ZipAdapter", "현재 선택된 아이템들: $selectedItems")
     }
 
-    // ZipAdapter
+
     fun getSelectedItems(): List<ZipGetItemModel> {
         return selectedItems.toList()
     }
+
+    //For Delete API
+    fun getSelectedZipIds(): List<Int> {
+        return selectedItems.map { it.zip_id }
+    }
+
 
 
     inner class ZipViewHolder(private val binding: ItemZipBinding) : RecyclerView.ViewHolder(binding.root) {
