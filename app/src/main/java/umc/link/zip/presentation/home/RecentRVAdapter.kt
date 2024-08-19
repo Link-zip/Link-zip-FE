@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import umc.link.zip.R
 import umc.link.zip.databinding.ItemHomeRecentBinding
 import umc.link.zip.domain.model.home.Link
 
@@ -30,9 +31,13 @@ class RecentRVAdapter(
 
     inner class ViewHolder(val binding: ItemHomeRecentBinding):RecyclerView.ViewHolder(binding.root) {
         fun bind(link: Link) {
-            Glide.with(context)
-                .load(link.thumbnail)
-                .into(binding.ivItemHomeLinkImg)
+            if(link.thumbnail != null) {
+                Glide.with(context)
+                    .load(link.thumbnail)
+                    .into(binding.ivItemHomeLinkImg)
+            } else {
+                binding.ivItemHomeLinkImg.setImageResource(R.drawable.img_default_thumbnail)
+            }
             binding.tvItemHomeLinkTitle.text = link.title
             binding.root.setOnClickListener {
                 clickListener.onItemClick(link)
