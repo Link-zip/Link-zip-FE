@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -19,10 +20,12 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenLinkBinding
 import umc.link.zip.domain.model.create.Link
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
+import umc.link.zip.domain.model.link.LinkVisitModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkGetByIDViewModel
 import umc.link.zip.presentation.create.adapter.LinkUpdateLikeViewModel
+import umc.link.zip.presentation.create.adapter.LinkVisitViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setImageResource
 import umc.link.zip.util.network.UiState
@@ -33,13 +36,17 @@ import java.util.TimeZone
 @AndroidEntryPoint
 class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment_open_link) {
 
-    private val createViewModel: CreateViewModel by activityViewModels()
     private val linkGetByIDViewModel: LinkGetByIDViewModel by activityViewModels()
     private val linkUpdateLikeViewModel: LinkUpdateLikeViewModel by activityViewModels()
+    private val linkVisitViewModel: LinkVisitViewModel by activityViewModels()
+
+    private var isSuccess: Boolean = false
 
     private val linkId: Int? by lazy {
         arguments?.getInt("linkId")
     }
+
+    private var url: String? = null // 전역 변수로 url 선언
 
     override fun initObserver() {
         val linkId = linkId ?: return
@@ -61,20 +68,23 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
                         is UiState.Success<*> -> {
                             val data = state.data as LinkGetByLinkIDModel
+                            // url
+                            url = data.url
+
                             // Zip name
-                            binding.tvOpenLinkZipname.text = data.title.ifEmpty { "설정된 제목이 없습니다." }
+                            binding.tvOpenLinkZipname.text = data.zip_title.ifEmpty { "none" }
                             // Zip img
                             val zipColor = data.zip_color
                             setBackgroundBasedOnColor(binding.ivOpenLinkZipimg, zipColor)
-                            // Zip name
+                            // 방문 횟수
                             binding.tvOpenLinkCountingNumber.text = data.visit.toString()
                             // 제목
                             binding.tvOpenLinkTitle.text = data.title.ifEmpty { "설정된 제목이 없습니다." }
                             // 썸네일
                             val thumbnailUrl = data.thumb
-                            if(thumbnailUrl==null){
+                            if (thumbnailUrl == null) {
                                 binding.ivOpenLinkTopImg.setImageResource(R.drawable.iv_link_thumbnail_default)
-                            }else {
+                            } else {
                                 Glide.with(binding.ivOpenLinkTopImg.context)
                                     .load(thumbnailUrl)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -100,7 +110,8 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                         }
 
                         is UiState.Error -> {
-                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT)
+                                .show()
                             Log.d("OpenLinkFragment", "링크 정보 가져오기 실패")
                         }
 
@@ -109,10 +120,57 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                 }
             }
         }
+        // 원본 링크 이동
+        binding.btnOpenLinkMove.setOnClickListener {
+            isSuccess = false
+            // VisitLink API 호출
+            linkVisitViewModel.visitLink(linkId)
+            Log.d("OpenLinkFragment", "OpenLinkFragment VisitLink API 호출")
+
+            // GetLink API 응답
+            repeatOnStarted {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    linkVisitViewModel.visitLinkResponse.collectLatest { state ->
+                        when (state) {
+                            is UiState.Loading -> {
+                                // 로딩 상태 처리
+                                Log.d("OpenLinkFragment", "Loading visit data")
+                            }
+
+                            is UiState.Success<*> -> {
+                                val data = state.data as LinkVisitModel
+                                // 방문 횟수
+                                binding.tvOpenLinkCountingNumber.text = data.visit.toString()
+                                Log.d("OpenLinkFragment", "방문 횟수 가져오기 성공")
+
+                                if (!isSuccess) {
+                                    isSuccess = true
+                                    // 링크 이동
+                                    navigateToWebView()
+                                    Log.d("OpenLinkFragment", "MoveLink 호출")
+                                }
+
+                                Log.d("OpenLinkFragment", "방문 횟수 가져오기 성공")
+
+                            }
+
+                            is UiState.Error -> {
+                                Log.d("OpenLinkFragment", "방문 횟수 가져오기 실패")
+                            }
+
+                            UiState.Empty -> Log.d("OpenLinkFragment", "방문 횟수 isEmpty")
+                        }
+                    }
+                }
+            }
+
+        }
 
     }
 
+
     override fun initView() {
+
         binding.ivOpenLinkToolbarBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -121,20 +179,22 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
             navigateToCustomLinkCustom()
         }
 
-        // 원본 링크 이동
-        binding.btnOpenLinkMove.setOnClickListener {
-            createViewModel.link.value?.url?.let { url ->
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(intent)
-            }
-        }
-
         // Toast 표시
         showCustomToast()
     }
 
     private fun navigateToCustomLinkCustom() {
         findNavController().navigate(R.id.action_openLinkFragment_to_customLinkCustomFragment)
+    }
+
+    private fun navigateToWebView() {
+        url?.let { url ->
+            val action = OpenLinkFragmentDirections.actionOpenLinkFragmentToWebViewFragment(url)
+            Log.d("OpenLinkFragment", "url: $url")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("OpenLinkFragment", "url 가져오기 실패")
+        }
     }
 
     private fun formatAlarm(alertDate: String): String {

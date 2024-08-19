@@ -19,6 +19,7 @@ import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkGetByIDViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
+import umc.link.zip.presentation.create.adapter.LinkVisitViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
 
@@ -125,7 +126,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
             // 호출 로직 추가하기
 
             // ADD API 응답(임시)
-            linkId = 205
+            linkId = 214
 
             navigateAction()
         }
