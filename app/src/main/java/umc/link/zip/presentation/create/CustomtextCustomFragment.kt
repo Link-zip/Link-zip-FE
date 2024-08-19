@@ -28,8 +28,10 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
     private val linkSummaryViewModel: LinkSummaryViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
+    private var linkId: Int? = null
+
     override fun initObserver() {
-        // text 요약 API
+        // text 요약 API 응답
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkSummaryViewModel.summaryResponse.collectLatest { state ->
@@ -58,7 +60,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
             }
         }
 
-        // 제목 API
+        // 제목 API 응답 (썸네일 사용 x)
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkExtractViewModel.extractResponse.collectLatest { state ->
@@ -133,7 +135,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         // 저장 버튼
         binding.btnCustomTextCustomSave.setOnClickListener {
-            handleSaveAndNavigate(::navigateToOpenLink)
+            handleSaveAndNavigate(::navigateToOpenText)
         }
 
         // Delete 버튼
@@ -145,15 +147,19 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
     private fun handleSaveAndNavigate(navigateAction: () -> Unit) {
         val updatedTitle = binding.etCustomTextCustomLinkTitle.text.toString()
-        val updatedText = binding.etCustomTextSummaryText.text.toString()
-
         if (updatedTitle.isEmpty()) {
             // 제목이 비어있으면 토스트 메시지 표시
             Toast.makeText(requireContext(), "제목을 설정해주세요", Toast.LENGTH_SHORT).show()
         } else {
             // 제목이 비어있지 않으면 ViewModel에 제목 저장하고 이동
             createViewModel.updateTitle(updatedTitle)
-            createViewModel.updateText(updatedText)
+
+            // ADD API 호출
+            // 호출 로직 추가하기
+
+            // ADD API 응답(임시)
+            linkId = 205
+
             navigateAction()
         }
     }
@@ -166,7 +172,13 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         findNavController().navigate(R.id.action_customtextCustomFragment_to_customtextAlarmFragment)
     }
 
-    private fun navigateToOpenLink() {
-        findNavController().navigate(R.id.action_customtextCustomFragment_to_openTextFragment)
+    private fun navigateToOpenText() {
+        linkId?.let { id ->
+            val action = CustomtextCustomFragmentDirections.actionCustomtextCustomFragmentToOpenTextFragment(id)
+            Log.d("CustomtextCustomFragment", "linkId: $id")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("CustomtextCustomFragment", "linkId 가져오기 실패")
+        }
     }
 }

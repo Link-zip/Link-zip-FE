@@ -31,7 +31,7 @@ interface LinkService {
         @Query ("tag") tag : String
     ) : Response<BaseResponse<LinkGetResponse>>
 
-    @GET("link/get_links/{link_id}")
+    @GET("link/get_link/{link_id}")
     suspend fun getLinkByLinkID(
         @Path ("link_id") link_id : Int
     ) : Response<BaseResponse<LinkGetByLinkIDResponse>>

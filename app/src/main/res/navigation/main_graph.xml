@@ -206,7 +206,11 @@
                 app:destination="@id/customtextMemoFragment" />
             <action
                 android:id="@+id/action_customtextCustomFragment_to_openTextFragment"
-                app:destination="@id/openTextFragment" />
+                app:destination="@id/openTextFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
         </fragment>
 
         <fragment
@@ -231,7 +235,11 @@
                 app:destination="@id/customlinkMemoFragment" />
             <action
                 android:id="@+id/action_customlinkCustomFragment_to_openLinkFragment"
-                app:destination="@id/openLinkFragment" />
+                app:destination="@id/openLinkFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
         </fragment>
 
         <fragment
