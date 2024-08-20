@@ -19,4 +19,9 @@ class ListRepositoryImpl @Inject constructor(
             filter = request.filter) }) { response: BaseResponse<UnreadResponseList> -> response.result.toLinkModelList() // toLinkModelList()를 사용하여 List<Link>로 변환
         }
     }
+    override suspend fun getLikeList(request: UnreadRequest): NetworkResult<UnreadModel> {
+        return handleApi({ listService.getLikeList(sort = request.sort,
+            filter = request.filter) }) { response: BaseResponse<UnreadResponseList> -> response.result.toLinkModelList() // toLinkModelList()를 사용하여 List<Link>로 변환
+        }
+    }
 }

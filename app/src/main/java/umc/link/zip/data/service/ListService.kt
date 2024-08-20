@@ -13,4 +13,7 @@ interface ListService {
     @GET("/list/unview")
     suspend fun getUnreadList( @Query("sort") sort: String,
                                @Query("filter") filter: String) : Response<BaseResponse<UnreadResponseList>>
+    @GET("/list/like")
+    suspend fun getLikeList( @Query("sort") sort: String,
+                               @Query("filter") filter: String) : Response<BaseResponse<UnreadResponseList>>
 }
