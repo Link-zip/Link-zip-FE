@@ -103,7 +103,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         Log.d("recentCount", recentRVA.itemCount.toString())
         initRecentRVAdapter()
         initResultRVAdapter()
-        initSearchRecent()
         setShowKeyboard()
         setupClickListener()
     }
@@ -147,11 +146,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
         }
 
-    }
-    // 최근 검색어 보여주기  => 없으면 이미지 보여주기(함수)
-    private fun initSearchRecent(){
-        setSearchAfter(false)
-        setSearchBefore(true)
     }
 
     // 검색 후 화면
