@@ -18,9 +18,11 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenTextBinding
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
+import umc.link.zip.domain.model.link.LinkVisitModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkGetByIDViewModel
+import umc.link.zip.presentation.create.adapter.LinkVisitViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
 import java.text.SimpleDateFormat
@@ -31,17 +33,22 @@ import java.util.TimeZone
 class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment_open_text){
     private val createViewModel: CreateViewModel by activityViewModels()
     private val linkGetByIDViewModel: LinkGetByIDViewModel by activityViewModels()
+    private val linkVisitViewModel: LinkVisitViewModel by activityViewModels()
+
+    private var isSuccess: Boolean = false
 
     private val linkId: Int? by lazy {
         arguments?.getInt("linkId")
     }
+
+    private var url: String? = null // 전역 변수로 url 선언
 
     override fun initObserver() {
         val linkId = linkId ?: return
 
         // GetLink API 호출
         linkGetByIDViewModel.getLinkByLinkID(linkId)
-        Log.d("OpenLinkFragment", "OpenLinkFragment linkId: $linkId")
+        Log.d("OpenTextFragment", "OpenLinkFragment linkId: $linkId")
 
 
         // GetLink API 응답
@@ -56,6 +63,9 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
 
                         is UiState.Success<*> -> {
                             val data = state.data as LinkGetByLinkIDModel
+                            // url
+                            url = data.url
+
                             // Zip name
                             binding.tvOpenTextZipname.text = data.title.ifEmpty { "설정된 제목이 없습니다." }
                             // Zip img
@@ -91,7 +101,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                                 binding.ivOpenTextLike.setImageResource(R.drawable.ic_heart_unselected)
                             }
                             Log.d("OpenTextFragment", "링크 정보 가져오기 성공")
-                            // 메모
+                            // 텍스트 요약
                             binding.tvOpenTextSummary.text = data.text.ifEmpty { "텍스트 요약이 없습니다." }
 
                         }
@@ -106,7 +116,50 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                 }
             }
         }
+// 원본 링크 이동
+        binding.btnOpenTextMove.setOnClickListener {
+            isSuccess = false
+            // VisitLink API 호출
+            linkVisitViewModel.visitLink(linkId)
+            Log.d("OpenTextFragment", "OpenLinkFragment VisitLink API 호출")
 
+            // GetLink API 응답
+            repeatOnStarted {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    linkVisitViewModel.visitLinkResponse.collectLatest { state ->
+                        when (state) {
+                            is UiState.Loading -> {
+                                // 로딩 상태 처리
+                                Log.d("OpenTextFragment", "Loading visit data")
+                            }
+
+                            is UiState.Success<*> -> {
+                                val data = state.data as LinkVisitModel
+                                // 방문 횟수
+                                binding.tvOpenTextCountingNumber.text = data.visit.toString()
+                                Log.d("OpenTextFragment", "방문 횟수 가져오기 성공")
+
+                                if (!isSuccess) {
+                                    isSuccess = true
+                                    // 링크 이동
+                                    navigateToWebView()
+                                    Log.d("OpenTextFragment", "MoveLink 호출")
+                                }
+
+                                Log.d("OpenTextFragment", "방문 횟수 가져오기 성공")
+
+                            }
+
+                            is UiState.Error -> {
+                                Log.d("OpenTextFragment", "방문 횟수 가져오기 실패")
+                            }
+
+                            UiState.Empty -> Log.d("OpenTextFragment", "방문 횟수 isEmpty")
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -118,20 +171,22 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
             navigateToCustomTextCustom()
         }
 
-        // 원본 링크 이동
-        binding.btnOpenTextMove.setOnClickListener {
-            createViewModel.link.value?.url?.let { url ->
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(intent)
-            }
-        }
-
         // Toast 표시
         showCustomToast()
     }
 
     private fun navigateToCustomTextCustom() {
         findNavController().navigate(R.id.action_openTextFragment_to_customTextCustomFragment)
+    }
+
+    private fun navigateToWebView() {
+        url?.let { url ->
+            val action = OpenTextFragmentDirections.actionOpenTextFragmentToWebViewFragment(url)
+            Log.d("OpenTextFragment", "url: $url")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("OpenTextFragment", "url 가져오기 실패")
+        }
     }
 
     private fun formatAlarm(alertDate: String): String {

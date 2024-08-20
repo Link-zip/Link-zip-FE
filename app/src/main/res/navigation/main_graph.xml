@@ -259,6 +259,9 @@
             <action
                 android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
                 app:destination="@id/customtextCustomFragment" />
+            <action
+            android:id="@+id/action_openTextFragment_to_WebViewFragment"
+            app:destination="@id/webViewFragment" />
         </fragment>
 
         <fragment

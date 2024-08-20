@@ -37,9 +37,6 @@ import java.util.TimeZone
 @AndroidEntryPoint
 class WebViewFragment : BaseFragment<FragmentWebViewBinding>(R.layout.fragment_web_view) {
 
-    private val linkGetByIDViewModel: LinkGetByIDViewModel by activityViewModels()
-
-
     private val url: String? by lazy {
         arguments?.getString("url")
     }
@@ -59,10 +56,10 @@ class WebViewFragment : BaseFragment<FragmentWebViewBinding>(R.layout.fragment_w
         // 링크 이동
         url.let {
             binding.webView.loadUrl(it)
-            Log.d("OpenLinkFragment", "링크 이동 성공")
+            Log.d("WebViewFragment", "링크 이동 성공")
         }
 
-        Log.d("OpenLinkFragment", "링크 이동 성공")
+        Log.d("WebViewFragment", "링크 이동 성공")
 
 
     }

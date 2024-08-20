@@ -110,8 +110,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                         }
 
                         is UiState.Error -> {
-                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT).show()
                             Log.d("OpenLinkFragment", "링크 정보 가져오기 실패")
                         }
 
@@ -163,7 +162,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                     }
                 }
             }
-
         }
 
     }
