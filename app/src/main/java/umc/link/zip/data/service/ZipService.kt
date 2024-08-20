@@ -32,8 +32,8 @@ interface ZipService {
         @Body zipEditRequest: ZipEditRequest
     ) : Response<BaseResponse<ZipEditResponse>>
 
-    @DELETE("zips")
+    @DELETE("zips/{zip_id}")
     suspend fun deleteRmZip(
-        @Query ("body") id : Int
+        @Path ("zip_id") id : Int
     ) : Response<BaseResponse<ZipRmResponse>>
 }

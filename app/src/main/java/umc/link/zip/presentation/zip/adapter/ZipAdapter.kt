@@ -73,16 +73,10 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
     }
 
 
-    fun getSelectedItems(): List<ZipGetItemModel> {
-        return selectedItems.toList()
-    }
-
     //For Delete API
     fun getSelectedZipIds(): List<Int> {
         return selectedItems.map { it.zip_id }
     }
-
-
 
     inner class ZipViewHolder(private val binding: ItemZipBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(zipItem: ZipGetItemModel, isSelected: Boolean, isEditMode: Boolean, position: Int) {

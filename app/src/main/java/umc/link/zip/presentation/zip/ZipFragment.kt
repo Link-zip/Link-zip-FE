@@ -28,6 +28,11 @@ import umc.link.zip.presentation.zip.adapter.ZipGetViewModel
 import umc.link.zip.presentation.zip.adapter.ZipLineDialogSharedViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
+import umc.link.zip.util.network.NetworkResult
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.flow.collect
+
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
@@ -39,6 +44,8 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
 
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
+
+    private val zipDeleteViewModel: ZipDeleteViewModel by viewModels()
 
 
     override fun initObserver() {
@@ -122,7 +129,6 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             }
         }
 
-
         // 편집 버튼 클릭 시 편집 모드로 전환
         binding.fragmentZipEditBtn.setOnClickListener {
             toggleEditMode()
@@ -137,6 +143,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.zipList.collect { zipList ->
                 adapter?.submitList(zipList)
@@ -153,8 +160,32 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         // Initialize in NormalMode
         setNormalMode()
         viewModel.getZipList(userSelectedLineup)
-    }
 
+        zipDeleteViewModel.deleteResponse
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            zipDeleteViewModel.deleteResponse.collectLatest { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        Log.d("ZipFragment", "개성공")
+                        viewModel.getZipList(userSelectedLineup)
+                    }
+
+                    is NetworkResult.Error -> {
+                        Log.d("ZipFragment", "하나씩 삭제되어서 생긴 문제")
+                        viewModel.getZipList(userSelectedLineup)
+                    }
+
+                    is NetworkResult.Fail -> {
+                        Toast.makeText(context, "삭제 실패: ${response.message}", Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                    null -> Log.d("ZipFragment", "개망")
+                }
+            }
+        }
+    }
 
     override fun onResume() {
         super.onResume()

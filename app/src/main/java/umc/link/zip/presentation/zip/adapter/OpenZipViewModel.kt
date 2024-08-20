@@ -38,6 +38,8 @@ import javax.inject.Inject
 class OpenZipViewModel @Inject constructor(
     private val linkRepository: LinkRepository,
 ) : ViewModel() {
+    private val _linkList = MutableStateFlow(LinkGetModel(emptyList()))
+    val linkList: Flow<List<LinkGetItemModel>> get() = _linkList.map { it.link_data }
 
     private val _uiState = MutableStateFlow<UiState<LinkGetModel>>(UiState.Loading)
     val uiState: StateFlow<UiState<LinkGetModel>> = _uiState.asStateFlow()
@@ -59,10 +61,6 @@ class OpenZipViewModel @Inject constructor(
                     is NetworkResult.Success -> {
                         _uiState.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
                         _uiState.value = UiState.Success(this.data)
-
-                        /*_zipTitle.value = this.data.link_data.firstOrNull()?.zip_title ?: "Default Title"
-                        _linkCount.value = "${this.data.link_data.size} 개"
-                        _zipColor.value = this.data.link_data.firstOrNull()?.zip_color ?: "default"*/
 
                         val firstItem = this.data.link_data.firstOrNull()
                         if (firstItem != null) {

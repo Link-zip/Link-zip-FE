@@ -11,33 +11,35 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import umc.link.zip.domain.model.link.LinkDeleteModel
 import umc.link.zip.domain.model.zip.ZipRmModel
+import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.domain.repository.ZipRepository
 import umc.link.zip.util.network.NetworkResult
 import umc.link.zip.util.network.UiState
 import javax.inject.Inject
 
 @HiltViewModel
-class ZipDeleteViewModel @Inject constructor(
-    private val zipRepository: ZipRepository
+class LinkDeleteViewModel @Inject constructor(
+    private val linkRepository: LinkRepository
 ) : ViewModel() {
 
-    private val _deleteResponse = MutableStateFlow<NetworkResult<ZipRmModel>?>(null)
-    val deleteResponse: StateFlow<NetworkResult<ZipRmModel>?> get() = _deleteResponse
+    private val _deleteResponse = MutableStateFlow<NetworkResult<LinkDeleteModel>?>(null)
+    val deleteResponse: StateFlow<NetworkResult<LinkDeleteModel>?> get() = _deleteResponse
 
-        fun deleteZip(id : Int) {
+        fun deleteLink(id : Int) {
             viewModelScope.launch {
-                val response = zipRepository.deleteRmZip(id)
+                val response = linkRepository.DeleteLink(id)
                 _deleteResponse.value = response // API 응답 값을 업데이트
                 when (response) {
                     is NetworkResult.Success -> {
-                        Log.d("ZipDeleteViewModel", "API Success: ${response.data?.message}")
+                        Log.d("LinkDeleteViewModel", "API Success: ${response.data?.message}")
                     }
                     is NetworkResult.Error -> {
-                        Log.e("ZipDeleteViewModel", "API Error : ${response.exception.message}")
+                        Log.e("LinkDeleteViewModel", "API Error : ${response.exception.message}")
                     }
                     is NetworkResult.Fail -> {
-                        Log.e("ZipDeleteViewModel", "API Fail: ${response.message}")
+                        Log.e("LinkDeleteViewModel", "API Fail: ${response.message}")
                     }
             }
         }
