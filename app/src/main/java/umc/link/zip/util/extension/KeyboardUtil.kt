@@ -41,7 +41,7 @@ object KeyboardUtil {
     }
 
     // NestedScrollView가 없는 경우 사용하는 함수
-    fun registerKeyboardVisibilityListenerWithoutScrollView(rootView: View, scrollView: NestedScrollView, targetView: View, noneView: View, showView: ImageView, resourceShow:Int, resourceNo:Int, noneView2: View) {
+    fun registerKeyboardVisibilityListenerPlus(rootView: View, scrollView: NestedScrollView, targetView: View, noneView: View, showView: ImageView, resourceShow:Int, resourceNo:Int) {
         globalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
             val rect = Rect()
             rootView.getWindowVisibleDisplayFrame(rect)
@@ -60,7 +60,6 @@ object KeyboardUtil {
                     targetView.translationY = (targetBottom - targetView.bottom).toFloat()
                     noneView.visibility = View.GONE
                     showView.setBackgroundResource(resourceShow)
-                    noneView2.visibility = View.INVISIBLE
                 }
             } else {
                 scrollView.post {

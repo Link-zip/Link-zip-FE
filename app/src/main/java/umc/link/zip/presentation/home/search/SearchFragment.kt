@@ -2,14 +2,21 @@ package umc.link.zip.presentation.home.search
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Visibility
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentSearchBinding
+import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.notice.Notice
+import umc.link.zip.domain.model.search.SearchLinkResult
 import umc.link.zip.domain.model.search.SearchRecent
 import umc.link.zip.domain.model.search.SearchResult
 import umc.link.zip.presentation.base.BaseFragment
@@ -17,12 +24,54 @@ import umc.link.zip.presentation.home.search.adapter.SearchRecentRVA
 import umc.link.zip.presentation.home.search.adapter.SearchResultRVA
 import umc.link.zip.presentation.mypage.adapter.NoticeRVA
 import umc.link.zip.util.extension.KeyboardUtil
+import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.network.UiState
 
+@AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search){
     private val navigator by lazy { findNavController() }
     private val viewModel : SearchViewModel by viewModels()
-    override fun initObserver() {
 
+    override fun initObserver() {
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { uiState ->
+                    when (uiState) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("SearchFragment", "Loading data")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = uiState.data as SearchResult
+                            Log.d("SearchFragment", "Fetched data size: ${data.links}")
+                            resultRVA.submitList(data.links)
+                            binding.tvSearchResultTitle.visibility = View.VISIBLE
+                            binding.tvSearchResultCount.visibility = View.VISIBLE
+                            binding.ivSearchNoneClip.visibility= View.INVISIBLE
+                            binding.tvSearchNone.visibility= View.INVISIBLE
+                            binding.tvSearchNone.text="검색된 링크가 없어요"
+                            binding.rvSearchResult.visibility = View.VISIBLE
+                            binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
+                        }
+
+                        is UiState.Error -> {
+                            // 에러 상태 처리
+                            Log.e("SearchFragment", "Error fetching data", uiState.error)
+                            binding.rvSearchResult.visibility = View.INVISIBLE
+                            binding.tvSearchResultTitle.visibility = View.INVISIBLE
+                            binding.tvSearchResultCount.visibility = View.INVISIBLE
+                            binding.ivSearchNoneClip.visibility= View.VISIBLE
+                            binding.tvSearchNone.visibility= View.VISIBLE
+                            binding.tvSearchNone.text="검색된 링크가 없어요"
+                            binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
+                        }
+
+                        UiState.Empty -> Log.d("SearchFragment", "isEmpty")
+                    }
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -67,21 +116,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         setSearchAfter(true)
         setSearchBefore(false)
         //api 연결. +  initObserver
+        viewModel.getSearchLink(keyword = binding.etSearchBar.text.toString())
+        binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
+        Log.d("keyword", binding.etSearchBar.text.toString())
     }
 
     // 검색 창 탭하기 => 최근 검색어 보이기(함수), 다른 거 안 보이기(함수), 마진 없애기
     private fun setShowKeyboard(){
         //탭시 그림자 변경과 그림 마진 사라짐.
         with(binding) {
-            KeyboardUtil.registerKeyboardVisibilityListenerWithoutScrollView(
+            KeyboardUtil.registerKeyboardVisibilityListenerPlus(
                 clSearch,
                 nsvSearch,
                 viewSearchBarMg,
                 viewSearchMg4,
                 ivSearchShadow,
                 R.drawable.shadow_bluebtn,
-                R.drawable.shadow_graybtn,
-                ivSearchBarDeleteAfterSearch
+                R.drawable.shadow_graybtn
             )
             etSearchBar.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -90,6 +141,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                     count: Int,
                     after: Int
                 ) {
+                    initSearchRecent()
                     viewSearchBtn.visibility=View.VISIBLE
                     ivSearchBarDelete.visibility=View.INVISIBLE
                 }
@@ -144,9 +196,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 viewSearchBtn.visibility = View.INVISIBLE
                 ivSearchBarDelete.visibility = View.INVISIBLE
                 ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
-                tvSearchResultCount.visibility= View.VISIBLE
-                tvSearchResultTitle.visibility= View.VISIBLE
-                rvSearchResult.visibility= View.VISIBLE //존재
                 if(resultRVA.itemCount<0){
                     ivSearchNoneClip.visibility= View.VISIBLE
                     tvSearchNone.visibility= View.VISIBLE
