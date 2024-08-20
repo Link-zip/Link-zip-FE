@@ -3,6 +3,7 @@ package umc.link.zip.presentation.zip.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -168,20 +169,31 @@ class OpenZipItemAdapter(
         private fun handleNormalMode(linkItem: LinkGetItemModel, position: Int) {
             resetUI()
             binding.root.setOnClickListener {
-                navigateToOpenText()
+                if(linkItem.tag == "text")
+                    navigateToOpenText()
+                else if(linkItem.tag == "link")
+                    navigateToOpenLink()
             }
         }
 
         private fun resetUI(){
             binding.root.setBackgroundColor(Color.parseColor("#FBFBFB"))
         }
+
         private fun navigateToOpenText() {
-            linkId.let { id ->
-                val action = OpenZipFragmentDirections.actionFragmentOpenZipToOpenTextFragment(id)
-                Log.d("OpenZipItemAdapter", "linkId: $id")
-                itemView.findNavController().navigate(action)
-                //반희님과 연결 필요
+            val bundle = Bundle().apply {
+                putInt("id", linkId)
             }
+
+            itemView.findNavController().navigate(R.id.action_fragmentOpenZip_to_openTextFragment, bundle)
+        }
+
+        private fun navigateToOpenLink() {
+            val bundle = Bundle().apply {
+                putInt("id", linkId)
+            }
+
+            itemView.findNavController().navigate(R.id.action_fragmentOpenZip_to_openLinkFragment, bundle)
         }
     }
 

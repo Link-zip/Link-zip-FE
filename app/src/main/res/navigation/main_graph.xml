@@ -5,6 +5,22 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
 
+    <action
+        android:id="@+id/action_fragmentOpenZip_to_openTextFragment"
+        app:destination="@id/openTextFragment">
+        <argument
+            android:name="linkId"
+            app:argType="integer" />
+    </action>
+
+    <action
+        android:id="@+id/action_fragmentOpenZip_to_openLinkFragment"
+        app:destination="@id/openLinkFragment">
+        <argument
+            android:name="linkId"
+            app:argType="integer" />
+    </action>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="umc.link.zip.presentation.home.HomeFragment"
@@ -91,13 +107,6 @@
                 app:destination="@id/editZipFragment" >
                 <argument
                     android:name="zipId"
-                    app:argType="integer" />
-            </action>
-            <action
-                android:id="@+id/action_fragmentOpenZip_to_openTextFragment"
-                app:destination="@id/openTextFragment">
-                <argument
-                    android:name="linkId"
                     app:argType="integer" />
             </action>
         </fragment>

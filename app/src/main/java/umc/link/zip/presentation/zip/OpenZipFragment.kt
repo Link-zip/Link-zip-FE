@@ -351,7 +351,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentOpenzipEditIv.setTextColor(Color.parseColor("#000000"))
         binding.cvMypageProfileUserInfoBoxBg.visibility = View.GONE
         binding.clProfilesetFinishBtn2.visibility = View.GONE
-        adapter?.clearSelections()
+        adapter.clearSelections()
     }
 
 
