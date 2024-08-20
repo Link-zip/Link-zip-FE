@@ -175,7 +175,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
 
     override fun initView() {
         binding.ivOpenTextToolbarBack.setOnClickListener {
-            findNavController().navigateUp()
+            navigateToHome()
         }
 
         binding.btnOpenTextEdit.setOnClickListener {
@@ -194,6 +194,10 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                 linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
             }
         }
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.openTextFragment_to_homeFragment)
     }
 
     private fun navigateToCustomTextCustom() {

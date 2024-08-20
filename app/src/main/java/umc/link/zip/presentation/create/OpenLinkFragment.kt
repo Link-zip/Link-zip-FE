@@ -106,7 +106,8 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                         }
 
                         is UiState.Error -> {
-                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT)
+                                .show()
                             Log.d("OpenLinkFragment", "링크 정보 가져오기 실패")
                         }
 
@@ -166,7 +167,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
     override fun initView() {
 
         binding.ivOpenLinkToolbarBack.setOnClickListener {
-            findNavController().navigateUp()
+            navigateToHome()
         }
 
         binding.btnOpenLinkEdit.setOnClickListener {
@@ -188,6 +189,10 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
         // Toast 표시
         showCustomToast()
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.openLinkFragment_to_homeFragment)
     }
 
     private fun navigateToCustomLinkCustom() {
@@ -247,7 +252,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
             else -> imageView.setBackgroundResource(R.drawable.ic_zip_clip_shadow) // default
         }
     }
-
 
 
 }

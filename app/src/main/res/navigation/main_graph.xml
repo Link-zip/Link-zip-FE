@@ -257,6 +257,9 @@
             android:name="umc.link.zip.presentation.create.OpenTextFragment"
             android:label="OpenTextFragment">
             <action
+                android:id="@+id/openTextFragment_to_homeFragment"
+                app:destination="@id/homeFragment"/>
+            <action
                 android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
                 app:destination="@id/customtextCustomFragment" />
             <action
@@ -268,6 +271,9 @@
             android:id="@+id/openLinkFragment"
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
             android:label="OpenLinkFragment">
+            <action
+                android:id="@+id/openLinkFragment_to_homeFragment"
+                app:destination="@id/homeFragment"/>
             <action
                 android:id="@+id/action_openLinkFragment_to_customLinkCustomFragment"
                 app:destination="@id/customlinkCustomFragment" />
