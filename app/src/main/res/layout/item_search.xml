@@ -24,6 +24,7 @@
             app:layout_constraintBottom_toBottomOf="@id/cl_search_item" />
 
         <ImageView
+            android:id="@+id/iv_search_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/drawerbtn_delete"

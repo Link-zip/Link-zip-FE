@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import umc.link.zip.databinding.ItemSearchBinding
 import umc.link.zip.domain.model.search.SearchRecent
 
-class SearchRecentRVA (val recent: (Int) -> Unit) : ListAdapter<SearchRecent, SearchRecentRVA.SearchRecentViewHolder>(DiffCallback()) {
+class SearchRecentRVA (val recent: (Int) -> Unit,
+                       private val onDeleteClick: (SearchRecent) -> Unit) : ListAdapter<SearchRecent, SearchRecentRVA.SearchRecentViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchRecentViewHolder {
         return SearchRecentViewHolder(
@@ -28,9 +29,9 @@ class SearchRecentRVA (val recent: (Int) -> Unit) : ListAdapter<SearchRecent, Se
         RecyclerView.ViewHolder(binding.root) {
         fun bind(recent: SearchRecent){
             with(binding){
-                tvSearchTitle.text = recent.search
-                root.setOnClickListener {
-                    recent(recent.id.toInt())
+                tvSearchTitle.text = recent.keyword
+                ivSearchDelete.setOnClickListener {
+                    onDeleteClick(recent)
                 }
             }
         }

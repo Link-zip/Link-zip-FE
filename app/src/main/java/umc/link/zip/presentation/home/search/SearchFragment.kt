@@ -32,6 +32,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private val navigator by lazy { findNavController() }
     private val viewModel : SearchViewModel by viewModels()
 
+    private var recentShow : Boolean = true
+
     override fun initObserver() {
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -45,14 +47,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                         is UiState.Success<*> -> {
                             val data = uiState.data as SearchResult
                             Log.d("SearchFragment", "Fetched data size: ${data.links}")
-                            resultRVA.submitList(data.links)
-                            binding.tvSearchResultTitle.visibility = View.VISIBLE
-                            binding.tvSearchResultCount.visibility = View.VISIBLE
-                            binding.ivSearchNoneClip.visibility= View.INVISIBLE
-                            binding.tvSearchNone.visibility= View.INVISIBLE
-                            binding.tvSearchNone.text="검색된 링크가 없어요"
-                            binding.rvSearchResult.visibility = View.VISIBLE
-                            binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
+                            resultRVA.submitList(data.links) {
+                                binding.tvSearchResultTitle.visibility = View.VISIBLE
+                                binding.tvSearchResultCount.visibility = View.VISIBLE
+                                binding.ivSearchNoneClip.visibility = View.INVISIBLE
+                                binding.tvSearchNone.visibility = View.INVISIBLE
+                                binding.tvSearchNone.text = "검색된 링크가 없어요"
+                                binding.rvSearchResult.visibility = View.VISIBLE
+                                binding.ivSearchBarDeleteAfterSearch.visibility = View.VISIBLE
+                                fnCount(data.links.size)
+                                binding.tvSearchRecentTitle.visibility = View.INVISIBLE
+                                binding.tvSearchDeleteAll.visibility = View.INVISIBLE
+                                binding.rvSearchRecent.visibility = View.INVISIBLE
+                            }
                         }
 
                         is UiState.Error -> {
@@ -65,6 +72,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                             binding.tvSearchNone.visibility= View.VISIBLE
                             binding.tvSearchNone.text="검색된 링크가 없어요"
                             binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
+                            binding.tvSearchRecentTitle.visibility = View.INVISIBLE
+                            binding.tvSearchDeleteAll.visibility = View.INVISIBLE
+                            binding.rvSearchRecent.visibility = View.INVISIBLE
                         }
 
                         UiState.Empty -> Log.d("SearchFragment", "isEmpty")
@@ -72,10 +82,25 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 }
             }
         }
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.recentKeywords.collectLatest { recentKeywords ->
+                    recentRVA.submitList(recentKeywords) {
+                        Log.d("recentCountRVA", recentRVA.itemCount.toString())
+                        if(recentShow) {
+                            fnCheck()  // 리스트가 어댑터에 반영된 후에 UI 체크
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun initView() {
+        recentShow = true
         binding.ivSearchShadow.setBackgroundResource(R.drawable.shadow_graybtn)
+        viewModel.fetchRecentKeywords()
+        Log.d("recentCount", recentRVA.itemCount.toString())
         initRecentRVAdapter()
         initResultRVAdapter()
         initSearchRecent()
@@ -86,7 +111,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private fun setupClickListener(){
         with (binding){
             viewSearchBtn.setOnClickListener{
-                search()
+                recentShow = false
+                if (!etSearchBar.text.isNullOrEmpty()) {
+                    search()
+                    viewModel.addKeyword(binding.etSearchBar.text.toString())  // 검색어 저장
+                } else {
+                    Log.d("Search", "검색어가 비어있습니다.")
+                }
             }
             ivSearchToolbarBack.setOnClickListener {
                 navigator.navigateUp()
@@ -96,11 +127,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 ivSearchBarDelete.visibility=View.INVISIBLE
             }
             ivSearchBarDeleteAfterSearch.setOnClickListener {
+                recentShow = true
                 //이 버튼 클릭시 검색전으로 돌아감
                 setSearchBefore(true)
                 setSearchAfter(false)
                 etSearchBar.text.clear()
                 ivSearchBarDelete.visibility = View.INVISIBLE
+            }
+            // 모든 검색어 삭제
+            tvSearchDeleteAll.setOnClickListener {
+                viewModel.clearAllKeywords()
+                tvSearchRecentTitle.visibility = View.INVISIBLE
+                tvSearchDeleteAll.visibility = View.INVISIBLE
+                rvSearchRecent.visibility = View.INVISIBLE
+                ivSearchNoneClip.visibility = View.VISIBLE
+                tvSearchNone.text = "최근 검색어가 없어요"
+                tvSearchNone.visibility = View.VISIBLE
             }
         }
 
@@ -113,12 +155,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     // 검색 후 화면
     private fun search(){
-        setSearchAfter(true)
-        setSearchBefore(false)
-        //api 연결. +  initObserver
-        viewModel.getSearchLink(keyword = binding.etSearchBar.text.toString())
-        binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
-        Log.d("keyword", binding.etSearchBar.text.toString())
+        recentRVA.submitList(viewModel.recentKeywords.value) {
+            // 리스트가 업데이트된 후에 API 호출
+            setSearchAfter(true)
+            setSearchBefore(false)
+            viewModel.getSearchLink(keyword = binding.etSearchBar.text.toString())
+
+            // 검색 후 UI 업데이트
+            binding.ivSearchBarDeleteAfterSearch.visibility = View.VISIBLE
+            Log.d("keyword", binding.etSearchBar.text.toString())
+
+            with(binding) {
+                tvSearchRecentTitle.visibility = View.INVISIBLE
+                tvSearchDeleteAll.visibility = View.INVISIBLE
+                rvSearchRecent.visibility = View.INVISIBLE
+            }
+        }
     }
 
     // 검색 창 탭하기 => 최근 검색어 보이기(함수), 다른 거 안 보이기(함수), 마진 없애기
@@ -141,7 +193,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                     count: Int,
                     after: Int
                 ) {
-                    initSearchRecent()
                     viewSearchBtn.visibility=View.VISIBLE
                     ivSearchBarDelete.visibility=View.INVISIBLE
                 }
@@ -196,11 +247,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 viewSearchBtn.visibility = View.INVISIBLE
                 ivSearchBarDelete.visibility = View.INVISIBLE
                 ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
-                if(resultRVA.itemCount<0){
-                    ivSearchNoneClip.visibility= View.VISIBLE
-                    tvSearchNone.visibility= View.VISIBLE
-                    tvSearchNone.text="검색된 링크가 없어요"
-                }
             }else{
                 ivSearchBarDelete.visibility = View.INVISIBLE
                 viewSearchBtn.visibility = View.VISIBLE
@@ -221,29 +267,53 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 tvSearchRecentTitle.visibility=View.VISIBLE
                 tvSearchDeleteAll.visibility=View.VISIBLE
                 rvSearchRecent.visibility= View.VISIBLE
-                //검색 전-최근 검색어 없을 때
-                if(recentRVA.itemCount<0) {
-                    ivSearchNoneClip.visibility = View.VISIBLE
-                    tvSearchNone.visibility = View.VISIBLE
-                    tvSearchNone.text = "최근 검색어가 없어요"
-                }
             }else{
                 tvSearchRecentTitle.visibility=View.INVISIBLE
                 tvSearchDeleteAll.visibility=View.INVISIBLE
                 rvSearchRecent.visibility= View.INVISIBLE
-                //검색 전-최근 검색어 없을 때
-                ivSearchNoneClip.visibility= View.INVISIBLE
-                tvSearchNone.visibility= View.INVISIBLE
             }
         }
     }
 
     private val recentRVA by lazy {
-        SearchRecentRVA{}
+        SearchRecentRVA (
+            recent = { id ->
+                binding.etSearchBar.setText(id.toString())
+            },
+            onDeleteClick = { searchRecent ->
+                viewModel.deleteKeyword(searchRecent) // ViewModel에서 삭제 메서드 호출
+            }
+        )
+    }
+
+    private fun fnCheck(){
+        with(binding) {
+            if (recentRVA.itemCount == 0) {
+                tvSearchRecentTitle.visibility = View.INVISIBLE
+                tvSearchDeleteAll.visibility = View.INVISIBLE
+                rvSearchRecent.visibility = View.INVISIBLE
+                ivSearchNoneClip.visibility = View.VISIBLE
+                tvSearchNone.text = "최근 검색어가 없어요"
+                tvSearchNone.visibility = View.VISIBLE
+            } else {
+                tvSearchRecentTitle.visibility = View.VISIBLE
+                tvSearchDeleteAll.visibility = View.VISIBLE
+                binding.rvSearchRecent.visibility = View.VISIBLE
+                ivSearchNoneClip.visibility = View.INVISIBLE
+                tvSearchNone.text = "최근 검색어가 없어요"
+                tvSearchNone.visibility = View.INVISIBLE
+            }
+        }
+        Log.d("deleteCheck",recentRVA.itemCount.toString())
     }
 
     private val resultRVA by lazy {
-        SearchResultRVA{}
+        SearchResultRVA{
+        }
+    }
+
+    private fun fnCount(int: Int){
+        binding.tvSearchResultCount.text = int.toString()
     }
 
     private fun initResultRVAdapter(){
@@ -253,10 +323,5 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun initRecentRVAdapter(){
         binding.rvSearchRecent.adapter = recentRVA
-        val list = listOf(
-            SearchRecent(1, "인사이트"),
-            SearchRecent(2, "link"),
-        )
-        recentRVA.submitList(list)
     }
 }
