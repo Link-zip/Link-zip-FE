@@ -22,7 +22,7 @@ interface LoginService {
     fun checkJwt(): Call<BaseResponse<JwtResponse>>
 
     @GET("/user")
-    suspend fun nameCheck(@Query("nickname") nickname: String): Response<NameCheckResponse>
+    suspend fun nameCheck(@Query("nickname") nickname: String): Response<BaseResponse<NameCheckResponse>>
 
     @POST("/user")
     suspend fun signup(@Body request: SignupRequest): Response<BaseResponse<SignupResponse>>

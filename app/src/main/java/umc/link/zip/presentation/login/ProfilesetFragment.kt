@@ -70,7 +70,7 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
         viewModel.nameCheckResult.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    if(result.data.result) {
+                    if(result.data.isValid) {
                         binding.btnProfilesetFinish.setOnClickListener(finishBtnClickListener)
                         binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_1191ad_fill)
                         binding.ivProfilesetGrayshadow.visibility = View.GONE
