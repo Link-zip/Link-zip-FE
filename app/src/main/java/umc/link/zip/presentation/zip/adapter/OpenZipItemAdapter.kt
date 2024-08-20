@@ -27,7 +27,8 @@ import umc.link.zip.presentation.zip.ZipFragmentDirections
 class OpenZipItemAdapter(
     private val onItemSelected: (LinkGetItemModel, Boolean) -> Unit,
     private val onSelectionCleared: () -> Unit,
-    private val onLikeClicked: (LinkGetItemModel) -> Unit
+    private val onLikeClicked: (LinkGetItemModel) -> Unit,
+    private val onBackgroundChangeRequested: (Boolean) -> Unit  // 배경 변경 요청 콜백
 ) : ListAdapter<LinkGetItemModel, OpenZipItemAdapter.LinkViewHolder>(DiffCallback()) {
 
     private var selectedItems: MutableSet<LinkGetItemModel> = mutableSetOf()
@@ -105,7 +106,7 @@ class OpenZipItemAdapter(
 
                 binding.tvItemLinkLinkName.text = linkItem.title
                 binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
-                binding.tvItemLinkLinkDate.text = linkItem.created_at
+                binding.tvItemLinkLinkDate.text = linkItem.created_at.take(10).replace("-", ".")
 
                 if (linkItem.tag == "text") {
                     binding.ivItemLinkTypeText.visibility = View.VISIBLE
@@ -154,14 +155,19 @@ class OpenZipItemAdapter(
                     notifyItemChanged(adapterPosition)
                     Log.d("OpenZipItemAdapter", "deselectedItem : $selectedItems")
 
-                    if (selectedItems.isEmpty()) {
-                        onSelectionCleared() // 선택된 아이템이 없을 때 콜백 호출
+                if (selectedItems.isEmpty()) {
+                    onSelectionCleared() // 선택된 아이템이 없을 때 콜백 호출
+                    onBackgroundChangeRequested(false)
+                }
+                } else {
+                    selectedItems.add(linkItem)
+                    notifyItemChanged(adapterPosition)
+
+                    if(adapterPosition == 0){
+                        onBackgroundChangeRequested(true)
                     }
-                    } else {
-                        selectedItems.add(linkItem)
-                        notifyItemChanged(adapterPosition)
-                        Log.d("OpenZipItemAdapter", "selectedItem : $selectedItems")
-                    }
+                    Log.d("OpenZipItemAdapter", "selectedItem : $selectedItems")
+                }
                 logSelectedItems() // 아이템 선택 후 로그 출력
             }
         }
@@ -184,7 +190,6 @@ class OpenZipItemAdapter(
             val bundle = Bundle().apply {
                 putInt("id", linkId)
             }
-
             itemView.findNavController().navigate(R.id.action_fragmentOpenZip_to_openTextFragment, bundle)
         }
 
@@ -192,7 +197,6 @@ class OpenZipItemAdapter(
             val bundle = Bundle().apply {
                 putInt("id", linkId)
             }
-
             itemView.findNavController().navigate(R.id.action_fragmentOpenZip_to_openLinkFragment, bundle)
         }
     }

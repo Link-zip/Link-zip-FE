@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -46,6 +47,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     private var userSelectedLineup = "latest"
 
     private val zipDeleteViewModel: ZipDeleteViewModel by viewModels()
+
 
 
     override fun initObserver() {
@@ -161,8 +163,6 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         // Initialize in NormalMode
         setNormalMode()
         viewModel.getZipList(userSelectedLineup)
-
-        zipDeleteViewModel.deleteResponse
 
         viewLifecycleOwner.lifecycleScope.launch {
             zipDeleteViewModel.deleteResponse.collectLatest { response ->

@@ -72,7 +72,7 @@ class OpenZipViewModel @Inject constructor(
         fun bind(link: LinkGetItemModel) {
             with(binding) {
                 fragmentOpenzipInsiteTv.text = link.zip_title
-                fragmentOpenzipZipTitle.text = link.zip_title
+                fragmentOpenzipZipTitle.text = link.zip_title.take(5)
                 setBackgroundBasedOnColor(fragmentOpenzipInsiteIv, link.zip_color)
             }
         }

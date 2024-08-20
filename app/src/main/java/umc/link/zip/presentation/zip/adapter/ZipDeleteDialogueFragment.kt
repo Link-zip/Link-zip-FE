@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,7 @@ class ZipDeleteDialogueFragment : BaseDialogFragment<FragmentDeletezipBinding>(R
 
     private val zipDeleteViewModel: ZipDeleteViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private var selectedZipIds: List<Int> = emptyList()
+
 
     companion object {
         private const val ARG_SELECTED_IDS = "selected_ids"
@@ -74,12 +76,9 @@ class ZipDeleteDialogueFragment : BaseDialogFragment<FragmentDeletezipBinding>(R
                 }
                 Log.d("Delete Dialog", "Delete Dialog : Yes, IDs: $selectedZipIds")
             }
-            // 다이얼로그를 닫음
             dismiss()
         }
-
         binding.fragmentDeletezipCancleBtn.setOnClickListener {
-            // 다이얼로그 닫기
             dismiss()
         }
     }

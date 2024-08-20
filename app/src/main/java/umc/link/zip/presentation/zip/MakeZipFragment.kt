@@ -62,7 +62,7 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
         val ivProfilesetGrayshadow = binding.ivProfilesetGrayshadow
         val ivProfilesetBlueshadow = binding.ivProfilesetBlueshadow
 
-        selectedColor = "yellow"
+        selectedColor = "lightblue"
 
         // Set click listeners for each rectangle and store the selected color
         view.findViewById<View>(R.id.rectangle_1)?.setOnClickListener {

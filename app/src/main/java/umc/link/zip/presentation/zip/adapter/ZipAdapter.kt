@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import umc.link.zip.R
@@ -82,8 +83,8 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
         fun bind(zipItem: ZipGetItemModel, isSelected: Boolean, isEditMode: Boolean, position: Int) {
             binding.itemTitle1.text = zipItem.title
             setBackgroundBasedOnColor(binding.itemZipFastSaveIv, zipItem.color)
-            binding.itemZipSaveTv.text = zipItem.title
-            binding.itemLinkCount.text = zipItem.link_count.toString()
+            binding.itemLinkCount.text = zipItem.link_count.toString()+"개"
+            binding.itemZipSaveTv.text = zipItem.title.take(5)
             zip_id = zipItem.zip_id
 
             if (isEditMode) {

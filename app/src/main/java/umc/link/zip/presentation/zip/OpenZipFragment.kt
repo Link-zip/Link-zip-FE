@@ -64,6 +64,13 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             },
             onLikeClicked =  { linkItem ->
                 viewModel.updateLikeStatusOnServer(linkItem.id)
+            },
+            onBackgroundChangeRequested =  { highlight ->
+                if (highlight) {
+                    binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg3)
+                } else {
+                    binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg2)
+                }
 
             }
         )
@@ -125,7 +132,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                             Log.d("OpenZipFragment", "Fetched data size: ${data.link_data}")
                             adapter.submitList(data.link_data)
 
-                            binding.fragmentOpenzipZipTitle.text = zip_title
+                            binding.fragmentOpenzipZipTitle.text = zip_title?.take(5)
                             binding.fragmentOpenzipInsiteTv.text = zip_title
                             binding.fragmentOpenzipLinkCountTv2.text = zip_linkCount.toString()+"개"
                             binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(zip_color.toString()))
@@ -271,7 +278,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.clProfilesetFinishBtn2.setOnClickListener {
             if (isEditMode) {
                 // 선택된 아이템이 있을 때만 삭제 다이얼로그를 띄움
-                val selectedIds = adapter?.getSelectedLinkIds() ?: emptyList()
+                val selectedIds = adapter.getSelectedLinkIds() ?: emptyList()
                 if (selectedIds.isNotEmpty()) {
                     val deleteDialog = LinkDeleteDialogueFragment.newInstance(selectedIds)
                     deleteDialog.show(childFragmentManager, "ZipDeleteDialogueFragment")

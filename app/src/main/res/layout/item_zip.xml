@@ -19,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_1"
             android:layout_width="match_parent"
-            android:layout_height="92dp"
+            android:layout_height="94dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="24:92"
+                app:layout_constraintDimensionRatio="24:94"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.0666" />
@@ -38,9 +38,9 @@
                 android:id="@+id/item_zip_fast_save_iv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/ic_zip_clip_shadow"
                 android:scaleType="fitXY"
-                android:layout_marginTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="102:107"
                 app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg1"
@@ -66,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="16:92"
+                app:layout_constraintDimensionRatio="16:94"
                 app:layout_constraintStart_toEndOf="@id/item_zip_fast_save_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.0444" />
@@ -184,7 +184,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="24:92"
+                app:layout_constraintDimensionRatio="24:94"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.0666" />
