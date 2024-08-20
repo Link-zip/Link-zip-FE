@@ -303,10 +303,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private val resultRVA by lazy {
-        SearchResultRVA{
-            link ->
-            viewModel.updateLikeStatusOnServer(link.link.id)
-        }
+        SearchResultRVA(
+            onItemClicked = { link ->
+                val action = SearchFragmentDirections.actionSearchFragmentToOpenLinkFragment(link.link.id)
+                navigator.navigate(action)
+            },
+            onLikeClicked = { link ->
+                viewModel.updateLikeStatusOnServer(link.link.id)
+            }
+        )
     }
 
     private fun fnCount(int: Int){

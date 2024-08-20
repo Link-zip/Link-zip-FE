@@ -17,7 +17,8 @@ import umc.link.zip.domain.model.search.SearchLinkResult
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class SearchResultRVA (val result: (SearchLinkResult) -> Unit) : ListAdapter<SearchLinkResult, SearchResultRVA.SearchResultViewHolder>(DiffCallback()) {
+class SearchResultRVA (private val onItemClicked: (SearchLinkResult) -> Unit,
+                       private val onLikeClicked: (SearchLinkResult) -> Unit) : ListAdapter<SearchLinkResult, SearchResultRVA.SearchResultViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
         return SearchResultViewHolder(
@@ -60,10 +61,10 @@ class SearchResultRVA (val result: (SearchLinkResult) -> Unit) : ListAdapter<Sea
                 returnZipColor(link.zip.color, ivItemListZip)
                 // 좋아요
                 setLike(link, ivItemLike) { updatedLink ->
-                    result(updatedLink) // 좋아요 상태 변경 시 ViewModel 호출
+                    onLikeClicked(updatedLink) // 좋아요 상태 변경 시 ViewModel 호출
                 }
                 root.setOnClickListener {
-                    result(link)
+                    onItemClicked(link)
                 }
             }
         }
