@@ -152,11 +152,11 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
                 binding.root.setBackgroundColor(Color.TRANSPARENT)
             }
 
-            val action = ZipFragmentDirections.actionFragmentZipToFragmentOpenZip(zipItem.zip_id)
+            val action = ZipFragmentDirections.actionFragmentZipToFragmentOpenZip(zipItem.zip_id, zipItem.title, zipItem.color, zipItem.link_count)
             binding.root.setOnClickListener {
                 // Navigate to detail page or any specific action
                 itemView.findNavController().navigate(action)
-                Log.d("ZipAdapter","MoveToOpenZip : ${zipItem.zip_id}")
+                Log.d("ZipAdapter","MoveToOpenZip : ${zipItem.zip_id}, ${zipItem.title}, ${zipItem.color}, ${zipItem.link_count}")
             }
         }
 

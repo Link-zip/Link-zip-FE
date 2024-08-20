@@ -135,6 +135,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             adapter?.toggleEditMode()
         }
 
+
         binding.allSelectedBtn.setOnClickListener(allSelectedListener)
         binding.allSelectedTv.setOnClickListener(allSelectedListener)
 

@@ -39,7 +39,20 @@
                 app:destination="@id/alertFragment" />
             <action
                 android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
-                app:destination="@id/openzipFragment" />
+                app:destination="@id/OpenzipFragment">
+                <argument
+                    android:name="zipId"
+                    app:argType="integer" />
+                <argument
+                    android:name="zipTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="zipColor"
+                    app:argType="string" />
+                <argument
+                    android:name="zipLinkCount"
+                    app:argType="integer" />
+            </action>
             <action
                 android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
                 app:destination="@id/makezipFragment" />
@@ -59,16 +72,15 @@
             android:name="umc.link.zip.presentation.zip.EditZipFragment"
             android:label="EditZipFragment" >
             <action
-                android:id="@+id/action_fragmentEditZip_to_fragmentMakeZip"
-                app:destination="@id/makezipFragment" />
+                android:id="@+id/action_fragmentEditZip_to_fragmentZip"
+                app:destination="@id/zipFragment" />
             <action
                 android:id="@+id/action_fragmentEditZip_to_fragmentOpenZip"
-                app:destination="@id/openzipFragment" />
+                app:destination="@id/OpenzipFragment" />
         </fragment>
 
-
         <fragment
-            android:id="@+id/openzipFragment"
+            android:id="@+id/OpenzipFragment"
             android:name="umc.link.zip.presentation.zip.OpenZipFragment"
             android:label="OpenZipFragment" >
             <action
@@ -76,10 +88,18 @@
                 app:destination="@id/zipFragment" />
             <action
                 android:id="@+id/action_fragmentOpenZip_to_fragmentEditZip"
-                app:destination="@id/editZipFragment" />
-            <argument
-                android:name="zipId"
-                app:argType="integer" />
+                app:destination="@id/editZipFragment" >
+                <argument
+                    android:name="zipId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_fragmentOpenZip_to_openTextFragment"
+                app:destination="@id/openTextFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
         </fragment>
     </navigation>
 
@@ -270,6 +290,8 @@
             <action
                 android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
                 app:destination="@id/customtextCustomFragment" />
+
+
         </fragment>
 
         <fragment

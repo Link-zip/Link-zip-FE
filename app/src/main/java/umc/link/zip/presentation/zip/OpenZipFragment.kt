@@ -3,26 +3,18 @@ package umc.link.zip.presentation.zip
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenzipBinding
-import umc.link.zip.domain.model.link.LinkGetItemModel
 import umc.link.zip.domain.model.link.LinkGetModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.zip.adapter.LinkDeleteDialogueFragment
@@ -32,8 +24,6 @@ import umc.link.zip.presentation.zip.adapter.OpenZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.OpenZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipListDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipViewModel
-import umc.link.zip.presentation.zip.adapter.ZipAdapter
-import umc.link.zip.presentation.zip.adapter.ZipDeleteDialogueFragment
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.network.UiState
@@ -43,8 +33,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private val navigator by lazy {
         findNavController()
     }
-
-    private var adapter: OpenZipItemAdapter? = null
 
     private val openZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by viewModels()
     private val openZipListDialogSharedViewModel: OpenZipListDialogSharedViewModel by viewModels()
@@ -56,13 +44,13 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private var userSelectedLineup = "newest"
     private var userSelectedListselect = ""
 
-    val args : OpenZipFragmentArgs by navArgs()
-    private val zip_id by lazy {
-        args.zipId
-    }
+    private val zip_id by lazy { arguments?.getInt("zipId")}
+    private val zip_title by lazy { arguments?.getString("zipTitle")}
+    private val zip_color by lazy { arguments?.getString("zipColor")}
+    private val zip_linkCount by lazy { arguments?.getInt("zipLinkCount")}
 
-    private fun setupRecyclerView() {
-        adapter = OpenZipItemAdapter(
+    private val adapter by lazy {
+        OpenZipItemAdapter(
             onItemSelected = { linkItem, isSelected ->
                 // 선택 상태 변경 시 수행할 작업을 정의
                 if (isSelected) {
@@ -73,8 +61,16 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             },
             onSelectionCleared = {
                 resetAllSelectedMode()
+            },
+            onLikeClicked =  { linkItem ->
+                viewModel.updateLikeStatusOnServer(linkItem.id)
+
             }
         )
+    }
+
+    private fun setupRecyclerView() {
+
         binding.fragmentOpenzipItemLinkRv.layoutManager = LinearLayoutManager(requireContext())
         binding.fragmentOpenzipItemLinkRv.adapter = adapter
     }
@@ -127,8 +123,21 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                         is UiState.Success<*> -> {
                             val data = uiState.data as LinkGetModel
                             Log.d("OpenZipFragment", "Fetched data size: ${data.link_data}")
-                            adapter?.submitList(data.link_data)
-                            getLinkListApi()
+                            adapter.submitList(data.link_data)
+
+                            binding.fragmentOpenzipZipTitle.text = zip_title
+                            binding.fragmentOpenzipInsiteTv.text = zip_title
+                            binding.fragmentOpenzipLinkCountTv2.text = zip_linkCount.toString()+"개"
+                            binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(zip_color.toString()))
+
+                            if(zip_linkCount == 0){
+                                binding.fragmentOpenzipItemLinkRv.visibility = View.GONE
+                                binding.clListNoneBackgroundCl.visibility = View.VISIBLE
+                            }else
+                            {
+                                binding.fragmentOpenzipItemLinkRv.visibility = View.VISIBLE
+                                binding.clListNoneBackgroundCl.visibility = View.GONE
+                            }
                         }
 
                         is UiState.Error -> {
@@ -136,7 +145,9 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                             Log.e("OpenZipFragment", "Error fetching data", uiState.error)
                         }
 
-                        UiState.Empty -> Log.d("OpenZipFragment", "isEmpty")
+                        UiState.Empty -> {
+                            Log.e("OpenZipFragment", "UiState.Empty")
+                        }
                     }
                 }
             }
@@ -145,7 +156,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     private fun getLinkListApi(){
         //zip_id, tag, sortOrder
-        viewModel.getLinkList(zip_id,  userSelectedListselect, userSelectedLineup)
+
+        viewModel.getLinkList(zip_id!!,  userSelectedListselect, userSelectedLineup)
         Log.d("OpenZipFragment", "getApi 호출됨")
     }
 
@@ -218,35 +230,26 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.linkList.collect { linkList ->
-                adapter?.submitList(linkList)
-            }
+        // zipId가 null이면 로그 출력 후 안전하게 처리
+        val zipId = arguments?.getInt("zipId") ?: run {
+            Log.e("OpenZipFragment", "zipId is null, navigating back")
+            findNavController().popBackStack()
+            return
         }
 
-        // LiveData 구독을 통한 데이터 사용
-        viewModel.zipTitle.observe(viewLifecycleOwner) { title ->
-            binding.fragmentOpenzipZipTitle.text = title
-            binding.fragmentOpenzipInsiteTv.text = title
+        // zipId가 정상적인 경우 로직을 계속 수행
+        val action = OpenZipFragmentDirections.actionFragmentOpenZipToFragmentEditZip(zipId)
+        binding.fragmentOpenzipImageView1.setOnClickListener {
+            Log.d("OpenZipFragment", "Navigated to FragmentEditZip with zipId: $zipId")
+            findNavController().navigate(action)
         }
-
-        viewModel.linkCount.observe(viewLifecycleOwner) { count ->
-            binding.fragmentOpenzipLinkCountTv2.text = count
-        }
-
-        viewModel.zipColor.observe(viewLifecycleOwner) { color ->
-            binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(color))
-        }
-
-        getLinkListApi()
     }
-
 
     override fun onResume() {
         super.onResume()
         setLineupDismissDialog(userSelectedLineup)
         setListDismissDialog(userSelectedListselect)
-        viewModel.getLinkList(zip_id, userSelectedListselect, userSelectedLineup)
+        viewModel.getLinkList(zip_id!!,  userSelectedListselect, userSelectedLineup)
         Log.d("OpenZipFragment","$zip_id")
     }
 
@@ -254,7 +257,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
         setListDismissDialog(userSelectedListselect)
-        viewModel.getLinkList(zip_id, userSelectedListselect, userSelectedLineup)
+        viewModel.getLinkList(zip_id!!,  userSelectedListselect, userSelectedLineup)
+
 
         setupRecyclerView()
 
@@ -262,12 +266,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         toolbarBackBtn.setOnClickListener {
             navigator.navigate(R.id.action_fragmentOpenZip_to_fragmentZip)
             Log.d("FragmentOpenZip", "Navigated to FragmentZip")
-        }
-
-        val zipEditBtn = binding.fragmentOpenzipImageView1
-        zipEditBtn.setOnClickListener {
-            navigator.navigate(R.id.action_fragmentOpenZip_to_fragmentEditZip)
-            Log.d("FragmentOpenZip", "Navigated to FragmentEditZip")
         }
 
         binding.clProfilesetFinishBtn2.setOnClickListener {
@@ -289,10 +287,11 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             }
         }
 
+
         // 편집 버튼 클릭 시 편집 모드로 전환
         binding.fragmentOpenzipEditIv.setOnClickListener {
             toggleEditMode()
-            adapter?.toggleEditMode()
+            adapter.toggleEditMode()
         }
 
         binding.allSelectedBtn.setOnClickListener(allSelectedListener)
@@ -358,13 +357,13 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     private val allSelectedListener = View.OnClickListener {
         if (isEditMode) {  // 편집 모드일 때만 동작
-            //isAllSelectedMode = !isAllSelectedMode  // 전체 선택 모드 토글
+            isAllSelectedMode = !isAllSelectedMode  // 전체 선택 모드 토글
 
             if (isAllSelectedMode) {
                 setAllSelectedMode()  // 전체 선택 모드 설정
-                adapter?.logSelectedItems()
+                adapter.logSelectedItems()
             } else {
-                adapter?.logdeSelectedItems()
+                adapter.logdeSelectedItems()
                 resetAllSelectedMode()  // 전체 선택 해제 모드 설정
             }
         }
@@ -380,7 +379,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentZipMakeBtn2.setBackgroundResource(R.drawable.shape_rect_005773_fill)
         binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
         binding.ivProfilesetGrayshadow.visibility = View.GONE
-        adapter?.selectAllItems() // 데이터 상태를 전체 선택으로 변경
+        adapter.selectAllItems() // 데이터 상태를 전체 선택으로 변경
     }
 
     private fun resetAllSelectedMode() {
@@ -392,7 +391,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentZipMakeBtn2.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         binding.ivProfilesetBlueshadow.visibility = View.GONE
         binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
-        adapter?.clearSelections() // 데이터 상태를 전체 선택 해제로 변경
+        adapter.clearSelections() // 데이터 상태를 전체 선택 해제로 변경
     }
 
     private fun switchToSelectedMode() {

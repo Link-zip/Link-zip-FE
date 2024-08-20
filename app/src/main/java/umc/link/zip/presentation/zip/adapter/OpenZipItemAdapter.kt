@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,28 +20,25 @@ import umc.link.zip.databinding.ItemLinkBinding
 import umc.link.zip.databinding.ItemZipBinding
 import umc.link.zip.domain.model.link.LinkGetItemModel
 import umc.link.zip.domain.model.zip.ZipGetItemModel
+import umc.link.zip.presentation.zip.OpenZipFragmentDirections
 import umc.link.zip.presentation.zip.ZipFragmentDirections
 
 class OpenZipItemAdapter(
     private val onItemSelected: (LinkGetItemModel, Boolean) -> Unit,
-    private val onSelectionCleared: () -> Unit
+    private val onSelectionCleared: () -> Unit,
+    private val onLikeClicked: (LinkGetItemModel) -> Unit
 ) : ListAdapter<LinkGetItemModel, OpenZipItemAdapter.LinkViewHolder>(DiffCallback()) {
 
     private var selectedItems: MutableSet<LinkGetItemModel> = mutableSetOf()
     private var items: List<LinkGetItemModel> = emptyList()
     private var isEditMode: Boolean = false
+    private var linkId: Int = 0
 
 
     @SuppressLint("NotifyDataSetChanged")
     fun clearSelections() {
-        val previousSelectedItems = selectedItems.toList()
         selectedItems.clear()
-        previousSelectedItems.forEach { item ->
-            val position = items.indexOf(item)
-            if (position >= 0) {
-                notifyItemChanged(position)  // 선택 해제된 항목만 업데이트
-            }
-        }
+        notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -55,12 +54,6 @@ class OpenZipItemAdapter(
         notifyDataSetChanged()
     }
 
-   /* @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newItems: List<LinkGetItemModel>) {
-        items = newItems
-        notifyDataSetChanged()
-    }
-*/
     // 현재 선택된 아이템들을 로그로 출력
     fun logSelectedItems() {
         Log.d("OpenZipItemAdapter", "현재 선택된 아이템들: $selectedItems")
@@ -93,7 +86,7 @@ class OpenZipItemAdapter(
         holder.itemView.setBackgroundColor(
             if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
         )
-        holder.bind(linkItem, isSelected, isEditMode, position, onItemSelected, onSelectionCleared)
+        holder.bind(linkItem, isSelected, isEditMode, position)
     }
 
     inner class LinkViewHolder(private val binding: ItemLinkBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -101,42 +94,47 @@ class OpenZipItemAdapter(
             linkItem: LinkGetItemModel,
             isSelected: Boolean,
             isEditMode: Boolean,
-            position: Int,
-            onItemSelected: (LinkGetItemModel, Boolean) -> Unit,
-            onSelectionCleared: () -> Unit
+            position: Int
         ) {
             with(binding) {
                 root.setBackgroundColor(
                     if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
                 )
+                linkId = linkItem.id
 
-                tvItemLinkLinkName.text = linkItem.title
-                tvItemLinkZipVisitCount.text = "${linkItem.like} 회"
-                tvItemLinkLinkDate.text = linkItem.created_at
+                binding.tvItemLinkLinkName.text = linkItem.title
+                binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
+                binding.tvItemLinkLinkDate.text = linkItem.created_at
 
                 if (linkItem.tag == "text") {
-                    ivItemLinkTypeText.visibility = View.VISIBLE
-                    ivItemLinkTypeLink.visibility = View.GONE
+                    binding.ivItemLinkTypeText.visibility = View.VISIBLE
+                    binding.ivItemLinkTypeLink.visibility = View.GONE
                 } else {
-                    ivItemLinkTypeText.visibility = View.GONE
-                    ivItemLinkTypeLink.visibility = View.VISIBLE
+                    binding.ivItemLinkTypeText.visibility = View.GONE
+                    binding.ivItemLinkTypeLink.visibility = View.VISIBLE
                 }
 
                 // Load main thumbnail image with Glide
-                Glide.with(ivItemLinkImgMain.context)
+                Glide.with(binding.ivItemLinkImgMain.context)
                     .load(linkItem.thumb)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivItemLinkImgMain)
+                    .into(binding.ivItemLinkImgMain)
 
                 // Set the like icon based on the likes count
-                ivItemLike.setImageResource(if (linkItem.like > 0) R.drawable.ic_heart_selected else R.drawable.ic_heart_unselected)
+                binding.ivItemLike.setImageResource(if (linkItem.like > 0) R.drawable.ic_heart_selected else R.drawable.ic_heart_unselected)
 
                 if (isEditMode) {
                     handleEditMode(linkItem, isSelected)
+                    ivItemLike.isClickable = false // 편집 모드일 때 좋아요 버튼 클릭 비활성화
                 } else {
                     handleNormalMode(linkItem, position)
+                    setLike(linkItem, binding.ivItemLike) { updatedLink ->
+                        onLikeClicked(updatedLink)
+                    }
                 }
+
             }
+
         }
 
         private fun handleEditMode(linkItem: LinkGetItemModel, isSelected: Boolean) {
@@ -154,35 +152,56 @@ class OpenZipItemAdapter(
                     selectedItems.remove(linkItem)
                     notifyItemChanged(adapterPosition)
                     Log.d("OpenZipItemAdapter", "deselectedItem : $selectedItems")
+
                     if (selectedItems.isEmpty()) {
                         onSelectionCleared() // 선택된 아이템이 없을 때 콜백 호출
                     }
-                } else {
-                    selectedItems.add(linkItem)
-                    notifyItemChanged(adapterPosition)
-                    Log.d("OpenZipItemAdapter", "selectedItem : $selectedItems")
-                }
-                onItemSelected(linkItem, selectedItems.contains(linkItem))
-                notifyItemChanged(adapterPosition)  // 상태 변경 후 UI 업데이트
+                    } else {
+                        selectedItems.add(linkItem)
+                        notifyItemChanged(adapterPosition)
+                        Log.d("OpenZipItemAdapter", "selectedItem : $selectedItems")
+                    }
                 logSelectedItems() // 아이템 선택 후 로그 출력
             }
         }
 
         private fun handleNormalMode(linkItem: LinkGetItemModel, position: Int) {
             resetUI()
-
-            /*val action = ZipFragmentDirections.actionFragmentZipToFragmentOpenZip(linkItem.zip_id)
             binding.root.setOnClickListener {
-                // Navigate to detail page or any specific action
-                itemView.findNavController().navigate(action)
-                Log.d("ZipAdapter", "MoveToOpenZip : ${linkItem.zip_id}")
-            }*/
-
-            Log.d("OpenZipItemAdapter", "Normal 모드에서 클릭됨")
+                navigateToOpenText()
+            }
         }
 
         private fun resetUI(){
             binding.root.setBackgroundColor(Color.parseColor("#FBFBFB"))
+        }
+        private fun navigateToOpenText() {
+            linkId.let { id ->
+                val action = OpenZipFragmentDirections.actionFragmentOpenZipToOpenTextFragment(id)
+                Log.d("OpenZipItemAdapter", "linkId: $id")
+                itemView.findNavController().navigate(action)
+                //반희님과 연결 필요
+            }
+        }
+    }
+
+    fun setLike(linkItem: LinkGetItemModel, view: ImageView, onLikeChanged: (LinkGetItemModel) -> Unit) {
+        // 초기 상태 설정
+        if (linkItem.like == 1) {
+            view.setImageResource(R.drawable.ic_heart_selected)
+        } else {
+            view.setImageResource(R.drawable.ic_heart_unselected)
+        }
+        // 클릭 리스너 설정
+        view.setOnClickListener {
+            linkItem.like = if (linkItem.like == 1) 0 else 1
+            if (linkItem.like == 1) {
+                view.setImageResource(R.drawable.ic_heart_selected)
+            } else {
+                view.setImageResource(R.drawable.ic_heart_unselected)
+            }
+            // 좋아요 상태가 변경되었음을 외부에 알림
+            onLikeChanged(linkItem)
         }
     }
 

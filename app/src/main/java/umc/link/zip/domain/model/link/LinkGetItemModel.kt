@@ -4,7 +4,7 @@ data class LinkGetItemModel(
     val alert_date: String?,
     val created_at: String,
     val id: Int,
-    val like: Int,
+    var like: Int,
     val memo: String?,
     val tag: String,
     val text: String?,
