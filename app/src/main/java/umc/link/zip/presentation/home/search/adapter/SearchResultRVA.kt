@@ -1,11 +1,9 @@
 package umc.link.zip.presentation.home.search.adapter
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -16,12 +14,8 @@ import umc.link.zip.R
 import umc.link.zip.databinding.ItemListBinding
 import umc.link.zip.domain.model.list.Link
 import umc.link.zip.domain.model.search.SearchLinkResult
-import umc.link.zip.domain.model.search.SearchResult
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Locale
-import java.util.TimeZone
 
 class SearchResultRVA (val result: (SearchLinkResult) -> Unit) : ListAdapter<SearchLinkResult, SearchResultRVA.SearchResultViewHolder>(DiffCallback()) {
 
@@ -54,21 +48,23 @@ class SearchResultRVA (val result: (SearchLinkResult) -> Unit) : ListAdapter<Sea
                     ivItemListTypeText.visibility = View.GONE
                     ivItemListTypeLink.visibility = View.VISIBLE
                 }
-                // 메인 이미지
-                Glide.with(ivItemListImgMain.context)
-                    .load(link.link.thumbnail)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(ivItemListImgMain)
+                if(link.link.thumbnail==null){
+                    ivItemListImgMain.setImageResource(R.drawable.iv_link_thumbnail_default)
+                }else {
+                    Glide.with(ivItemListImgMain.context)
+                        .load(link.link.thumbnail)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(ivItemListImgMain)
+                }
                 // zip 사진
                 returnZipColor(link.zip.color, ivItemListZip)
                 // 좋아요
-                /*setLike(link, ivItemLike, ) { updatedLink ->
-                    // 서버에 변경 사항 반영
-                    // updateLikeStatusOnServer(updatedLink)
+                setLike(link, ivItemLike) { updatedLink ->
+                    result(updatedLink) // 좋아요 상태 변경 시 ViewModel 호출
                 }
-
-                 */
-
+                root.setOnClickListener {
+                    result(link)
+                }
             }
         }
     }
@@ -126,9 +122,9 @@ class SearchResultRVA (val result: (SearchLinkResult) -> Unit) : ListAdapter<Sea
         view.setImageDrawable(drawable)
     }
 
-    fun setLike(link: Link, view: ImageView) {
+    fun setLike(link: SearchLinkResult, view: ImageView, onLikeChanged: (SearchLinkResult) -> Unit) {
         // 초기 상태 설정
-        if (link.like == 1) {
+        if (link.link.like == 1) {
             view.setImageResource(R.drawable.ic_heart_selected)
         } else {
             view.setImageResource(R.drawable.ic_heart_unselected)
@@ -136,19 +132,16 @@ class SearchResultRVA (val result: (SearchLinkResult) -> Unit) : ListAdapter<Sea
 
         // 클릭 리스너 설정
         view.setOnClickListener {
-            link.like = if (link.like == 1) 0 else 1
-            if (link.like == 1) {
+            link.link.like = if (link.link.like == 1) 0 else 1
+            if (link.link.like == 1) {
                 view.setImageResource(R.drawable.ic_heart_selected)
             } else {
                 view.setImageResource(R.drawable.ic_heart_unselected)
             }
             // 좋아요 상태가 변경되었음을 외부에 알림
-        //    onLikeChanged(link)
+            onLikeChanged(link)
         }
     }
-
-
-
 
     class DiffCallback : DiffUtil.ItemCallback<SearchLinkResult>() {
         override fun areItemsTheSame(oldItem: SearchLinkResult, newItem: SearchLinkResult) =

@@ -133,6 +133,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 setSearchAfter(false)
                 etSearchBar.text.clear()
                 ivSearchBarDelete.visibility = View.INVISIBLE
+                resultRVA.submitList(emptyList())
             }
             // 모든 검색어 삭제
             tvSearchDeleteAll.setOnClickListener {
@@ -309,6 +310,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private val resultRVA by lazy {
         SearchResultRVA{
+            link ->
+            viewModel.updateLikeStatusOnServer(link.link.id)
         }
     }
 

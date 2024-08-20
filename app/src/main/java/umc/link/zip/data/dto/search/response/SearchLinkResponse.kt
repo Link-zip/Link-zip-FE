@@ -14,7 +14,7 @@ data class SearchLinkResponse(
         val zip: ZipResponse
     ) {
         data class LinkResponse(
-            val id: String,
+            val id: Int,
             val title: String,
             val url: String,
             val tag: String,
@@ -34,7 +34,7 @@ data class SearchLinkResponse(
         }
 
         data class ZipResponse(
-            val id: String,
+            val id: Int,
             val title: String,
             val color: String
         ) {

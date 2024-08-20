@@ -11,12 +11,14 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import umc.link.zip.data.dto.list.request.UnreadRequest
+import umc.link.zip.domain.model.link.LinkUpdateLikeModel
 import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.search.KeywordLocalSource
 import umc.link.zip.domain.model.search.SearchKeywordEntity
 import umc.link.zip.domain.model.search.SearchRecent
 import umc.link.zip.domain.model.search.SearchResult
 import umc.link.zip.domain.model.search.toEntity
+import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.domain.repository.SearchRepository
 import umc.link.zip.util.network.NetworkResult
 import umc.link.zip.util.network.UiState
@@ -28,7 +30,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
-    private val keywordLocalSource: KeywordLocalSource
+    private val keywordLocalSource: KeywordLocalSource,
+    private val linkRepository: LinkRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<UiState<SearchResult>>(UiState.Loading)
     val uiState: StateFlow<UiState<SearchResult>> = _uiState.asStateFlow()
@@ -111,6 +114,36 @@ class SearchViewModel @Inject constructor(
             keywordLocalSource.deleteKeywordList()
             _recentKeywords.value = emptyList()  // 리스트를 비웁니다.
             fetchRecentKeywords()
+        }
+    }
+
+    //좋아요
+
+    private val _linkId = MutableStateFlow<UiState<LinkUpdateLikeModel>>(UiState.Loading)
+    val linkId: StateFlow<UiState<LinkUpdateLikeModel>> get() = _linkId
+
+    fun updateLikeStatusOnServer(linkId: Int) {
+        viewModelScope.launch {
+            linkRepository.UpdateLikeLink(linkId).apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        _linkId.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
+                        _linkId.value = UiState.Success(this.data)
+                    }
+                    is NetworkResult.Error -> {
+                        _linkId.value = UiState.Error(this.exception)
+                    }
+                    is NetworkResult.Fail -> {
+                        _linkId.value = UiState.Error(Throwable("Failed to load data"))
+                    }
+                }
+            }.onError {
+                _linkId.value = UiState.Error(it)
+            }.onException {
+                _linkId.value = UiState.Error(it)
+            }.onFail {
+                _linkId.value = UiState.Error(Throwable("Failed to load data"))
+            }
         }
     }
 }

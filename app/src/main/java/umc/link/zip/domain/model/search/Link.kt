@@ -1,7 +1,7 @@
 package umc.link.zip.domain.model.search
 
 data class Link(
-    val id: String,
+    val id: Int,
     var title: String,
     var url: String,
     var tag: String,
