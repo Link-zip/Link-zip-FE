@@ -182,7 +182,7 @@
             android:label="CreateFragment">
             <action
                 android:id="@+id/action_createFragment_to_homeFragment"
-                app:destination="@id/homeFragment" />
+                app:destination="@id/homeFragmentTab" />
             <action
                 android:id="@+id/action_createFragment_to_customlinkZipFragment"
                 app:destination="@id/customlinkZipFragment" />
@@ -303,7 +303,7 @@
             android:label="OpenLinkFragment">
             <action
                 android:id="@+id/openLinkFragment_to_homeFragment"
-                app:destination="@id/homeFragment"/>
+                app:destination="@id/homeFragmentTab"/>
             <action
                 android:id="@+id/action_openLinkFragment_to_customLinkCustomFragment"
                 app:destination="@id/customlinkCustomFragment" />
