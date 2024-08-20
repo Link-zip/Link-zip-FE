@@ -2,6 +2,7 @@ package umc.link.zip.presentation.create
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -80,6 +81,10 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         binding.btnCreateSaveText.setOnClickListener {
             val url = binding.etCreateLink.text.toString()
 
+            // URL에 맞는 더미 데이터 가져오기
+            linkAddViewModel.fetchLinkByUrl(url)
+            Log.d("CreateFragment", "입력된 URL: $url")
+
             // 텍스트 요약 API 호출
             linkSummaryViewModel.fetchLinkSummary(linkSummaryRequest = LinkSummaryRequest(url))  // 텍스트 요약 API 호출
 
@@ -92,6 +97,10 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         // 링크 저장
         binding.btnCreateSaveLink.setOnClickListener {
             val url = binding.etCreateLink.text.toString()
+
+            // URL에 맞는 더미 데이터 가져오기
+            linkAddViewModel.fetchLinkByUrl(url)
+            Log.d("CreateFragment", "입력된 URL: $url")
 
             // 제목, 썸네일 API 호출
             linkExtractViewModel.fetchLinkExtract(linkExtractRequest = LinkExtractRequest(url))  // 제목, 썸네일 API 호출

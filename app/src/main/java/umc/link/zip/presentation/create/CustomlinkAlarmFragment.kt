@@ -53,7 +53,8 @@ class CustomlinkAlarmFragment :
                     setAlarm() // 알림이 있는 경우 UI 업데이트
                 }
             }
-        }// 제목, 썸네일 API 받아옴
+        }
+        //썸네일 API 받아옴
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkExtractViewModel.extractResponse.collectLatest { state ->

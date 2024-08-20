@@ -29,6 +29,8 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
     override fun initObserver() {
         repeatOnStarted {
             linkAddViewModel.link.collectLatest { link ->
+                // 제목
+                binding.tvCustomLinkMemoLinkTitle.text = link.title ?: "제목을 추가해주세요."
                 // 메모
                 binding.etCustomLinkMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
             }
@@ -45,8 +47,6 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
 
                         is UiState.Success<*> -> {
                             val data = state.data as LinkExtractModel
-                            // 제목
-                            binding.tvCustomLinkMemoLinkTitle.setText(data.title ?: "제목 없음")
                             // 썸네일
                             val thumbnailUrl = data.thumb
                             if(thumbnailUrl==null){

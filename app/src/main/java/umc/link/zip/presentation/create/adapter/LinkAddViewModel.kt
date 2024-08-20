@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.create.adapter
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,7 +58,7 @@ class LinkAddViewModel @Inject constructor(
     private val _Add_link = MutableStateFlow(
         CreateLink(
             zipId = 0,           // 초기값으로 0 사용
-            title = "",
+            title = "default",
             text = "",
             url = "",
             memo = "",
@@ -71,7 +72,7 @@ class LinkAddViewModel @Inject constructor(
     private val dummyAddLinks = listOf(
         CreateLink(
             zipId = 0,
-            title = "",
+            title = "default",
             text = "",
             url = "",
             memo = "",
@@ -87,6 +88,8 @@ class LinkAddViewModel @Inject constructor(
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
             this.title = title
         }
+
+        Log.d("LinkAddViewModel", "title 업데이트: $title")
     }
 
     // 현재 링크 데이터 중 memo 업데이트
@@ -97,6 +100,8 @@ class LinkAddViewModel @Inject constructor(
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
             this.memo = memo
         }
+
+        Log.d("LinkAddViewModel", "memo 업데이트: $memo")
     }
 
     // 현재 링크 데이터 중 text 업데이트
@@ -107,6 +112,8 @@ class LinkAddViewModel @Inject constructor(
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
             this.text = text
         }
+
+        Log.d("LinkAddViewModel", "text 업데이트: $text")
     }
 
 
@@ -129,6 +136,8 @@ class LinkAddViewModel @Inject constructor(
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
             this.alertDate = updatedAlertDate
         }
+
+        Log.d("LinkAddViewModel", "alertDate 업데이트: $updatedAlertDate")
     }
 
     // 알람 날짜를 초기화 (null로 설정)
@@ -139,25 +148,28 @@ class LinkAddViewModel @Inject constructor(
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
             this.alertDate = null
         }
+
+        Log.d("LinkAddViewModel", "alertDate 초기화")
     }
 
-    /*// URL을 통해 더미 데이터에서 Link 가져오기
+    // URL을 통해 더미 데이터에서 Link 가져오기
     fun fetchLinkByUrl(url: String) {
-        val foundLink = dummyAddLinks.find { it.url == url }
+        val foundLink = dummyAddLinks.find {it.url == url }
+        Log.d("LinkAddViewModel", "입력된 URL: $url")
         if (foundLink != null) {
             _Add_link.value = foundLink
         } else {
             // URL이 목록에 없을 때 기본 값을 설정
             _Add_link.value = CreateLink(
                 zipId = 0,
-                title = "Unknown Title",
-                text = "Unknown Text",
+                title = "default",
+                text = "",
                 url = url,
                 memo = "",
                 alertDate = null
             )
         }
-    }*/
+    }
 
     // EditText의 내용을 감지하는 StateFlow
     private val _linkInput = MutableStateFlow("")

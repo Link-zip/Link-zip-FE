@@ -40,7 +40,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         arguments?.getInt("linkId")
     }
 
-
     private var url: String? = null
     private var isLike: Int? = null
 
