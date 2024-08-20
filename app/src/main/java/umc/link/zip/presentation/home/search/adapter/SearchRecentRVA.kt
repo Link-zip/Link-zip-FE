@@ -9,7 +9,9 @@ import umc.link.zip.databinding.ItemSearchBinding
 import umc.link.zip.domain.model.search.SearchRecent
 
 class SearchRecentRVA (val recent: (Int) -> Unit,
-                       private val onDeleteClick: (SearchRecent) -> Unit) : ListAdapter<SearchRecent, SearchRecentRVA.SearchRecentViewHolder>(DiffCallback()) {
+                       private val onDeleteClick: (SearchRecent) -> Unit,
+                       private val onClicked : (SearchRecent) -> Unit)
+    : ListAdapter<SearchRecent, SearchRecentRVA.SearchRecentViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchRecentViewHolder {
         return SearchRecentViewHolder(
@@ -32,6 +34,9 @@ class SearchRecentRVA (val recent: (Int) -> Unit,
                 tvSearchTitle.text = recent.keyword
                 ivSearchDelete.setOnClickListener {
                     onDeleteClick(recent)
+                }
+                root.setOnClickListener{
+                    onClicked(recent)
                 }
             }
         }

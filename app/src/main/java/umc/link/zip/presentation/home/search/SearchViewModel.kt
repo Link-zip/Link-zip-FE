@@ -97,11 +97,6 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun clearOldKeywords() {
-        viewModelScope.launch {
-            keywordLocalSource.deleteOldKeyword()
-        }
-    }
     fun deleteKeyword(searchRecent: SearchRecent) {
         viewModelScope.launch {
             keywordLocalSource.deleteKeyword(searchRecent.toEntity())

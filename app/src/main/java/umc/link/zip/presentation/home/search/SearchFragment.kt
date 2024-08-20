@@ -19,6 +19,7 @@ import umc.link.zip.domain.model.notice.Notice
 import umc.link.zip.domain.model.search.SearchLinkResult
 import umc.link.zip.domain.model.search.SearchRecent
 import umc.link.zip.domain.model.search.SearchResult
+import umc.link.zip.domain.model.search.toEntity
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.home.search.adapter.SearchRecentRVA
 import umc.link.zip.presentation.home.search.adapter.SearchResultRVA
@@ -59,6 +60,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                                 binding.tvSearchRecentTitle.visibility = View.INVISIBLE
                                 binding.tvSearchDeleteAll.visibility = View.INVISIBLE
                                 binding.rvSearchRecent.visibility = View.INVISIBLE
+                                binding.viewSearchBtn.visibility = View.INVISIBLE
+                                binding.ivSearchBarDelete.visibility = View.INVISIBLE
                             }
                         }
 
@@ -75,6 +78,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                             binding.tvSearchRecentTitle.visibility = View.INVISIBLE
                             binding.tvSearchDeleteAll.visibility = View.INVISIBLE
                             binding.rvSearchRecent.visibility = View.INVISIBLE
+                            binding.viewSearchBtn.visibility = View.INVISIBLE
+                            binding.ivSearchBarDelete.visibility = View.INVISIBLE
                         }
 
                         UiState.Empty -> Log.d("SearchFragment", "isEmpty")
@@ -277,6 +282,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             },
             onDeleteClick = { searchRecent ->
                 viewModel.deleteKeyword(searchRecent) // ViewModel에서 삭제 메서드 호출
+            },
+            onClicked = { searchRecent ->
+                viewModel.getSearchLink(searchRecent.keyword)
+                binding.etSearchBar.setText(searchRecent.keyword)
+                viewModel.addKeyword(searchRecent.keyword)
+                viewModel.deleteKeyword(searchRecent)
             }
         )
     }
