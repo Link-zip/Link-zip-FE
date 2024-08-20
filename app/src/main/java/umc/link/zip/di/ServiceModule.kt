@@ -9,7 +9,7 @@ import umc.link.zip.data.service.ListService
 import umc.link.zip.data.service.AlertService
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.data.service.LoginService
-
+import umc.link.zip.data.service.SearchService
 import umc.link.zip.data.service.TestService
 import umc.link.zip.data.service.ZipService
 import javax.inject.Singleton
@@ -50,10 +50,16 @@ object ServiceModule {
     fun provideLinkService(retrofit: Retrofit): LinkService {
         return retrofit.buildService()
     }
-    
+
     @Provides
     @Singleton
     fun provideAlertService(retrofit: Retrofit): AlertService {
+        return retrofit.buildService()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchService(retrofit: Retrofit): SearchService {
         return retrofit.buildService()
     }
 }
