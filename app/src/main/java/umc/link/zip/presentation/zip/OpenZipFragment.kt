@@ -129,8 +129,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
                         is UiState.Success<*> -> {
                             val data = uiState.data as LinkGetModel
-                            Log.d("OpenZipFragment", "Fetched data size: ${data.link_data}")
                             adapter.submitList(data.link_data)
+                            Log.d("OpenZipFragment", "Fetched data size: ${data.link_data}")
 
                             binding.fragmentOpenzipZipTitle.text = zip_title?.take(5)
                             binding.fragmentOpenzipInsiteTv.text = zip_title
@@ -166,6 +166,11 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
         viewModel.getLinkList(zip_id!!,  userSelectedListselect, userSelectedLineup)
         Log.d("OpenZipFragment", "getApi 호출됨")
+    }
+
+    private fun fetchData() {
+        val zipId = arguments?.getInt("zipId") ?: return
+        viewModel.getLinkList(zipId, "all", "newest")
     }
 
     private fun setLineupOnDialog(selected: String) {
@@ -254,19 +259,14 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     override fun onResume() {
         super.onResume()
-        setLineupDismissDialog(userSelectedLineup)
-        setListDismissDialog(userSelectedListselect)
-        viewModel.getLinkList(zip_id!!,  userSelectedListselect, userSelectedLineup)
+
+        getLinkListApi()
         Log.d("OpenZipFragment","$zip_id")
     }
 
     override fun initView() {
         setupClickListener()
-        setLineupDismissDialog(userSelectedLineup)
-        setListDismissDialog(userSelectedListselect)
-        viewModel.getLinkList(zip_id!!,  userSelectedListselect, userSelectedLineup)
-
-
+        getLinkListApi()
         setupRecyclerView()
 
         val toolbarBackBtn = binding.ivOpenzipToolbarBack

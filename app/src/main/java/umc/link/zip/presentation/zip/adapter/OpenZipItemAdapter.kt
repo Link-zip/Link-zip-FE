@@ -98,43 +98,40 @@ class OpenZipItemAdapter(
             isEditMode: Boolean,
             position: Int
         ) {
-            with(binding) {
-                root.setBackgroundColor(
-                    if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
-                )
-                linkId = linkItem.id
+            binding.root.setBackgroundColor(
+                if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
+            )
+            linkId = linkItem.id
 
-                binding.tvItemLinkLinkName.text = linkItem.title
-                binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
-                binding.tvItemLinkLinkDate.text = linkItem.created_at.take(10).replace("-", ".")
+            binding.tvItemLinkLinkName.text = linkItem.title
+            binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
+            binding.tvItemLinkLinkDate.text = linkItem.created_at.take(10).replace("-", ".")
 
-                if (linkItem.tag == "text") {
-                    binding.ivItemLinkTypeText.visibility = View.VISIBLE
-                    binding.ivItemLinkTypeLink.visibility = View.GONE
-                } else {
-                    binding.ivItemLinkTypeText.visibility = View.GONE
-                    binding.ivItemLinkTypeLink.visibility = View.VISIBLE
+            if (linkItem.tag == "text") {
+                binding.ivItemLinkTypeText.visibility = View.VISIBLE
+                binding.ivItemLinkTypeLink.visibility = View.GONE
+            } else {
+                binding.ivItemLinkTypeText.visibility = View.GONE
+                binding.ivItemLinkTypeLink.visibility = View.VISIBLE
+            }
+
+            // Load main thumbnail image with Glide
+            Glide.with(binding.ivItemLinkImgMain.context)
+                .load(linkItem.thumb)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(binding.ivItemLinkImgMain)
+
+            // Set the like icon based on the likes count
+            binding.ivItemLike.setImageResource(if (linkItem.like > 0) R.drawable.ic_heart_selected else R.drawable.ic_heart_unselected)
+
+            if (isEditMode) {
+                handleEditMode(linkItem, isSelected)
+                binding.ivItemLike.isClickable = false // 편집 모드일 때 좋아요 버튼 클릭 비활성화
+            } else {
+                handleNormalMode(linkItem, position)
+                setLike(linkItem, binding.ivItemLike) { updatedLink ->
+                    onLikeClicked(updatedLink)
                 }
-
-                // Load main thumbnail image with Glide
-                Glide.with(binding.ivItemLinkImgMain.context)
-                    .load(linkItem.thumb)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.ivItemLinkImgMain)
-
-                // Set the like icon based on the likes count
-                binding.ivItemLike.setImageResource(if (linkItem.like > 0) R.drawable.ic_heart_selected else R.drawable.ic_heart_unselected)
-
-                if (isEditMode) {
-                    handleEditMode(linkItem, isSelected)
-                    ivItemLike.isClickable = false // 편집 모드일 때 좋아요 버튼 클릭 비활성화
-                } else {
-                    handleNormalMode(linkItem, position)
-                    setLike(linkItem, binding.ivItemLike) { updatedLink ->
-                        onLikeClicked(updatedLink)
-                    }
-                }
-
             }
 
         }

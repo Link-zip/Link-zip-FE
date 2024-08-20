@@ -35,7 +35,6 @@ class OpenZipViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState<LinkGetModel>>(UiState.Loading)
     val uiState: StateFlow<UiState<LinkGetModel>> = _uiState.asStateFlow()
 
-
     private val _linkId = MutableStateFlow<UiState<LinkUpdateLikeModel>>(UiState.Loading)
     val linkId: StateFlow<UiState<LinkUpdateLikeModel>> get() = _linkId
 
@@ -48,11 +47,9 @@ class OpenZipViewModel @Inject constructor(
                         _uiState.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
                         _uiState.value = UiState.Success(this.data)
                     }
-
                     is NetworkResult.Error -> {
                         _uiState.value = UiState.Error(this.exception)
                     }
-
                     is NetworkResult.Fail -> {
                         _uiState.value = UiState.Error(Throwable("Failed to load data"))
                     }
@@ -66,18 +63,6 @@ class OpenZipViewModel @Inject constructor(
             }
         }
     }
-
-    inner class LinkViewHolder(private val binding: FragmentOpenzipBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(link: LinkGetItemModel) {
-            with(binding) {
-                fragmentOpenzipInsiteTv.text = link.zip_title
-                fragmentOpenzipZipTitle.text = link.zip_title.take(5)
-                setBackgroundBasedOnColor(fragmentOpenzipInsiteIv, link.zip_color)
-            }
-        }
-    }
-
 
     private fun setBackgroundBasedOnColor(imageView: ImageView, color: String) {
         when (color.lowercase()) {
