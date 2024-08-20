@@ -49,13 +49,13 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
             listUnreadLineDialogSharedViewModel.selectedData.collectLatest {
                 data ->
                 when (data) {
-                    "latest" -> {
+                    "recent" -> {
                         selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
                     }
-                    "oldest" -> {
+                    "past" -> {
                         selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
                     }
-                    "ganada" -> {
+                    "dictionary" -> {
                         selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
                     }
                     "visit" -> {
@@ -71,21 +71,21 @@ class ListDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogu
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
-                listUnreadLineDialogSharedViewModel.setSelectedData("latest")
+                listUnreadLineDialogSharedViewModel.setSelectedData("recent")
             }
         }
         binding.clDialogueLineupItem2.setOnClickListener {
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
-                listUnreadLineDialogSharedViewModel.setSelectedData("oldest")
+                listUnreadLineDialogSharedViewModel.setSelectedData("past")
             }
         }
         binding.clDialogueLineupItem3.setOnClickListener {
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
-                listUnreadLineDialogSharedViewModel.setSelectedData("ganada")
+                listUnreadLineDialogSharedViewModel.setSelectedData("dictionary")
             }
         }
         binding.clDialogueLineupItem4.setOnClickListener {
