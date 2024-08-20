@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -12,12 +14,15 @@ import kotlinx.coroutines.launch
 import umc.link.zip.presentation.base.BaseFragment
 
 import umc.link.zip.R
+import umc.link.zip.data.dto.list.request.UnreadRequest
 import umc.link.zip.databinding.FragmentListRvBinding
 import umc.link.zip.domain.model.list.Link
+import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.list.Zip
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment_list_rv) {
@@ -31,16 +36,18 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
 
     private val listTabViewModel : ListTabViewModel by viewModels({requireParentFragment()})
 
-    private var userSelectedLineup = "latest"
-    private var userSelectedListselect = "all"
+    private var userSelectedLineup = "recent"
+    private var userSelectedListselect = ""
     private val listUnreadRVA by lazy {
-        ListUnreadRVA{
+        ListUnreadRVA{ link ->
             /* 링크 페이지 연결
             linkId ->
             val action =
                 ListUnreadFragmentDirections.actionListUnreadFragmentToLinkFragment(linkId)
             navigator.navigate(action)
              */
+            // 좋아요 상태 변경 시 동작
+            viewModel.updateLikeStatusOnServer(link.id.toInt())
         }
     }
 
@@ -89,88 +96,137 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                 }
                 setLineupDismissDialog(userSelectedLineup)
                 //list도 설정해줘야 함
-                userSelectedListselect = "all"
+                userSelectedListselect = ""
                 repeatOnStarted {
                     setListDismissDialog(userSelectedListselect)
                     listUnreadListDialogSharedViewModel.resetDialogDismissed()
                 }
             }
         }
+
+        // StateFlow를 관찰하여 RecyclerView Adapter에 데이터를 전달
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collectLatest { uiState ->
+                    when (uiState) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("ListUnreadFragment", "Loading data")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = uiState.data as UnreadModel
+                            Log.d("ListUnreadFragment", "Fetched data size: ${data.links}")
+                            listUnreadRVA.submitList(data.links)
+                        }
+
+                        is UiState.Error -> {
+                            // 에러 상태 처리
+                            Log.e("ListUnreadFragment", "Error fetching data", uiState.error)
+                        }
+
+                        UiState.Empty -> Log.d("ListUnreadFragment", "isEmpty")
+                    }
+                }
+            }
+        }
+    }
+
+    fun updateLikeStatusOnServer(link: Link){
+
+    }
+
+    private fun fnUnreadRVApi(){
+        val request = UnreadRequest(userSelectedLineup, userSelectedListselect) //sort, filter
+        viewModel.fetchUnreadList(request)
     }
 
     private fun setLineupOnDialog(selected: String) {
         when (selected) {
-            "latest" -> {
+            "recent" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_early_selected))
             }
-            "oldest" -> {
+            "past" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_old_selected))
             }
-            "ganada" -> {
+            "dictionary" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_ganada_selected))
             }
             "visit" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_visit_selected))
             }
         }
+        fnUnreadRVApi()
     }
 
     private fun setLineupDismissDialog(selected: String) {
         when (selected) {
-            "latest" -> {
+            "recent" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_early_unselected))
             }
-            "oldest" -> {
+            "past" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_old_unselected))
             }
-            "ganada" -> {
+            "dictionary" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_ganada_unselected))
             }
             "visit" -> {
                 binding.ivListRvDrawerbtnLineup.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnLineup.context, R.drawable.drawerbtn_lineup_visit_unselected))
             }
         }
+        fnUnreadRVApi()
     }
 
     private fun setListOnDialog(selected: String) {
         when (selected) {
-            "all" -> {
+            "" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_allselect_selected))
             }
-            "link" -> {
+            "onlylink" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_linkselect_selected))
             }
-            "text" -> {
+            "onlytext" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_textlinkselect_selected))
             }
         }
+        fnUnreadRVApi()
     }
 
     private fun setListDismissDialog(selected: String) {
         when (selected) {
-            "all" -> {
+            "" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_allselect_unselected))
             }
-            "link" -> {
+            "onlylink" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_linkselect_unselected))
             }
-            "text" -> {
+            "onlytext" -> {
                 binding.ivListRvDrawerbtnAll.setImageDrawable(ContextCompat.getDrawable(binding.ivListRvDrawerbtnAll.context, R.drawable.drawerbtn_textlinkselect_unselected))
             }
         }
+        fnUnreadRVApi()
     }
 
-
+    // 다시 페이지로 돌아올 때 반영되게.
+    override fun onResume() {
+        super.onResume()
+        setLineupDismissDialog(userSelectedLineup)
+        setListDismissDialog(userSelectedListselect)
+        //api 또 호출
+        fnUnreadRVApi()
+    }
 
     override fun initView() {
         initPostListRVAdapter()
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
         setListDismissDialog(userSelectedListselect)
+        fnUnreadRVApi()
     }
 
     private fun initPostListRVAdapter() {
         binding.rvList.adapter = listUnreadRVA
+        /* 더미데이터
         val zip = Zip("1", "Zip Title", "blue")
         val zip2 = Zip("1", "인사이트", "yellow")
         val list = listOf(
@@ -184,6 +240,7 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
             Link("8", "테스트입니다8", "url", "텍스트", R.drawable.btn_bottomnav_create.toString(), 1, "2024.7.31", zip)
         )
         listUnreadRVA.submitList(list)
+         */
     }
 
     private fun setupClickListener() {
