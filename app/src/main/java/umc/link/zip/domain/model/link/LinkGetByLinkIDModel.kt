@@ -1,13 +1,13 @@
 package umc.link.zip.domain.model.link
 
 data class LinkGetByLinkIDModel(
-    val alert_date: String,
+    val alert_date: String?,
     val created_at: String,
     val id: Int,
     var like: Int,
-    val memo: String,
+    val memo: String?,
     val tag: String,
-    val text: String,
+    val text: String?,
     val thumb: String?,
     val title: String,
     var updated_at: String?,

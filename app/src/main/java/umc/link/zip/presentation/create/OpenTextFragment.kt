@@ -29,13 +29,14 @@ import java.util.Locale
 import java.util.TimeZone
 
 @AndroidEntryPoint
-class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment_open_text){
-    private val createViewModel: CreateViewModel by activityViewModels()
+class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment_open_text) {
+
     private val linkGetByIDViewModel: LinkGetByIDViewModel by activityViewModels()
     private val linkUpdateLikeViewModel: LinkUpdateLikeViewModel by activityViewModels()
     private val linkVisitViewModel: LinkVisitViewModel by activityViewModels()
 
     private var isSuccess: Boolean = false
+    private var popUp: Boolean = false
 
     private val linkId: Int? by lazy {
         arguments?.getInt("linkId")
@@ -46,6 +47,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
 
     override fun initObserver() {
         val linkId = linkId ?: return
+        popUp = false
 
         // GetLink API 호출
         linkGetByIDViewModel.getLinkByLinkID(linkId)
@@ -68,7 +70,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                             url = data.url
 
                             // Zip name
-                            binding.tvOpenTextZipname.text = data.title.ifEmpty { "설정된 제목이 없습니다." }
+                            binding.tvOpenTextZipname.text = data.zip_title.ifEmpty { "설정된 제목이 없습니다." }
                             // Zip img
                             val zipColor = data.zip_color
                             setBackgroundBasedOnColor(binding.ivOpenTextZipimg, zipColor)
@@ -78,16 +80,16 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                             binding.tvOpenTextTitle.text = data.title.ifEmpty { "설정된 제목이 없습니다." }
                             // 썸네일
                             val thumbnailUrl = data.thumb
-                            if(thumbnailUrl==null){
+                            if (thumbnailUrl == null) {
                                 binding.ivOpenTextTopImg.setImageResource(R.drawable.iv_link_thumbnail_default)
-                            }else {
+                            } else {
                                 Glide.with(binding.ivOpenTextTopImg.context)
                                     .load(thumbnailUrl)
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(binding.ivOpenTextTopImg)
                             }
                             // 메모
-                            binding.tvOpenTextMemo.text = data.memo.ifEmpty { "설정된 메모가 없습니다." }
+                            binding.tvOpenTextMemo.text = data.memo?.ifEmpty { "설정된 메모가 없습니다." }
                             // 알림
                             val alertDate = data.alert_date ?: ""
                             binding.tvOpenTextAlarm.text = if (alertDate.isNotEmpty()) {
@@ -102,14 +104,21 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                             } else {
                                 binding.ivOpenTextLike.setImageResource(R.drawable.ic_heart_unselected)
                             }
-                            Log.d("OpenTextFragment", "링크 정보 가져오기 성공")
                             // 텍스트 요약
-                            binding.tvOpenTextSummary.text = data.text.ifEmpty { "텍스트 요약이 없습니다." }
+                            binding.tvOpenTextSummary.text = data.text?.ifEmpty { "텍스트 요약이 없습니다." }
 
+                            Log.d("OpenTextFragment", "링크 정보 가져오기 성공")
+
+                            // Toast 표시
+                            if (!popUp) {
+                                popUp = true
+                                showCustomToast()
+                            }
                         }
 
                         is UiState.Error -> {
-                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "링크 정보 가져오기 실패", Toast.LENGTH_SHORT)
+                                .show()
                             Log.d("OpenTextFragment", "링크 정보 가져오기 실패")
                         }
 
@@ -118,7 +127,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                 }
             }
         }
-// 원본 링크 이동
+        // 원본 링크 이동
         binding.btnOpenTextMove.setOnClickListener {
             isSuccess = false
             // VisitLink API 호출
@@ -185,9 +194,6 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                 linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
             }
         }
-
-        // Toast 표시
-        showCustomToast()
     }
 
     private fun navigateToCustomTextCustom() {
@@ -234,6 +240,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
         }
 
         toast.show()
+
     }
 
     private fun setBackgroundBasedOnColor(imageView: ImageView, color: String) {

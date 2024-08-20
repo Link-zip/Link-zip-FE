@@ -35,7 +35,7 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
                 binding.etCustomLinkMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
             }
         }
-        // 제목, 썸네일 API
+        // 썸네일 API 응답
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkExtractViewModel.extractResponse.collectLatest { state ->

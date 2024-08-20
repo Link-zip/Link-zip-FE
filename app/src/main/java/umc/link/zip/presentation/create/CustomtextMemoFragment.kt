@@ -15,6 +15,7 @@ import umc.link.zip.databinding.FragmentCustomtextMemoBinding
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
@@ -22,17 +23,19 @@ import umc.link.zip.util.network.UiState
 @AndroidEntryPoint
 class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.layout.fragment_customtext_memo){
 
-    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            createViewModel.link.collectLatest { link ->
+            linkAddViewModel.link.collectLatest { link ->
+                // 제목
+                binding.tvCustomTextMemoLinkTitle.text = link.title ?: "제목을 추가해주세요."
                 // 메모
                 binding.etCustomTextMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
             }
         }
-        // 제목, 썸네일 API 받아옴
+        // 썸네일 API 응답
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkExtractViewModel.extractResponse.collectLatest { state ->
@@ -44,8 +47,6 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
 
                         is UiState.Success<*> -> {
                             val data = state.data as LinkExtractModel
-                            // 제목
-                            binding.tvCustomTextMemoLinkTitle.setText(data.title ?: "제목 없음")
                             // 썸네일
                             val thumbnailUrl = data.thumb
                             if(thumbnailUrl==null){
@@ -79,7 +80,7 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
         binding.btnCustomTextMemoComplete.setOnClickListener {
             // 메모 업데이트
             val updatedMemo = binding.etCustomTextMemoAddMemo.text.toString()
-            createViewModel.updateMemo(memo = updatedMemo)
+            linkAddViewModel.updateMemo(memo = updatedMemo)
 
             findNavController().navigateUp()
         }

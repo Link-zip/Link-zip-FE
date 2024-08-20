@@ -24,16 +24,16 @@ import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
-class CustomlinkCustomFragment :
-    BaseFragment<FragmentCustomlinkCustomBinding>(R.layout.fragment_customlink_custom) {
+class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R.layout.fragment_customlink_custom) {
 
     private val linkAddViewModel: LinkAddViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     private var linkId: Int? = null
+    private var getUrl: String? = null
+
     private var setTitle: String? = null
     private var updateTitle: String? = null
-    private var getUrl: String? = null
 
     private var isSuccess: Boolean = false
 
@@ -45,7 +45,7 @@ class CustomlinkCustomFragment :
                     when (state) {
                         is UiState.Loading -> {
                             // 로딩 상태 처리
-                            Log.d("CustomlinkCustomFragment", "Loading data")
+                            Log.d("CustomlinkCustomFragment", "Loading extract data")
                         }
 
                         is UiState.Success<*> -> {
@@ -91,6 +91,23 @@ class CustomlinkCustomFragment :
                     } else {
                         binding.etCustomLinkCustomLinkTitle.setText(updateTitle)
                         Log.d("CustomlinkCustomFragment", "제목 설정: $updateTitle")
+                    }
+                }
+            }
+        }
+        // 제목 설정
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                linkAddViewModel.link.collectLatest { link ->
+                    getUrl = link.url
+                    updateTitle = link.title
+                    Log.d("CustomtextCustomFragment", "updateTitle: $updateTitle")
+                    if (updateTitle == "default"){
+                        binding.etCustomLinkCustomLinkTitle.setText(setTitle)
+                        Log.d("CustomtextCustomFragment", "제목 설정: $setTitle")
+                    } else {
+                        binding.etCustomLinkCustomLinkTitle.setText(updateTitle)
+                        Log.d("CustomtextCustomFragment", "제목 설정: $updateTitle")
                     }
                 }
             }

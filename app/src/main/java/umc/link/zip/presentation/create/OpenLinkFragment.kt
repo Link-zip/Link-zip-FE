@@ -86,7 +86,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                                     .into(binding.ivOpenLinkTopImg)
                             }
                             // 메모
-                            binding.tvOpenLinkMemo.text = data.memo.ifEmpty { "설정된 메모가 없습니다." }
+                            binding.tvOpenLinkMemo.text = data.memo?.ifEmpty { "설정된 메모가 없습니다." }
                             // 알림
                             val alertDate = data.alert_date ?: ""
                             binding.tvOpenLinkAlarm.text = if (alertDate.isNotEmpty()) {

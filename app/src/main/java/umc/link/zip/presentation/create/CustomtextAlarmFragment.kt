@@ -16,6 +16,7 @@ import umc.link.zip.databinding.FragmentCustomtextAlarmBinding
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
@@ -26,13 +27,12 @@ import java.util.Locale
 class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.layout.fragment_customtext_alarm),
     DatePickerDialogueFragment.DatePickerListener, TimePickerDialogueFragment.TimePickerListener {
 
-
-    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            createViewModel.link.collectLatest { link ->
+            linkAddViewModel.link.collectLatest { link ->
                 val alertDate = link.alertDate
 
                 if (alertDate.isNullOrEmpty()) {
@@ -53,7 +53,7 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
                 }
             }
         }
-        // 제목, 썸네일 API 받아옴
+        // 썸네일 API 받아옴
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkExtractViewModel.extractResponse.collectLatest { state ->
@@ -109,7 +109,7 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
                 binding.tvCustomTextAlarmTimeNone.visibility == View.VISIBLE
             ) {
                 repeatOnStarted {
-                    createViewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
+                    linkAddViewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
                 }
                 navigator.navigateUp()
             }
@@ -117,7 +117,7 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
                 when {
                     date.isNotEmpty() && time.isNotEmpty() -> {
                         repeatOnStarted {
-                            createViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+                            linkAddViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
                         }
                         navigator.navigateUp()
                     }
