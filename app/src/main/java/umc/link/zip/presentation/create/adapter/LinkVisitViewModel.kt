@@ -8,8 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import umc.link.zip.data.dto.link.request.LinkExtractRequest
-import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.domain.model.link.LinkVisitModel
 import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.util.network.NetworkResult

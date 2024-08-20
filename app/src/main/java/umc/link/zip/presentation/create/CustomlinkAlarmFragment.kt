@@ -16,6 +16,7 @@ import umc.link.zip.databinding.FragmentCustomlinkAlarmBinding
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
@@ -27,12 +28,12 @@ class CustomlinkAlarmFragment :
     BaseFragment<FragmentCustomlinkAlarmBinding>(R.layout.fragment_customlink_alarm),
     DatePickerDialogueFragment.DatePickerListener, TimePickerDialogueFragment.TimePickerListener {
 
-    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            createViewModel.link.collectLatest { link ->
+            linkAddViewModel.link.collectLatest { link ->
                 val alertDate = link.alertDate
 
                 if (alertDate.isNullOrEmpty()) {
@@ -108,7 +109,7 @@ class CustomlinkAlarmFragment :
                 binding.tvCustomLinkAlarmTimeNone.visibility == View.VISIBLE
             ) {
                 repeatOnStarted {
-                    createViewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
+                    linkAddViewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
                 }
                 navigator.navigateUp()
             }
@@ -116,7 +117,7 @@ class CustomlinkAlarmFragment :
                 when {
                     date.isNotEmpty() && time.isNotEmpty() -> {
                         repeatOnStarted {
-                            createViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+                            linkAddViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
                         }
                         navigator.navigateUp()
                     }

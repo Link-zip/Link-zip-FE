@@ -1,11 +1,8 @@
 package umc.link.zip.presentation.create
 
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -18,16 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenLinkBinding
-import umc.link.zip.domain.model.create.Link
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
 import umc.link.zip.domain.model.link.LinkVisitModel
 import umc.link.zip.presentation.base.BaseFragment
-import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkGetByIDViewModel
 import umc.link.zip.presentation.create.adapter.LinkUpdateLikeViewModel
 import umc.link.zip.presentation.create.adapter.LinkVisitViewModel
 import umc.link.zip.util.extension.repeatOnStarted
-import umc.link.zip.util.extension.setImageResource
 import umc.link.zip.util.network.UiState
 import java.text.SimpleDateFormat
 import java.util.Locale

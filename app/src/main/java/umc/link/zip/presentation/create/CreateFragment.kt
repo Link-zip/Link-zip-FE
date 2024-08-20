@@ -13,6 +13,7 @@ import umc.link.zip.data.dto.link.request.LinkSummaryRequest
 import umc.link.zip.databinding.FragmentCreateBinding
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
@@ -20,13 +21,13 @@ import umc.link.zip.util.extension.repeatOnStarted
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create) {
 
-    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
     private val linkSummaryViewModel: LinkSummaryViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            createViewModel.isSaveButtonVisible.collectLatest { isVisible ->
+            linkAddViewModel.isSaveButtonVisible.collectLatest { isVisible ->
                 binding.btnCreateSaveLink.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.ivCreateLinkOvalBlue.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.tvCreateLinkOvalBlue.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
@@ -38,25 +39,25 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         }
 
         repeatOnStarted {
-            createViewModel.isLinkIconVisible.collectLatest { isVisible ->
+            linkAddViewModel.isLinkIconVisible.collectLatest { isVisible ->
                 binding.ivCreateLink.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
             }
         }
 
         repeatOnStarted {
-            createViewModel.isDeleteIconVisible.collectLatest { isVisible ->
+            linkAddViewModel.isDeleteIconVisible.collectLatest { isVisible ->
                 binding.ivCreateDelete.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
             }
         }
     }
 
     override fun initView() {
-        binding.viewModel = createViewModel
+        binding.viewModel = linkAddViewModel
 
 
         binding.etCreateLink.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                createViewModel.updateLinkInput(s.toString())
+                linkAddViewModel.updateLinkInput(s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -69,7 +70,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
     private fun setOnClickListener(){
         binding.ivCreateToolbarBack.setOnClickListener {
-            createViewModel.clearLinkInput()
+            linkAddViewModel.clearLinkInput()
             binding.etCreateLink.text.clear() // EditText의 내용 초기화
 
             findNavController().navigateUp()
@@ -100,7 +101,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
         // Delete 버튼
         binding.ivCreateDelete.setOnClickListener {
-            createViewModel.clearLinkInput()
+            linkAddViewModel.clearLinkInput()
             binding.etCreateLink.text.clear() // EditText의 내용을 직접 초기화
         }
     }

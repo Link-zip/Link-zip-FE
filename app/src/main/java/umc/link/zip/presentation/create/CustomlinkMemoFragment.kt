@@ -15,6 +15,7 @@ import umc.link.zip.databinding.FragmentCustomlinkMemoBinding
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
@@ -22,12 +23,12 @@ import umc.link.zip.util.network.UiState
 @AndroidEntryPoint
 class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.layout.fragment_customlink_memo){
 
-    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            createViewModel.link.collectLatest { link ->
+            linkAddViewModel.link.collectLatest { link ->
                 // 메모
                 binding.etCustomLinkMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
             }
@@ -79,7 +80,7 @@ class CustomlinkMemoFragment : BaseFragment<FragmentCustomlinkMemoBinding>(R.lay
         binding.btnCustomLinkMemoComplete.setOnClickListener {
             // 메모 업데이트
             val updatedMemo = binding.etCustomLinkMemoAddMemo.text.toString()
-            createViewModel.updateMemo(memo = updatedMemo)
+            linkAddViewModel.updateMemo(memo = updatedMemo)
 
             findNavController().navigateUp()
         }
