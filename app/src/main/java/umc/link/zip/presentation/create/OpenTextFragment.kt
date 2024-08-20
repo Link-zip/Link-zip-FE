@@ -22,6 +22,7 @@ import umc.link.zip.domain.model.link.LinkVisitModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkGetByIDViewModel
+import umc.link.zip.presentation.create.adapter.LinkUpdateLikeViewModel
 import umc.link.zip.presentation.create.adapter.LinkVisitViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
@@ -33,6 +34,7 @@ import java.util.TimeZone
 class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment_open_text){
     private val createViewModel: CreateViewModel by activityViewModels()
     private val linkGetByIDViewModel: LinkGetByIDViewModel by activityViewModels()
+    private val linkUpdateLikeViewModel: LinkUpdateLikeViewModel by activityViewModels()
     private val linkVisitViewModel: LinkVisitViewModel by activityViewModels()
 
     private var isSuccess: Boolean = false
@@ -41,7 +43,8 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
         arguments?.getInt("linkId")
     }
 
-    private var url: String? = null // 전역 변수로 url 선언
+    private var url: String? = null
+    private var isLike: Int? = null
 
     override fun initObserver() {
         val linkId = linkId ?: return
@@ -95,6 +98,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                                 "설정된 알림이 없습니다."
                             }
                             // 좋아요
+                            isLike = data.like
                             if (data.like == 1) {
                                 binding.ivOpenTextLike.setImageResource(R.drawable.ic_heart_selected)
                             } else {
@@ -169,6 +173,19 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
 
         binding.btnOpenTextEdit.setOnClickListener {
             navigateToCustomTextCustom()
+        }
+
+        binding.ivOpenTextLike.setOnClickListener {
+            isLike = if (isLike == 1) 0 else 1
+            if (isLike == 1) {
+                binding.ivOpenTextLike.setImageResource(R.drawable.ic_heart_selected)
+                // UpdateLike API 호출
+                linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
+            } else {
+                binding.ivOpenTextLike.setImageResource(R.drawable.ic_heart_unselected)
+                // UpdateLike API 호출
+                linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
+            }
         }
 
         // Toast 표시

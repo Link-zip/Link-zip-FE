@@ -46,7 +46,9 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         arguments?.getInt("linkId")
     }
 
-    private var url: String? = null // 전역 변수로 url 선언
+
+    private var url: String? = null
+    private var isLike: Int? = null
 
     override fun initObserver() {
         val linkId = linkId ?: return
@@ -100,6 +102,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                                 "설정된 알림이 없습니다."
                             }
                             // 좋아요
+                            isLike = data.like
                             if (data.like == 1) {
                                 binding.ivOpenLinkLike.setImageResource(R.drawable.ic_heart_selected)
                             } else {
@@ -177,6 +180,19 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
             navigateToCustomLinkCustom()
         }
 
+        binding.ivOpenLinkLike.setOnClickListener {
+            isLike = if (isLike == 1) 0 else 1
+            if (isLike == 1) {
+                binding.ivOpenLinkLike.setImageResource(R.drawable.ic_heart_selected)
+                // UpdateLike API 호출
+                linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
+            } else {
+                binding.ivOpenLinkLike.setImageResource(R.drawable.ic_heart_unselected)
+                // UpdateLike API 호출
+                linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
+            }
+        }
+
         // Toast 표시
         showCustomToast()
     }
@@ -239,18 +255,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         }
     }
 
-    /*
-                            binding.ivOpenLinkLike.setOnClickListener {
-                                data.like = if (data.like == 1) 0 else 1
-                                if (data.like == 1) {
-                                    binding.ivOpenLinkLike.setImageResource(R.drawable.ic_heart_selected)
-                                    // UpdateLike API 호출
-                                    linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = data.id)
-                                } else {
-                                    binding.ivOpenLinkLike.setImageResource(R.drawable.ic_heart_unselected)
-                                    // UpdateLike API 호출
-                                    linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = data.id)
-                                }
-                            }*/
+
 
 }
