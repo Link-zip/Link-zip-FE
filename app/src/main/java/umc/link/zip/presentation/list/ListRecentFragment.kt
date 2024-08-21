@@ -2,6 +2,7 @@ package umc.link.zip.presentation.list
 
 import android.content.Context
 import android.util.Log
+import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -20,22 +21,26 @@ import umc.link.zip.databinding.FragmentListRvBinding
 import umc.link.zip.domain.model.list.Link
 import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.list.Zip
+import umc.link.zip.presentation.home.search.SearchFragmentDirections
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
-class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment_list_rv) {
+class ListRecentFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment_list_rv) {
     private val navigator by lazy {
         findNavController()
     }
-    private val viewModel: ListUnreadViewModel by viewModels({requireParentFragment()})
+    private val viewModel: ListRecentViewModel by viewModels({requireParentFragment()})
 
     private val listUnreadLineDialogSharedViewModel: ListUnreadLineDialogSharedViewModel by viewModels()
     private val listUnreadListDialogSharedViewModel: ListUnreadListDialogSharedViewModel by viewModels()
 
     private val listTabViewModel : ListTabViewModel by viewModels({requireParentFragment()})
+
+    private var userSelectedLineup = "recent"
+    private var userSelectedListselect = ""
 
     private lateinit var onItemClickListener: OnItemClickListener
 
@@ -50,9 +55,6 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
         }
     }
 
-
-    private var userSelectedLineup = "recent"
-    private var userSelectedListselect = ""
     private val listUnreadRVA by lazy {
         ListUnreadRVA(
             unreadLink = { link ->
@@ -125,34 +127,31 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                     when (uiState) {
                         is UiState.Loading -> {
                             // 로딩 상태 처리
-                            Log.d("ListUnreadFragment", "Loading data")
+                            Log.d("ListLikeFragment", "Loading data")
                         }
 
                         is UiState.Success<*> -> {
                             val data = uiState.data as UnreadModel
-                            Log.d("ListUnreadFragment", "Fetched data size: ${data.links}")
+                            Log.d("ListLikeFragment", "Fetched data size: ${data.links}")
                             listUnreadRVA.submitList(data.links)
                         }
 
                         is UiState.Error -> {
                             // 에러 상태 처리
-                            Log.e("ListUnreadFragment", "Error fetching data", uiState.error)
+                            Log.e("ListLikeFragment", "Error fetching data", uiState.error)
                         }
 
-                        UiState.Empty -> Log.d("ListUnreadFragment", "isEmpty")
+                        UiState.Empty -> Log.d("ListLikeFragment", "isEmpty")
                     }
                 }
             }
         }
     }
 
-    fun updateLikeStatusOnServer(link: Link){
-
-    }
 
     private fun fnUnreadRVApi(){
         val request = UnreadRequest(userSelectedLineup, userSelectedListselect) //sort, filter
-        viewModel.fetchUnreadList(request)
+        viewModel.fetchRecentList(request)
     }
 
     private fun setLineupOnDialog(selected: String) {

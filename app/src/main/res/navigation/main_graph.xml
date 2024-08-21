@@ -45,16 +45,48 @@
             android:id="@+id/openLinkFragment"
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
             android:label="OpenLinkFragment" />
+        <fragment
+            android:id="@+id/listFragment"
+            android:name="umc.link.zip.presentation.list.ListFragment"
+            android:label="ListFragment"/>
     </navigation>
 
-    <fragment
-        android:id="@+id/listFragment"
-        android:name="umc.link.zip.presentation.list.ListFragment"
-        android:label="ListFragment">
-        <action
-            android:id="@+id/action_listFragment_to_alertFragment"
-            app:destination="@id/alertFragment" />
-    </fragment>
+    <navigation
+        android:id="@+id/listFragmentTab"
+        app:startDestination="@id/listFragment">
+        <fragment
+            android:id="@+id/listFragment"
+            android:name="umc.link.zip.presentation.list.ListFragment"
+            android:label="ListFragment">
+            <action
+                android:id="@+id/action_listFragment_to_alertFragment"
+                app:destination="@id/alertFragment" />
+            <action
+                android:id="@+id/action_listFragment_to_openLinkFragment"
+                app:destination="@id/openLinkFragment" >
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+        </fragment>
+        <fragment
+            android:id="@+id/openLinkFragment"
+            android:name="umc.link.zip.presentation.create.OpenLinkFragment"
+            android:label="OpenLinkFragment"/>
+        <fragment
+            android:id="@+id/listLikeFragment"
+            android:name="umc.link.zip.presentation.list.ListLikeFragment"
+            android:label="ListLikeFragment" />
+        <fragment
+            android:id="@+id/listUnreadFragment"
+            android:name="umc.link.zip.presentation.list.ListUnreadFragment"
+            android:label="ListUnreadFragment" />
+        <fragment
+            android:id="@+id/listRecentFragment"
+            android:name="umc.link.zip.presentation.list.ListRecentFragment"
+            android:label="ListRecentFragment" />
+
+    </navigation>
 
     <navigation
         android:id="@+id/zipFragmentTab"

@@ -7,13 +7,14 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentListBinding
+import umc.link.zip.domain.model.list.Link
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.home.SharedViewModel
 import umc.link.zip.presentation.list.adapter.ListVPA
 import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
-class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
+class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), OnItemClickListener {
 //    private val viewModel: ListViewModel by viewModels()
     private var _listVPA: ListVPA? = null
     private val listVPA get() = _listVPA
@@ -21,6 +22,12 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list) {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val listTabViewModel: ListTabViewModel by viewModels()
+
+    override fun onItemClicked(linkItem: Link) {
+        // openLinkFragment로 네비게이션
+        val action = ListFragmentDirections.actionListFragmentToOpenLinkFragment(linkItem.id.toInt())
+        navigator.navigate(action)
+    }
 
     override fun initObserver() {
         repeatOnStarted {

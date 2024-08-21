@@ -10,7 +10,6 @@ import umc.link.zip.data.service.AlertService
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.data.service.LoginService
 import umc.link.zip.data.service.SearchService
-
 import umc.link.zip.data.service.TestService
 import umc.link.zip.data.service.ZipService
 import javax.inject.Singleton
