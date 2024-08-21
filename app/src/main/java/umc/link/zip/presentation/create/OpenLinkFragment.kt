@@ -196,8 +196,16 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
     }
 
     private fun navigateToCustomLinkCustom() {
-        findNavController().navigate(R.id.action_openLinkFragment_to_customLinkCustomFragment)
-    }
+        linkId?.let { id ->
+            val action =
+                OpenLinkFragmentDirections.actionOpenLinkFragmentToModifyLinkCustomFragment(
+                    id
+                )
+            Log.d("OpenLinkFragment", "linkId: $id 수정하러 이동")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("OpenLinkFragment", "linkId 가져오기 실패")
+        }    }
 
     private fun navigateToWebView() {
         url?.let { url ->
