@@ -5,11 +5,14 @@ import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -95,6 +98,7 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
                             binding.tvMypageProfileNickname.text = data.nickname
                             nowNicknm = data.nickname
                             binding.etMypageProfile.text.clear()
+                            showCustomToast()
                         }
                     }
                 }
@@ -272,6 +276,22 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         binding.viewMypageProfileBtnSave.isClickable = true
         binding.viewMypageProfileBtnSave.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
+    }
+
+    //토스트
+    private fun showCustomToast() {
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "닉네임 변경 완료"
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+
+        toast.show()
     }
 
 }
