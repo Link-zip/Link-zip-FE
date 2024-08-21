@@ -169,6 +169,12 @@
             <action
                 android:id="@+id/action_mypageSettingFragment_to_noticeFragment"
                 app:destination="@id/noticeFragment" />
+            <action
+                android:id="@+id/action_mypageSettingFragment_to_mypageSettingPdfFragment"
+                app:destination="@id/mypageSettingPdfFragment" />
+            <action
+                android:id="@+id/action_mypageSettingFragment_to_mypageSettingPersonalPdfFragment"
+                app:destination="@id/mypageSettingPersonalPdfFragment" />
         </fragment>
 
         <fragment
@@ -178,7 +184,11 @@
             tools:layout="@layout/fragment_notice">
             <action
                 android:id="@+id/action_noticeFragment_to_noticeDetailFragment"
-                app:destination="@id/noticeDetailFragment" />
+                app:destination="@id/noticeDetailFragment" >
+                <argument
+                    android:name="noticeId"
+                    app:argType="integer" />
+            </action>
         </fragment>
 
         <fragment
@@ -201,7 +211,20 @@
             android:id="@+id/mypageWithdrawalFragment"
             android:name="umc.link.zip.presentation.mypage.MypageWithdrawalFragment"
             android:label="MypageWithdrawalFragment"
-            tools:layout="@layout/fragment_mypage_withdrawal" />
+
+            tools:layout="@layout/fragment_mypage_withdrawal"/>
+
+        <fragment
+            android:id="@+id/mypageSettingPdfFragment"
+            android:name="umc.link.zip.presentation.mypage.MypageSettingPdfFragment"
+            android:label="MypageSettingPdfFragment"
+            tools:layout="@layout/fragment_mypage_setting_pdf"/>
+        <fragment
+            android:id="@+id/mypageSettingPersonalPdfFragment"
+            android:name="umc.link.zip.presentation.mypage.MypageSettingPersonalPdfFragment"
+            android:label="MypageSettingPersonalPdfFragment"
+            tools:layout="@layout/fragment_mypage_setting_pdf"/>
+
     </navigation>
 
     <navigation
