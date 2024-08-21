@@ -14,7 +14,7 @@
             android:label="HomeFragment">
             <action
                 android:id="@+id/action_homeFragment_to_listFragment"
-                app:destination="@id/listFragment" />
+                app:destination="@id/homeListFragment" />
             <action
                 android:id="@+id/action_homeFragment_to_alertFragment"
                 app:destination="@id/alertFragment" />
@@ -46,7 +46,7 @@
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
             android:label="OpenLinkFragment" />
         <fragment
-            android:id="@+id/listFragment"
+            android:id="@+id/homeListFragment"
             android:name="umc.link.zip.presentation.list.ListFragment"
             android:label="ListFragment"/>
     </navigation>

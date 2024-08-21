@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.list
 
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -32,28 +33,29 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), 
     override fun initObserver() {
         repeatOnStarted {
             sharedViewModel.getSelectedItem().observe(viewLifecycleOwner) { selectedItem ->
+                Log.d("ListFragment", selectedItem)
                 when (selectedItem) {
                     "recent" -> {
                         repeatOnStarted {
-                            listTabViewModel.setSelectedLineup("latest")
+                            listTabViewModel.setSelectedLineup("recent")
                         }
                         binding.vpList.setCurrentItem(2, false)
                     }
                     "like" -> {
                         repeatOnStarted {
-                            listTabViewModel.setSelectedLineup("latest")
+                            listTabViewModel.setSelectedLineup("recent")
                         }
                         binding.vpList.setCurrentItem(1, false)
                     }
                     "old" -> {
                         repeatOnStarted {
-                            listTabViewModel.setSelectedLineup("oldest")
+                            listTabViewModel.setSelectedLineup("past")
                         }
                         binding.vpList.setCurrentItem(0, false)
                     }
                     "wait" -> {
                         repeatOnStarted {
-                            listTabViewModel.setSelectedLineup("latest")
+                            listTabViewModel.setSelectedLineup("recent")
                         }
                         binding.vpList.setCurrentItem(0, false)
                     }
