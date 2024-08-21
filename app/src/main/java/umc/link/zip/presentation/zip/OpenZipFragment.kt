@@ -75,7 +75,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                                 setNormalMode()
                             }
                         }
-
                         dialogFragment.show(childFragmentManager, "OpenZipMoveDialogFragment")
                     }
                 } else {
@@ -293,7 +292,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     override fun onResume() {
         super.onResume()
-
         getLinkListApi()
         Log.d("OpenZipFragment","$zip_id")
     }
@@ -317,7 +315,16 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                     val deleteDialog = LinkDeleteDialogueFragment.newInstance(selectedIds)
                     deleteDialog.show(childFragmentManager, "ZipDeleteDialogueFragment")
 
-                    getLinkListApi()
+                    // dismissListener 설정
+                    deleteDialog.dismissListener = object : OnDialogDismissListener {
+                        override fun onDialogDismiss() {
+                            Log.d("OpenZipFragment", "dismissEvent 감지됨, getLinkListApi 호출")
+                            getLinkListApi()  // API 호출
+                            showCustomToast2()  // 토스트 표시
+                            setNormalMode()
+                        }
+                    }
+
                 } else {
                     Toast.makeText(context, "삭제할 항목을 선택하세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -473,6 +480,21 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         val layout = inflater.inflate(R.layout.custom_toast, null)
         val tv = layout.findViewById<TextView>(R.id.tvSample)
         tv.text = "링크 이동 완료"
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+        toast.show()
+    }
+
+    private fun showCustomToast2() {
+        Log.d("Toast", "Toast 뜸")
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "링크 삭제 완료"
 
         val toast = Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT

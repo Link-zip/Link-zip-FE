@@ -19,6 +19,7 @@ import umc.link.zip.databinding.FragmentDeletezipBinding
 import umc.link.zip.databinding.FragmentDialogueLineupBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
 import umc.link.zip.presentation.base.BaseDialogFragment
+import umc.link.zip.presentation.zip.OnDialogDismissListener
 import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
@@ -26,6 +27,9 @@ class LinkDeleteDialogueFragment : BaseDialogFragment<FragmentDeletelinkBinding>
 
     private val linkDeleteViewModel: LinkDeleteViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private var selectedLinkIds: List<Int> = emptyList()
+
+    var dismissListener: OnDialogDismissListener? = null
+
 
     companion object {
         private const val ARG_SELECTED_IDS = "selected_ids"
@@ -37,6 +41,11 @@ class LinkDeleteDialogueFragment : BaseDialogFragment<FragmentDeletelinkBinding>
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dismissListener?.onDialogDismiss()  // dismiss 이벤트 발생 시 인터페이스 메서드 호출
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

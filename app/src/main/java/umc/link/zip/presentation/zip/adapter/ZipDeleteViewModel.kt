@@ -31,7 +31,7 @@ class ZipDeleteViewModel @Inject constructor(
                 _deleteResponse.value = response // API 응답 값을 업데이트
                 when (response) {
                     is NetworkResult.Success -> {
-                        Log.d("ZipDeleteViewModel", "API Success: ${response.data?.message}")
+                        Log.d("ZipDeleteViewModel", "API Success: ${response.data.message}")
                     }
                     is NetworkResult.Error -> {
                         Log.e("ZipDeleteViewModel", "API Error : ${response.exception.message}")

@@ -3,7 +3,10 @@ package umc.link.zip.presentation.zip
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -169,6 +172,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
                 when (response) {
                     is NetworkResult.Success -> {
                         Log.d("ZipFragment", "개성공")
+                        showCustomToast()
                         viewModel.getZipList(userSelectedLineup)
                     }
 
@@ -308,5 +312,21 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             val dialogFragment = ZipDialogueLineupFragment()
             dialogFragment.show(childFragmentManager, "ZipDialogueLineupFragment")
         }
+    }
+
+    //토스트
+    private fun showCustomToast() {
+        Log.d("Toast", "Toast 뜸")
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "Zip 삭제 완료"
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+        toast.show()
     }
 }

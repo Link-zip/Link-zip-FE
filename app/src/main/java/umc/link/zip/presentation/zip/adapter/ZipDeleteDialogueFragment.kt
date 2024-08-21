@@ -19,6 +19,7 @@ import umc.link.zip.databinding.FragmentDeletezipBinding
 import umc.link.zip.databinding.FragmentDialogueLineupBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
 import umc.link.zip.presentation.base.BaseDialogFragment
+import umc.link.zip.presentation.zip.OnDialogDismissListener
 import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
@@ -27,6 +28,7 @@ class ZipDeleteDialogueFragment : BaseDialogFragment<FragmentDeletezipBinding>(R
     private val zipDeleteViewModel: ZipDeleteViewModel by viewModels(ownerProducer = { requireParentFragment() })
     private var selectedZipIds: List<Int> = emptyList()
 
+    var dismissListener: OnDialogDismissListener? = null
 
     companion object {
         private const val ARG_SELECTED_IDS = "selected_ids"
@@ -51,6 +53,11 @@ class ZipDeleteDialogueFragment : BaseDialogFragment<FragmentDeletezipBinding>(R
         // 다이얼로그 배경을 투명하게 설정
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+        // 다이얼로그 dismiss 리스너 설정
+        dialog.setOnDismissListener {
+            dismissListener?.onDialogDismiss()
+        }
+
         // 다이얼로그 크기를 wrap_content로 설정하여 중앙에 위치하도록 설정
         dialog.window?.setLayout(
             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -59,6 +66,7 @@ class ZipDeleteDialogueFragment : BaseDialogFragment<FragmentDeletezipBinding>(R
 
         return dialog
     }
+
 
     override fun initObserver() {
         setOnClick()
