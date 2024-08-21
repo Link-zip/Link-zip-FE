@@ -231,7 +231,7 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                             linkId?.let { id ->
                                 val action =
                                     ModifylinkCustomFragmentDirections.actionModifyLinkCustomFragmentToOpenLinkFragment(
-                                        id
+                                        id, true
                                     )
                                 Log.d("ModifylinkCustomFragment", "linkId: $id 로 이동")
                                 findNavController().navigate(action)

@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -39,6 +40,14 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
 
     private val linkId: Int? by lazy {
         arguments?.getInt("linkId")
+    }
+
+    private val add by lazy {
+        arguments?.getBoolean("add")
+    }
+
+    private val edit by lazy {
+        arguments?.getBoolean("edit")
     }
 
     private var url: String? = null
@@ -109,9 +118,11 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                             Log.d("OpenTextFragment", "링크 정보 가져오기 성공")
 
                             // Toast 표시
-                            if (!popUp) {
-                                popUp = true
-                                showCustomToast()
+                            if(add == true){
+                                showCustomToast("링크 저장 완료")
+                            }
+                            if(edit == true){
+                                showCustomToast("링크 수정 완료")
                             }
                         }
 
@@ -232,10 +243,11 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
         }
     }
 
-    private fun showCustomToast() {
+    private fun showCustomToast(text:String) {
         val inflater = LayoutInflater.from(requireActivity())
         val layout = inflater.inflate(R.layout.custom_toast, null)
-
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = text
         val toast = Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT
             view = layout

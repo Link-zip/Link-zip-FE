@@ -38,6 +38,7 @@ class CustomlinkAlarmFragment :
                 if (alertDate.isNullOrEmpty()) {
                     clearAlarm() // 알림이 없는 경우
                 } else {
+                    Log.d("alarm", "있어요")
                     // 알림이 있는 경우, 날짜와 시간을 분리하여 표시
                     val date = alertDate.substringBefore("T")
                     val time = alertDate.substringAfter("T").removeSuffix("Z")
@@ -49,7 +50,8 @@ class CustomlinkAlarmFragment :
                     binding.tvCustomLinkAlarmDate.text = formattedDate
                     binding.tvCustomLinkAlarmTime.text = formattedTime
 
-                    setAlarm() // 알림이 있는 경우 UI 업데이트
+                    setAlarmDate()
+                    setAlarmTime()
                 }
             }
         }
@@ -115,18 +117,18 @@ class CustomlinkAlarmFragment :
             }
             else {
                 when {
-                    date.isNotEmpty() && time.isNotEmpty() -> {
+                    binding.tvCustomLinkAlarmDateNone.visibility == View.GONE && binding.tvCustomLinkAlarmTimeNone.visibility == View.GONE -> {
                         repeatOnStarted {
                             linkAddViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
                         }
                         navigator.navigateUp()
                     }
 
-                    date.isEmpty() && time.isNotEmpty() -> {
+                    binding.tvCustomLinkAlarmDateNone.visibility == View.VISIBLE -> {
                         Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
 
-                    time.isEmpty() && date.isNotEmpty() -> {
+                    binding.tvCustomLinkAlarmTimeNone.visibility == View.VISIBLE -> {
                         Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -152,12 +154,12 @@ class CustomlinkAlarmFragment :
 
     override fun onDatePicked(date: String) {
         binding.tvCustomLinkAlarmDate.text = formatDate(date)
-        setAlarm() // 알람 설정 UI 업데이트
+        setAlarmDate() // 알람 설정 UI 업데이트
     }
 
     override fun onTimePicked(time: String) {
         binding.tvCustomLinkAlarmTime.text = formatTime(time)
-        setAlarm() // 알람 설정 UI 업데이트
+        setAlarmTime() // 알람 설정 UI 업데이트
     }
 
     private fun formatDate(date: String): String {
@@ -198,12 +200,18 @@ class CustomlinkAlarmFragment :
         binding.tvCustomLinkAlarmTime.visibility = View.GONE
         binding.tvCustomLinkAlarmDateNone.visibility = View.VISIBLE
         binding.tvCustomLinkAlarmTimeNone.visibility = View.VISIBLE
+        repeatOnStarted {
+            linkAddViewModel.clearAlertDate()
+        }
     }
 
-    private fun setAlarm() {
+    private fun setAlarmDate() {
         binding.tvCustomLinkAlarmDate.visibility = View.VISIBLE
-        binding.tvCustomLinkAlarmTime.visibility = View.VISIBLE
         binding.tvCustomLinkAlarmDateNone.visibility = View.GONE
+    }
+
+    private fun setAlarmTime() {
+        binding.tvCustomLinkAlarmTime.visibility = View.VISIBLE
         binding.tvCustomLinkAlarmTimeNone.visibility = View.GONE
     }
 

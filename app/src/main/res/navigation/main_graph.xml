@@ -240,6 +240,10 @@
                 <argument
                     android:name="linkId"
                     app:argType="integer" />
+                <argument
+                    android:name="add"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
             </action>
         </fragment>
 
@@ -269,6 +273,10 @@
                 <argument
                     android:name="linkId"
                     app:argType="integer" />
+                <argument
+                    android:name="add"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
             </action>
         </fragment>
 
@@ -353,6 +361,10 @@
                 <argument
                     android:name="linkId"
                     app:argType="integer" />
+                <argument
+                    android:name="edit"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
             </action>
         </fragment>
 
@@ -365,6 +377,11 @@
             android:id="@+id/modifyLinkMemoFragment"
             android:name="umc.link.zip.presentation.create.ModifylinkMemoFragment"
             android:label="ModifyLinkMemoFragment"/>
+
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="umc.link.zip.presentation.home.HomeFragment"
+            android:label="HomeFragment"/>
     </navigation>
 
 </navigation>

@@ -6,13 +6,14 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentPickerDateBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
 import umc.link.zip.presentation.create.adapter.CreateViewModel
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class DatePickerDialogueFragment : BaseBottomSheetDialogFragment<FragmentPickerDateBinding>(R.layout.fragment_picker_date) {
 
-    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -27,7 +28,7 @@ class DatePickerDialogueFragment : BaseBottomSheetDialogFragment<FragmentPickerD
     override fun initObserver() {}
 
     override fun initView() {
-        val initialDate = createViewModel.link.value?.alertDate?.substringBefore("T")
+        val initialDate = linkAddViewModel.link.value?.alertDate?.substringBefore("T")
             ?: SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().time)
 
         val calendar = Calendar.getInstance().apply {
@@ -45,6 +46,7 @@ class DatePickerDialogueFragment : BaseBottomSheetDialogFragment<FragmentPickerD
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val formattedDate = dateFormat.format(selectedDate)
 
+            linkAddViewModel.updateAlertDateOnly(formattedDate)
             datePickerListener?.onDatePicked(formattedDate)
             dismiss()
         }

@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.create
 
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -40,6 +41,8 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
     private var updateSummary: String? = null
 
     private var isSuccess: Boolean = false
+    private var isUpdated: Boolean = true
+
 
     override fun initObserver() {
         // text 요약 API 응답
@@ -103,6 +106,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                 linkAddViewModel.link.collectLatest { link ->
                     getUrl = link.url
                     updateTitle = link.title
+                    isUpdated= false
                     Log.d("CustomtextCustomFragment", "updateTitle: $updateTitle")
                     if (updateTitle == "default"){
                         binding.etCustomTextCustomLinkTitle.setText(setTitle)
@@ -137,7 +141,6 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         binding.etCustomTextCustomLinkTitle.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                linkAddViewModel.updateLinkInput(s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -146,7 +149,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         binding.etCustomTextSummaryText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                linkAddViewModel.updateLinkInput(s.toString())
+                updateSummary = s.toString()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -198,6 +201,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                 // 제목이 비어있지 않으면 ViewModel에 제목 저장하고 이동
                 linkAddViewModel.updateTitle(updateTitle!!)
                 linkAddViewModel.updateText(updateSummary!!)
+                isUpdated = true
                 navigateAction()
             }
         }
@@ -215,7 +219,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         val zipId = 157 // 임시
         updateTitle = linkAddViewModel.link.value.title
         val memoText = linkAddViewModel.link.value.memo
-        val text = linkAddViewModel.link.value.text
+        val text = binding.etCustomTextSummaryText.text.toString()
         val url = linkAddViewModel.link.value.url
         val alertDate = linkAddViewModel.link.value.alertDate.toString()
 
@@ -249,7 +253,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                             linkId?.let { id ->
                                 val action =
                                     CustomtextCustomFragmentDirections.actionCustomtextCustomFragmentToOpenTextFragment(
-                                        id
+                                        id, true
                                     )
                                 Log.d("CustomlinkCustomFragment", "linkId: $id")
                                 findNavController().navigate(action)

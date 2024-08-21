@@ -1,6 +1,8 @@
 package umc.link.zip.presentation.create.adapter
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +20,8 @@ import umc.link.zip.util.network.UiState
 import umc.link.zip.util.network.onError
 import umc.link.zip.util.network.onException
 import umc.link.zip.util.network.onFail
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -130,7 +134,7 @@ class LinkAddViewModel @Inject constructor(
             null
         }
 
-        _Add_link.value = _Add_link.value.copy(alertDate = updatedAlertDate)
+        _Add_link.value.alertDate = updatedAlertDate
 
         // 더미 데이터에서도 업데이트
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
@@ -140,9 +144,55 @@ class LinkAddViewModel @Inject constructor(
         Log.d("LinkAddViewModel", "alertDate 업데이트: $updatedAlertDate")
     }
 
+    // 날짜만 업데이트하는 함수
+    fun updateAlertDateOnly(date: String?) {
+        val existingDateTime = _Add_link.value.alertDate
+        val currentDate = date ?: existingDateTime?.substringBefore("T")
+        val currentTime = existingDateTime?.substringAfter("T")?.removeSuffix("Z") ?: "00:00:00"
+
+        val updatedAlertDate = if (currentDate != null) {
+            "${currentDate}T${currentTime}Z"
+        } else {
+            null
+        }
+
+        _Add_link.value.alertDate = updatedAlertDate
+
+        // 더미 데이터에서도 업데이트
+        dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
+            this.alertDate = updatedAlertDate
+        }
+
+        Log.d("LinkAddViewModel", "alertDate 업데이트 (날짜만): $updatedAlertDate")
+    }
+
+    // 시간만 업데이트하는 함수
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun updateAlertTimeOnly(time: String?) {
+        val existingDateTime = _Add_link.value.alertDate
+        val todayDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE)
+        val currentDate = existingDateTime?.substringBefore("T") ?: todayDate
+        val currentTime = time ?: existingDateTime?.substringAfter("T")?.removeSuffix("Z")
+
+        val updatedAlertDate = if (currentTime != null) {
+            "${currentDate}T${currentTime}Z"
+        } else {
+            null
+        }
+
+        _Add_link.value.alertDate = updatedAlertDate
+
+        // 더미 데이터에서도 업데이트
+        dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
+            this.alertDate = updatedAlertDate
+        }
+
+        Log.d("LinkAddViewModel", "alertDate 업데이트 (시간만): $updatedAlertDate")
+    }
+
     // 알람 날짜를 초기화 (null로 설정)
     fun clearAlertDate() {
-        _Add_link.value = _Add_link.value.copy(alertDate = null)
+        _Add_link.value.alertDate = null
 
         // 더미 데이터에서도 업데이트
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {

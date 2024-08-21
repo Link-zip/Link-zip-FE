@@ -48,7 +48,8 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
                     binding.tvCustomTextAlarmDate.text = formattedDate
                     binding.tvCustomTextAlarmTime.text = formattedTime
 
-                    setAlarm() // 알림이 있는 경우 UI 업데이트
+                    setAlarmDate()
+                    setAlarmTime()// 알림이 있는 경우 UI 업데이트
                 }
             }
         }
@@ -114,18 +115,18 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
             }
             else {
                 when {
-                    date.isNotEmpty() && time.isNotEmpty() -> {
+                    binding.tvCustomTextAlarmDateNone.visibility == View.GONE && binding.tvCustomTextAlarmTimeNone.visibility == View.GONE -> {
                         repeatOnStarted {
                             linkAddViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
                         }
                         navigator.navigateUp()
                     }
 
-                    date.isEmpty() && time.isNotEmpty() -> {
+                    binding.tvCustomTextAlarmDateNone.visibility == View.VISIBLE -> {
                         Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
 
-                    time.isEmpty() && date.isNotEmpty() -> {
+                    binding.tvCustomTextAlarmTimeNone.visibility == View.VISIBLE -> {
                         Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -151,12 +152,12 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
 
     override fun onDatePicked(date: String) {
         binding.tvCustomTextAlarmDate.text = formatDate(date)
-        setAlarm() // 알람 설정 UI 업데이트
+        setAlarmDate() // 알람 설정 UI 업데이트
     }
 
     override fun onTimePicked(time: String) {
         binding.tvCustomTextAlarmTime.text = formatTime(time)
-        setAlarm() // 알람 설정 UI 업데이트
+        setAlarmTime() // 알람 설정 UI 업데이트
     }
 
     private fun formatDate(date: String): String {
@@ -197,12 +198,16 @@ class CustomtextAlarmFragment : BaseFragment<FragmentCustomtextAlarmBinding>(R.l
         binding.tvCustomTextAlarmTime.visibility = View.GONE
         binding.tvCustomTextAlarmDateNone.visibility = View.VISIBLE
         binding.tvCustomTextAlarmTimeNone.visibility = View.VISIBLE
+        linkAddViewModel.clearAlertDate()
     }
 
-    private fun setAlarm() {
+    private fun setAlarmDate() {
         binding.tvCustomTextAlarmDate.visibility = View.VISIBLE
-        binding.tvCustomTextAlarmTime.visibility = View.VISIBLE
         binding.tvCustomTextAlarmDateNone.visibility = View.GONE
+    }
+
+    private fun setAlarmTime() {
+        binding.tvCustomTextAlarmTime.visibility = View.VISIBLE
         binding.tvCustomTextAlarmTimeNone.visibility = View.GONE
     }
 
