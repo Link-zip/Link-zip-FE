@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -81,7 +82,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
 
     fun navigateToListFragment() {
         viewModelScope.launch {
-            _navigateEvent.emit(R.id.listFragment)
+            _navigateEvent.emit(R.id.listFragmentTab)
         } // ListFragment의 메뉴 ID로 설정
     }
 }

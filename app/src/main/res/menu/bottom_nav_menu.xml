@@ -19,7 +19,7 @@
         gom:showAsAction="never"/>
 
     <item
-        android:id="@+id/listFragment"
+        android:id="@+id/listFragmentTab"
         android:icon="@drawable/bottom_nav_selector_list"
         android:title="LIST" />
 

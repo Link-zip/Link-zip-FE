@@ -230,7 +230,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
         }
 
         binding.ivHomeSearch.setOnClickListener {
-
+            navigator.navigate(R.id.action_homeFragment_to_searchFragment)
         }
 
         binding.ivHomeAlarmExist.setOnClickListener {

@@ -67,7 +67,7 @@
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:elevation="8dp"
-            android:text="뉴비"
+            android:text=" "
             android:textAlignment="center"
             android:textAppearance="@style/mypage_nickname"
             android:lineSpacingExtra="6sp"
