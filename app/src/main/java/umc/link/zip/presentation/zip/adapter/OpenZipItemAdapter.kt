@@ -103,55 +103,31 @@ class OpenZipItemAdapter(
             isEditMode: Boolean,
             position: Int
         ) {
-            // Load main thumbnail image with Glide
+            binding.root.setBackgroundColor(
+                if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
+            )
+            linkId = linkItem.id
+
+            binding.tvItemLinkLinkName.text = linkItem.title
+            binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
+            binding.tvItemLinkLinkDate.text = linkItem.created_at.take(10).replace("-", ".")
+
+            if (linkItem.tag == "text") {
+                binding.ivItemLinkTypeText.visibility = View.VISIBLE
+                binding.ivItemLinkTypeLink.visibility = View.GONE
+            } else {
+                binding.ivItemLinkTypeText.visibility = View.GONE
+                binding.ivItemLinkTypeLink.visibility = View.VISIBLE
+            }
+
             Glide.with(binding.ivItemLinkImgMain.context)
                 .load(linkItem.thumb)
                 .error(R.drawable.default_img) // 로드에 실패할 때 기본 이미지 설정
                 .fallback(R.drawable.default_img) // thumb가 null일 때 기본 이미지 설정
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .listener(object: RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        Log.d("OpenZipItemAdapter", "Glide Loading Fail")
-                        return false
-                    }
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.root.setBackgroundColor(
-                            if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
-                        )
-                        linkId = linkItem.id
-
-                        binding.tvItemLinkLinkName.text = linkItem.title
-                        binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
-                        binding.tvItemLinkLinkDate.text = linkItem.created_at.take(10).replace("-", ".")
-
-                        if (linkItem.tag == "text") {
-                            binding.ivItemLinkTypeText.visibility = View.VISIBLE
-                            binding.ivItemLinkTypeLink.visibility = View.GONE
-                        } else {
-                            binding.ivItemLinkTypeText.visibility = View.GONE
-                            binding.ivItemLinkTypeLink.visibility = View.VISIBLE
-                        }
-                        Log.d("OpenZipItemAdapter", "Glide Loading Success")
-                        return false
-                    }
-
-                })
                 .into(binding.ivItemLinkImgMain)
 
-            // Set the like icon based on the likes count
             binding.ivItemLike.setImageResource(if (linkItem.like > 0) R.drawable.ic_heart_selected else R.drawable.ic_heart_unselected)
-
             if (isEditMode) {
                 handleEditMode(linkItem, isSelected)
                 binding.ivItemLike.isClickable = false // 편집 모드일 때 좋아요 버튼 클릭 비활성화
@@ -161,8 +137,8 @@ class OpenZipItemAdapter(
                     onLikeClicked(updatedLink)
                 }
             }
-        }
 
+        }
 
         private fun handleEditMode(linkItem: LinkGetItemModel, isSelected: Boolean) {
             resetUI()
