@@ -10,4 +10,5 @@ import umc.link.zip.util.network.NetworkResult
 interface ListRepository {
     suspend fun getUnreadList(request: UnreadRequest): NetworkResult<UnreadModel>
     suspend fun getLikeList(request: UnreadRequest): NetworkResult<UnreadModel>
+    suspend fun getRecentList(request: UnreadRequest): NetworkResult<UnreadModel>
 }
