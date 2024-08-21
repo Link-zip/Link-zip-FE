@@ -6,9 +6,11 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginTop
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
@@ -48,6 +50,11 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private var isEditMode = false
     private var isAllSelectedMode = false
 
+    val layoutParams = binding.fragmentOpenzipInsiteIv.layoutParams as ViewGroup.MarginLayoutParams
+    val marginInDp = 5
+    val scale = resources.displayMetrics.density
+    val marginInPx = (marginInDp * scale).toInt()
+
     private var userSelectedLineup = "newest"
     private var userSelectedListselect = ""
 
@@ -77,6 +84,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                         }
                         dialogFragment.show(childFragmentManager, "OpenZipMoveDialogFragment")
                     }
+
                 } else {
                     resetAllSelectedMode() // 선택된 아이템이 없을 때 모드 초기화
                 }
@@ -282,11 +290,25 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             return
         }
 
+        if(zip_color == "default"){
+            binding.fragmentOpenzipImageView1.visibility = View.GONE
+
+            layoutParams.topMargin = marginInPx
+            binding.fragmentOpenzipInsiteIv.layoutParams = layoutParams
+        }
+
         // zipId가 정상적인 경우 로직을 계속 수행
-        val action = OpenZipFragmentDirections.actionFragmentOpenZipToFragmentEditZip(zipId)
+        val action = zip_linkCount?.let {
+            OpenZipFragmentDirections.actionFragmentOpenZipToFragmentEditZip(
+                zipId,
+                zip_color.toString(),
+                zip_title.toString(),
+                it.toInt()
+            )
+        }
         binding.fragmentOpenzipImageView1.setOnClickListener {
-            Log.d("OpenZipFragment", "Navigated to FragmentEditZip with zipId: $zipId")
-            findNavController().navigate(action)
+            Log.d("", "Navigated to FragmentEditZip with zipId: $zipId, zipColor : $zip_color")
+            action?.let { it1 -> findNavController().navigate(it1) }
         }
     }
 

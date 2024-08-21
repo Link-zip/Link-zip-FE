@@ -99,7 +99,20 @@
                 app:destination="@id/zipFragment" />
             <action
                 android:id="@+id/action_fragmentEditZip_to_fragmentOpenZip"
-                app:destination="@id/OpenzipFragment" />
+                app:destination="@id/OpenzipFragment" >
+                <argument
+                    android:name="zipId"
+                    app:argType="integer" />
+                <argument
+                    android:name="zipTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="zipColor"
+                    app:argType="string" />
+                <argument
+                    android:name="zipLinkCount"
+                    app:argType="integer" />
+            </action>
         </fragment>
 
         <fragment
@@ -132,6 +145,15 @@
                 app:destination="@id/editZipFragment" >
                 <argument
                     android:name="zipId"
+                    app:argType="integer" />
+                <argument
+                    android:name="zipColor"
+                    app:argType="string" />
+                <argument
+                    android:name="zipTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="zipLinkCount"
                     app:argType="integer" />
             </action>
             <action

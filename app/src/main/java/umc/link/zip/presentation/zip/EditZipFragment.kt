@@ -48,6 +48,17 @@ class EditZipFragment : BaseFragment<FragmentEditzipBinding>(R.layout.fragment_e
         arguments?.getInt("zipId") ?: throw IllegalStateException("zipId is required")
     }
 
+    private val zipColor: String by lazy {
+        arguments?.getString("zipColor") ?: throw IllegalStateException("zipColor is required")
+    }
+
+    private val zipTitle : String by lazy {
+        arguments?.getString("zipTitle") ?: throw IllegalStateException("zipTitle is required")
+    }
+
+    private val zipLinkCount by lazy { arguments?.getInt("zipLinkCount")}
+
+
     override fun initObserver() {
     }
 
@@ -65,7 +76,12 @@ class EditZipFragment : BaseFragment<FragmentEditzipBinding>(R.layout.fragment_e
         val ivProfilesetGrayshadow = binding.ivProfilesetGrayshadow
         val ivProfilesetBlueshadow = binding.ivProfilesetBlueshadow
 
-        selectedColor = "yellow"
+        selectedColor = "lightblue"
+
+        // 기존에 입력된 것들 불러오기
+        binding.zipNameEnterTv.setText(zipTitle)
+        binding.fragmentMakezipZipNameTv.text = zipTitle.take(5)
+
 
         // Set click listeners for each rectangle and store the selected color
         view.findViewById<View>(R.id.rectangle_1)?.setOnClickListener {
@@ -207,10 +223,15 @@ class EditZipFragment : BaseFragment<FragmentEditzipBinding>(R.layout.fragment_e
             }
         })
 
-        val toolbarBackkBtn = binding.ivEditzipToolbarBack
-        toolbarBackkBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentEditZip_to_fragmentOpenZip)
-            Log.d("MakeZipFragment", "Navigated to FragmentOpenZip")
+
+        val action = zipLinkCount?.let {
+            EditZipFragmentDirections.actionFragmentEditZipToFragmentOpenZip(zipId, zipTitle, zipColor,
+                it
+            )
+        }
+        binding.ivEditzipToolbarBack.setOnClickListener {
+            Log.d("", "Navigated to FragmentOpenZip ")
+            action?.let { it1 -> findNavController().navigate(it1) }
         }
 
         // Add item and navigate to FragmentZip on button click
@@ -242,6 +263,20 @@ class EditZipFragment : BaseFragment<FragmentEditzipBinding>(R.layout.fragment_e
         }
 
     }
+
+    private fun setBackgroundBasedOnColor(color: String) {
+        when(color){
+            "yellow" -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_shadow_1)
+            "lightgreen" -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_shadow_2)
+            "green" -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_shadow_3)
+            "lightblue" -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_shadow_4)
+            "blue" -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_shadow_5)
+            "darkpurple" -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_shadow_6)
+            "purple" -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_shadow_7)
+            else -> binding.fragmentMakezipExzipIc.setBackgroundResource(R.drawable.ic_zip_clip_shadow) // default
+        }
+    }
+
 
 }
 
