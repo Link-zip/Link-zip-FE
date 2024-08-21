@@ -38,6 +38,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
 
     override fun getItemCount(): Int = items.size
 
+    //여기부터
     @SuppressLint("NotifyDataSetChanged")
     fun selectAllItems() {
         selectedItems.addAll(items.filter { it.zip_id != 0 }) // 빠른 저장 zip 제외
@@ -62,6 +63,15 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
         }
     }
 
+    //For Delete API
+    fun getSelectedZipIds(): List<Int> {
+        return selectedItems.map { it.zip_id }
+    }
+
+    //여기까지는 수정, 편집을 위한 거라 필요 없으실 겁니당
+    //----------------------------------------------------------------------------------
+
+    //recyclerView에 아이템들을 띄우기 위해서 필요한 부분입니다 => 반희님이 써야함
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newItems: List<ZipGetItemModel>) {
         items = newItems
@@ -73,14 +83,9 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
         Log.d("ZipAdapter", "현재 선택된 아이템들: $selectedItems")
     }
 
-
-    //For Delete API
-    fun getSelectedZipIds(): List<Int> {
-        return selectedItems.map { it.zip_id }
-    }
-
     inner class ZipViewHolder(private val binding: ItemZipBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(zipItem: ZipGetItemModel, isSelected: Boolean, isEditMode: Boolean, position: Int) {
+            //Zip List에 바인딩해 주는 부분입니다. - 반희님이 필요하실 겁니당
             binding.itemTitle1.text = zipItem.title
             setBackgroundBasedOnColor(binding.itemZipFastSaveIv, zipItem.color)
             binding.itemLinkCount.text = zipItem.link_count.toString()+"개"
@@ -153,6 +158,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
                 binding.root.setBackgroundColor(Color.TRANSPARENT)
             }
 
+            //다음 버튼 액션을 여기에 정의하시면 될 것 같아요 - 반희님이 필요하실 겁니당
             val action = ZipFragmentDirections.actionFragmentZipToFragmentOpenZip(zipItem.zip_id, zipItem.title, zipItem.color, zipItem.link_count)
             binding.root.setOnClickListener {
                 // Navigate to detail page or any specific action
@@ -170,6 +176,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
             binding.root.setBackgroundColor(Color.TRANSPARENT)
         }
 
+        //Zip color Binding을 위한 함수입니다 - 반희님이 필요하실 겁니당
         private fun setBackgroundBasedOnColor(imageView: ImageView, color: String) {
             when (color.lowercase()) {
                 "yellow" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_1)

@@ -28,7 +28,7 @@ class OpenZipItemAdapter(
     private val onItemSelected: (LinkGetItemModel, Boolean) -> Unit,
     private val onSelectionCleared: () -> Unit,
     private val onLikeClicked: (LinkGetItemModel) -> Unit,
-    private val onBackgroundChangeRequested: (Boolean) -> Unit  // 배경 변경 요청 콜백
+    private val onBackgroundChangeRequested: (Boolean) -> Unit,  // 배경 변경 요청 콜백
 ) : ListAdapter<LinkGetItemModel, OpenZipItemAdapter.LinkViewHolder>(DiffCallback()) {
 
     private var selectedItems: MutableSet<LinkGetItemModel> = mutableSetOf()
@@ -138,7 +138,6 @@ class OpenZipItemAdapter(
 
         private fun handleEditMode(linkItem: LinkGetItemModel, isSelected: Boolean) {
             resetUI()
-
             binding.root.setBackgroundColor(
                 if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor(
                     "#FBFBFB"
@@ -149,18 +148,20 @@ class OpenZipItemAdapter(
             binding.root.setOnClickListener {
                 if (selectedItems.contains(linkItem)) {
                     selectedItems.remove(linkItem)
+                    onItemSelected(linkItem, false)
                     notifyItemChanged(adapterPosition)
                     Log.d("OpenZipItemAdapter", "deselectedItem : $selectedItems")
 
-                if (selectedItems.isEmpty()) {
-                    onSelectionCleared() // 선택된 아이템이 없을 때 콜백 호출
-                    onBackgroundChangeRequested(false)
-                }
+                    if (selectedItems.isEmpty()) {
+                        onSelectionCleared() // 선택된 아이템이 없을 때 콜백 호출
+                        onBackgroundChangeRequested(false)
+                    }
                 } else {
                     selectedItems.add(linkItem)
+                    onItemSelected(linkItem, true)
                     notifyItemChanged(adapterPosition)
 
-                    if(adapterPosition == 0){
+                    if (adapterPosition == 0) {
                         onBackgroundChangeRequested(true)
                     }
                     Log.d("OpenZipItemAdapter", "selectedItem : $selectedItems")

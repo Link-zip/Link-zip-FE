@@ -55,6 +55,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                 // 선택 상태 변경 시 수행할 작업을 정의
                 if (isSelected) {
                     switchToSelectedMode()
+                    Log.d("OpenZipFragment", "너 실행되니?")
                 } else {
                     resetAllSelectedMode() // 선택된 아이템이 없을 때 모드 초기화
                 }
@@ -71,7 +72,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                 } else {
                     binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg2)
                 }
-
             }
         )
     }
@@ -358,6 +358,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentOpenzipEditIv.setTextColor(Color.parseColor("#000000"))
         binding.cvMypageProfileUserInfoBoxBg.visibility = View.GONE
         binding.clProfilesetFinishBtn2.visibility = View.GONE
+        binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg2)
         adapter.clearSelections()
     }
 
@@ -368,14 +369,15 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
             if (isAllSelectedMode) {
                 setAllSelectedMode()  // 전체 선택 모드 설정
+                binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg3)
                 adapter.logSelectedItems()
             } else {
                 adapter.logdeSelectedItems()
+                binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg2)
                 resetAllSelectedMode()  // 전체 선택 해제 모드 설정
             }
         }
     }
-
 
     private fun setAllSelectedMode() {
         isAllSelectedMode = true
