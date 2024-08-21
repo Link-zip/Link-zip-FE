@@ -15,7 +15,7 @@ class ListTabViewModel @Inject constructor(
     private val _selectedLineup = MutableSharedFlow<String>(replay = 1)  // Replay를 1로 설정해서 마지막 값 유지
     val selectedLineup: SharedFlow<String> get() = _selectedLineup.asSharedFlow()
 
-    suspend fun setSelectedLineup(lineup: String) {
-        _selectedLineup.emit(lineup)
+    fun setSelectedLineup(lineup: String) {
+        _selectedLineup.tryEmit(lineup)
     }
 }

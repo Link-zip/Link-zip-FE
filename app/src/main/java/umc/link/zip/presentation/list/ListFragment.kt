@@ -3,9 +3,12 @@ package umc.link.zip.presentation.list
 import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentListBinding
 import umc.link.zip.domain.model.list.Link
@@ -25,46 +28,47 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), 
     private val listTabViewModel: ListTabViewModel by viewModels()
 
     override fun onItemClicked(linkItem: Link) {
-        // openLinkFragment로 네비게이션
         val action = ListFragmentDirections.actionListFragmentToOpenLinkFragment(linkItem.id.toInt())
-        navigator.navigate(action)
+        // 이전 페이지로 적용되도록 내비게이션 설정
+        navigator.navigate(action, NavOptions.Builder()
+            .setPopUpTo(R.id.listFragment, false)
+            .build())
     }
+
 
     override fun initObserver() {
         repeatOnStarted {
             sharedViewModel.getSelectedItem().observe(viewLifecycleOwner) { selectedItem ->
-                Log.d("ListFragment", selectedItem)
-                when (selectedItem) {
-                    "recent" -> {
-                        repeatOnStarted {
-                            listTabViewModel.setSelectedLineup("recent")
+                if (selectedItem.isNullOrEmpty()) {
+                    // 저장된 탭 인덱스를 복원
+                    sharedViewModel.getSelectedTabIndex().observe(viewLifecycleOwner) { index ->
+                        index?.let {
+                            binding.vpList.setCurrentItem(it, false)
                         }
-                        binding.vpList.setCurrentItem(2, false)
                     }
-                    "like" -> {
-                        repeatOnStarted {
-                            listTabViewModel.setSelectedLineup("recent")
+                } else {
+                    when (selectedItem) {
+                        "recent" -> {
+                            binding.vpList.setCurrentItem(2, false)
                         }
-                        binding.vpList.setCurrentItem(1, false)
-                    }
-                    "old" -> {
-                        repeatOnStarted {
+                        "like" -> {
+                            binding.vpList.setCurrentItem(1, false)
+                        }
+                        "old" -> {
                             listTabViewModel.setSelectedLineup("past")
+                            binding.vpList.setCurrentItem(0, false)
                         }
-                        binding.vpList.setCurrentItem(0, false)
-                    }
-                    "wait" -> {
-                        repeatOnStarted {
+                        "wait" -> {
                             listTabViewModel.setSelectedLineup("recent")
+                            binding.vpList.setCurrentItem(0, false)
                         }
-                        binding.vpList.setCurrentItem(0, false)
                     }
+                    // 이 후 다시 초기화해서 뷰페이저가 변경된 상태를 반영하도록 함
+                    sharedViewModel.selectItem("")
                 }
             }
         }
-
     }
-
     override fun initView() {
         initListVPAdapter()
         setupButtonListeners()
