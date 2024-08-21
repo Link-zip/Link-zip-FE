@@ -39,8 +39,8 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override suspend fun nameCheck(nickname: String): NetworkResult<NameCheckModel> {
-        return handleApi({loginService.nameCheck(nickname)}) {response: NameCheckResponse ->
-            response.toModel()
+        return handleApi({loginService.nameCheck(nickname)}) {response: BaseResponse<NameCheckResponse> ->
+            response.result.toModel()
         }
     }
 
