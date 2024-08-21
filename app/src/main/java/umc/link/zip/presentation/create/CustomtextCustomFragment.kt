@@ -121,7 +121,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                 linkAddViewModel.link.collectLatest { link ->
                     updateSummary = link.text
                     Log.d("CustomtextCustomFragment", "updateSummary: $updateSummary")
-                    if (updateTitle == "default"){
+                    if (updateSummary == "default"){
                         binding.etCustomTextSummaryText.setText(setSummary)
                         Log.d("CustomtextCustomFragment", "텍스트 요약 설정: $setSummary")
                     } else {

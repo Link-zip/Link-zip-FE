@@ -163,7 +163,7 @@ class LinkAddViewModel @Inject constructor(
             _Add_link.value = CreateLink(
                 zipId = 0,
                 title = "default",
-                text = "",
+                text = "default",
                 url = url,
                 memo = "",
                 alertDate = null
