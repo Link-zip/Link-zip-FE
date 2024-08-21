@@ -70,11 +70,12 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
 
     private fun setOnClickListener(){
+        // 업버튼
         binding.ivCreateToolbarBack.setOnClickListener {
             linkAddViewModel.clearLinkInput()
             binding.etCreateLink.text.clear() // EditText의 내용 초기화
 
-            findNavController().navigateUp()
+            navigateToHome()
         }
 
         // 텍스트 요약
@@ -113,6 +114,10 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
             linkAddViewModel.clearLinkInput()
             binding.etCreateLink.text.clear() // EditText의 내용을 직접 초기화
         }
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(R.id.action_createFragment_to_homeFragmentTab)
     }
 
     private fun navigateToLink() {
