@@ -13,7 +13,7 @@ class HomeViewModel : ViewModel() {
 
     fun navigateToListFragment() {
         viewModelScope.launch {
-            _navigateEvent.emit(R.id.listFragment)
+            _navigateEvent.emit(R.id.listFragmentTab)
         } // ListFragment의 메뉴 ID로 설정
     }
 }

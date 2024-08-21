@@ -50,7 +50,6 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
         }
     }
 
-
     private var userSelectedLineup = "recent"
     private var userSelectedListselect = ""
     private val listUnreadRVA by lazy {
@@ -144,10 +143,6 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                 }
             }
         }
-    }
-
-    fun updateLikeStatusOnServer(link: Link){
-
     }
 
     private fun fnUnreadRVApi(){

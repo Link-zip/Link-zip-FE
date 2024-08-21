@@ -195,15 +195,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 ) {
                     viewSearchBtn.visibility=View.VISIBLE
                     ivSearchBarDelete.visibility=View.INVISIBLE
+                    ivSearchBarDeleteAfterSearch.visibility = View.INVISIBLE
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     ivSearchBarDelete.visibility=View.VISIBLE
+                    ivSearchBarDeleteAfterSearch.visibility = View.INVISIBLE
                 }
 
                 override fun afterTextChanged(s: Editable?) {
                     viewSearchBtn.visibility=View.VISIBLE
                     ivSearchBarDelete.visibility=View.VISIBLE
+                    ivSearchBarDeleteAfterSearch.visibility = View.INVISIBLE
                 }
 
             })
