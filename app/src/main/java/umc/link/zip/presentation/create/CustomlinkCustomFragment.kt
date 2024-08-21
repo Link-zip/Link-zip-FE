@@ -184,7 +184,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         val zipId = 158 // 임시
         updateTitle = linkAddViewModel.link.value.title
         val memoText = linkAddViewModel.link.value.memo
-        val text = linkAddViewModel.link.value.text
+        val text: String? = null // text를 null로 지정
         val url = linkAddViewModel.link.value.url
         val alertDate = linkAddViewModel.link.value.alertDate.toString()
 
@@ -193,12 +193,15 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
             zip_id = zipId,
             title = updateTitle!!,
             memo = memoText,
-            text = text,
+            text = text, // 여기서 null 값 전달
             url = url,
             alert_date = alertDate
         )
         linkAddViewModel.addLink(linkAddRequest)
-        Log.d("CustomlinkCustomFragment", "ADD API 호출\nzip_id=${zipId}\ntitle=${updateTitle}\nmemo=${memoText}\ntext=${text}\nurl=${url}\nalert_date=${alertDate}")
+        Log.d(
+            "CustomlinkCustomFragment",
+            "ADD API 호출\nzip_id=${zipId}\ntitle=${updateTitle}\nmemo=${memoText}\ntext=${text}\nurl=${url}\nalert_date=${alertDate}"
+        )
 
         // ADD API 응답 후 이동 (linkId 설정)
         repeatOnStarted {
