@@ -182,7 +182,9 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
                             .show()
                     }
 
-                    null -> Log.d("ZipFragment", "개망")
+                    null -> {
+                        Log.d("ZipFragment", "개망")
+                    }
                 }
             }
         }

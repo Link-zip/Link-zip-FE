@@ -19,7 +19,7 @@ class AuthInterceptor(private val context: Context) : Interceptor {
         // JWT 토큰이 있는 경우, Authorization 헤더 추가
         val authenticatedRequest = if (userId != null) {
             originalRequest.newBuilder()
-                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjk5LCJuaWNrbmFtZSI6InRlc3Rfbmlja25hbWUiLCJrYWthb0lkIjo5OSwiY29ubmVjdGVkQXQiOiIyMDI0LTA3LTE1VDE1OjAwOjAwLjAwMFoiLCJpYXQiOjE3MjQyMzQ3NzIsImV4cCI6MTcyNDIzODM3Mn0.EGwu-F6geAuHztZeIBonAhL0jueyopkfk_-qtVOgfAw")
+                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjk5LCJuaWNrbmFtZSI6InRlc3Rfbmlja25hbWUiLCJrYWthb0lkIjo5OSwiY29ubmVjdGVkQXQiOiIyMDI0LTA3LTE1VDE1OjAwOjAwLjAwMFoiLCJpYXQiOjE3MjQyNTU0OTcsImV4cCI6MTcyNDI1OTA5N30.8aRoeumIijhJNKDNmol5Um_7JJ4c5_M6GBD3_iHUVnI")
                 .build()
         } else {
             originalRequest

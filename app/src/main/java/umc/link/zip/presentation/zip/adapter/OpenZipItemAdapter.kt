@@ -3,6 +3,7 @@ package umc.link.zip.presentation.zip.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import umc.link.zip.R
 import umc.link.zip.databinding.ItemLinkBinding
 import umc.link.zip.databinding.ItemZipBinding
@@ -98,27 +103,50 @@ class OpenZipItemAdapter(
             isEditMode: Boolean,
             position: Int
         ) {
-            binding.root.setBackgroundColor(
-                if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
-            )
-            linkId = linkItem.id
-
-            binding.tvItemLinkLinkName.text = linkItem.title
-            binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
-            binding.tvItemLinkLinkDate.text = linkItem.created_at.take(10).replace("-", ".")
-
-            if (linkItem.tag == "text") {
-                binding.ivItemLinkTypeText.visibility = View.VISIBLE
-                binding.ivItemLinkTypeLink.visibility = View.GONE
-            } else {
-                binding.ivItemLinkTypeText.visibility = View.GONE
-                binding.ivItemLinkTypeLink.visibility = View.VISIBLE
-            }
-
             // Load main thumbnail image with Glide
             Glide.with(binding.ivItemLinkImgMain.context)
                 .load(linkItem.thumb)
+                .error(R.drawable.default_img) // 로드에 실패할 때 기본 이미지 설정
+                .fallback(R.drawable.default_img) // thumb가 null일 때 기본 이미지 설정
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .listener(object: RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        Log.d("OpenZipItemAdapter", "Glide Loading Fail")
+                        return false
+                    }
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.root.setBackgroundColor(
+                            if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
+                        )
+                        linkId = linkItem.id
+
+                        binding.tvItemLinkLinkName.text = linkItem.title
+                        binding.tvItemLinkZipVisitCount.text = "${linkItem.visit} 회"
+                        binding.tvItemLinkLinkDate.text = linkItem.created_at.take(10).replace("-", ".")
+
+                        if (linkItem.tag == "text") {
+                            binding.ivItemLinkTypeText.visibility = View.VISIBLE
+                            binding.ivItemLinkTypeLink.visibility = View.GONE
+                        } else {
+                            binding.ivItemLinkTypeText.visibility = View.GONE
+                            binding.ivItemLinkTypeLink.visibility = View.VISIBLE
+                        }
+                        Log.d("OpenZipItemAdapter", "Glide Loading Success")
+                        return false
+                    }
+
+                })
                 .into(binding.ivItemLinkImgMain)
 
             // Set the like icon based on the likes count
@@ -133,8 +161,8 @@ class OpenZipItemAdapter(
                     onLikeClicked(updatedLink)
                 }
             }
-
         }
+
 
         private fun handleEditMode(linkItem: LinkGetItemModel, isSelected: Boolean) {
             resetUI()

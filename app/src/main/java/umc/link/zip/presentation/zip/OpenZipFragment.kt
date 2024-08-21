@@ -3,7 +3,10 @@ package umc.link.zip.presentation.zip
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -23,6 +26,8 @@ import umc.link.zip.presentation.zip.adapter.OpenZipDialogueListSelectFragment
 import umc.link.zip.presentation.zip.adapter.OpenZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.OpenZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipListDialogSharedViewModel
+import umc.link.zip.presentation.zip.adapter.OpenZipMoveDialogFragment
+import umc.link.zip.presentation.zip.adapter.OpenZipMoveDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
@@ -36,6 +41,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     private val openZipLineDialogSharedViewModel: OpenZipLineDialogSharedViewModel by viewModels()
     private val openZipListDialogSharedViewModel: OpenZipListDialogSharedViewModel by viewModels()
+
+    private val sharedViewModel: OpenZipMoveDialogSharedViewModel by viewModels()
 
     private val viewModel: OpenZipViewModel by viewModels()
     private var isEditMode = false
@@ -56,6 +63,21 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                 if (isSelected) {
                     switchToSelectedMode()
                     Log.d("OpenZipFragment", "너 실행되니?")
+
+                    binding.cvMypageProfileUserInfoBoxBg.setOnSingleClickListener {
+                        val dialogFragment = OpenZipMoveDialogFragment.newInstance(zip_id ?: 0, linkItem.id)
+
+                        dialogFragment.dismissListener = object : OnDialogDismissListener {
+                            override fun onDialogDismiss() {
+                                Log.d("OpenZipFragment", "dismissEvent 감지됨, getLinkListApi 호출")
+                                getLinkListApi()  // API 호출
+                                showCustomToast()  // 토스트 표시
+                                setNormalMode()
+                            }
+                        }
+
+                        dialogFragment.show(childFragmentManager, "OpenZipMoveDialogFragment")
+                    }
                 } else {
                     resetAllSelectedMode() // 선택된 아이템이 없을 때 모드 초기화
                 }
@@ -117,6 +139,23 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             }
         }
 
+        // zip
+        repeatOnStarted {
+            openZipListDialogSharedViewModel.selectedData.collectLatest { data ->
+                userSelectedLineup = data
+                setLineupOnDialog(userSelectedLineup)
+            }
+        }
+
+        repeatOnStarted {
+            openZipListDialogSharedViewModel.dialogDismissed.collectLatest { dismissed ->
+                if (dismissed) {
+                    setLineupDismissDialog(userSelectedLineup)
+                    openZipLineDialogSharedViewModel.resetDialogDismissed()
+                }
+            }
+        }
+
         // StateFlow를 관찰하여 RecyclerView Adapter에 데이터를 전달
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -163,14 +202,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     private fun getLinkListApi(){
         //zip_id, tag, sortOrder
-
         viewModel.getLinkList(zip_id!!,  userSelectedListselect, userSelectedLineup)
         Log.d("OpenZipFragment", "getApi 호출됨")
-    }
-
-    private fun fetchData() {
-        val zipId = arguments?.getInt("zipId") ?: return
-        viewModel.getLinkList(zipId, "all", "newest")
     }
 
     private fun setLineupOnDialog(selected: String) {
@@ -238,6 +271,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         }
         getLinkListApi()
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -430,5 +464,21 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             val dialogFragment = OpenZipDialogueListSelectFragment()
             dialogFragment.show(childFragmentManager, "OpenZipDialogueListSelectFragment")
         }
+    }
+
+    //토스트
+    private fun showCustomToast() {
+        Log.d("Toast", "Toast 뜸")
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "링크 이동 완료"
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+        toast.show()
     }
 }

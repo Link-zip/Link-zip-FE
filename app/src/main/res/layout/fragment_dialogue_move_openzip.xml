@@ -63,6 +63,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_zip_recyclerview"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
             android:layout_height="339dp"
             app:layout_constraintEnd_toEndOf="parent"
