@@ -111,7 +111,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.fragmentOpenzipItemLinkRv.adapter = adapter
     }
 
-        override fun initObserver() {
+    override fun initObserver() {
         // lineup
         repeatOnStarted {
             openZipLineDialogSharedViewModel.selectedData.collectLatest { data ->
@@ -177,20 +177,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                             val data = uiState.data as LinkGetModel
                             adapter.submitList(data.link_data)
                             Log.d("OpenZipFragment", "Fetched data size: ${data.link_data}")
-
-                            binding.fragmentOpenzipZipTitle.text = zip_title?.take(5)
-                            binding.fragmentOpenzipInsiteTv.text = zip_title
-                            binding.fragmentOpenzipLinkCountTv2.text = zip_linkCount.toString()+"개"
-                            binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(zip_color.toString()))
-
-                            if(zip_linkCount == 0){
-                                binding.fragmentOpenzipItemLinkRv.visibility = View.GONE
-                                binding.clListNoneBackgroundCl.visibility = View.VISIBLE
-                            }else
-                            {
-                                binding.fragmentOpenzipItemLinkRv.visibility = View.VISIBLE
-                                binding.clListNoneBackgroundCl.visibility = View.GONE
-                            }
                         }
 
                         is UiState.Error -> {
@@ -283,6 +269,20 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fragmentOpenzipZipTitle.text = zip_title?.take(5)
+        binding.fragmentOpenzipInsiteTv.text = zip_title
+        binding.fragmentOpenzipLinkCountTv2.text = zip_linkCount.toString()+"개"
+        binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(zip_color.toString()))
+
+        if(zip_linkCount == 0){
+            binding.fragmentOpenzipItemLinkRv.visibility = View.GONE
+            binding.clListNoneBackgroundCl.visibility = View.VISIBLE
+        }else
+        {
+            binding.fragmentOpenzipItemLinkRv.visibility = View.VISIBLE
+            binding.clListNoneBackgroundCl.visibility = View.GONE
+        }
+
         // zipId가 null이면 로그 출력 후 안전하게 처리
         val zipId = arguments?.getInt("zipId") ?: run {
             Log.e("OpenZipFragment", "zipId is null, navigating back")
@@ -310,6 +310,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             Log.d("", "Navigated to FragmentEditZip with zipId: $zipId, zipColor : $zip_color")
             action?.let { it1 -> findNavController().navigate(it1) }
         }
+
+
     }
 
     override fun onResume() {

@@ -101,7 +101,7 @@
                 app:destination="@id/alertFragment" />
             <action
                 android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
-                app:destination="@id/OpenzipFragment">
+                app:destination="@id/OpenZipFragment">
                 <argument
                     android:name="zipId"
                     app:argType="integer" />
@@ -136,7 +136,7 @@
             android:label="openZipMoveDialogFragment" >
             <action
                 android:id="@+id/action_openZipMoveDialogFragment_to_fragmentOpenZip"
-                app:destination="@id/OpenzipFragment">
+                app:destination="@id/OpenZipFragment">
                 <argument
                     android:name="zipId"
                     app:argType="integer" />
@@ -161,7 +161,7 @@
                 app:destination="@id/zipFragment" />
             <action
                 android:id="@+id/action_fragmentEditZip_to_fragmentOpenZip"
-                app:destination="@id/OpenzipFragment" >
+                app:destination="@id/OpenZipFragment" >
                 <argument
                     android:name="zipId"
                     app:argType="integer" />
@@ -196,7 +196,7 @@
         </fragment>
 
         <fragment
-            android:id="@+id/OpenzipFragment"
+            android:id="@+id/OpenZipFragment"
             android:name="umc.link.zip.presentation.zip.OpenZipFragment"
             android:label="OpenZipFragment" >
             <action

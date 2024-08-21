@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import umc.link.zip.domain.model.Zip
 import umc.link.zip.domain.model.ZipItem
 import umc.link.zip.domain.model.zip.ZipGetItemModel
 import umc.link.zip.domain.model.zip.ZipGetModel
