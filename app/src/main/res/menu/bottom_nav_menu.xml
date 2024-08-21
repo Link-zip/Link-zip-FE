@@ -3,7 +3,7 @@
     xmlns:gom="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/homeFragmentTab"
         android:icon="@drawable/bottom_nav_selector_home"
         android:title="HOME" />
 
@@ -13,13 +13,13 @@
         android:title="ZIP" />
 
     <item
-        android:id="@+id/createFragment"
+        android:id="@+id/createFragmentTab"
         android:icon="@null"
         android:title=""
         gom:showAsAction="never"/>
 
     <item
-        android:id="@+id/listFragment"
+        android:id="@+id/listFragmentTab"
         android:icon="@drawable/bottom_nav_selector_list"
         android:title="LIST" />
 

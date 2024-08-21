@@ -8,6 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
+import umc.link.zip.data.UserPreferences
 import umc.link.zip.databinding.FragmentMypageBinding
 import umc.link.zip.domain.model.mypage.UserInfoModel
 import umc.link.zip.presentation.SplashActivity
@@ -66,10 +67,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     }
 
     private fun fnLogout(){
+        UserPreferences(requireContext()).deleteUserId()
         val splashIntent = Intent(requireContext(), SplashActivity::class.java)
         splashIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(splashIntent)
         activity?.finish()
-        //토큰 삭제 로직 구현 필요
     }
 }

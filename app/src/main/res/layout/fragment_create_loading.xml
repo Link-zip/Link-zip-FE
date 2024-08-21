@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="umc.link.zip.presentation.create.CreateLoadingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/toolbar_create_loading_mg0"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            app:layout_constraintWidth_percent="0.066667"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- appbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_create_loading"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create_loading_mg0">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view_create_loading_mg1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.066667" />
+
+                <ImageView
+                    android:id="@+id/iv_create_loading_toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="뒤로가기"
+                    android:src="@drawable/ic_appbar_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/view_create_loading_mg1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_create_loading_toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="링크 입력하기"
+                    android:textAppearance="@style/appbar_title"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <!-- 1번째 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_create_loading3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create_loading_mg0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_create_loading1_ic1"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintEnd_toStartOf="@id/view_create_loading1_mg3"
+                app:layout_constraintTop_toTopOf="@id/view_create_loading1_mg3"
+                app:layout_constraintBottom_toBottomOf="@id/view_create_loading1_mg3"/>
+
+            <View
+                android:id="@+id/view_create_loading1_mg3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@id/iv_create_loading1_ic2"
+                app:layout_constraintTop_toTopOf="@id/iv_create_loading1_ic2"
+                app:layout_constraintBottom_toBottomOf="@id/iv_create_loading1_ic2"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.0277"/>
+
+            <ImageView
+                android:id="@+id/iv_create_loading1_ic2"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <View
+                android:id="@+id/view_create_loading1_mg4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@id/iv_create_loading1_ic2"
+                app:layout_constraintTop_toTopOf="@id/iv_create_loading1_ic2"
+                app:layout_constraintBottom_toBottomOf="@id/iv_create_loading1_ic2"
+                app:layout_constraintWidth_percent="0.0277"/>
+
+            <ImageView
+                android:id="@+id/iv_create_loading1_ic3"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintStart_toEndOf="@id/view_create_loading1_mg4"
+                app:layout_constraintTop_toTopOf="@id/view_create_loading1_mg3"
+                app:layout_constraintBottom_toBottomOf="@id/view_create_loading1_mg3"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 2번째 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_create_loading2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create_loading_mg0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/iv_create_loading2_ic1"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintEnd_toStartOf="@id/view_create_loading2_mg3"
+                app:layout_constraintTop_toTopOf="@id/view_create_loading2_mg3"
+                app:layout_constraintBottom_toBottomOf="@id/view_create_loading2_mg3"/>
+
+            <View
+                android:id="@+id/view_create_loading2_mg3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@id/iv_create_loading2_ic2"
+                app:layout_constraintTop_toTopOf="@id/iv_create_loading2_ic2"
+                app:layout_constraintBottom_toBottomOf="@id/iv_create_loading2_ic2"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.0277"/>
+
+            <ImageView
+                android:id="@+id/iv_create_loading2_ic2"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <View
+                android:id="@+id/view_create_loading2_mg4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@id/iv_create_loading2_ic2"
+                app:layout_constraintTop_toTopOf="@id/iv_create_loading2_ic2"
+                app:layout_constraintBottom_toBottomOf="@id/iv_create_loading2_ic2"
+                app:layout_constraintWidth_percent="0.0277"/>
+
+            <ImageView
+                android:id="@+id/iv_create_loading2_ic3"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintStart_toEndOf="@id/view_create_loading2_mg4"
+                app:layout_constraintTop_toTopOf="@id/view_create_loading2_mg3"
+                app:layout_constraintBottom_toBottomOf="@id/view_create_loading2_mg3"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 3번째 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_create_loading1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_create_loading_mg0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/iv_create_loading3_ic1"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintEnd_toStartOf="@id/view_create_loading3_mg3"
+                app:layout_constraintTop_toTopOf="@id/view_create_loading3_mg3"
+                app:layout_constraintBottom_toBottomOf="@id/view_create_loading3_mg3"/>
+
+            <View
+                android:id="@+id/view_create_loading3_mg3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="@id/iv_create_loading3_ic2"
+                app:layout_constraintTop_toTopOf="@id/iv_create_loading3_ic2"
+                app:layout_constraintBottom_toBottomOf="@id/iv_create_loading3_ic2"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.0277"/>
+
+            <ImageView
+                android:id="@+id/iv_create_loading3_ic2"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <View
+                android:id="@+id/view_create_loading3_mg4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@id/iv_create_loading3_ic2"
+                app:layout_constraintTop_toTopOf="@id/iv_create_loading3_ic2"
+                app:layout_constraintBottom_toBottomOf="@id/iv_create_loading3_ic2"
+                app:layout_constraintWidth_percent="0.0277"/>
+
+            <ImageView
+                android:id="@+id/iv_create_loading3_ic3"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/ic_loading"
+                app:layout_constraintStart_toEndOf="@id/view_create_loading3_mg4"
+                app:layout_constraintTop_toTopOf="@id/view_create_loading3_mg3"
+                app:layout_constraintBottom_toBottomOf="@id/view_create_loading3_mg3"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_create_loading_mg5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHeight_percent="0.03"
+            app:layout_constraintTop_toBottomOf="@id/cl_create_loading1"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_customText_custom_linkTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_semibold"
+            android:letterSpacing="-0.03"
+            android:text="요약 중입니다"
+            android:textColor="@color/abled_color"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/view_create_loading_mg5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
