@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.list
 
+import android.content.Context
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -19,6 +20,7 @@ import umc.link.zip.databinding.FragmentListRvBinding
 import umc.link.zip.domain.model.list.Link
 import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.list.Zip
+import umc.link.zip.presentation.home.search.SearchFragmentDirections
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
@@ -38,17 +40,30 @@ class ListLikeFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment_l
 
     private var userSelectedLineup = "recent"
     private var userSelectedListselect = ""
-    private val listUnreadRVA by lazy {
-        ListUnreadRVA{ link ->
-            /* 링크 페이지 연결
-            linkId ->
-            val action =
-                ListUnreadFragmentDirections.actionListUnreadFragmentToLinkFragment(linkId)
-            navigator.navigate(action)
-             */
-            // 좋아요 상태 변경 시 동작
-            viewModel.updateLikeStatusOnServer(link.id.toInt())
+
+    private lateinit var onItemClickListener: OnItemClickListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (parentFragment is OnItemClickListener) {
+            onItemClickListener = parentFragment as OnItemClickListener
+        } else if (context is OnItemClickListener) {
+            onItemClickListener = context
+        } else {
+            throw RuntimeException("$context must implement OnItemClickListener")
         }
+    }
+
+    private val listUnreadRVA by lazy {
+        ListUnreadRVA(
+            unreadLink = { link ->
+                // 좋아요 상태 변경 시 동작
+                viewModel.updateLikeStatusOnServer(link.id.toInt())
+            },
+            onClicked = { link ->
+                onItemClickListener.onItemClicked(link)
+            }
+        )
     }
 
     override fun initObserver() {
