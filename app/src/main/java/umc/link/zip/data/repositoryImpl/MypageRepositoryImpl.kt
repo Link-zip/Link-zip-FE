@@ -3,6 +3,7 @@ package umc.link.zip.data.repositoryImpl
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.mypage.request.CheckNicknmRequest
 import umc.link.zip.data.dto.mypage.response.CheckNicknmResponse
+import umc.link.zip.data.dto.mypage.response.GetNoticeDetailResponse
 import umc.link.zip.data.dto.mypage.response.GetNoticeResponse
 import umc.link.zip.data.dto.mypage.response.UserInfoResponse
 import umc.link.zip.data.dto.request.TestRequest
@@ -30,5 +31,9 @@ class MypageRepositoryImpl @Inject constructor(
     }
     override suspend fun getNotice(): NetworkResult<NoticeList> {
         return handleApi({mypageService.getNotice()}) {response: BaseResponse<GetNoticeResponse> -> response.result.toListModel()}
+    }
+
+    override suspend fun getNoticeDetail(noticeId: Int): NetworkResult<Notice> {
+        return handleApi({mypageService.getNoticeDetail(noticeId)}) {response: BaseResponse<GetNoticeDetailResponse> -> response.result.toModel()}
     }
 }

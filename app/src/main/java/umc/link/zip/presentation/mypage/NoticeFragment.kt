@@ -16,6 +16,7 @@ import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.notice.Notice
 import umc.link.zip.domain.model.notice.NoticeList
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.home.search.SearchFragmentDirections
 import umc.link.zip.presentation.list.ListUnreadViewModel
 import umc.link.zip.presentation.list.adapter.ListUnreadRVA
 import umc.link.zip.presentation.mypage.adapter.NoticeRVA
@@ -29,12 +30,8 @@ class NoticeFragment :BaseFragment<FragmentNoticeBinding> (R.layout.fragment_not
 
     private val noticeRVA by lazy {
         NoticeRVA{
-            /* 링크 페이지 연결
-            linkId ->
-            val action =
-                ListUnreadFragmentDirections.actionListUnreadFragmentToLinkFragment(linkId)
+            int -> val action = NoticeFragmentDirections.actionNoticeFragmentToNoticeDetailFragment(int)
             navigator.navigate(action)
-             */
         }
     }
 

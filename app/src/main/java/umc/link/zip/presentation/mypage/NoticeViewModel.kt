@@ -35,6 +35,9 @@ class NoticeViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UiState<NoticeList>>(UiState.Loading)
     val uiState: StateFlow<UiState<NoticeList>> = _uiState.asStateFlow()
 
+    private val _detail = MutableStateFlow<UiState<Notice>>(UiState.Loading)
+    val detail: StateFlow<UiState<Notice>> = _detail.asStateFlow()
+
 
     fun getNotice() {
         viewModelScope.launch {
@@ -57,6 +60,31 @@ class NoticeViewModel @Inject constructor(
                 _uiState.value = UiState.Error(it)
             }.onFail {
                 _uiState.value = UiState.Error(Throwable("Failed to load data"))
+            }
+        }
+    }
+
+    fun getNoticeDetail(id: Int) {
+        viewModelScope.launch {
+            repository.getNoticeDetail(id).apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        _detail.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
+                        _detail.value = UiState.Success(this.data)
+                    }
+                    is NetworkResult.Error -> {
+                        _detail.value = UiState.Error(this.exception)
+                    }
+                    is NetworkResult.Fail -> {
+                        _detail.value = UiState.Error(Throwable("Failed to load data"))
+                    }
+                }
+            }.onError {
+                _detail.value = UiState.Error(it)
+            }.onException {
+                _detail.value = UiState.Error(it)
+            }.onFail {
+                _detail.value = UiState.Error(Throwable("Failed to load data"))
             }
         }
     }

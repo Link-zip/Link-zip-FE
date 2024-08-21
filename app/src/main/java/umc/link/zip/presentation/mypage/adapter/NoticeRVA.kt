@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import umc.link.zip.databinding.ItemListBinding
 import umc.link.zip.databinding.ItemNoticeBinding
 import umc.link.zip.domain.model.notice.Notice
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class NoticeRVA (val notice: (Int) -> Unit) : ListAdapter<Notice, NoticeRVA.NoticeViewHolder>(DiffCallback()) {
 
@@ -30,11 +32,30 @@ class NoticeRVA (val notice: (Int) -> Unit) : ListAdapter<Notice, NoticeRVA.Noti
         fun bind(notice: Notice){
             with(binding){
                 tvItemNoticeTitle.text = notice.title
-                tvItemNoticeDate.text = notice.createdAt
+                tvItemNoticeDate.text = modifyDate(notice.createdAt)
                 root.setOnClickListener {
-                    notice(notice.id.toInt())
+                    notice(notice.id)
                 }
             }
+        }
+    }
+
+    private fun modifyDate(data : String) : String{
+        return try {
+            val date = data.substringBefore("T")
+            // 입력 형식: 밀리초와 'Z'를 포함
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+            // 출력 형식
+            val outputFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+
+            // 문자열을 Date 객체로 파싱
+            val parsedDate = inputFormat.parse(date)
+
+            // Date 객체를 문자열로 포맷팅
+            parsedDate?.let { outputFormat.format(it) } ?: "Invalid Date"
+        } catch (e: Exception) {
+            "Invalid Date"
         }
     }
 

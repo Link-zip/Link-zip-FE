@@ -13,4 +13,5 @@ interface MypageRepository {
     suspend fun checkNicknm(request: CheckNicknmRequest): NetworkResult<CheckNicknmModel>
     suspend fun getUserInfo(): NetworkResult<UserInfoModel>
     suspend fun getNotice(): NetworkResult<NoticeList>
+    suspend fun getNoticeDetail(noticeId: Int): NetworkResult<Notice>
 }

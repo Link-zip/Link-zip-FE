@@ -2,10 +2,12 @@ package umc.link.zip.data.service
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.mypage.request.CheckNicknmRequest
 import umc.link.zip.data.dto.mypage.response.CheckNicknmResponse
+import umc.link.zip.data.dto.mypage.response.GetNoticeDetailResponse
 import umc.link.zip.data.dto.mypage.response.GetNoticeResponse
 import umc.link.zip.data.dto.mypage.response.UserInfoResponse
 
@@ -19,5 +21,7 @@ interface MypageService {
     @GET("/notice")
     suspend fun getNotice() : Response<BaseResponse<GetNoticeResponse>>
 
+    @GET("/notice/{notice_id}")
+    suspend fun getNoticeDetail(@Path("notice_id") noticeId: Int) : Response<BaseResponse<GetNoticeDetailResponse>>
 
 }
