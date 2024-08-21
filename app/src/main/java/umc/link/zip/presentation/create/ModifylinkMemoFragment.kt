@@ -1,7 +1,6 @@
 package umc.link.zip.presentation.create
 
 import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
@@ -12,12 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkMemoBinding
-import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
 import umc.link.zip.presentation.base.BaseFragment
-import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkAddViewModel
-import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkGetByIDViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState

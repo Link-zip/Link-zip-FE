@@ -14,7 +14,6 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkMemoBinding
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
-import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted

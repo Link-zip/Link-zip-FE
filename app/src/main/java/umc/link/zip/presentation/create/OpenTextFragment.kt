@@ -18,7 +18,6 @@ import umc.link.zip.databinding.FragmentOpenTextBinding
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
 import umc.link.zip.domain.model.link.LinkVisitModel
 import umc.link.zip.presentation.base.BaseFragment
-import umc.link.zip.presentation.create.adapter.CreateViewModel
 import umc.link.zip.presentation.create.adapter.LinkGetByIDViewModel
 import umc.link.zip.presentation.create.adapter.LinkUpdateLikeViewModel
 import umc.link.zip.presentation.create.adapter.LinkVisitViewModel
