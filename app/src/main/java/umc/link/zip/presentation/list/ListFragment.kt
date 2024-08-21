@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.list
 
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
@@ -68,7 +69,6 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), 
             }
         }
     }
-
     override fun initView() {
         initListVPAdapter()
         setupButtonListeners()

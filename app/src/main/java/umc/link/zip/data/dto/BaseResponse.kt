@@ -7,4 +7,3 @@ data class BaseResponse<T>(
     val message: String,
     val result : T
 )
-
