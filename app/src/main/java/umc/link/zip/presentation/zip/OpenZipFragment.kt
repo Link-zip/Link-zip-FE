@@ -432,6 +432,12 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         isAllSelectedMode = false
         binding.allSelectedBtn.setImageResource(R.drawable.ic_checkunselected_black)
         binding.allSelectedTv.setTextColor(Color.parseColor("#000000"))
+
+        binding.fragmentMakezipMakeBtn.setBackgroundResource(R.drawable.btn_openzip_movezipinact)
+        binding.fragmentMakezipMakeBtn.setTextColor(Color.parseColor("#999999"))
+        binding.fragmentZipMakeBtn2.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
+        binding.ivProfilesetBlueshadow.visibility = View.GONE
+        binding.ivProfilesetGrayshadow.visibility = View.VISIBLE
         adapter.clearSelections()
     }
 
