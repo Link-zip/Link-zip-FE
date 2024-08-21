@@ -77,6 +77,11 @@ class NoticeFragment :BaseFragment<FragmentNoticeBinding> (R.layout.fragment_not
         fnNoticeApi()
     }
 
+    override fun onResume() {
+        super.onResume()
+        fnNoticeApi()
+    }
+
     private fun initNoticeRVAdapter(){
         binding.rvNotice.adapter = noticeRVA
         /*
