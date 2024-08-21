@@ -8,15 +8,10 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import umc.link.zip.R
-import umc.link.zip.data.dto.list.request.UnreadRequest
-import umc.link.zip.data.dto.mypage.request.CheckNicknmRequest
-import umc.link.zip.domain.model.list.UnreadModel
+import umc.link.zip.data.dto.mypage.request.EditNicknmRequest
 import umc.link.zip.domain.model.mypage.CheckNicknmModel
+import umc.link.zip.domain.model.mypage.EditNicknmModel
 import umc.link.zip.domain.model.mypage.UserInfoModel
 import umc.link.zip.domain.repository.MypageRepository
 import umc.link.zip.util.network.NetworkResult
@@ -30,13 +25,16 @@ class MypageProfileViewModel @Inject constructor(
      private val repository: MypageRepository // 후에 api 연결 시 사용
 ) : ViewModel() {
 
-    private val _nicknameState = MutableSharedFlow<UiState<NicknameState>>()
-    val nicknameState: SharedFlow<UiState<NicknameState>> get() = _nicknameState.asSharedFlow()
+    private val _nicknameState = MutableSharedFlow<UiState<CheckNicknmModel>>()
+    val nicknameState: SharedFlow<UiState<CheckNicknmModel>> get() = _nicknameState.asSharedFlow()
 
     private val _userInfoState = MutableSharedFlow<UiState<UserInfoModel>>()
     val userInfoState: SharedFlow<UiState<UserInfoModel>> get() = _userInfoState.asSharedFlow()
 
-    fun checkNickname(nickname: CheckNicknmRequest) {
+    private val _editNicknm = MutableSharedFlow<UiState<EditNicknmModel>>()
+    val editNicknm: SharedFlow<UiState<EditNicknmModel>> get() = _editNicknm.asSharedFlow()
+
+    fun checkNickname(nickname: String) {
         viewModelScope.launch {
             // 먼저 로딩 상태를 발행합니다.
             _nicknameState.emit(UiState.Loading)
@@ -46,14 +44,7 @@ class MypageProfileViewModel @Inject constructor(
                 when (this) {
                     is NetworkResult.Success -> {
                         Log.d("MypageProfileViewModel", "checkNickname called with: $nickname")
-
-                        val result = "ok" // 임시 결과
-                        val newState = if (result == "no") {
-                            NicknameState.Invalid("이미 사용 중인 유저가 있어요!", R.color.disabled_color)
-                        } else {
-                            NicknameState.Valid("환상적인 닉네임이에요!", R.color.abled_color)
-                        }
-                        _nicknameState.emit(UiState.Success(newState))
+                        _nicknameState.emit(UiState.Success(this.data))
                     }
                     is NetworkResult.Error -> {
                         _nicknameState.emit(UiState.Error(this.exception))
@@ -98,6 +89,36 @@ class MypageProfileViewModel @Inject constructor(
                 _userInfoState.emit(UiState.Error(it))
             }.onFail {
                 _userInfoState.emit(UiState.Error(Throwable("Failed to load data")))
+            }
+
+        }
+    }
+
+    fun editNicknm(nickname: EditNicknmRequest) {
+        viewModelScope.launch {
+            // 먼저 로딩 상태를 발행합니다.
+            _editNicknm.emit(UiState.Loading)
+
+            // repository를 통해 닉네임을 확인합니다.
+            repository.editNicknm(nickname).apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        Log.d("MypageProfileViewModel", "editNickname called with: $nickname")
+                        _editNicknm.emit(UiState.Success(this.data))
+                    }
+                    is NetworkResult.Error -> {
+                        _editNicknm.emit(UiState.Error(this.exception))
+                    }
+                    is NetworkResult.Fail -> {
+                        _editNicknm.emit(UiState.Error(Throwable("Failed to load data")))
+                    }
+                }
+            }.onError {
+                _editNicknm.emit(UiState.Error(it))
+            }.onException {
+                _editNicknm.emit(UiState.Error(it))
+            }.onFail {
+                _editNicknm.emit(UiState.Error(Throwable("Failed to load data")))
             }
 
         }

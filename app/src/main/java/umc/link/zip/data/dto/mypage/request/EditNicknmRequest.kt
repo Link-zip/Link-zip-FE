@@ -1,5 +1,5 @@
 package umc.link.zip.data.dto.mypage.request
 
-data class CheckNicknmRequest (
+data class EditNicknmRequest (
     var nickname : String
 )

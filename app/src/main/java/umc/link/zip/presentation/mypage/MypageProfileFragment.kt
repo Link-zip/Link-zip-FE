@@ -1,6 +1,5 @@
 package umc.link.zip.presentation.mypage
 
-import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
 import android.text.TextWatcher
@@ -11,24 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import umc.link.zip.R
-import umc.link.zip.data.dto.list.request.UnreadRequest
-import umc.link.zip.data.dto.mypage.request.CheckNicknmRequest
+import umc.link.zip.data.dto.mypage.request.EditNicknmRequest
 import umc.link.zip.databinding.FragmentMypageProfileBinding
-import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.mypage.CheckNicknmModel
+import umc.link.zip.domain.model.mypage.EditNicknmModel
 import umc.link.zip.domain.model.mypage.UserInfoModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.KeyboardUtil
@@ -41,6 +36,8 @@ import umc.link.zip.util.network.UiState
 class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layout.fragment_mypage_profile) {
     private val viewModel: MypageProfileViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
+
+    var nowNicknm = ""
 
     override fun initObserver() {
         repeatOnStarted {
@@ -78,6 +75,26 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
                         {
                             val data = state.data as UserInfoModel
                             binding.tvMypageProfileNickname.text = data.nickname
+                            nowNicknm = data.nickname
+                        }
+                    }
+                }
+            }
+        }
+        //닉네임 변경
+        repeatOnStarted {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.editNicknm.collect { state ->
+                    when (state) {
+                        UiState.Empty -> Log.d("editNicknm", "No data")
+                        is UiState.Error -> Log.e("editNicknm", "Error fetching data")
+                        UiState.Loading -> Log.d("editNicknm", "Loading data")
+                        is UiState.Success ->
+                        {
+                            val data = state.data as EditNicknmModel
+                            binding.tvMypageProfileNickname.text = data.nickname
+                            nowNicknm = data.nickname
+                            binding.etMypageProfile.text.clear()
                         }
                     }
                 }
@@ -147,9 +164,7 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
                 hideNickNameInfo()
                 if (binding.etMypageProfile.text.isNotEmpty()) {
                     val newNickname = binding.etMypageProfile.text.toString()
-                    var nowNickname = binding.tvMypageProfileNickname.text.toString()
-                    nowNickname = "뉴비" // 예시
-                    if (newNickname == nowNickname) {
+                    if (newNickname == nowNicknm) {
                         setNickNameInfo("기존의 닉네임이에요!", R.color.disabled_color)
                         disableSaveButton()
                         disableCheckDuplicateButton()
@@ -177,32 +192,38 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     }
 
     private fun fnCheckNicknmApi(nicknm:String){
-        val request = CheckNicknmRequest(nicknm)
-        viewModel.checkNickname(request)
+        viewModel.checkNickname(nicknm)
     }
 
     private fun fnGetUserInfoApi(){
         viewModel.getUserInfo()
     }
+    private fun fnEditNicknm(){
+        val newNickname = binding.etMypageProfile.text.toString()
+        Log.d("nickname확인", newNickname)
 
-
+        if (newNickname.isNotEmpty() && nowNicknm != newNickname) {
+            val request = EditNicknmRequest(newNickname)
+            viewModel.editNicknm(request)
+        }
+    }
 
     private fun setupClickListeners() {
         //중복 확인 로직
         binding.viewMypageProfileBtnChkDup.setOnSingleClickListener {
             val newNickname = binding.etMypageProfile.text.toString()
-            var nowNickname = binding.tvMypageProfileNickname.text.toString()
-            nowNickname = "old" // 예시
+            Log.d("nickname입력", newNickname)
 
-            if (newNickname.isNotEmpty() && nowNickname != newNickname) {
+            if (newNickname.isNotEmpty() && nowNicknm != newNickname) {
                 fnCheckNicknmApi(newNickname)
             }
         }
-        // 완료 버튼 로직 추가 필요
+        // 완료 버튼 로직
         binding.viewMypageProfileBtnSave.setOnClickListener{
-
-            //적용 후 불러오기
-            fnGetUserInfoApi()
+            fnEditNicknm()
+        }
+        binding.tvMypageProfileSaveBtn.setOnClickListener{
+            fnEditNicknm()
         }
 
         //회원 탈퇴
@@ -242,11 +263,13 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     }
 
     private fun disableSaveButton() {
+        binding.viewMypageProfileBtnSave.isClickable = false
         binding.viewMypageProfileBtnSave.setBackgroundResource(R.drawable.bg_mypage_profile_btn_save)
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.b005773))
     }
 
     private fun enableSaveButton() {
+        binding.viewMypageProfileBtnSave.isClickable = true
         binding.viewMypageProfileBtnSave.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
     }

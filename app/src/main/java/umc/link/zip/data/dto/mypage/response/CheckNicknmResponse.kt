@@ -4,9 +4,9 @@ import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.mypage.CheckNicknmModel
 
 data class CheckNicknmResponse(
-    var availablity : Boolean
+    var isValid : Boolean
 ) {
     fun toNicknmModel() = CheckNicknmModel(
-        availablity = availablity
+        availablity = isValid
     )
 }
