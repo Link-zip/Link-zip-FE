@@ -202,6 +202,10 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         val text: String? = null // text를 null로 지정
         updateAlert = linkAddViewModel.link.value.alertDate.toString()
 
+        if(updateAlert=="null"){
+            updateAlert=null
+        }
+
         // Modify API 호출
         val linkModifyRequest = LinkModifyRequest(
             title = updateTitle!!,
@@ -209,6 +213,7 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
             text = text, // 여기서 null 값 전달
             alert_date = updateAlert
         )
+        
         linkId?.let { linkModifyViewModel.modifyLink(it, linkModifyRequest) }
         Log.d(
             "ModifylinkCustomFragment",

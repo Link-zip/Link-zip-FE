@@ -215,6 +215,10 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         updateText = linkAddViewModel.link.value.text
         updateAlert = linkAddViewModel.link.value.alertDate.toString()
 
+        if(updateAlert=="null"){
+            updateAlert=null
+        }
+
         // Modify API 호출
         val linkModifyRequest = LinkModifyRequest(
             title = updateTitle!!,

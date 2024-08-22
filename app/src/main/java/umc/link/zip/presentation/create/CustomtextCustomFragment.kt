@@ -136,7 +136,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
             }
         }
     }
-
+    
     override fun initView() {
         setOnClickListener()
     }
@@ -206,16 +206,28 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         val url = linkAddViewModel.link.value.url
         val alertDate = linkAddViewModel.link.value.alertDate.toString()
 
-        // ADD API 호출
-        val linkAddRequest = LinkAddRequest(
-            zip_id = zipId,
-            title = updateTitle!!,
-            memo = memoText,
-            text = updateSummary,
-            url = url,
-            alert_date = alertDate
-        )
-        linkAddViewModel.addLink(linkAddRequest)
+        if(alertDate == "null"){
+            val linkAddRequest = LinkAddRequest(
+                zip_id = zipId,
+                title = updateTitle!!,
+                memo = memoText,
+                text = updateSummary,
+                url = url,
+                alert_date = null
+            )
+            linkAddViewModel.addLink(linkAddRequest)
+        }else {
+            // ADD API 호출
+            val linkAddRequest = LinkAddRequest(
+                zip_id = zipId,
+                title = updateTitle!!,
+                memo = memoText,
+                text = updateSummary,
+                url = url,
+                alert_date = alertDate
+            )
+            linkAddViewModel.addLink(linkAddRequest)
+        }
         Log.d("CustomtextCustomFragment", "ADD API 호출\nzip_id=${zipId}\ntitle=${updateTitle}\nmemo=${memoText}\ntext=${updateSummary}\nurl=${url}\nalert_date=${alertDate}")
 
         // ADD API 응답 후 이동 (linkId 설정)
