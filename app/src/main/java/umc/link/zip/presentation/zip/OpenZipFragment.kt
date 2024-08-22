@@ -13,11 +13,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenzipBinding
 import umc.link.zip.domain.model.link.LinkGetModel
@@ -66,7 +68,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                         dialogFragment.dismissListener = object : OnDialogDismissListener {
                             override fun onDialogDismiss() {
                                 getLinkListApi()
-                                showCustomToast()
                                 setNormalMode()
                             }
                         }
@@ -270,6 +271,17 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // FragmentResultListener를 등록합니다.
+        parentFragmentManager.setFragmentResultListener("requestKey", this) { requestKey, bundle ->
+            if (requestKey == "requestKey") {
+                val result = bundle.getString("bundleKey")
+                if (result == "success") {
+                    // Toast 표시
+                    showCustomToast()
+                }
+            }
+        }
 
         // 레이아웃 파라미터를 설정하는 부분은 여기로 이동
         if (zip_color == "default") {

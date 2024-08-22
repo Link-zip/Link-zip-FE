@@ -3,8 +3,15 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="umc.link.zip.presentation.create.CreateViewModel" />
+            name="createViewModel"
+            type="umc.link.zip.presentation.create.adapter.CreateViewModel" />
+        <variable
+            name="linkSummaryViewModel"
+            type="umc.link.zip.presentation.create.adapter.LinkSummaryViewModel" />
+        <variable
+            name="linkExtractViewModel"
+            type="umc.link.zip.presentation.create.adapter.LinkExtractViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +85,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#F8F8F8"
+            android:background="@color/white"
             app:layout_constraintTop_toTopOf="@id/view_customText_custom_shadow_top"
             app:layout_constraintBottom_toBottomOf="@id/view_customText_custom_shadow_bottom"/>
 

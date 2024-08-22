@@ -13,8 +13,8 @@ import umc.link.zip.data.dto.link.response.LinkGetResponse
 import umc.link.zip.data.dto.link.response.LinkModifyResponse
 import umc.link.zip.data.dto.link.response.LinkSummaryResponse
 import umc.link.zip.data.dto.link.response.LinkUpdateLikeResponse
-import umc.link.zip.data.dto.link.response.VisitLinkResponse
 import umc.link.zip.data.dto.link.response.MoveLinkToNewZipResponse
+import umc.link.zip.data.dto.link.response.VisitLinkResponse
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.domain.model.link.LinkAddModel
 import umc.link.zip.domain.model.link.LinkDeleteModel
