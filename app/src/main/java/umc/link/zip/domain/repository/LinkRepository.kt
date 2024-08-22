@@ -7,7 +7,6 @@ import umc.link.zip.data.dto.link.request.LinkSummaryRequest
 import umc.link.zip.data.dto.link.response.MoveLinkToNewZipResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.data.dto.zip.request.ZipEditRequest
-import umc.link.zip.data.dto.zip.request.ZipRmRequest
 import umc.link.zip.domain.model.link.LinkAddModel
 import umc.link.zip.domain.model.link.LinkDeleteModel
 import umc.link.zip.domain.model.link.LinkExtractModel
@@ -24,7 +23,7 @@ import umc.link.zip.domain.model.zip.ZipRmModel
 import umc.link.zip.util.network.NetworkResult
 
 interface LinkRepository {
-    suspend fun getLinkData(zip_id: Int, tag: String): NetworkResult<LinkGetModel>
+    suspend fun getLinkData(zip_id: Int, tag: String, sortOrder : String): NetworkResult<LinkGetModel>
     suspend fun GetLinkByLinkID(link_id : Int): NetworkResult<LinkGetByLinkIDModel>
     suspend fun MoveLinkToNewZip(link_id : Int, new_zip_id : Int): NetworkResult<MoveLinkToNewZipModel>
     suspend fun ExtractLink(linkExtractRequest: LinkExtractRequest): NetworkResult<LinkExtractModel>

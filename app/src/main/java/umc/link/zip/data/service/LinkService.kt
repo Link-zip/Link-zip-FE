@@ -28,7 +28,8 @@ interface LinkService {
     @GET("link/get_links/{zip_id}")
     suspend fun getLinkData(
         @Path ("zip_id") zip_id : Int,
-        @Query ("tag") tag : String
+        @Query ("tag") tag : String,
+        @Query ("sortOrder") sortOrder : String
     ) : Response<BaseResponse<LinkGetResponse>>
 
     @GET("link/get_links/{link_id}")

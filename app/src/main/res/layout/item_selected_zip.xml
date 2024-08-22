@@ -12,17 +12,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_zip_cl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
 
         <!-- 기존의 item_1 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_1"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="92dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -31,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="24:70"
+                app:layout_constraintDimensionRatio="24:92"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.0666" />
@@ -40,13 +37,14 @@
                 android:id="@+id/item_zip_fast_save_iv"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/ic_zip_clip_shadow"
                 android:scaleType="fitXY"
-                android:src="@{zipItem.color}"
+                android:layout_marginTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="102:105"
+                app:layout_constraintDimensionRatio="102:107"
                 app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg1"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintWidth_percent="0.2" />
 
             <TextView
                 android:id="@+id/item_zip_save_tv"
@@ -55,7 +53,7 @@
                 android:layout_marginTop="13dp"
                 android:gravity="center_horizontal|top"
                 android:lineSpacingExtra="2sp"
-                android:text="@{zipItem.title}"
+                android:text="빠른 저장"
                 android:textAppearance="@style/ziptitlethu_2"
                 app:layout_constraintBottom_toBottomOf="@id/item_zip_fast_save_iv"
                 app:layout_constraintEnd_toEndOf="@id/item_zip_fast_save_iv"
@@ -67,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="16:70"
+                app:layout_constraintDimensionRatio="16:92"
                 app:layout_constraintStart_toEndOf="@id/item_zip_fast_save_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.0444" />
@@ -87,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_semibold"
                     android:letterSpacing="-0.03"
-                    android:text="@{zipItem.title}"
+                    android:text="빠른 저장"
                     android:textColor="@color/black"
                     android:textFontWeight="600"
                     android:textSize="16dp"
@@ -126,12 +124,12 @@
                     android:textFontWeight="400"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/item_subtitle_3"
+                    app:layout_constraintEnd_toStartOf="@id/item_link_count"
                     app:layout_constraintStart_toEndOf="@id/item_subtitle_1"
                     app:layout_constraintTop_toBottomOf="@id/item_title_1" />
 
                 <TextView
-                    android:id="@+id/item_subtitle_3"
+                    android:id="@+id/item_link_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -152,7 +150,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="24:70"
+                app:layout_constraintDimensionRatio="24:92"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.0666" />
