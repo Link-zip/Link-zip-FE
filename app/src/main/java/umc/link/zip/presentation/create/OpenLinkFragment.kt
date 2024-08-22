@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.navigateUp
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
@@ -114,10 +115,10 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                             }
                             Log.d("OpenLinkFragment", "링크 정보 가져오기 성공")
 
-                            if(add == true){
+                            if (add == true) {
                                 showCustomToast("링크 저장 완료")
                             }
-                            if(edit == true){
+                            if (edit == true) {
                                 showCustomToast("링크 수정 완료")
                             }
 
@@ -184,9 +185,16 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
     override fun initView() {
         linkGetByIDViewModel.resetState()
+
+
         binding.ivOpenLinkToolbarBack.setOnClickListener {
-            navigateToHome()
+            if (add == true || edit == true) {
+                navigateToHome()
+            } else {
+                findNavController().navigateUp()
+            }
         }
+
 
         binding.btnOpenLinkEdit.setOnClickListener {
             navigateToCustomLinkCustom()
@@ -252,7 +260,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         }
     }
 
-    private fun showCustomToast(text:String) {
+    private fun showCustomToast(text: String) {
         val inflater = LayoutInflater.from(requireActivity())
         val layout = inflater.inflate(R.layout.custom_toast, null)
         val tv = layout.findViewById<TextView>(R.id.tvSample)
