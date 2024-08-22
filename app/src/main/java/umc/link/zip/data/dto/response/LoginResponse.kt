@@ -16,11 +16,15 @@ data class LoginResponse(
 
     data class TokenResponse (
         val accessToken: String,
-        val accessTokenExpiresIn: String,
+        val accessTokenExpires: String,
+        val refreshToken: String,
+        val refreshTokenExpires: String,
     ) {
         fun toTokenModel() = TokenModel(
             accessToken = this.accessToken,
-            accessTokenExpiresIn = this.accessTokenExpiresIn
+            accessTokenExpires = this.accessTokenExpires,
+            refreshToken = this.refreshToken,
+            refreshTokenExpires = this.refreshTokenExpires
         )
     }
 }
