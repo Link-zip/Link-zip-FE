@@ -16,7 +16,7 @@ import umc.link.zip.domain.model.zip.ZipGetItemModel
 class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit) : RecyclerView.Adapter<CustomtextZipItemAdapter.ZipViewHolder>() {
 
     private var items: List<ZipGetItemModel> = emptyList()
-    private var selectedItems: MutableSet<ZipGetItemModel> = mutableSetOf()
+    private var selectedItem: ZipGetItemModel? = null // 단일 선택을 위한 변수
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ZipViewHolder {
         val binding = ItemSaveZipBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,7 +25,7 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
 
     override fun onBindViewHolder(holder: ZipViewHolder, position: Int) {
         val zipItem = items[position]
-        val isSelected = selectedItems.contains(zipItem)
+        val isSelected = selectedItem == zipItem
         holder.bind(zipItem, isSelected)
     }
 
@@ -37,14 +37,8 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
     }
 
     fun clearSelections() {
-        selectedItems.clear()
+        selectedItem = null
         notifyDataSetChanged()
-    }
-
-    fun updateBackgroundColorOfItems(color: Int) {
-        for (i in items.indices) {
-            notifyItemChanged(i)
-        }
     }
 
     inner class ZipViewHolder(private val binding: ItemSaveZipBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -53,17 +47,19 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
             setBackgroundBasedOnColor(binding.itemImage1, zipItem.color)
 
             // 선택된 항목에 대한 배경색을 변경합니다.
-            binding.root.setBackgroundColor(if (isSelected) Color.LTGRAY else Color.TRANSPARENT)
+            binding.root.setBackgroundColor(if (isSelected) Color.parseColor("F7F8F9") else Color.TRANSPARENT)
 
             binding.root.setOnClickListener {
-                val currentlySelected = selectedItems.contains(zipItem)
-                if (currentlySelected) {
-                    selectedItems.remove(zipItem)
+                // 선택된 항목이 이미 있는 경우 선택을 해제
+                if (selectedItem == zipItem) {
+                    selectedItem = null
+                    onItemSelected(zipItem, false)
                 } else {
-                    selectedItems.add(zipItem)
+                    // 다른 항목이 선택되면 기존 선택을 해제하고 새 항목을 선택
+                    selectedItem = zipItem
+                    onItemSelected(zipItem, true)
                 }
-                notifyItemChanged(adapterPosition)
-                onItemSelected(zipItem, !currentlySelected)
+                notifyDataSetChanged() // 선택 상태 업데이트
             }
         }
 
@@ -81,3 +77,4 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
         }
     }
 }
+

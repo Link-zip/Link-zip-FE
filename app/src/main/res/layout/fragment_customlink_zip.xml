@@ -132,19 +132,22 @@
             android:background="@drawable/shadow_custom_text_up_bg"
             app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_mg6" />
 
+        <!-- 간편 저장하기 버튼 -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_customLink_zip"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="#ffffff"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:background="#ffffff"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_shadow_top"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_save_zip"/>
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_shadow_top"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp"
+            tools:listitem="@layout/item_save_zip" />
 
-        <!-- 간편 저장하기 버튼 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_customLink_zip_easySave_btn"
             android:layout_width="0dp"
