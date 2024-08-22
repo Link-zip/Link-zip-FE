@@ -2,6 +2,7 @@ package umc.link.zip.data.service
 
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.Path
@@ -13,6 +14,7 @@ import umc.link.zip.data.dto.mypage.response.EditNicknmResponse
 import umc.link.zip.data.dto.mypage.response.GetNoticeDetailResponse
 import umc.link.zip.data.dto.mypage.response.GetNoticeResponse
 import umc.link.zip.data.dto.mypage.response.UserInfoResponse
+import umc.link.zip.data.dto.mypage.response.WithdrawalResponse
 
 interface MypageService {
     @GET("/user")
@@ -29,4 +31,7 @@ interface MypageService {
 
     @PATCH("/user")
     suspend fun editNickname(@Body request: EditNicknmRequest) : Response<BaseResponse<EditNicknmResponse>>
+
+    @DELETE("/user/delete")
+    suspend fun deleteUser() : Response<BaseResponse<WithdrawalResponse>>
 }
