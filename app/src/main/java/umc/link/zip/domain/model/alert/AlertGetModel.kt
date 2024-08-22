@@ -5,5 +5,6 @@ data class AlertGetModel(
     val alert_id: Int,
     val alert_status: Int,
     val alert_type: String?,
+    val relative_time: String?,
     val link: Link
 )

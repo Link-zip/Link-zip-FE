@@ -12,6 +12,7 @@ data class AlertGetResponse(
         val alert_id: Int,
         val alert_status: Int,
         val alert_type: String,
+        val relative_time: String,
         val link: LinkResponse
     ) {
         fun toModel() = AlertGetModel(
@@ -19,18 +20,21 @@ data class AlertGetResponse(
             alert_id = this.alert_id,
             alert_status = this.alert_status,
             alert_type = this.alert_type,
+            relative_time = this.relative_time,
             link = link.toLinkModel()
         )
 
         data class LinkResponse(
             val id: Int,
             val memo: String,
-            val title: String
+            val title: String,
+            val tag: String
         ) {
             fun toLinkModel() = Link(
                 id = id,
                 memo = memo,
-                title = title
+                title = title,
+                tag = tag
             )
         }
     }

@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentAlertBinding
 import umc.link.zip.domain.model.alert.Alert
+import umc.link.zip.domain.model.alert.AlertConfirmModel
 import umc.link.zip.domain.model.alert.AlertGetModel
 import umc.link.zip.domain.model.alert.AlertModel
 import umc.link.zip.domain.model.search.SearchResult
@@ -61,8 +62,8 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
                         Log.d("AlertFragment", "Loading confirm Alert data")
                     }
                     is UiState.Success -> {
-                        val data = state.data as AlertModel
-                        alertRVA.submitList(data.newAlerts)
+                        val data = state.data as AlertConfirmModel
+                        Log.d("AlertFragment", "confirm Alert ${data.message}")
 
                         val action = linkId?.let {
                             AlertFragmentDirections.actionAlertFragmentToOpenLinkFragment(

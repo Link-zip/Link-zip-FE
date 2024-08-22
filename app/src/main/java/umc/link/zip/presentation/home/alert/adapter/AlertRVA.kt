@@ -38,7 +38,7 @@ class AlertRVA(private val onItemClick: (AlertGetModel) -> Unit) : ListAdapter<A
             with(binding){
                 tvItemAlertTitle.text = alert.link.title
                 tvItemAlertMemo.text = alert.link.memo
-                tvItemAlertTime.text = alert.alert_date
+                tvItemAlertTime.text = alert.relative_time
             }
             when (alert.alert_type) {
                 "original" -> {
