@@ -102,24 +102,6 @@ class ListRecentFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
             }
         }
 
-        //home Fragment -> List Fragment시 viewModel 설정해줘야 함.
-        repeatOnStarted {
-            listTabViewModel.selectedLineup.collectLatest { lineup ->
-                userSelectedLineup = lineup
-                setLineupDismissDialog(userSelectedLineup)
-                repeatOnStarted {
-                    listUnreadLineDialogSharedViewModel.resetDialogDismissed()
-                }
-                setLineupDismissDialog(userSelectedLineup)
-                //list도 설정해줘야 함
-                userSelectedListselect = ""
-                repeatOnStarted {
-                    setListDismissDialog(userSelectedListselect)
-                    listUnreadListDialogSharedViewModel.resetDialogDismissed()
-                }
-            }
-        }
-
         // StateFlow를 관찰하여 RecyclerView Adapter에 데이터를 전달
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
