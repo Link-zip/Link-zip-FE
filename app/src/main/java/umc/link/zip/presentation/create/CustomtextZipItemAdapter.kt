@@ -47,19 +47,22 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
             setBackgroundBasedOnColor(binding.itemImage1, zipItem.color)
 
             // 선택된 항목에 대한 배경색을 변경합니다.
-            binding.root.setBackgroundColor(if (isSelected) Color.parseColor("F7F8F9") else Color.TRANSPARENT)
+            binding.root.setBackgroundColor(if (isSelected) Color.parseColor("#F7F6F5") else Color.TRANSPARENT)
 
             binding.root.setOnClickListener {
-                // 선택된 항목이 이미 있는 경우 선택을 해제
+                // adapterPosition이 유효한지 확인합니다.
+                if (adapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+
                 if (selectedItem == zipItem) {
+                    // 이미 선택된 항목을 다시 클릭하면 선택을 해제합니다.
                     selectedItem = null
                     onItemSelected(zipItem, false)
                 } else {
-                    // 다른 항목이 선택되면 기존 선택을 해제하고 새 항목을 선택
+                    // 다른 항목이 선택되면 기존 선택을 해제하고 새 항목을 선택합니다.
                     selectedItem = zipItem
                     onItemSelected(zipItem, true)
                 }
-                notifyDataSetChanged() // 선택 상태 업데이트
+                notifyDataSetChanged() // 선택 상태를 전체 항목에 대해 갱신합니다.
             }
         }
 
@@ -77,4 +80,3 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
         }
     }
 }
-
