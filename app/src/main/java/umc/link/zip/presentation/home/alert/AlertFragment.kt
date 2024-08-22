@@ -102,7 +102,9 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
         AlertRVA(
             onItemClick = { alert ->
                 linkId = alert.link.id
-                alertGetViewModel.confirmAlert()
+                Log.d("AlertFragment", "linkId = ${linkId}")
+                alertGetViewModel.confirmAlert(alert.alert_id)
+                Log.d("AlertFragment", "${alert.alert_id} 알림 확인 API 호출")
             }
         )
     }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import umc.link.zip.domain.model.alert.AlertGetModel
+import umc.link.zip.domain.model.alert.AlertConfirmModel
 import umc.link.zip.domain.model.alert.AlertModel
 import umc.link.zip.domain.repository.AlertRepository
 import umc.link.zip.util.network.NetworkResult
@@ -57,13 +57,13 @@ class AlertGetViewModel @Inject constructor(
     }
 
     // 알림 확인 결과를 관리하는 StateFlow
-    private val _confirmAlertResponse = MutableStateFlow<UiState<AlertModel>>(UiState.Loading)
-    val confirmAlertResponse: StateFlow<UiState<AlertModel>> = _confirmAlertResponse.asStateFlow()
+    private val _confirmAlertResponse = MutableStateFlow<UiState<AlertConfirmModel>>(UiState.Loading)
+    val confirmAlertResponse: StateFlow<UiState<AlertConfirmModel>> = _confirmAlertResponse.asStateFlow()
 
     // 알림 확인 데이터를 가져오는 함수
-    fun confirmAlert() {
+    fun confirmAlert(alertId: Int) {
         viewModelScope.launch {
-            alertRepository.GetAlert().apply {
+            alertRepository.ConfirmAlert(alertId).apply {
                 when (this) {
                     is NetworkResult.Success -> {
                         _confirmAlertResponse.value = UiState.Loading // 상태를 초기화
