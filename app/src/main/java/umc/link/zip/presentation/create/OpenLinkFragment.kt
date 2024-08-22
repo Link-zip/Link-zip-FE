@@ -217,7 +217,8 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
             findNavController().navigate(action)
         } ?: run {
             Log.d("OpenLinkFragment", "linkId 가져오기 실패")
-        }    }
+        }
+    }
 
     private fun navigateToWebView() {
         url?.let { url ->

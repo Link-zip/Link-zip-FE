@@ -62,7 +62,7 @@ class LinkAddViewModel @Inject constructor(
     private val _Add_link = MutableStateFlow(
         CreateLink(
             zipId = 0,           // 초기값으로 0 사용
-            title = "default",
+            title = "",
             text = "",
             url = "",
             memo = "",
@@ -76,7 +76,7 @@ class LinkAddViewModel @Inject constructor(
     private val dummyAddLinks = listOf(
         CreateLink(
             zipId = 0,
-            title = "default",
+            title = "",
             text = "",
             url = "",
             memo = "",

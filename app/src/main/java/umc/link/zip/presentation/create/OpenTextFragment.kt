@@ -211,7 +211,16 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
     }
 
     private fun navigateToCustomTextCustom() {
-        findNavController().navigate(R.id.action_openTextFragment_to_customTextCustomFragment)
+        linkId?.let { id ->
+            val action =
+                OpenTextFragmentDirections.actionOpenTextFragmentToModifyTextCustomFragment(
+                    id
+                )
+            Log.d("OpenTextFragment", "linkId: $id 수정하러 이동")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("OpenTextFragment", "linkId 가져오기 실패")
+        }
     }
 
     private fun navigateToWebView() {
