@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.home.alert.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import umc.link.zip.databinding.ItemAlertBinding
 import umc.link.zip.domain.model.alert.Alert
+import umc.link.zip.domain.model.alert.AlertGetModel
 
-class AlertRVA(private val onItemClick: (Alert) -> Unit) : ListAdapter<Alert, AlertRVA.AlertViewHolder>(AlertDiffCallback()) {
+class AlertRVA(private val onItemClick: (AlertGetModel) -> Unit) : ListAdapter<AlertGetModel, AlertRVA.AlertViewHolder>(AlertDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlertViewHolder {
         val binding = ItemAlertBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,10 +24,7 @@ class AlertRVA(private val onItemClick: (Alert) -> Unit) : ListAdapter<Alert, Al
     }
 
     inner class AlertViewHolder(private val binding: ItemAlertBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(alert: Alert) {
-            binding.alert = alert
-            binding.executePendingBindings()
-
+        fun bind(alert: AlertGetModel) {
             // 아이콘 visibility 설정
             setIconVisibility(alert)
 
@@ -35,7 +34,12 @@ class AlertRVA(private val onItemClick: (Alert) -> Unit) : ListAdapter<Alert, Al
             }
         }
 
-        private fun setIconVisibility(alert: Alert) {
+        private fun setIconVisibility(alert: AlertGetModel) {
+            with(binding){
+                tvItemAlertTitle.text = alert.link.title
+                tvItemAlertMemo.text = alert.link.memo
+                tvItemAlertTime.text = alert.relative_time
+            }
             when (alert.alert_type) {
                 "original" -> {
                     if (alert.alert_status == 0) {
@@ -45,11 +49,14 @@ class AlertRVA(private val onItemClick: (Alert) -> Unit) : ListAdapter<Alert, Al
                         binding.ivItemAlertOriginal0Icon.visibility = View.INVISIBLE
                         binding.ivItemAlertOriginal1Icon.visibility = View.VISIBLE
                     }
-                    binding.ivItemAlertRemind0Icon.visibility = View.INVISIBLE
-                    binding.ivItemAlertRemind1Icon.visibility = View.INVISIBLE
+                    with(binding){
+                        ivItemAlertRemind0Icon.visibility = View.INVISIBLE
+                        ivItemAlertRemind1Icon.visibility = View.INVISIBLE
 
-                    binding.tvItemAlertTypeOriginal.visibility = View.VISIBLE
-                    binding.tvItemAlertTypeRemind.visibility = View.INVISIBLE
+                        tvItemAlertTypeOriginal.visibility = View.VISIBLE
+                        tvItemAlertTypeRemind.visibility = View.INVISIBLE
+                    }
+                    Log.d("AlertRVA", "alert_type = original")
                 }
                 "reminder" -> {
                     if (alert.alert_status == 0) {
@@ -64,17 +71,19 @@ class AlertRVA(private val onItemClick: (Alert) -> Unit) : ListAdapter<Alert, Al
 
                     binding.tvItemAlertTypeOriginal.visibility = View.INVISIBLE
                     binding.tvItemAlertTypeRemind.visibility = View.VISIBLE
+
+                    Log.d("AlertRVA", "alert_type = reminder")
                 }
             }
         }
     }
 
-    class AlertDiffCallback : DiffUtil.ItemCallback<Alert>() {
-        override fun areItemsTheSame(oldItem: Alert, newItem: Alert): Boolean {
-            return oldItem.id == newItem.id
+    class AlertDiffCallback : DiffUtil.ItemCallback<AlertGetModel>() {
+        override fun areItemsTheSame(oldItem: AlertGetModel, newItem: AlertGetModel): Boolean {
+            return oldItem.link.id == newItem.link.id
         }
 
-        override fun areContentsTheSame(oldItem: Alert, newItem: Alert): Boolean {
+        override fun areContentsTheSame(oldItem: AlertGetModel, newItem: AlertGetModel): Boolean {
             return oldItem == newItem
         }
     }

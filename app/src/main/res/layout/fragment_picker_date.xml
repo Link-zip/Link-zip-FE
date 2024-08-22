@@ -20,6 +20,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
+            <View
+                android:id="@+id/view_custom_datePicker_mg0"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintWidth_percent="0.053" />
+
             <DatePicker
                 android:id="@+id/custom_datePicker"
                 style="@style/CustomDatePicker"
@@ -27,9 +36,11 @@
                 android:layout_height="wrap_content"
                 android:calendarViewShown="true"
                 android:datePickerMode="calendar"
-                android:layout_marginTop="-100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="-80dp"
+                android:scaleX="1.15"
+                android:scaleY="1.15"
+                android:outlineSpotShadowColor="@color/abled_color"
+                app:layout_constraintStart_toEndOf="@id/view_custom_datePicker_mg0"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- 완료 버튼 -->
@@ -37,6 +48,7 @@
                 android:id="@+id/cl_custom_datePicker_save_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toStartOf="@id/view_custom_datePicker_mg2"
                 app:layout_constraintStart_toEndOf="@id/view_custom_datePicker_mg1"
                 app:layout_constraintTop_toBottomOf="@id/custom_datePicker">

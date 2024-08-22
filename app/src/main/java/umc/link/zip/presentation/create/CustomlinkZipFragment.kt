@@ -1,6 +1,5 @@
 package umc.link.zip.presentation.create
 
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
@@ -9,7 +8,6 @@ import umc.link.zip.presentation.base.BaseFragment
 
 @AndroidEntryPoint
 class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layout.fragment_customlink_zip) {
-    private val viewModel: CustomLinkViewModel by viewModels()
 
     override fun initObserver() {
 

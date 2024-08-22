@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img_text_topimg"
+                    android:src="@drawable/iv_link_thumbnail_default"
                     app:layout_constraintDimensionRatio="360:200"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -104,11 +104,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/iv_openText_like"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@drawable/ic_heart_unselected"
                     android:layout_marginBottom="16dp"
-                    app:layout_constraintEnd_toEndOf="@id/tv_openText_counting"
+                    app:layout_constraintEnd_toEndOf="@id/tv_openText_counting_text"
                     app:layout_constraintBottom_toBottomOf="@id/iv_openText_topImg"/>
 
                 <View
@@ -133,7 +134,6 @@
                     android:id="@+id/iv_openText_zipimg"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:src="@drawable/img_text_zipimg"
                     app:layout_constraintDimensionRatio="22:21"
                     app:layout_constraintWidth_percent="0.058"
                     android:padding="2dp"
@@ -151,8 +151,9 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="12sp"
+                    app:layout_constraintTop_toTopOf="@id/iv_openText_zipimg"
                     app:layout_constraintBottom_toBottomOf="@id/iv_openText_zipimg"
-                    app:layout_constraintStart_toEndOf="@id/iv_openText_zipimg"/>
+                    app:layout_constraintStart_toEndOf="@id/iv_openText_zipimg" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -163,15 +164,27 @@
                     android:textColor="@color/nav_selected"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_openText_zipname"
-                    app:layout_constraintEnd_toStartOf="@id/tv_openText_counting"/>
+                    app:layout_constraintEnd_toStartOf="@id/tv_openText_counting_number"/>
 
                 <TextView
-                    android:id="@+id/tv_openText_counting"
+                    android:id="@+id/tv_openText_counting_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_medium"
                     android:letterSpacing="-0.03"
-                    android:text="0회"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_openText_zipname"
+                    app:layout_constraintEnd_toStartOf="@id/tv_openText_counting_text"/>
+
+                <TextView
+                    android:id="@+id/tv_openText_counting_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:letterSpacing="-0.03"
+                    android:text="회"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_openText_zipname"

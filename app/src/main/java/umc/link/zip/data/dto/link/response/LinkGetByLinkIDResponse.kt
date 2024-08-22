@@ -17,7 +17,9 @@ data class LinkGetByLinkIDResponse(
     val user_id: Int,
     val visit: Int,
     val visit_date: String,
-    val zip_id: Int
+    val zip_color: String,
+    val zip_id: Int,
+    val zip_title: String
 ){
     fun toModel() = LinkGetByLinkIDModel(
         alert_date = this.alert_date,
@@ -34,6 +36,8 @@ data class LinkGetByLinkIDResponse(
         user_id = this.user_id,
         visit = this.visit,
         visit_date = this.visit_date,
-        zip_id = this.zip_id
+        zip_id = this.zip_id,
+        zip_color = this.zip_color,
+        zip_title = this.zip_title
     )
 }
