@@ -25,6 +25,8 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
     private val navigator by lazy { findNavController() }
     private val alertGetViewModel: AlertGetViewModel by viewModels()
 
+    private var linkId: Int? = null
+
     override fun initObserver() {
         lifecycleScope.launch {
             alertGetViewModel.getAlertResponse.collect { state ->
@@ -56,19 +58,25 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
             alertGetViewModel.confirmAlertResponse.collect { state ->
                 when (state) {
                     is UiState.Loading -> {
-                        Log.d("AlertFragment", "Loading get Alert data")
+                        Log.d("AlertFragment", "Loading confirm Alert data")
                     }
                     is UiState.Success -> {
                         val data = state.data as AlertModel
                         alertRVA.submitList(data.newAlerts)
 
-                        val action = AlertFragmentDirections.actionAlertFragmentToOpenLinkFragment(linkId)
-                        navigator.navigate(action)
-                        Log.d("AlertFragment", "get Alert 성공")
+                        val action = linkId?.let {
+                            AlertFragmentDirections.actionAlertFragmentToOpenLinkFragment(
+                                it
+                            )
+                        }
+                        if (action != null) {
+                            navigator.navigate(action)
+                        }
+                        Log.d("AlertFragment", "${linkId}번 링크 알림 확인 성공")
                     }
                     is UiState.Error -> {
                         // 에러 처리
-                        Log.e("AlertFragment", "Error loading alerts: ${state.error}")
+                        Log.e("AlertFragment", "Error loading confirm alerts: ${state.error}")
                     }
                     UiState.Empty -> {
                     }
@@ -93,7 +101,7 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
     private val alertRVA by lazy {
         AlertRVA(
             onItemClick = { alert ->
-
+                linkId = alert.link.id
                 alertGetViewModel.confirmAlert()
             }
         )
