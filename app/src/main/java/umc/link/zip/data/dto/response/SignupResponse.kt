@@ -4,14 +4,14 @@ import umc.link.zip.domain.model.login.TokenModel
 
 data class SignupResponse(
     val accessToken: String,
-    val accessTokenExpires: String,
+    val accessTokenExpiresAt: String,
     val refreshToken: String,
-    val refreshTokenExpires: String,
+    val refreshTokenExpiresAt: String,
 ) {
     fun toModel() = TokenModel(
         accessToken = this.accessToken,
-        accessTokenExpires = this.accessTokenExpires,
+        accessTokenExpiresAt = this.accessTokenExpiresAt,
         refreshToken = this.refreshToken,
-        refreshTokenExpires = this.refreshTokenExpires
+        refreshTokenExpiresAt = this.refreshTokenExpiresAt
     )
 }

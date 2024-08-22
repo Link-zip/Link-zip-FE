@@ -4,10 +4,10 @@ import umc.link.zip.domain.model.login.RefreshModel
 
 data class RefreshResponse(
     val accessToken: String,
-    val accessTokenExpires: String
+    val accessTokenExpiresAt: String
 ) {
     fun toModel() = RefreshModel(
         accessToken = this.accessToken,
-        accessTokenExpires = this.accessTokenExpires
+        accessTokenExpiresAt = this.accessTokenExpiresAt
     )
 }

@@ -14,7 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import umc.link.zip.LinkZipApplication
 import umc.link.zip.R
 import umc.link.zip.data.AuthInterceptor
-import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.TokenAuthenticator
 import umc.link.zip.data.service.LoginService
 import java.util.concurrent.TimeUnit
@@ -49,11 +48,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesTokenAuthenticator(
-        userPreferences: UserPreferences,
-        loginService: LoginService,
+        loginService: dagger.Lazy<LoginService>,
         context: Context
     ): TokenAuthenticator {
-        return TokenAuthenticator(userPreferences, loginService, context)
+        return TokenAuthenticator(loginService, context)
     }
 
     @Provides

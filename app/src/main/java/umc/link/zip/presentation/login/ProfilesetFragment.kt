@@ -69,9 +69,9 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
 
     private fun saveToken(token: TokenModel) {
         UserPreferences(requireContext()).saveAccessToken(token.accessToken)
-        UserPreferences(requireContext()).saveAccessTokenExpires(token.accessTokenExpires)
+        UserPreferences(requireContext()).saveAccessTokenExpires(token.accessTokenExpiresAt)
         UserPreferences(requireContext()).saveRefreshToken(token.refreshToken)
-        UserPreferences(requireContext()).saveRefreshTokenExpires(token.refreshTokenExpires)
+        UserPreferences(requireContext()).saveRefreshTokenExpires(token.refreshTokenExpiresAt)
     }
 
     private fun setNameCheckObserver() {

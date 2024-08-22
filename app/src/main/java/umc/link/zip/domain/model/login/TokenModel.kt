@@ -2,7 +2,7 @@ package umc.link.zip.domain.model.login
 
 data class TokenModel(
     val accessToken: String,
-    val accessTokenExpires: String,
+    val accessTokenExpiresAt: String,
     val refreshToken: String,
-    val refreshTokenExpires: String,
+    val refreshTokenExpiresAt: String,
 )
