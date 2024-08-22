@@ -6,11 +6,11 @@ import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
+import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.data.dto.zip.request.ZipEditRequest
-import umc.link.zip.data.dto.zip.request.ZipRmRequest
 import umc.link.zip.data.dto.zip.response.ZipCreateResponse
 import umc.link.zip.data.dto.zip.response.ZipEditResponse
 import umc.link.zip.data.dto.zip.response.ZipGetResponse
@@ -32,8 +32,8 @@ interface ZipService {
         @Body zipEditRequest: ZipEditRequest
     ) : Response<BaseResponse<ZipEditResponse>>
 
-    @DELETE("zips")
+    @DELETE("zips/{zip_id}")
     suspend fun deleteRmZip(
-        @Body zipRmRequest: ZipRmRequest
+        @Path ("zip_id") id : Int
     ) : Response<BaseResponse<ZipRmResponse>>
 }

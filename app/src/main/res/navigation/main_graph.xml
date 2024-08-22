@@ -97,8 +97,25 @@
             android:name="umc.link.zip.presentation.zip.ZipFragment"
             android:label="ZipFragment">
             <action
+                android:id="@+id/action_zipFragment_to_alertFragment"
+                app:destination="@id/alertFragment" />
+            <action
                 android:id="@+id/action_fragmentZip_to_fragmentOpenZip"
-                app:destination="@id/openzipFragment" />
+                app:destination="@id/OpenZipFragment">
+                <argument
+                    android:name="zipId"
+                    app:argType="integer" />
+                <argument
+                    android:name="zipTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="zipColor"
+                    app:argType="string" />
+                <argument
+                    android:name="zipLinkCount"
+                    app:argType="integer" />
+            </action>
+
             <action
                 android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
                 app:destination="@id/makezipFragment" />
@@ -110,16 +127,111 @@
             android:label="MakeZipFragment">
             <action
                 android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
-                app:destination="@id/makezipFragment" />
+                app:destination="@id/zipFragment" />
         </fragment>
 
         <fragment
-            android:id="@+id/openzipFragment"
+            android:id="@+id/OpenZipMoveDialogFragment"
+            android:name="umc.link.zip.presentation.zip.adapter.OpenZipMoveDialogFragment"
+            android:label="openZipMoveDialogFragment" >
+            <action
+                android:id="@+id/action_openZipMoveDialogFragment_to_fragmentOpenZip"
+                app:destination="@id/OpenZipFragment">
+                <argument
+                    android:name="zipId"
+                    app:argType="integer" />
+                <argument
+                    android:name="zipTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="zipColor"
+                    app:argType="string" />
+                <argument
+                    android:name="zipLinkCount"
+                    app:argType="integer" />
+            </action>
+        </fragment>
+
+        <fragment
+            android:id="@+id/editZipFragment"
+            android:name="umc.link.zip.presentation.zip.EditZipFragment"
+            android:label="EditZipFragment" >
+            <action
+                android:id="@+id/action_fragmentEditZip_to_fragmentZip"
+                app:destination="@id/zipFragment" />
+            <action
+                android:id="@+id/action_fragmentEditZip_to_fragmentOpenZip"
+                app:destination="@id/OpenZipFragment" >
+                <argument
+                    android:name="zipId"
+                    app:argType="integer" />
+                <argument
+                    android:name="zipTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="zipColor"
+                    app:argType="string" />
+                <argument
+                    android:name="zipLinkCount"
+                    app:argType="integer" />
+            </action>
+        </fragment>
+
+        <fragment
+            android:id="@+id/openTextFragment"
+            android:name="umc.link.zip.presentation.create.OpenTextFragment"
+            android:label="OpenTextFragment">
+            <action
+                android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
+                app:destination="@id/customtextCustomFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/openLinkFragment"
+            android:name="umc.link.zip.presentation.create.OpenLinkFragment"
+            android:label="OpenLinkFragment">
+            <action
+                android:id="@+id/action_openLinkFragment_to_customLinkCustomFragment"
+                app:destination="@id/customlinkCustomFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/OpenZipFragment"
             android:name="umc.link.zip.presentation.zip.OpenZipFragment"
             android:label="OpenZipFragment">
             <action
                 android:id="@+id/action_fragmentOpenZip_to_fragmentZip"
                 app:destination="@id/zipFragment" />
+            <action
+                android:id="@+id/action_fragmentOpenZip_to_fragmentEditZip"
+                app:destination="@id/editZipFragment" >
+                <argument
+                    android:name="zipId"
+                    app:argType="integer" />
+                <argument
+                    android:name="zipColor"
+                    app:argType="string" />
+                <argument
+                    android:name="zipTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="zipLinkCount"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_fragmentOpenZip_to_openTextFragment"
+                app:destination="@id/openTextFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_fragmentOpenZip_to_openLinkFragment"
+                app:destination="@id/openLinkFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
         </fragment>
     </navigation>
 

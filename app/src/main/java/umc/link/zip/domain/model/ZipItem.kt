@@ -1,7 +1,5 @@
 package umc.link.zip.domain.model
 
-// ZipItem.kt
-
 data class ZipItem(
     val color: String,
     val link_count: Int,

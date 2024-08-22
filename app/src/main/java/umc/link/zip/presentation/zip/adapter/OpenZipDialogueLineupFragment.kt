@@ -48,16 +48,16 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
             openZipLineDialogSharedViewModel.selectedData.collectLatest {
                     data ->
                 when (data) {
-                    "latest" -> {
+                    "newest" -> {
                         selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
                     }
                     "oldest" -> {
                         selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
                     }
-                    "ganada" -> {
+                    "alphabetical" -> {
                         selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
                     }
-                    "visit" -> {
+                    "most_visited" -> {
                         selected(binding.tvViewDialogueLineupItem4, binding.ivDialogueLineupChkVisit)
                     }
                 }
@@ -70,7 +70,7 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
-                openZipLineDialogSharedViewModel.setSelectedData("latest")
+                openZipLineDialogSharedViewModel.setSelectedData("newest")
             }
         }
 
@@ -86,7 +86,7 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
-                openZipLineDialogSharedViewModel.setSelectedData("ganada")
+                openZipLineDialogSharedViewModel.setSelectedData("alphabetical")
             }
         }
 
@@ -94,7 +94,7 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem4, binding.ivDialogueLineupChkVisit)
-                openZipLineDialogSharedViewModel.setSelectedData("visit")
+                openZipLineDialogSharedViewModel.setSelectedData("most_visited")
             }
         }
     }
