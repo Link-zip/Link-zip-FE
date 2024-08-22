@@ -3,7 +3,6 @@ package umc.link.zip.data.repositoryImpl
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
 import umc.link.zip.data.dto.zip.request.ZipEditRequest
-import umc.link.zip.data.dto.zip.request.ZipRmRequest
 import umc.link.zip.data.dto.zip.response.ZipCreateResponse
 import umc.link.zip.data.dto.zip.response.ZipEditResponse
 import umc.link.zip.data.dto.zip.response.ZipGetResponse
@@ -33,8 +32,9 @@ class ZipRepositoryImpl @Inject constructor(
         return handleApi({ zipService.patchEditZip(editRequest) }) { response: BaseResponse<ZipEditResponse> -> response.result.toModel() }
     }
 
-    override suspend fun deleteRmZip(rmRequest: ZipRmRequest): NetworkResult<ZipRmModel> {
-        return handleApi({ zipService.deleteRmZip(rmRequest) }) { response: BaseResponse<ZipRmResponse> -> response.result.toModel() }
+    override suspend fun deleteRmZip(id: Int): NetworkResult<ZipRmModel> {
+        return handleApi({ zipService.deleteRmZip(id) }) { response: BaseResponse<ZipRmResponse> -> response.result.toModel() }
     }
+
 }
 

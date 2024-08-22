@@ -1,35 +1,106 @@
 package umc.link.zip.presentation.zip.adapter
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.widget.ImageView
 import androidx.lifecycle.ViewModel
-import umc.link.zip.domain.model.ZipLinkItem
+import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import umc.link.zip.R
+import umc.link.zip.databinding.FragmentOpenzipBinding
+import umc.link.zip.domain.model.link.LinkGetItemModel
+import umc.link.zip.domain.model.link.LinkGetModel
+import umc.link.zip.domain.model.link.LinkUpdateLikeModel
+import umc.link.zip.domain.repository.LinkRepository
+import umc.link.zip.util.network.NetworkResult
+import umc.link.zip.util.network.UiState
+import umc.link.zip.util.network.onError
+import umc.link.zip.util.network.onException
+import umc.link.zip.util.network.onFail
 import javax.inject.Inject
 
 
+@HiltViewModel
 class OpenZipViewModel @Inject constructor(
-
+    private val linkRepository: LinkRepository,
 ) : ViewModel() {
+    private val _linkList = MutableStateFlow(LinkGetModel(emptyList()))
+    val linkList: Flow<List<LinkGetItemModel>> get() = _linkList.map { it.link_data }
 
-    private val _zipLinks = MutableLiveData<List<ZipLinkItem>>()
-    val zipLinks: LiveData<List<ZipLinkItem>> get() = _zipLinks
+    private val _uiState = MutableStateFlow<UiState<LinkGetModel>>(UiState.Loading)
+    val uiState: StateFlow<UiState<LinkGetModel>> = _uiState.asStateFlow()
 
-    init {
-        loadInitialData()
+    private val _linkId = MutableStateFlow<UiState<LinkUpdateLikeModel>>(UiState.Loading)
+    val linkId: StateFlow<UiState<LinkUpdateLikeModel>> get() = _linkId
+
+
+    fun getLinkList(zip_id: Int, tag: String, sortOrder: String) {
+        viewModelScope.launch {
+            linkRepository.getLinkData(zip_id, tag, sortOrder).apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        _uiState.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
+                        _uiState.value = UiState.Success(this.data)
+                    }
+                    is NetworkResult.Error -> {
+                        _uiState.value = UiState.Error(this.exception)
+                    }
+                    is NetworkResult.Fail -> {
+                        _uiState.value = UiState.Error(Throwable("Failed to load data"))
+                    }
+                }
+            }.onError {
+                _uiState.value = UiState.Error(it)
+            }.onException {
+                _uiState.value = UiState.Error(it)
+            }.onFail {
+                _uiState.value = UiState.Error(Throwable("Failed to load data"))
+            }
+        }
     }
 
-    private fun loadInitialData() {
-        _zipLinks.value = listOf(
-            ZipLinkItem("테스트입니다1", "url1", "텍스트1", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 1, "2024.7.28"),
-            ZipLinkItem("테스트입니다2", "url2", "텍스트2", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 2, "2024.7.29"),
-            ZipLinkItem("테스트입니다3", "url3", "텍스트3", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0, "2024.7.30"),
-            ZipLinkItem("테스트입니다4", "url4", "텍스트4", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 4, "2024.7.31"),
-            ZipLinkItem("테스트입니다5", "url5", "텍스트5", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 5, "2024.8.01"),
-            ZipLinkItem("테스트입니다6", "url6", "텍스트6", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 6, "2024.8.02"),
-            ZipLinkItem("테스트입니다7", "url7", "텍스트7", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0, "2024.8.03"),
-            ZipLinkItem("테스트입니다8", "url8", "텍스트8", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 8, "2024.8.04"),
-            ZipLinkItem("테스트입니다9", "url9", "텍스트9", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 9, "2024.8.05"),
-            ZipLinkItem("테스트입니다10", "url10", "텍스트10", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 10, "2024.8.06")
-        )
+    private fun setBackgroundBasedOnColor(imageView: ImageView, color: String) {
+        when (color.lowercase()) {
+            "yellow" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_1)
+            "lightgreen" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_2)
+            "green" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_3)
+            "lightblue" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_4)
+            "blue" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_5)
+            "darkpurple" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_6)
+            "purple" -> imageView.setBackgroundResource(R.drawable.ic_zip_shadow_7)
+            else -> imageView.setBackgroundResource(R.drawable.ic_zip_clip_shadow) // default
+        }
+    }
+
+    fun updateLikeStatusOnServer(linkId: Int) {
+        viewModelScope.launch {
+            linkRepository.UpdateLikeLink(linkId).apply {
+                when (this) {
+                    is NetworkResult.Success -> {
+                        _linkId.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
+                        _linkId.value = UiState.Success(this.data)
+                    }
+
+                    is NetworkResult.Error -> {
+                        _linkId.value = UiState.Error(this.exception)
+                    }
+
+                    is NetworkResult.Fail -> {
+                        _linkId.value = UiState.Error(Throwable("Failed to load data"))
+                    }
+                }
+            }.onError {
+                _linkId.value = UiState.Error(it)
+            }.onException {
+                _linkId.value = UiState.Error(it)
+            }.onFail {
+                _linkId.value = UiState.Error(Throwable("Failed to load data"))
+            }
+        }
     }
 }

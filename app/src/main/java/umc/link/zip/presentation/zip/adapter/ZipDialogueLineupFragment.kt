@@ -50,10 +50,10 @@ class ZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogue
                     "latest" -> {
                         selected(binding.tvViewDialogueLineupItem1, binding.ivDialogueLineupChkLatest)
                     }
-                    "oldest" -> {
+                    "earliest" -> {
                         selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
                     }
-                    "ganada" -> {
+                    "alphabet" -> {
                         selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
                     }
                     "visit" -> {
@@ -77,7 +77,7 @@ class ZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogue
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem2, binding.ivDialogueLineupChkOldest)
-                zipLineDialogSharedViewModel.setSelectedData("oldest")
+                zipLineDialogSharedViewModel.setSelectedData("earliest")
             }
         }
 
@@ -85,7 +85,7 @@ class ZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogue
             repeatOnStarted {
                 reset()
                 selected(binding.tvViewDialogueLineupItem3, binding.ivDialogueLineupChkGanada)
-                zipLineDialogSharedViewModel.setSelectedData("ganada")
+                zipLineDialogSharedViewModel.setSelectedData("alphabet")
             }
         }
 

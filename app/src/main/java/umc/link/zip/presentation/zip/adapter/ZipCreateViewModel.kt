@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.zip.adapter
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +24,9 @@ class ZipCreateViewModel @Inject constructor(
     fun createZip(request: ZipCreateRequest) {
         viewModelScope.launch {
             val response = zipRepository.postCreateZip(request)
-            _createResponse.value = response
+            Log.d("ZZZipCreateViewModel_MakeZip", "Requested Data: color=${request.color}, title=${request.title}")
+            Log.d("ZZZipCreateViewModel_MakeZip", "API Response: $response")
+            _createResponse.value = response // API 응답 값을 업데이트
         }
     }
 }
-
