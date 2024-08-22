@@ -7,10 +7,12 @@ import umc.link.zip.data.dto.mypage.response.EditNicknmResponse
 import umc.link.zip.data.dto.mypage.response.GetNoticeDetailResponse
 import umc.link.zip.data.dto.mypage.response.GetNoticeResponse
 import umc.link.zip.data.dto.mypage.response.UserInfoResponse
+import umc.link.zip.data.dto.mypage.response.WithdrawalResponse
 import umc.link.zip.data.service.MypageService
 import umc.link.zip.domain.model.mypage.CheckNicknmModel
 import umc.link.zip.domain.model.mypage.EditNicknmModel
 import umc.link.zip.domain.model.mypage.UserInfoModel
+import umc.link.zip.domain.model.mypage.WithdrawalModel
 import umc.link.zip.domain.model.notice.Notice
 import umc.link.zip.domain.model.notice.NoticeList
 import umc.link.zip.domain.repository.MypageRepository
@@ -35,5 +37,8 @@ class MypageRepositoryImpl @Inject constructor(
     }
     override suspend fun editNicknm(nickname : EditNicknmRequest): NetworkResult<EditNicknmModel> {
         return handleApi({mypageService.editNickname(nickname)}) {response: BaseResponse<EditNicknmResponse> -> response.result.toModel()} // mapper를 통해 api 결과를 TestModel로 매핑
+    }
+    override suspend fun deleteUser(): NetworkResult<WithdrawalModel> {
+        return handleApi({mypageService.deleteUser()}) {response: BaseResponse<WithdrawalResponse> -> response.result.toModel()}
     }
 }

@@ -9,9 +9,11 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.request.LoginRequest
+import umc.link.zip.data.dto.request.RefreshRequest
 import umc.link.zip.data.dto.response.JwtResponse
 import umc.link.zip.data.dto.request.SignupRequest
 import umc.link.zip.data.dto.response.NameCheckResponse
+import umc.link.zip.data.dto.response.RefreshResponse
 import umc.link.zip.data.dto.response.SignupResponse
 
 interface LoginService {
@@ -27,6 +29,6 @@ interface LoginService {
     @POST("/user")
     suspend fun signup(@Body request: SignupRequest): Response<BaseResponse<SignupResponse>>
 
-    @POST("/user/token/test")
-    fun login(): Call<BaseResponse<LoginResponse>>
+    @POST("/user/refresh")
+    suspend fun refresh(@Body request: RefreshRequest): Response<BaseResponse<RefreshResponse>>
 }

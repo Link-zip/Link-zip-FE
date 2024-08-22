@@ -1,21 +1,23 @@
 package umc.link.zip.data.repositoryImpl
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import umc.link.zip.data.dto.BaseResponse
 import umc.link.zip.data.dto.request.LoginRequest
-import umc.link.zip.data.dto.response.JwtResponse
+import umc.link.zip.data.dto.request.RefreshRequest
 import umc.link.zip.data.dto.request.SignupRequest
+import umc.link.zip.data.dto.response.JwtResponse
 import umc.link.zip.data.dto.response.LoginResponse
 import umc.link.zip.data.dto.response.NameCheckResponse
+import umc.link.zip.data.dto.response.RefreshResponse
 import umc.link.zip.data.dto.response.SignupResponse
 import umc.link.zip.data.service.LoginService
 import umc.link.zip.domain.model.login.JwtModel
 import umc.link.zip.domain.model.login.LoginModel
 import umc.link.zip.domain.model.login.NameCheckModel
-import umc.link.zip.domain.model.login.SignupModel
+import umc.link.zip.domain.model.login.RefreshModel
+import umc.link.zip.domain.model.login.TokenModel
 import umc.link.zip.domain.repository.LoginRepository
 import umc.link.zip.util.network.NetworkResult
 import umc.link.zip.util.network.handleApi
@@ -44,7 +46,7 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signup(request: SignupRequest): NetworkResult<SignupModel> {
+    override suspend fun signup(request: SignupRequest): NetworkResult<TokenModel> {
         return handleApi({loginService.signup(request)}) {response: BaseResponse<SignupResponse> ->
             response.result.toModel()
         }
@@ -64,4 +66,9 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
+    /*override suspend fun refresh(request: RefreshRequest): NetworkResult<RefreshModel> {
+        return handleApi({loginService.refresh(request)}) {response: BaseResponse<RefreshResponse> ->
+            response.result.toModel()
+        }
+    }*/
 }
