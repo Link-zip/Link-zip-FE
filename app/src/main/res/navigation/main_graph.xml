@@ -262,6 +262,9 @@
             <action
                 android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
                 app:destination="@id/customtextCustomFragment" />
+            <action
+                android:id="@+id/action_customtextZipFragment_to_makeZipFragment"
+                app:destination="@id/makezipFragment" />
         </fragment>
 
         <fragment
