@@ -44,10 +44,6 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         findNavController().navigate(R.id.action_customlinkZipFragment_to_openLinkFragment)
     }
 
-    private fun navigateToMake() {
-        findNavController().navigate(R.id.action_customtextZipFragment_to_makeZipFragment)
-    }
-
 
 
     override fun initObserver() {
@@ -74,10 +70,10 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
             "latest" -> {
                 binding.btnCustomLinkEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomLinkEarlyUnselected.context, R.drawable.drawerbtn_lineup_early_selected))
             }
-            "oldest" -> {
+            "earliest" -> {
                 binding.btnCustomLinkEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomLinkEarlyUnselected.context, R.drawable.drawerbtn_lineup_old_selected))
             }
-            "ganada" -> {
+            "alphabet" -> {
                 binding.btnCustomLinkEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomLinkEarlyUnselected.context, R.drawable.drawerbtn_lineup_ganada_selected))
             }
             "visit" -> {
@@ -92,10 +88,10 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
             "latest" -> {
                 binding.btnCustomLinkEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomLinkEarlyUnselected.context, R.drawable.drawerbtn_lineup_early_unselected))
             }
-            "oldest" -> {
+            "earliest" -> {
                 binding.btnCustomLinkEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomLinkEarlyUnselected.context, R.drawable.drawerbtn_lineup_old_unselected))
             }
-            "ganada" -> {
+            "alphabet" -> {
                 binding.btnCustomLinkEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomLinkEarlyUnselected.context, R.drawable.drawerbtn_lineup_ganada_unselected))
             }
             "visit" -> {

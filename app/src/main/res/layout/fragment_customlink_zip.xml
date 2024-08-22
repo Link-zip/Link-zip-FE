@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
 
     <data>
         <variable
@@ -86,15 +87,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_customLink_zip" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_customLink_early_unselected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/drawerbtn_lineup_early_unselected"
+            android:src="@drawable/drawerbtn_lineup_early_unselected"
             app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_mg5"
             app:layout_constraintStart_toEndOf="@id/view_customLink_zip_mg5"/>
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_customLink_new_zip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,7 +106,7 @@
             android:fontFamily="@font/pretendard_medium"
             app:layout_constraintTop_toTopOf="@id/btn_customLink_early_unselected"
             app:layout_constraintBottom_toBottomOf="@id/btn_customLink_early_unselected"
-            app:layout_constraintEnd_toStartOf="@id/view_customLink_zip_mg7"/>
+            app:layout_constraintEnd_toStartOf="@id/view_customLink_zip_mg7"/>-->
 
         <View
             android:id="@+id/view_customLink_zip_mg6"

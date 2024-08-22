@@ -43,9 +43,6 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         findNavController().navigate(R.id.action_customtextZipFragment_to_customtextCustomFragment)
     }
 
-    private fun navigateToMake() {
-        findNavController().navigate(R.id.action_customtextZipFragment_to_makeZipFragment)
-    }
 
 
 
@@ -73,10 +70,10 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
             "latest" -> {
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_early_selected))
             }
-            "oldest" -> {
+            "earliest" -> {
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_old_selected))
             }
-            "ganada" -> {
+            "alphabet" -> {
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_ganada_selected))
             }
             "visit" -> {
@@ -91,10 +88,10 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
             "latest" -> {
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_early_unselected))
             }
-            "oldest" -> {
+            "earliest" -> {
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_old_unselected))
             }
-            "ganada" -> {
+            "alphabet" -> {
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_ganada_unselected))
             }
             "visit" -> {
@@ -115,10 +112,6 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
 
         binding.clCustomTextZipNextBtn.setOnClickListener{
             navigateToCustom()
-        }
-
-        binding.tvCustomTextNewZip.setOnClickListener{
-            navigateToMake()
         }
 
         if(isSelected){
