@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import umc.link.zip.data.dto.zip.request.ZipCreateRequest
-import umc.link.zip.data.dto.zip.response.ZipCreateResponse
 import umc.link.zip.domain.model.zip.ZipCreateModel
 import umc.link.zip.domain.repository.ZipRepository
 import umc.link.zip.util.network.NetworkResult

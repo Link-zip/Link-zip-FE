@@ -1,6 +1,5 @@
 package umc.link.zip.presentation.zip
 
-import OpenZipViewModel
 import android.graphics.Color
 import android.util.Log
 import android.view.View
@@ -20,6 +19,7 @@ import umc.link.zip.presentation.zip.adapter.OpenZipDialogueListSelectFragment
 import umc.link.zip.presentation.zip.adapter.OpenZipItemAdapter.OpenZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.OpenZipLineDialogSharedViewModel
 import umc.link.zip.presentation.zip.adapter.OpenZipListDialogSharedViewModel
+import umc.link.zip.presentation.zip.adapter.OpenZipViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
 

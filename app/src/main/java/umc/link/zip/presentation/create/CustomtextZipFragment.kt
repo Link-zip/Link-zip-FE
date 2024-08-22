@@ -1,13 +1,19 @@
 package umc.link.zip.presentation.create
 
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextZipBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 
 @AndroidEntryPoint
 class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layout.fragment_customtext_zip){
+
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
+    private val navigator by lazy { findNavController() }
     override fun initObserver() {
 
     }
@@ -23,10 +29,13 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
     }
 
     private fun navigateToCreate() {
-        findNavController().navigate(R.id.action_customtextZipFragment_to_createFragment)
+        val action = CustomtextZipFragmentDirections.actionCustomtextZipFragmentToCreateFragment(linkAddViewModel.link.value.url)
+        navigator.navigate(action, NavOptions.Builder()
+            .setPopUpTo(R.id.createFragment, false)
+            .build())
     }
 
     private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_customtextZipFragment_to_customtextCustomFragment)
+        navigator.navigate(R.id.action_customtextZipFragment_to_customtextCustomFragment)
     }
 }

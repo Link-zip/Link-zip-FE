@@ -1,11 +1,11 @@
 package umc.link.zip.data.service
 
-import retrofit2.http.Body
-import retrofit2.http.POST
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import umc.link.zip.data.dto.BaseResponse
@@ -21,8 +21,8 @@ import umc.link.zip.data.dto.link.response.LinkGetResponse
 import umc.link.zip.data.dto.link.response.LinkModifyResponse
 import umc.link.zip.data.dto.link.response.LinkSummaryResponse
 import umc.link.zip.data.dto.link.response.LinkUpdateLikeResponse
-import umc.link.zip.data.dto.link.response.VisitLinkResponse
 import umc.link.zip.data.dto.link.response.MoveLinkToNewZipResponse
+import umc.link.zip.data.dto.link.response.VisitLinkResponse
 
 interface LinkService {
     @GET("link/get_links/{zip_id}")
@@ -31,7 +31,7 @@ interface LinkService {
         @Query ("tag") tag : String
     ) : Response<BaseResponse<LinkGetResponse>>
 
-    @GET("link/get_links/{link_id}")
+    @GET("link/get_link/{link_id}")
     suspend fun getLinkByLinkID(
         @Path ("link_id") link_id : Int
     ) : Response<BaseResponse<LinkGetByLinkIDResponse>>

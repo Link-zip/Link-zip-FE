@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="viewModel"
-            type="umc.link.zip.presentation.create.CustomLinkViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

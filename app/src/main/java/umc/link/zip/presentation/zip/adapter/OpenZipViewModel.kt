@@ -1,7 +1,8 @@
+package umc.link.zip.presentation.zip.adapter
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.domain.model.ZipLinkItem
 import javax.inject.Inject
 

@@ -263,6 +263,9 @@
             android:name="umc.link.zip.presentation.create.CreateFragment"
             android:label="CreateFragment">
             <action
+                android:id="@+id/action_createFragment_to_homeFragmentTab"
+                app:destination="@id/homeFragmentTab" />
+            <action
                 android:id="@+id/action_createFragment_to_customlinkZipFragment"
                 app:destination="@id/customlinkZipFragment" />
             <action
@@ -285,7 +288,12 @@
             android:label="CustomtextZipFragment">
             <action
                 android:id="@+id/action_customtextZipFragment_to_createFragment"
-                app:destination="@+id/createFragment" />
+                app:destination="@+id/createFragment">
+                <argument
+                    android:name="fromZip"
+                    app:argType="string"
+                    android:defaultValue="false" />
+            </action>
             <action
                 android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
                 app:destination="@id/customtextCustomFragment" />
@@ -315,7 +323,15 @@
                 app:destination="@id/customtextMemoFragment" />
             <action
                 android:id="@+id/action_customtextCustomFragment_to_openTextFragment"
-                app:destination="@id/openTextFragment" />
+                app:destination="@id/openTextFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+                <argument
+                    android:name="add"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
+            </action>
         </fragment>
 
         <fragment
@@ -340,7 +356,15 @@
                 app:destination="@id/customlinkMemoFragment" />
             <action
                 android:id="@+id/action_customlinkCustomFragment_to_openLinkFragment"
-                app:destination="@id/openLinkFragment" />
+                app:destination="@id/openLinkFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+                <argument
+                    android:name="add"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
+            </action>
         </fragment>
 
         <fragment
@@ -358,8 +382,18 @@
             android:name="umc.link.zip.presentation.create.OpenTextFragment"
             android:label="OpenTextFragment">
             <action
-                android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
-                app:destination="@id/customtextCustomFragment" />
+                android:id="@+id/openTextFragment_to_homeFragment"
+                app:destination="@id/homeFragment" />
+            <action
+                android:id="@+id/action_openTextFragment_to_modifyTextCustomFragment"
+                app:destination="@id/modifyTextCustomFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_openTextFragment_to_WebViewFragment"
+                app:destination="@id/webViewFragment" />
         </fragment>
 
         <fragment
@@ -367,10 +401,118 @@
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
             android:label="OpenLinkFragment">
             <action
-                android:id="@+id/action_openLinkFragment_to_customLinkCustomFragment"
-                app:destination="@id/customlinkCustomFragment" />
+                android:id="@+id/openLinkFragment_to_homeFragment"
+                app:destination="@id/homeFragmentTab" />
+            <action
+                android:id="@+id/action_openLinkFragment_to_modifyLinkCustomFragment"
+                app:destination="@id/modifyLinkCustomFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_openLinkFragment_to_WebViewFragment"
+                app:destination="@id/webViewFragment" />
         </fragment>
 
+        <fragment
+            android:id="@+id/webViewFragment"
+            android:name="umc.link.zip.presentation.create.WebViewFragment"
+            android:label="WebViewFragment">
+            <argument
+                android:name="url"
+                app:argType="string" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/modifyLinkCustomFragment"
+            android:name="umc.link.zip.presentation.create.ModifylinkCustomFragment"
+            android:label="ModifyLinkCustomFragment">
+            <action
+                android:id="@+id/action_modifyLinkCustomFragment_to_modifyLinkAlarmFragment"
+                app:destination="@id/modifyLinkAlarmFragment" >
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_modifyLinkCustomFragment_to_modifyLinkMemoFragment"
+                app:destination="@id/modifyLinkMemoFragment" >
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_modifyLinkCustomFragment_to_OpenLinkFragment"
+                app:destination="@id/openLinkFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+                <argument
+                    android:name="edit"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
+            </action>
+        </fragment>
+
+        <fragment
+            android:id="@+id/modifyLinkAlarmFragment"
+            android:name="umc.link.zip.presentation.create.ModifylinkAlarmFragment"
+            android:label="ModifyLinkAlarmFragment"/>
+
+        <fragment
+            android:id="@+id/modifyLinkMemoFragment"
+            android:name="umc.link.zip.presentation.create.ModifylinkMemoFragment"
+            android:label="ModifyLinkMemoFragment"/>
+
+
+        <fragment
+            android:id="@+id/modifyTextCustomFragment"
+            android:name="umc.link.zip.presentation.create.ModifytextCustomFragment"
+            android:label="ModifyTextCustomFragment">
+            <action
+                android:id="@+id/action_modifyTextCustomFragment_to_modifyTextAlarmFragment"
+                app:destination="@id/modifyTextAlarmFragment" >
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_modifyTextCustomFragment_to_modifyTextMemoFragment"
+                app:destination="@id/modifyTextMemoFragment" >
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+            <action
+                android:id="@+id/action_modifyTextCustomFragment_to_OpenTextFragment"
+                app:destination="@id/openTextFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+                <argument
+                    android:name="edit"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
+            </action>
+        </fragment>
+
+        <fragment
+            android:id="@+id/modifyTextAlarmFragment"
+            android:name="umc.link.zip.presentation.create.ModifytextAlarmFragment"
+            android:label="ModifyTextAlarmFragment"/>
+
+        <fragment
+            android:id="@+id/modifyTextMemoFragment"
+            android:name="umc.link.zip.presentation.create.ModifytextMemoFragment"
+            android:label="ModifyTextMemoFragment"/>
+
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="umc.link.zip.presentation.home.HomeFragment"
+            android:label="HomeFragment"/>
     </navigation>
+
+
 
 </navigation>

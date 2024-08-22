@@ -10,7 +10,7 @@ data class Link(
     var memo: String,
     var tag: String,
     var alertDate: String,
-    var thumb: String,
+    var thumb: String?,
     var like: Int,
     var visit: Int,
     var visitDate: String,
