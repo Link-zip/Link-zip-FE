@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.home.alert.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,6 @@ class AlertRVA(private val onItemClick: (AlertGetModel) -> Unit) : ListAdapter<A
 
     inner class AlertViewHolder(private val binding: ItemAlertBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(alert: AlertGetModel) {
-            binding.executePendingBindings()
-
             // 아이콘 visibility 설정
             setIconVisibility(alert)
 
@@ -57,6 +56,7 @@ class AlertRVA(private val onItemClick: (AlertGetModel) -> Unit) : ListAdapter<A
                         tvItemAlertTypeOriginal.visibility = View.VISIBLE
                         tvItemAlertTypeRemind.visibility = View.INVISIBLE
                     }
+                    Log.d("AlertRVA", "alert_type = original")
                 }
                 "reminder" -> {
                     if (alert.alert_status == 0) {
@@ -71,6 +71,8 @@ class AlertRVA(private val onItemClick: (AlertGetModel) -> Unit) : ListAdapter<A
 
                     binding.tvItemAlertTypeOriginal.visibility = View.INVISIBLE
                     binding.tvItemAlertTypeRemind.visibility = View.VISIBLE
+
+                    Log.d("AlertRVA", "alert_type = reminder")
                 }
             }
         }

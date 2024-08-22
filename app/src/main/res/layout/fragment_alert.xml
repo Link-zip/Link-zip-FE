@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="alert"
-            type="umc.link.zip.domain.model.alert.Alert"
-            />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

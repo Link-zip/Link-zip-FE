@@ -26,7 +26,6 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
     private val alertGetViewModel: AlertGetViewModel by viewModels()
 
     override fun initObserver() {
-
         lifecycleScope.launch {
             alertGetViewModel.getAlertResponse.collect { state ->
                 when (state) {
@@ -53,6 +52,30 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
                 }
             }
         }
+        lifecycleScope.launch {
+            alertGetViewModel.confirmAlertResponse.collect { state ->
+                when (state) {
+                    is UiState.Loading -> {
+                        Log.d("AlertFragment", "Loading get Alert data")
+                    }
+                    is UiState.Success -> {
+                        val data = state.data as AlertModel
+                        alertRVA.submitList(data.newAlerts)
+
+                        val action = AlertFragmentDirections.actionAlertFragmentToOpenLinkFragment(linkId)
+                        navigator.navigate(action)
+                        Log.d("AlertFragment", "get Alert 성공")
+                    }
+                    is UiState.Error -> {
+                        // 에러 처리
+                        Log.e("AlertFragment", "Error loading alerts: ${state.error}")
+                    }
+                    UiState.Empty -> {
+                    }
+                }
+            }
+        }
+
     }
 
     override fun initView() {
@@ -61,18 +84,17 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
             findNavController().navigateUp()
         }
 
+        binding.profilePostRv.adapter = alertRVA
+
         // getAlert API 호출
         alertGetViewModel.getAlert()
     }
 
     private val alertRVA by lazy {
         AlertRVA(
-            onItemClick = { link ->
-                // 이동 api 호출
+            onItemClick = { alert ->
 
-                // api 호출 success에 넣기
-                /*val action = AlertFragmentDirections.actionAlertFragmentToOpenLinkFragment(link.link.id)
-                navigator.navigate(action)*/
+                alertGetViewModel.confirmAlert()
             }
         )
     }

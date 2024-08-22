@@ -56,11 +56,11 @@ class AlertGetViewModel @Inject constructor(
         }
     }
 
-    // 알림 요청 결과를 관리하는 StateFlow
+    // 알림 확인 결과를 관리하는 StateFlow
     private val _confirmAlertResponse = MutableStateFlow<UiState<AlertModel>>(UiState.Loading)
     val confirmAlertResponse: StateFlow<UiState<AlertModel>> = _confirmAlertResponse.asStateFlow()
 
-    // 알림 데이터를 가져오는 함수
+    // 알림 확인 데이터를 가져오는 함수
     fun confirmAlert() {
         viewModelScope.launch {
             alertRepository.GetAlert().apply {
@@ -68,15 +68,15 @@ class AlertGetViewModel @Inject constructor(
                     is NetworkResult.Success -> {
                         _confirmAlertResponse.value = UiState.Loading // 상태를 초기화
                         _confirmAlertResponse.value = UiState.Success(this.data)
-                        Log.d("AlertGetViewModel", "알림 데이터 가져오기 성공")
+                        Log.d("AlertGetViewModel", "알림 확인 데이터 가져오기 성공")
                     }
                     is NetworkResult.Error -> {
                         _confirmAlertResponse.value = UiState.Error(this.exception)
-                        Log.d("AlertGetViewModel", "알림 데이터 가져오기 실패: ${this.exception}")
+                        Log.d("AlertGetViewModel", "알림 확인 데이터 가져오기 실패: ${this.exception}")
                     }
                     is NetworkResult.Fail -> {
                         _confirmAlertResponse.value = UiState.Error(Throwable("Failed to load data"))
-                        Log.d("AlertGetViewModel", "알림 데이터 가져오기 실패")
+                        Log.d("AlertGetViewModel", "알림 확인 데이터 가져오기 실패")
                     }
                 }
             }.onError {
