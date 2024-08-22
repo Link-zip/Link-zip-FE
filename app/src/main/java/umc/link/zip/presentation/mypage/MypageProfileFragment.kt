@@ -1,51 +1,104 @@
 package umc.link.zip.presentation.mypage
 
-import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderScriptBlur
-import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.mypage.request.EditNicknmRequest
 import umc.link.zip.databinding.FragmentMypageProfileBinding
+import umc.link.zip.domain.model.mypage.CheckNicknmModel
+import umc.link.zip.domain.model.mypage.EditNicknmModel
+import umc.link.zip.domain.model.mypage.UserInfoModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.KeyboardUtil
+import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.extension.takeWhileIndexed
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layout.fragment_mypage_profile) {
-    private val viewModel: MypageProfileViewModel by viewModels()
+    private val viewModel: MypageProfileViewModel by activityViewModels()
     private val navigator by lazy { findNavController() }
 
+    var nowNicknm = ""
+
     override fun initObserver() {
-        lifecycleScope.launch {
+        repeatOnStarted {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.nicknameState.collect { state ->
                     when (state) {
-                        is NicknameState.Empty -> hideNickNameInfo()
-                        is NicknameState.Valid -> {
-                            setNickNameInfo(state.message, state.color)
-                            enableSaveButton()
+                        UiState.Empty -> hideNickNameInfo()
+                        is UiState.Error ->  // 에러 상태 처리
+                            Log.e("CheckNicknm", "Error fetching data", state.error)
+                        UiState.Loading -> Log.d("CheckNicknm", "Loading data")
+                        is UiState.Success ->
+                        {
+                            val data = state.data as CheckNicknmModel
+                            if(data.availablity){
+                                setNickNameInfo("환상적인 닉네임이에요!", R.color.b005773)
+                                enableSaveButton()
+                            }else{
+                                setNickNameInfo("이미 사용 중인 유저가 있어요!", R.color.disabled_color)
+                                disableSaveButton()
+                            }
                         }
-                        is NicknameState.Invalid -> {
-                            setNickNameInfo(state.message, state.color)
-                            disableSaveButton()
+                    }
+                }
+            }
+        }
+        //닉네임 가져오기
+        repeatOnStarted {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.userInfoState.collect { state ->
+                    when (state) {
+                        UiState.Empty -> Log.d("getUserInfo", "No data")
+                        is UiState.Error -> Log.e("getUserInfo", "Error fetching data")
+                        UiState.Loading -> Log.d("getUserInfo", "Loading data")
+                        is UiState.Success ->
+                        {
+                            val data = state.data as UserInfoModel
+                            binding.tvMypageProfileNickname.text = data.nickname
+                            nowNicknm = data.nickname
+                        }
+                    }
+                }
+            }
+        }
+        //닉네임 변경
+        repeatOnStarted {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.editNicknm.collect { state ->
+                    when (state) {
+                        UiState.Empty -> Log.d("editNicknm", "No data")
+                        is UiState.Error -> Log.e("editNicknm", "Error fetching data")
+                        UiState.Loading -> Log.d("editNicknm", "Loading data")
+                        is UiState.Success ->
+                        {
+                            val data = state.data as EditNicknmModel
+                            binding.tvMypageProfileNickname.text = data.nickname
+                            nowNicknm = data.nickname
+                            binding.etMypageProfile.text.clear()
+                            showCustomToast()
                         }
                     }
                 }
@@ -54,6 +107,7 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     }
 
     override fun initView() {
+        fnGetUserInfoApi()
         // 블러 처리
         applyBlurToImageView(binding.ivMypageProfileUserInfoBoxBg)
         applyBlurToImageView(binding.ivMypageProfileUserNicknmChangeBoxBg)
@@ -114,9 +168,7 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
                 hideNickNameInfo()
                 if (binding.etMypageProfile.text.isNotEmpty()) {
                     val newNickname = binding.etMypageProfile.text.toString()
-                    var nowNickname = binding.tvMypageProfileNickname.text.toString()
-                    nowNickname = "뉴비" // 예시
-                    if (newNickname == nowNickname) {
+                    if (newNickname == nowNicknm) {
                         setNickNameInfo("기존의 닉네임이에요!", R.color.disabled_color)
                         disableSaveButton()
                         disableCheckDuplicateButton()
@@ -143,17 +195,40 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
         }
     }
 
+    private fun fnCheckNicknmApi(nicknm:String){
+        viewModel.checkNickname(nicknm)
+    }
+
+    private fun fnGetUserInfoApi(){
+        viewModel.getUserInfo()
+    }
+    private fun fnEditNicknm(){
+        val newNickname = binding.etMypageProfile.text.toString()
+        Log.d("nickname확인", newNickname)
+
+        if (newNickname.isNotEmpty() && nowNicknm != newNickname) {
+            val request = EditNicknmRequest(newNickname)
+            viewModel.editNicknm(request)
+        }
+    }
+
     private fun setupClickListeners() {
         //중복 확인 로직
         binding.viewMypageProfileBtnChkDup.setOnSingleClickListener {
             val newNickname = binding.etMypageProfile.text.toString()
-            var nowNickname = binding.tvMypageProfileNickname.text.toString()
-            nowNickname = "old" // 예시
-            if (newNickname.isNotEmpty() && nowNickname != newNickname) {
-                viewModel.checkNickname(newNickname)
+            Log.d("nickname입력", newNickname)
+
+            if (newNickname.isNotEmpty() && nowNicknm != newNickname) {
+                fnCheckNicknmApi(newNickname)
             }
         }
-        // 완료 버튼 로직 추가 필요
+        // 완료 버튼 로직
+        binding.viewMypageProfileBtnSave.setOnClickListener{
+            fnEditNicknm()
+        }
+        binding.tvMypageProfileSaveBtn.setOnClickListener{
+            fnEditNicknm()
+        }
 
         //회원 탈퇴
         binding.tvMypageWithdrawal.setOnSingleClickListener {
@@ -192,13 +267,31 @@ class MypageProfileFragment : BaseFragment<FragmentMypageProfileBinding>(R.layou
     }
 
     private fun disableSaveButton() {
+        binding.viewMypageProfileBtnSave.isClickable = false
         binding.viewMypageProfileBtnSave.setBackgroundResource(R.drawable.bg_mypage_profile_btn_save)
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.b005773))
     }
 
     private fun enableSaveButton() {
+        binding.viewMypageProfileBtnSave.isClickable = true
         binding.viewMypageProfileBtnSave.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
         binding.tvMypageProfileSaveBtn.setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
+    }
+
+    //토스트
+    private fun showCustomToast() {
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "닉네임 변경 완료"
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+
+        toast.show()
     }
 
 }

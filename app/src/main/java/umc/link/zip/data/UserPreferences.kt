@@ -22,4 +22,11 @@ class UserPreferences(context: Context) {
     fun getUserId(): String? {
         return sharedPreferences.getString(USER_ID_KEY, null)
     }
+
+    fun deleteUserId() {
+        with(sharedPreferences.edit()) {
+            remove(USER_ID_KEY)
+            apply()
+        }
+    }
 }

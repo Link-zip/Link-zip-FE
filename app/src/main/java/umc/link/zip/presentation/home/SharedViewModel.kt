@@ -9,11 +9,17 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel @Inject constructor() : ViewModel() {
     private val selectedItem = MutableLiveData<String>()
+    private val selectedTabIndex = MutableLiveData<Int>()
+
     fun selectItem(item: String) {
         selectedItem.value = item
     }
 
     fun getSelectedItem(): LiveData<String> {
         return selectedItem
+    }
+
+    fun getSelectedTabIndex(): LiveData<Int> {
+        return selectedTabIndex
     }
 }

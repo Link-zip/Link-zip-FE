@@ -6,19 +6,40 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import umc.link.zip.data.repositoryImpl.HomeRepositoryImpl
+import umc.link.zip.data.repositoryImpl.ListRepositoryImpl
 import umc.link.zip.data.repositoryImpl.AlertRepositoryImpl
 import umc.link.zip.data.repositoryImpl.LinkRepositoryImpl
 import umc.link.zip.data.repositoryImpl.LoginRepositoryImpl
+
+import umc.link.zip.data.repositoryImpl.MypageRepositoryImpl
+import umc.link.zip.data.repositoryImpl.SearchRepositoryImpl
+
 import umc.link.zip.data.repositoryImpl.TestRepositoryImpl
 import umc.link.zip.data.repositoryImpl.ZipRepositoryImpl
+
+import umc.link.zip.data.service.HomeService
+import umc.link.zip.data.service.ListService
 import umc.link.zip.data.service.AlertService
 import umc.link.zip.data.service.LinkService
 import umc.link.zip.data.service.LoginService
+
+import umc.link.zip.data.service.MypageService
+
+import umc.link.zip.data.service.SearchService
+
 import umc.link.zip.data.service.TestService
 import umc.link.zip.data.service.ZipService
+import umc.link.zip.domain.repository.HomeRepository
 import umc.link.zip.domain.repository.AlertRepository
 import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.domain.repository.LoginRepository
+import umc.link.zip.domain.repository.ListRepository
+
+import umc.link.zip.domain.repository.MypageRepository
+
+import umc.link.zip.domain.repository.SearchRepository
+
 import umc.link.zip.domain.repository.TestRepository
 import umc.link.zip.domain.repository.ZipRepository
 
@@ -49,9 +70,27 @@ object RepositoryModule {
 
     @ViewModelScoped
     @Provides
+    fun providesListRepository(
+        listService: ListService
+    ): ListRepository = ListRepositoryImpl(listService)
+
+    @ViewModelScoped
+    @Provides
     fun provideLinkRepository(
         linkService: LinkService
     ): LinkRepository = LinkRepositoryImpl(linkService)
+
+    @ViewModelScoped
+    @Provides
+    fun provideHomeRepository(
+        homeService: HomeService
+    ): HomeRepository = HomeRepositoryImpl(homeService)
+
+    @ViewModelScoped
+    @Provides
+    fun provideMypageRepository(
+        mypageService: MypageService
+    ): MypageRepository = MypageRepositoryImpl(mypageService)
 
     @ViewModelScoped
     @Provides
@@ -59,4 +98,9 @@ object RepositoryModule {
     alertService: AlertService
     ): AlertRepository = AlertRepositoryImpl(alertService)
 
+    @ViewModelScoped
+    @Provides
+    fun providesSearchRepository(
+        searchService: SearchService
+    ): SearchRepository = SearchRepositoryImpl(searchService)
 }
