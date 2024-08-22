@@ -405,6 +405,10 @@
                 android:id="@+id/action_customtextCustomFragment_to_openTextFragment"
                 app:destination="@id/openTextFragment" />
         </fragment>
+        <fragment
+            android:id="@+id/makezipFragment"
+            android:name="umc.link.zip.presentation.zip.MakeZipFragment"
+            android:label="MakeZipFragment" />
 
         <fragment
             android:id="@+id/customtextAlarmFragment"

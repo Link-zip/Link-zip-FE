@@ -53,7 +53,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_zip_clip_shadow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="102:105"
                     app:layout_constraintStart_toEndOf="@id/view_openzip_withdrawal_mg1"

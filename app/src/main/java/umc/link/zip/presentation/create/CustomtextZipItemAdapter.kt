@@ -11,11 +11,12 @@ import umc.link.zip.databinding.FragmentCustomtextZipBinding
 import umc.link.zip.databinding.ItemSaveZipBinding
 import umc.link.zip.databinding.ItemZipBinding
 import umc.link.zip.domain.model.ZipItem
+import umc.link.zip.domain.model.zip.ZipGetItemModel
 
-class CustomtextZipItemAdapter(private val onItemSelected: (ZipItem, Boolean) -> Unit) : RecyclerView.Adapter<CustomtextZipItemAdapter.ZipViewHolder>() {
+class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit) : RecyclerView.Adapter<CustomtextZipItemAdapter.ZipViewHolder>() {
 
-    private var items: List<ZipItem> = emptyList()
-    private var selectedItems: MutableSet<ZipItem> = mutableSetOf()
+    private var items: List<ZipGetItemModel> = emptyList()
+    private var selectedItems: MutableSet<ZipGetItemModel> = mutableSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ZipViewHolder {
         val binding = ItemSaveZipBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,7 +31,7 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipItem, Boolean) ->
 
     override fun getItemCount(): Int = items.size
 
-    fun submitList(newItems: List<ZipItem>) {
+    fun submitList(newItems: List<ZipGetItemModel>) {
         items = newItems
         notifyDataSetChanged()
     }
@@ -47,7 +48,7 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipItem, Boolean) ->
     }
 
     inner class ZipViewHolder(private val binding: ItemSaveZipBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(zipItem: ZipItem, isSelected: Boolean) {
+        fun bind(zipItem: ZipGetItemModel, isSelected: Boolean) {
             binding.itemTitle1.text = zipItem.title
             setBackgroundBasedOnColor(binding.itemImage1, zipItem.color)
 

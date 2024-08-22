@@ -16,6 +16,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextZipBinding
 import umc.link.zip.databinding.FragmentZipBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.zip.adapter.CustomtextZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.ZipAdapter
 import umc.link.zip.presentation.zip.adapter.ZipDialogueLineupFragment
 import umc.link.zip.presentation.zip.adapter.ZipGetViewModel
@@ -25,8 +26,8 @@ import umc.link.zip.util.extension.setOnSingleClickListener
 
 @AndroidEntryPoint
 class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layout.fragment_customtext_zip){
-    private val viewModel: CustomtextZipGetViewModel by viewModels()
-    private var adapter: ZipAdapter? = null
+    private val viewModel: ZipGetViewModel by viewModels()
+    private var adapter: CustomtextZipItemAdapter? = null
 
     private var isSelected = false
 
@@ -82,6 +83,7 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_visit_selected))
             }
         }
+        viewModel.getZipList(userSelectedLineup)
     }
 
     private fun setLineupDismissDialog(selected: String) {
@@ -99,9 +101,11 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
                 binding.btnCustomTextEarlyUnselected.setImageDrawable(ContextCompat.getDrawable(binding.btnCustomTextEarlyUnselected.context, R.drawable.drawerbtn_lineup_visit_unselected))
             }
         }
+        viewModel.getZipList(userSelectedLineup)
     }
 
     override fun initView() {
+        Log.d("CustomtextZipFragment", "initView called")
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
 
@@ -113,7 +117,7 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
             navigateToCustom()
         }
 
-        binding.clCustomTextZipNextBtn.setOnClickListener{
+        binding.tvCustomTextNewZip.setOnClickListener{
             navigateToMake()
         }
 
@@ -127,11 +131,13 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getZipList("latest")
+
+        // 데이터 로딩을 onViewCreated에서 수행
+        viewModel.getZipList(userSelectedLineup)
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.zipList.collect { zipList ->
-                // zipList에 따라 UI를 업데이트합니다.
+                adapter?.submitList(zipList)
             }
         }
         setupRecyclerView()
@@ -139,21 +145,23 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
 
     override fun onResume() {
         super.onResume()
-        viewModel.getZipList("latest")
         setLineupDismissDialog(userSelectedLineup)
+        viewModel.getZipList(userSelectedLineup)
     }
 
     private fun setupRecyclerView() {
-        adapter = ZipAdapter { zipItem, isSelected ->
+        adapter = CustomtextZipItemAdapter { zipItem, isSelected ->
             if (isSelected) {
-
+                setSelectedBtn()
+            }else {
+                resetSelectedBtn()
             }
         }
+
         binding.rvCustomTextZip.layoutManager = LinearLayoutManager(context)
         binding.rvCustomTextZip.adapter = adapter
-
-
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
