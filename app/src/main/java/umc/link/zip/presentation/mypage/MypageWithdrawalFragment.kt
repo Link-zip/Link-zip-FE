@@ -38,7 +38,7 @@ class MypageWithdrawalFragment : BaseFragment<FragmentMypageWithdrawalBinding>(R
                                 Log.d("DeleteUser", "회원 삭제 성공")
                                 UserPreferences(requireContext()).deleteUserId()
                                 val splashIntent = Intent(requireContext(), SplashActivity::class.java)
-                                splashIntent.flags = Intent.FLAG_ACTIVITㅣY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                splashIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(splashIntent)
                                 activity?.finish()
                             }else{
