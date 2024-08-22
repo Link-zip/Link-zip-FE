@@ -125,7 +125,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
                     deleteDialog.show(childFragmentManager, "ZipDeleteDialogueFragment")
                     viewModel.getZipList(userSelectedLineup)
                 } else {
-                    Toast.makeText(context, "삭제할 항목을 선택하세요.", Toast.LENGTH_SHORT).show()
+                    showCustomToast3()
                 }
             } else {
                 // MakeZip 화면으로 이동
@@ -321,6 +321,20 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         val layout = inflater.inflate(R.layout.custom_toast, null)
         val tv = layout.findViewById<TextView>(R.id.tvSample)
         tv.text = "Zip 삭제 완료"
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+        toast.show()
+    }
+
+    private fun showCustomToast3() {
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "삭제할 항목을 선택하세요."
 
         val toast = Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT

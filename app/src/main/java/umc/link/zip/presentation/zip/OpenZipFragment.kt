@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.zip
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -57,8 +58,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     private val adapter by lazy {
         OpenZipItemAdapter(
-            onItemSelected = { linkItem, isSelected ->
-                if (isSelected > 0) {
+            onItemSelected = { linkItem, selectedCount ->
+                if (selectedCount > 0) {
                     switchToSelectedMode()
                     binding.cvMypageProfileUserInfoBoxBg.setOnSingleClickListener {
                         val dialogFragment = OpenZipMoveDialogFragment.newInstance(zip_id ?: 0, linkItem.id)
@@ -191,7 +192,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
     private fun setLineupDismissDialog(selected: String) {
         when (selected) {
-            "latest" -> binding.fragmentOpenzipRecentIv.setImageDrawable(
+            "newest" -> binding.fragmentOpenzipRecentIv.setImageDrawable(
                 ContextCompat.getDrawable(
                     binding.fragmentOpenzipRecentIv.context,
                     R.drawable.drawerbtn_lineup_early_unselected
@@ -292,9 +293,11 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         if (zip_linkCount == 0) {
             binding.fragmentOpenzipItemLinkRv.visibility = View.GONE
             binding.clListNoneBackgroundCl.visibility = View.VISIBLE
+            binding.fragmentOpenzipEditIv.visibility = View.GONE
         } else {
             binding.fragmentOpenzipItemLinkRv.visibility = View.VISIBLE
             binding.clListNoneBackgroundCl.visibility = View.GONE
+            binding.fragmentOpenzipEditIv.visibility = View.VISIBLE
         }
 
         val action = zip_linkCount?.let {
@@ -338,7 +341,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                         }
                     }
                 } else {
-                    Toast.makeText(context, "삭제할 항목을 선택하세요.", Toast.LENGTH_SHORT).show()
+                    showCustomToast3()
                 }
             } else {
                 findNavController().navigate(R.id.action_fragmentOpenZip_to_fragmentZip)
@@ -368,6 +371,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun toggleEditMode() {
         isEditMode = !isEditMode
         if (isEditMode) {
@@ -375,6 +379,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         } else {
             setNormalMode()
         }
+        adapter.notifyDataSetChanged()
     }
 
     private fun setEditMode() {
@@ -390,10 +395,16 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.clProfilesetFinishBtn2.visibility = View.VISIBLE
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setNormalMode() {
         isEditMode = false
         isAllSelectedMode = false
+
         resetAllSelectedMode()
+        adapter.resetSelectionAndNotify()
+        adapter.notifyDataSetChanged()
+        adapter.setEditMode(false)
+
         binding.fragmentOpenzipAllIv.visibility = View.VISIBLE
         binding.fragmentOpenzipRecentIv.visibility = View.VISIBLE
         binding.allSelectedBtn.visibility = View.GONE
@@ -403,6 +414,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         binding.cvMypageProfileUserInfoBoxBg.visibility = View.GONE
         binding.clProfilesetFinishBtn2.visibility = View.GONE
         binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg2)
+
         adapter.clearSelections()
     }
 
@@ -487,6 +499,34 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         val layout = inflater.inflate(R.layout.custom_toast, null)
         val tv = layout.findViewById<TextView>(R.id.tvSample)
         tv.text = "링크 삭제 완료"
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+        toast.show()
+    }
+
+    private fun showCustomToast3() {
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "삭제할 링크를 선택하세요."
+
+        val toast = Toast(requireActivity()).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+        }
+        toast.show()
+    }
+
+    private fun showCustomToast4() {
+        val inflater = LayoutInflater.from(requireActivity())
+        val layout = inflater.inflate(R.layout.custom_toast, null)
+        val tv = layout.findViewById<TextView>(R.id.tvSample)
+        tv.text = "편집할 링크가 없습니다."
 
         val toast = Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT

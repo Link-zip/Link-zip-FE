@@ -40,18 +40,6 @@ class OpenZipMoveDialogAdapter(private val onItemSelected: (ZipGetItemModel, Boo
     override fun getItemCount(): Int = items.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun clearSelections() {
-        val previousSelectedItems = selectedItems.toList()
-        selectedItems.clear()
-        previousSelectedItems.forEach { item ->
-            val position = items.indexOf(item)
-            if (position >= 0) {
-                notifyItemChanged(position)  // 선택 해제된 항목만 업데이트
-            }
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     fun submitList(newItems: List<ZipGetItemModel>, excludeZipId: Int) {
         items = newItems.filter { it.zip_id != excludeZipId }
         notifyDataSetChanged()

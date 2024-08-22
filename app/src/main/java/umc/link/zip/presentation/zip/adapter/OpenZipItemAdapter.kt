@@ -51,6 +51,12 @@ class OpenZipItemAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun selectAllItems() {
         selectedItems.addAll(currentList) // `currentList`는 ListAdapter에서 제공하는 현재 리스트를 반환
+
+        // 선택된 각 아이템에 대해 콜백 호출
+        currentList.forEach { item ->
+            onItemSelected(item, selectedItems.count())
+        }
+
         Log.d("OpenZipItemAdapter","All selected : $currentList")
         notifyDataSetChanged()
     }
@@ -76,6 +82,25 @@ class OpenZipItemAdapter(
         return selectedItems.map { it.id }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setEditMode(isEditMode: Boolean) {
+        this.isEditMode = isEditMode
+        if (!isEditMode) {
+            clearSelections()  // 일반 모드로 전환 시 선택 항목 초기화
+        }
+        notifyDataSetChanged()
+    }
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun resetSelectionAndNotify() {
+        selectedItems.clear()
+        currentList.forEach { item ->
+            onItemSelected(item,0)
+        }
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinkViewHolder {
         return LinkViewHolder(
             ItemLinkBinding.inflate(
@@ -90,6 +115,7 @@ class OpenZipItemAdapter(
     override fun onBindViewHolder(holder: LinkViewHolder, position: Int) {
         val linkItem = getItem(position) // ListAdapter에서 제공하는 getItem 사용
         val isSelected = selectedItems.contains(linkItem)
+
         holder.itemView.setBackgroundColor(
             if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
         )

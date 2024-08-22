@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.content.ClipData.Item
 import android.graphics.Color
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -112,10 +114,7 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
             binding.itemSubtitle2.visibility = View.GONE
             binding.itemLinkCount.visibility = View.GONE
 
-            // 클릭 리스너 설정 - OpenZip으로 이동하지 않고 토스트 메시지 출력
-            binding.root.setOnClickListener {
-                Toast.makeText(binding.root.context, "삭제할 수 없는 Zip입니다.", Toast.LENGTH_SHORT).show()
-            }
+            binding.root.isClickable = false
         }
 
         private fun handleEditMode(zipItem: ZipGetItemModel, isSelected: Boolean) {
@@ -193,4 +192,6 @@ class ZipAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit,
             }
         }
     }
+
+
 }
