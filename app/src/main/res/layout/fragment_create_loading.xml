@@ -4,8 +4,11 @@
 
     <data>
         <variable
-            name="viewModel"
+            name="createLoadingViewModel"
             type="umc.link.zip.presentation.create.CreateLoadingViewModel" />
+        <variable
+            name="linkSummarytViewModel"
+            type="umc.link.zip.presentation.create.adapter.LinkSummaryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
