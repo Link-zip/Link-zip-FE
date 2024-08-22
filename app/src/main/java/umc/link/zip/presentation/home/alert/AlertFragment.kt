@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.home.alert
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -10,12 +11,15 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentAlertBinding
 import umc.link.zip.domain.model.alert.Alert
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.home.alert.adapter.AlertGetViewModel
 import umc.link.zip.presentation.home.alert.adapter.AlertRVA
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert) {
 
     private val viewModel: AlertViewModel by viewModels()
+    private val alertGetviewModel: AlertGetViewModel by viewModels()
 
     // lateinit으로 선언하여 나중에 초기화
     private lateinit var alertRVA: AlertRVA
@@ -40,6 +44,39 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
                 }
             }
         }
+
+        lifecycleScope.launch {
+            alertGetviewModel.getAlertResponse.collect { state ->
+                when (state) {
+                    is UiState.Loading -> {
+                        Log.d("AlertFragment", "Loading get Alert data")
+                    }
+                    is UiState.Success -> {
+                        val alertId = state.data.alert_id
+                        val alertDate = state.data.alert_date
+                        val alertType = state.data.alert_type
+                        val alertStatus = state.data.alert_status
+
+                        // 어댑터가 초기화된 상태인지 확인
+                        if (!::alertRVA.isInitialized) {
+                            // 어댑터를 초기화
+                            initAlertRVAdapter()
+                        }
+
+                    }
+                    is UiState.Error -> {
+                        // 에러 처리
+                        binding.clAlertNone.visibility = View.VISIBLE
+                        binding.profilePostRv.visibility = View.GONE
+                        Log.e("AlertFragment", "Error loading alerts: ${state.error}")
+                    }
+                    UiState.Empty -> {
+                        binding.clAlertNone.visibility = View.VISIBLE
+                        binding.profilePostRv.visibility = View.GONE
+                    }
+                }
+            }
+        }
     }
 
     override fun initView() {
@@ -47,6 +84,9 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
         binding.ivAlertToolbarBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        // 알림 데이터를 API로부터 받아오기
+        alertGetviewModel.getAlert() // API로부터 알림 데이터를 가져옵니다.
     }
 
     private fun initAlertRVAdapter() {
