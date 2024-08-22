@@ -13,6 +13,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentListBinding
 import umc.link.zip.domain.model.list.Link
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.home.HomeFragmentDirections
 import umc.link.zip.presentation.home.SharedViewModel
 import umc.link.zip.presentation.list.adapter.ListVPA
 import umc.link.zip.util.extension.repeatOnStarted
@@ -28,11 +29,17 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), 
     private val listTabViewModel: ListTabViewModel by viewModels()
 
     override fun onItemClicked(linkItem: Link) {
-        val action = ListFragmentDirections.actionListFragmentToOpenLinkFragment(linkItem.id.toInt())
-        // 이전 페이지로 적용되도록 내비게이션 설정
-        navigator.navigate(action, NavOptions.Builder()
-            .setPopUpTo(R.id.listFragment, false)
-            .build())
+        if(linkItem.tag == "text"){
+            val action = ListFragmentDirections.actionListFragmentToOpenTextFragment(linkItem.id.toInt())
+            navigator.navigate(action, NavOptions.Builder()
+                .setPopUpTo(R.id.listFragment, false)
+                .build())
+        }else{
+            val action = ListFragmentDirections.actionListFragmentToOpenLinkFragment(linkItem.id.toInt())
+            navigator.navigate(action, NavOptions.Builder()
+                .setPopUpTo(R.id.listFragment, false)
+                .build())
+        }
     }
 
 
