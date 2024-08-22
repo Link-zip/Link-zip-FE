@@ -13,8 +13,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import umc.link.zip.R
 import umc.link.zip.databinding.ItemListBinding
 import umc.link.zip.domain.model.list.Link
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class ListUnreadRVA(val unreadLink: (Link) -> Unit) : ListAdapter<Link, ListUnreadRVA.ListViewHolder>(DiffCallback()) {
+class ListUnreadRVA(val unreadLink: (Link) -> Unit, val onClicked: (Link) -> Unit) : ListAdapter<Link, ListUnreadRVA.ListViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
@@ -36,7 +38,7 @@ class ListUnreadRVA(val unreadLink: (Link) -> Unit) : ListAdapter<Link, ListUnre
         fun bind(link: Link, likeClickListener: (Link) -> Unit){
             with(binding){
                 tvItemListLinkName.text = link.title
-                tvItemListLinkDate.text = link.createdAt
+                tvItemListLinkDate.text = modifyDate(link.createdAt)
                 tvItemListZipName.text = link.zip.title
                 if (link.tag=="text") { // text 존재시 텍스트 요약
                     ivItemListTypeText.visibility = View.VISIBLE
@@ -61,9 +63,28 @@ class ListUnreadRVA(val unreadLink: (Link) -> Unit) : ListAdapter<Link, ListUnre
                     unreadLink(updatedLink) // 좋아요 상태 변경 시 ViewModel 호출
                 }
                 root.setOnClickListener {
-                    unreadLink(link)
+                    onClicked(link)
                 }
             }
+        }
+    }
+
+    private fun modifyDate(data : String) : String{
+        return try {
+            val date = data.substringBefore("T")
+            // 입력 형식: 밀리초와 'Z'를 포함
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+            // 출력 형식
+            val outputFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+
+            // 문자열을 Date 객체로 파싱
+            val parsedDate = inputFormat.parse(date)
+
+            // Date 객체를 문자열로 포맷팅
+            parsedDate?.let { outputFormat.format(it) } ?: "Invalid Date"
+        } catch (e: Exception) {
+            "Invalid Date"
         }
     }
 

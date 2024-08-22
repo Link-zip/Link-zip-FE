@@ -22,6 +22,7 @@ import umc.link.zip.R
 import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.request.SignupRequest
 import umc.link.zip.databinding.FragmentProfilesetBinding
+import umc.link.zip.domain.model.login.TokenModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.extension.colorOf
 import umc.link.zip.util.extension.drawableOf
@@ -51,7 +52,7 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
                 is NetworkResult.Error -> { Log.d("profileset", "profileset error : ${result.exception}") }
                 is NetworkResult.Fail -> { Log.d("profileset", "profileset fail : ${result.message}") }
                 is NetworkResult.Success -> {
-                    UserPreferences(requireContext()).saveUserId(result.data.accessToken)
+                    saveToken(result.data)
                     val fragment = ProfilesetCompletedFragment().apply {
                         arguments = Bundle().apply {
                             putString("nickname", binding.etProfilesetNickname.text.toString())
@@ -66,11 +67,18 @@ class ProfilesetFragment : BaseFragment<FragmentProfilesetBinding>(R.layout.frag
         }
     }
 
+    private fun saveToken(token: TokenModel) {
+        UserPreferences(requireContext()).saveAccessToken(token.accessToken)
+        UserPreferences(requireContext()).saveAccessTokenExpires(token.accessTokenExpiresAt)
+        UserPreferences(requireContext()).saveRefreshToken(token.refreshToken)
+        UserPreferences(requireContext()).saveRefreshTokenExpires(token.refreshTokenExpiresAt)
+    }
+
     private fun setNameCheckObserver() {
         viewModel.nameCheckResult.observe(this) { result ->
             when (result) {
                 is NetworkResult.Success -> {
-                    if(result.data.result) {
+                    if(result.data.isValid) {
                         binding.btnProfilesetFinish.setOnClickListener(finishBtnClickListener)
                         binding.btnProfilesetFinish.background = drawableOf(R.drawable.shape_rect_8_1191ad_fill)
                         binding.ivProfilesetGrayshadow.visibility = View.GONE

@@ -1,5 +1,6 @@
 package umc.link.zip.presentation.list
 
+import android.content.Context
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -36,19 +37,31 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
 
     private val listTabViewModel : ListTabViewModel by viewModels({requireParentFragment()})
 
+    private lateinit var onItemClickListener: OnItemClickListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (parentFragment is OnItemClickListener) {
+            onItemClickListener = parentFragment as OnItemClickListener
+        } else if (context is OnItemClickListener) {
+            onItemClickListener = context
+        } else {
+            throw RuntimeException("$context must implement OnItemClickListener")
+        }
+    }
+
     private var userSelectedLineup = "recent"
     private var userSelectedListselect = ""
     private val listUnreadRVA by lazy {
-        ListUnreadRVA{ link ->
-            /* 링크 페이지 연결
-            linkId ->
-            val action =
-                ListUnreadFragmentDirections.actionListUnreadFragmentToLinkFragment(linkId)
-            navigator.navigate(action)
-             */
-            // 좋아요 상태 변경 시 동작
-            viewModel.updateLikeStatusOnServer(link.id.toInt())
-        }
+        ListUnreadRVA(
+            unreadLink = { link ->
+                // 좋아요 상태 변경 시 동작
+                viewModel.updateLikeStatusOnServer(link.id.toInt())
+            },
+            onClicked = { link ->
+                onItemClickListener.onItemClicked(link)
+            }
+        )
     }
 
     override fun initObserver() {
@@ -130,10 +143,6 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
                 }
             }
         }
-    }
-
-    fun updateLikeStatusOnServer(link: Link){
-
     }
 
     private fun fnUnreadRVApi(){
@@ -226,21 +235,6 @@ class ListUnreadFragment : BaseFragment<FragmentListRvBinding>(R.layout.fragment
 
     private fun initPostListRVAdapter() {
         binding.rvList.adapter = listUnreadRVA
-        /* 더미데이터
-        val zip = Zip("1", "Zip Title", "blue")
-        val zip2 = Zip("1", "인사이트", "yellow")
-        val list = listOf(
-            Link("1", "테스트입니다1", "url", "텍스트", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 1, "2024.7.28", zip),
-            Link("2", "마이크로/나노 인플루언서 마케팅 전략 ## 최대 2줄", "url", "", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0, "2024.7.29", zip2),
-            Link("3", "테스트입니다3", "url", "텍스트", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 1, "2024.7.30", zip),
-            Link("4", "테스트입니다4", "url", "", "https://i.scdn.co/image/ab67616d0000b2734ed058b71650a6ca2c04adff", 0, "2024.7.31", zip),
-            Link("5", "테스트입니다5", "url", "텍스트", R.drawable.btn_bottomnav_create.toString(), 1, "2024.7.28", zip),
-            Link("6", "테스트입니다6", "url", "텍스트", R.drawable.btn_bottomnav_create.toString(), 1, "2024.7.29", zip),
-            Link("7", "테스트입니다7", "url", "텍스트", R.drawable.btn_bottomnav_create.toString(), 1, "2024.7.30", zip),
-            Link("8", "테스트입니다8", "url", "텍스트", R.drawable.btn_bottomnav_create.toString(), 1, "2024.7.31", zip)
-        )
-        listUnreadRVA.submitList(list)
-         */
     }
 
     private fun setupClickListener() {
