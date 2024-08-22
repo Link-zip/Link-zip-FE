@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import umc.link.zip.domain.model.create.CreateLink
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
 import umc.link.zip.domain.repository.LinkRepository
 import umc.link.zip.util.network.NetworkResult
@@ -55,5 +56,10 @@ class LinkGetByIDViewModel @Inject constructor(
             }
         }
     }
+    fun resetState() {
+        // 네트워크 응답 초기화
+        _linkGetByLinkIDResponse.value = UiState.Loading
 
+        Log.d("LinkGetByIDViewModel", "뷰모델 상태가 초기화되었습니다.")
+    }
 }

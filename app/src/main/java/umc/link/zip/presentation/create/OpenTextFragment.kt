@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -32,8 +33,8 @@ import java.util.TimeZone
 class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment_open_text) {
 
     private val linkGetByIDViewModel: LinkGetByIDViewModel by activityViewModels()
-    private val linkUpdateLikeViewModel: LinkUpdateLikeViewModel by activityViewModels()
-    private val linkVisitViewModel: LinkVisitViewModel by activityViewModels()
+    private val linkUpdateLikeViewModel: LinkUpdateLikeViewModel by viewModels()
+    private val linkVisitViewModel: LinkVisitViewModel by viewModels()
 
     private var isSuccess: Boolean = false
     private var popUp: Boolean = false
@@ -184,6 +185,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
     }
 
     override fun initView() {
+        linkGetByIDViewModel.resetState()
         binding.ivOpenTextToolbarBack.setOnClickListener {
             navigateToHome()
         }

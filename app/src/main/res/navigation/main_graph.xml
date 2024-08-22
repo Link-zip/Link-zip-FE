@@ -206,7 +206,12 @@
             android:label="CustomtextZipFragment">
             <action
                 android:id="@+id/action_customtextZipFragment_to_createFragment"
-                app:destination="@+id/createFragment" />
+                app:destination="@+id/createFragment">
+                <argument
+                    android:name="fromZip"
+                    app:argType="string"
+                    android:defaultValue="false" />
+            </action>
             <action
                 android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
                 app:destination="@id/customtextCustomFragment" />

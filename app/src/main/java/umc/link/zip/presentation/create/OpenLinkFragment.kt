@@ -1,12 +1,15 @@
 package umc.link.zip.presentation.create
 
+import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -32,8 +35,8 @@ import java.util.TimeZone
 class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment_open_link) {
 
     private val linkGetByIDViewModel: LinkGetByIDViewModel by activityViewModels()
-    private val linkUpdateLikeViewModel: LinkUpdateLikeViewModel by activityViewModels()
-    private val linkVisitViewModel: LinkVisitViewModel by activityViewModels()
+    private val linkUpdateLikeViewModel: LinkUpdateLikeViewModel by viewModels()
+    private val linkVisitViewModel: LinkVisitViewModel by viewModels()
 
     private var isSuccess: Boolean = false
 
@@ -180,7 +183,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
 
     override fun initView() {
-
+        linkGetByIDViewModel.resetState()
         binding.ivOpenLinkToolbarBack.setOnClickListener {
             navigateToHome()
         }

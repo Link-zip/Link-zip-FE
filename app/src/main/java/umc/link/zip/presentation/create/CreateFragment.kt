@@ -25,6 +25,10 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     private val linkSummaryViewModel: LinkSummaryViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
+    private val fromZip by lazy {
+        arguments?.getString("fromZip")
+    }
+
     override fun initObserver() {
         repeatOnStarted {
             linkAddViewModel.isSaveButtonVisible.collectLatest { isVisible ->
@@ -54,6 +58,11 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     override fun initView() {
         binding.viewModel = linkAddViewModel
 
+        if(fromZip==null){
+            linkAddViewModel.resetState()
+        }else{
+            binding.etCreateLink.setText(fromZip)
+        }
 
         binding.etCreateLink.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

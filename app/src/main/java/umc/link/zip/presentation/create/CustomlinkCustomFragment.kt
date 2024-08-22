@@ -181,7 +181,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
     }
 
     private fun navigateToOpenLink() {
-        val zipId = 146 // 임시
+        val zipId = 209 // 임시
         updateTitle = linkAddViewModel.link.value.title
         val memoText = linkAddViewModel.link.value.memo
         val text: String? = null // text를 null로 지정

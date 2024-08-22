@@ -199,7 +199,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
     }
 
     private fun navigateToOpenText() {
-        val zipId = 157 // 임시
+        val zipId = 209 // 임시
         updateTitle = binding.etCustomTextCustomLinkTitle.text.toString()
         val memoText = linkAddViewModel.link.value.memo
         updateSummary = binding.etCustomTextSummaryText.text.toString()

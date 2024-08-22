@@ -241,6 +241,26 @@ class LinkAddViewModel @Inject constructor(
     fun clearLinkInput() {
         _linkInput.value = ""
     }
+
+    fun resetState() {
+        _Add_link.value = CreateLink(
+            zipId = 0,
+            title = "",
+            text = "",
+            url = "",
+            memo = "",
+            alertDate = null
+        )
+
+        // 입력 필드 초기화
+        _linkInput.value = ""
+
+        // 네트워크 응답 초기화
+        _addResponse.value = UiState.Loading
+
+        Log.d("LinkAddViewModel", "뷰모델 상태가 초기화되었습니다.")
+    }
+
 }
 
 
