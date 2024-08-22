@@ -58,7 +58,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private val adapter by lazy {
         OpenZipItemAdapter(
             onItemSelected = { linkItem, isSelected ->
-                if (isSelected) {
+                if (isSelected > 0) {
                     switchToSelectedMode()
                     binding.cvMypageProfileUserInfoBoxBg.setOnSingleClickListener {
                         val dialogFragment = OpenZipMoveDialogFragment.newInstance(zip_id ?: 0, linkItem.id)

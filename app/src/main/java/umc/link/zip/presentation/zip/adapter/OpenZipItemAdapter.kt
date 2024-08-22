@@ -30,7 +30,7 @@ import umc.link.zip.presentation.zip.OpenZipFragmentDirections
 import umc.link.zip.presentation.zip.ZipFragmentDirections
 
 class OpenZipItemAdapter(
-    private val onItemSelected: (LinkGetItemModel, Boolean) -> Unit,
+    private val onItemSelected: (LinkGetItemModel, Int) -> Unit,
     private val onSelectionCleared: () -> Unit,
     private val onLikeClicked: (LinkGetItemModel) -> Unit,
     private val onBackgroundChangeRequested: (Boolean) -> Unit,  // 배경 변경 요청 콜백
@@ -152,7 +152,7 @@ class OpenZipItemAdapter(
             binding.root.setOnClickListener {
                 if (selectedItems.contains(linkItem)) {
                     selectedItems.remove(linkItem)
-                    onItemSelected(linkItem, false)
+                    onItemSelected(linkItem, selectedItems.count())
                     notifyItemChanged(adapterPosition)
                     Log.d("OpenZipItemAdapter", "deselectedItem : $selectedItems")
 
@@ -162,7 +162,7 @@ class OpenZipItemAdapter(
                     }
                 } else {
                     selectedItems.add(linkItem)
-                    onItemSelected(linkItem, true)
+                    onItemSelected(linkItem, selectedItems.count())
                     notifyItemChanged(adapterPosition)
 
                     if (adapterPosition == 0) {
