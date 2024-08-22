@@ -18,6 +18,7 @@ import umc.link.zip.R
 import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.request.LoginRequest
 import umc.link.zip.databinding.ActivityLoginBinding
+import umc.link.zip.domain.model.login.TokenModel
 import umc.link.zip.presentation.MainActivity
 import umc.link.zip.presentation.base.BaseActivity
 import umc.link.zip.util.network.NetworkResult
@@ -45,9 +46,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
                 is NetworkResult.Success -> {
                     if(result.data.isExists) {
-                        Log.d("login", "기존 회원 : ${result.data.tokenResponse!!.accessToken}")
-                        Log.d("login", "기존 회원 : ${result.data.tokenResponse.accessTokenExpiresIn}")
-                        saveAccessToken(result.data.tokenResponse.accessToken)
+                        Log.d("login", "기존 회원 : ${result.data.tokenResponse!!}")
+                        saveToken(result.data.tokenResponse)
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
@@ -64,8 +64,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
     }
 
-    private fun saveAccessToken(accessToken: String) {
-        UserPreferences(this).saveUserId(accessToken)
+    private fun saveToken(token: TokenModel) {
+        UserPreferences(this).saveAccessToken(token.accessToken)
+        UserPreferences(this).saveAccessTokenExpires(token.accessTokenExpiresAt)
+        UserPreferences(this).saveRefreshToken(token.refreshToken)
+        UserPreferences(this).saveRefreshTokenExpires(token.refreshTokenExpiresAt)
     }
 
     // 카카오 로그인
@@ -87,9 +90,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private fun sendLoginRequest(token: OAuthToken) {
         val request = LoginRequest(
             accessToken = token.accessToken,
-            accessTokenExpires = token.accessTokenExpiresAt.toString(),
+            accessTokenExpiresAt = token.accessTokenExpiresAt.toString(),
             refreshToken = token.refreshToken,
-            refreshTokenExpires = token.refreshTokenExpiresAt.toString()
+            refreshTokenExpiresAt = token.refreshTokenExpiresAt.toString()
         )
 
         viewModel.login(request)

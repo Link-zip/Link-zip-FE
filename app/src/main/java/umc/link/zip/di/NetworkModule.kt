@@ -14,6 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import umc.link.zip.LinkZipApplication
 import umc.link.zip.R
 import umc.link.zip.data.AuthInterceptor
+import umc.link.zip.data.dto.TokenAuthenticator
+import umc.link.zip.data.service.LoginService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -45,8 +47,18 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun providesTokenAuthenticator(
+        loginService: dagger.Lazy<LoginService>,
+        context: Context
+    ): TokenAuthenticator {
+        return TokenAuthenticator(loginService, context)
+    }
+
+    @Provides
+    @Singleton
     fun providesOkHttpClient(
-        authInterceptor: AuthInterceptor
+        authInterceptor: AuthInterceptor,
+        tokenAuthenticator: TokenAuthenticator
     ): OkHttpClient {
         val interceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -54,6 +66,7 @@ object NetworkModule {
         return OkHttpClient.Builder().apply {
             addInterceptor(authInterceptor)
             addInterceptor(interceptor)
+            authenticator(tokenAuthenticator)
             connectTimeout(5, TimeUnit.SECONDS)
             readTimeout(5, TimeUnit.SECONDS)
             writeTimeout(5, TimeUnit.SECONDS)
