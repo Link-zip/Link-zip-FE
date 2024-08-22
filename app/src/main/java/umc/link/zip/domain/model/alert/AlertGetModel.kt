@@ -1,5 +1,10 @@
 package umc.link.zip.domain.model.alert
 
 data class AlertGetModel(
-    val message: String
+    val alert_date: String?,
+    val alert_id: Int,
+    val alert_status: Int,
+    val alert_type: String?,
+    val relative_time: String?,
+    val link: Link
 )

@@ -213,7 +213,7 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
             text = text, // 여기서 null 값 전달
             alert_date = updateAlert
         )
-
+        
         linkId?.let { linkModifyViewModel.modifyLink(it, linkModifyRequest) }
         Log.d(
             "ModifylinkCustomFragment",

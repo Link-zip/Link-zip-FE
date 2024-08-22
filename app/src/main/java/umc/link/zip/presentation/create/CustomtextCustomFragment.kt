@@ -136,7 +136,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
             }
         }
     }
-
+    
     override fun initView() {
         setOnClickListener()
     }
