@@ -172,8 +172,8 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         isSuccess = false
 
         updateTitle = binding.etCustomTextCustomLinkTitle.text.toString()
-
         updateSummary = binding.etCustomTextSummaryText.text.toString()
+
         linkAddViewModel.updateText(text = updateSummary!!)
         linkAddViewModel.updateTitle(title = updateTitle!!)
         Log.d("CustomtextCustomFragment", "updateTitle: $updateTitle\nupdateSummary: $updateSummary")
@@ -185,8 +185,6 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                 Toast.makeText(requireContext(), "제목을 설정해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 // 제목이 비어있지 않으면 이동
-                Log.d("CustomtextCustomFragment", "제목 저장: $updateTitle")
-
                 navigateAction()
             }
         }
