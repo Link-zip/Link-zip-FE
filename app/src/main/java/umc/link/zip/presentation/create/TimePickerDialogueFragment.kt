@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentPickerTimeBinding
 import umc.link.zip.presentation.base.BaseBottomSheetDialogFragment
+import umc.link.zip.presentation.create.adapter.CreateViewModel
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -13,7 +15,7 @@ import java.util.Locale
 
 class TimePickerDialogueFragment : BaseBottomSheetDialogFragment<FragmentPickerTimeBinding>(R.layout.fragment_picker_time) {
 
-    private val createViewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
@@ -27,7 +29,7 @@ class TimePickerDialogueFragment : BaseBottomSheetDialogFragment<FragmentPickerT
 
     override fun initObserver() {
         repeatOnStarted {
-            createViewModel.link.collectLatest { link ->
+            linkAddViewModel.link.collectLatest { link ->
                 val initialTime = link.alertDate?.substringAfter("T")?.removeSuffix("Z") ?: "00:00:00"
                 val calendar = Calendar.getInstance().apply {
                     time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(initialTime)
@@ -49,7 +51,7 @@ class TimePickerDialogueFragment : BaseBottomSheetDialogFragment<FragmentPickerT
             val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
             val formattedTime = timeFormat.format(selectedTime)
 
-            createViewModel.updateAlertDate(time = formattedTime)
+            linkAddViewModel.updateAlertTimeOnly(formattedTime)
             timePickerListener?.onTimePicked(formattedTime)
             dismiss()
         }

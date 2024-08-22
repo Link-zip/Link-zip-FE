@@ -21,6 +21,7 @@ import umc.link.zip.domain.model.search.SearchRecent
 import umc.link.zip.domain.model.search.SearchResult
 import umc.link.zip.domain.model.search.toEntity
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.home.HomeFragmentDirections
 import umc.link.zip.presentation.home.search.adapter.SearchRecentRVA
 import umc.link.zip.presentation.home.search.adapter.SearchResultRVA
 import umc.link.zip.presentation.mypage.adapter.NoticeRVA
@@ -319,8 +320,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private val resultRVA by lazy {
         SearchResultRVA(
             onItemClicked = { link ->
-                val action = SearchFragmentDirections.actionSearchFragmentToOpenLinkFragment(link.link.id)
-                navigator.navigate(action)
+                if(link.link.tag == "text"){
+                    val action = HomeFragmentDirections.actionHomeFragmentToOpenTextFragment(link.link.id)
+                    navigator.navigate(action)
+                }else{
+                    val action = SearchFragmentDirections.actionSearchFragmentToOpenLinkFragment(link.link.id)
+                    navigator.navigate(action)
+                }
             },
             onLikeClicked = { link ->
                 viewModel.updateLikeStatusOnServer(link.link.id)

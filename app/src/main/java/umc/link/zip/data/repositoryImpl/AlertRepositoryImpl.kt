@@ -11,6 +11,7 @@ import umc.link.zip.data.service.AlertService
 import umc.link.zip.domain.model.alert.AlertAddModel
 import umc.link.zip.domain.model.alert.AlertConfirmModel
 import umc.link.zip.domain.model.alert.AlertGetModel
+import umc.link.zip.domain.model.alert.AlertModel
 import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
 import umc.link.zip.domain.repository.AlertRepository
@@ -35,7 +36,7 @@ class AlertRepositoryImpl @Inject constructor(
     }
 
     override suspend fun GetAlert(
-    ): NetworkResult<AlertGetModel> {
-        return handleApi({ alertService.getAlert() }) { response: BaseResponse<AlertGetResponse> -> response.result.toModel() }
+    ): NetworkResult<AlertModel> {
+        return handleApi({ alertService.getAlert() }) { response: BaseResponse<AlertGetResponse> -> response.result.toAlertGetModelList() }
     }
 }

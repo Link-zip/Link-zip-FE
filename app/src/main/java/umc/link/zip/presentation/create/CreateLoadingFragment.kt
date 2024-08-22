@@ -1,30 +1,34 @@
 package umc.link.zip.presentation.create
 
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCreateLoadingBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 
 @AndroidEntryPoint
 class CreateLoadingFragment : BaseFragment<FragmentCreateLoadingBinding>(R.layout.fragment_create_loading) {
 
-    private val viewModel: CreateLoadingViewModel by viewModels()
+    private val createViewModel: CreateLoadingViewModel by viewModels()
+    private val linkSummaryViewModel: LinkSummaryViewModel by activityViewModels()
+
 
     override fun initObserver() {
         // currentVisibleView 관찰
         repeatOnStarted {
-            viewModel.currentVisibleView.collect { index ->
+            createViewModel.currentVisibleView.collect { index ->
                 updateVisibility(index)
             }
         }
 
         // animationFinished 관찰
         repeatOnStarted {
-            viewModel.animationFinished.collect { isFinished ->
+            createViewModel.animationFinished.collect { isFinished ->
                 if (isFinished) {
                     navigateToCustomTextZipFragment()
                 }

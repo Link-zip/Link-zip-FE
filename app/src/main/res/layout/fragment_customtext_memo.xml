@@ -3,8 +3,11 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="umc.link.zip.presentation.create.CreateViewModel" />
+            name="createViewModel"
+            type="umc.link.zip.presentation.create.adapter.CreateViewModel" />
+        <variable
+            name="linkExtractViewModel"
+            type="umc.link.zip.presentation.create.adapter.LinkExtractViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_text_topimg"
+            android:src="@drawable/iv_link_thumbnail_default"
             app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_customText_memo" />

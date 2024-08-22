@@ -97,7 +97,6 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
         dialog.setOnDismissListener {
             dismissListener?.onDialogDismiss()
         }
-
         return dialog
     }
 
@@ -163,15 +162,21 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
         Log.d("DialogOpenZip", "OpenZipMoveDialogSharedViewModel instance: $openZipMoveDialogSharedViewModel")
         binding.fragmentZipRecyclerview.adapter = adapter
         sharedViewModel.getZipList("latest")
+
+        // Close 버튼 클릭 시 다이얼로그를 닫도록 설정
+        binding.ivDialogueLineupClose.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
+        dismissListener?.onDialogDismiss() // 기존 콜백 호출
+
         repeatOnStarted {
-            dismissListener?.onDialogDismiss()  // 콜백 호출
             openZipMoveDialogSharedViewModel.dismissDialog()
             sharedViewModel.getZipList("latest")
         }
-        dismissListener?.onDialogDismiss()  // 콜백 호출
+
         super.onDismiss(dialog)
     }
 

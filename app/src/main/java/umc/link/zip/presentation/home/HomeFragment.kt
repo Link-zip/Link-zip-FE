@@ -193,8 +193,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private fun setRVAdapter() {
         recentRVAdapter = RecentRVAdapter(requireContext(), object : RecentRVAdapter.OnItemClickListener {
             override fun onItemClick(link: Link) {
-                val action = HomeFragmentDirections.actionHomeFragmentToOpenLinkFragment(link.id)
-                navigator.navigate(action)
+                if(link.tag == "text"){
+                    val action = HomeFragmentDirections.actionHomeFragmentToOpenTextFragment(link.id)
+                    navigator.navigate(action)
+                }else{
+                    val action = HomeFragmentDirections.actionHomeFragmentToOpenLinkFragment(link.id)
+                    navigator.navigate(action)
+                }
             }
         })
         binding.rvHomeRecent.adapter = recentRVAdapter

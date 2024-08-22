@@ -1,15 +1,24 @@
 package umc.link.zip.presentation.create
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomlinkAlarmBinding
+import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
+import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.network.UiState
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -18,16 +27,18 @@ class CustomlinkAlarmFragment :
     BaseFragment<FragmentCustomlinkAlarmBinding>(R.layout.fragment_customlink_alarm),
     DatePickerDialogueFragment.DatePickerListener, TimePickerDialogueFragment.TimePickerListener {
 
-    private val viewModel: CreateViewModel by activityViewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
+    private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     override fun initObserver() {
         repeatOnStarted {
-            viewModel.link.collectLatest { link ->
+            linkAddViewModel.link.collectLatest { link ->
                 val alertDate = link.alertDate
 
                 if (alertDate.isNullOrEmpty()) {
                     clearAlarm() // 알림이 없는 경우
                 } else {
+                    Log.d("alarm", "있어요")
                     // 알림이 있는 경우, 날짜와 시간을 분리하여 표시
                     val date = alertDate.substringBefore("T")
                     val time = alertDate.substringAfter("T").removeSuffix("Z")
@@ -39,7 +50,44 @@ class CustomlinkAlarmFragment :
                     binding.tvCustomLinkAlarmDate.text = formattedDate
                     binding.tvCustomLinkAlarmTime.text = formattedTime
 
-                    setAlarm() // 알림이 있는 경우 UI 업데이트
+                    setAlarmDate()
+                    setAlarmTime()
+                }
+            }
+        }
+        //썸네일 API 받아옴
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                linkExtractViewModel.extractResponse.collectLatest { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("CustomlinkAlarmFragment", "Loading 썸네일")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = state.data as LinkExtractModel
+                            // 썸네일
+                            val thumbnailUrl = data.thumb
+                            if(thumbnailUrl==null){
+                                binding.ivCustomLinkAlarmTopImg.setImageResource(R.drawable.iv_link_thumbnail_default)
+                            }else {
+                                Glide.with(binding.ivCustomLinkAlarmTopImg.context)
+                                    .load(thumbnailUrl)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(binding.ivCustomLinkAlarmTopImg)
+                            }
+                            Log.d("CustomlinkAlarmFragment", "썸네일 가져오기 성공")
+
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(requireContext(), "썸네일 추출 실패", Toast.LENGTH_SHORT).show()
+                            Log.d("CustomlinkAlarmFragment", "썸네일 가져오기 실패")
+                        }
+
+                        UiState.Empty -> Log.d("CustomlinkAlarmFragment", "isEmpty")
+                    }
                 }
             }
         }
@@ -63,24 +111,24 @@ class CustomlinkAlarmFragment :
                 binding.tvCustomLinkAlarmTimeNone.visibility == View.VISIBLE
             ) {
                 repeatOnStarted {
-                    viewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
+                    linkAddViewModel.clearAlertDate() // 뷰모델의 알림 날짜 초기화
                 }
                 navigator.navigateUp()
             }
             else {
                 when {
-                    date.isNotEmpty() && time.isNotEmpty() -> {
+                    binding.tvCustomLinkAlarmDateNone.visibility == View.GONE && binding.tvCustomLinkAlarmTimeNone.visibility == View.GONE -> {
                         repeatOnStarted {
-                            viewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+                            linkAddViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
                         }
                         navigator.navigateUp()
                     }
 
-                    date.isEmpty() && time.isNotEmpty() -> {
+                    binding.tvCustomLinkAlarmDateNone.visibility == View.VISIBLE -> {
                         Toast.makeText(requireContext(), "날짜를 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
 
-                    time.isEmpty() && date.isNotEmpty() -> {
+                    binding.tvCustomLinkAlarmTimeNone.visibility == View.VISIBLE -> {
                         Toast.makeText(requireContext(), "시간을 선택해주세요", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -106,12 +154,12 @@ class CustomlinkAlarmFragment :
 
     override fun onDatePicked(date: String) {
         binding.tvCustomLinkAlarmDate.text = formatDate(date)
-        setAlarm() // 알람 설정 UI 업데이트
+        setAlarmDate() // 알람 설정 UI 업데이트
     }
 
     override fun onTimePicked(time: String) {
         binding.tvCustomLinkAlarmTime.text = formatTime(time)
-        setAlarm() // 알람 설정 UI 업데이트
+        setAlarmTime() // 알람 설정 UI 업데이트
     }
 
     private fun formatDate(date: String): String {
@@ -152,12 +200,18 @@ class CustomlinkAlarmFragment :
         binding.tvCustomLinkAlarmTime.visibility = View.GONE
         binding.tvCustomLinkAlarmDateNone.visibility = View.VISIBLE
         binding.tvCustomLinkAlarmTimeNone.visibility = View.VISIBLE
+        repeatOnStarted {
+            linkAddViewModel.clearAlertDate()
+        }
     }
 
-    private fun setAlarm() {
+    private fun setAlarmDate() {
         binding.tvCustomLinkAlarmDate.visibility = View.VISIBLE
-        binding.tvCustomLinkAlarmTime.visibility = View.VISIBLE
         binding.tvCustomLinkAlarmDateNone.visibility = View.GONE
+    }
+
+    private fun setAlarmTime() {
+        binding.tvCustomLinkAlarmTime.visibility = View.VISIBLE
         binding.tvCustomLinkAlarmTimeNone.visibility = View.GONE
     }
 
