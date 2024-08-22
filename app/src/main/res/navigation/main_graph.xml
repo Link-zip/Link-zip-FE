@@ -440,6 +440,9 @@
             <action
                 android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
                 app:destination="@id/customtextCustomFragment" />
+            <action
+                android:id="@+id/action_customtextZipFragment_to_makeZipFragment"
+                app:destination="@id/makezipFragment" />
         </fragment>
 
         <fragment
@@ -476,6 +479,10 @@
                     android:defaultValue="false" />
             </action>
         </fragment>
+        <fragment
+            android:id="@+id/makezipFragment"
+            android:name="umc.link.zip.presentation.zip.MakeZipFragment"
+            android:label="MakeZipFragment" />
 
         <fragment
             android:id="@+id/customtextAlarmFragment"

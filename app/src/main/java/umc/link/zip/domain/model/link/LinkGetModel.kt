@@ -1,6 +1,5 @@
 package umc.link.zip.domain.model.link
 
-class LinkGetModel : ArrayList<LinkGetItemModel>(){
-    fun toModel() = LinkGetModel(
-    )
-}
+data class LinkGetModel(
+    val link_data: List<LinkGetItemModel>
+)

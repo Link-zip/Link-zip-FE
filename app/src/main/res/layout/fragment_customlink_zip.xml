@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
 
     <data>
 
@@ -84,15 +85,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_customLink_zip" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_customLink_early_unselected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/drawerbtn_lineup_early_unselected"
+            android:src="@drawable/drawerbtn_lineup_early_unselected"
             app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_mg5"
             app:layout_constraintStart_toEndOf="@id/view_customLink_zip_mg5"/>
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_customLink_new_zip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +104,7 @@
             android:fontFamily="@font/pretendard_medium"
             app:layout_constraintTop_toTopOf="@id/btn_customLink_early_unselected"
             app:layout_constraintBottom_toBottomOf="@id/btn_customLink_early_unselected"
-            app:layout_constraintEnd_toStartOf="@id/view_customLink_zip_mg7"/>
+            app:layout_constraintEnd_toStartOf="@id/view_customLink_zip_mg7"/>-->
 
         <View
             android:id="@+id/view_customLink_zip_mg6"
@@ -130,19 +131,22 @@
             android:background="@drawable/shadow_custom_text_up_bg"
             app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_mg6" />
 
+        <!-- 간편 저장하기 버튼 -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_customLink_zip"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="#ffffff"
             android:orientation="vertical"
             android:overScrollMode="never"
-            android:background="#ffffff"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_shadow_top"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_save_zip"/>
+            app:layout_constraintTop_toBottomOf="@id/view_customLink_zip_shadow_top"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp"
+            tools:listitem="@layout/item_save_zip" />
 
-        <!-- 간편 저장하기 버튼 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_customLink_zip_easySave_btn"
             android:layout_width="0dp"
