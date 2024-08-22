@@ -4,12 +4,15 @@ import android.content.Context
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor(private val context: Context) : Interceptor {
+class AuthInterceptor(
+    private val context: Context
+    ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 
         // login API 요청인 경우, 인증 헤더를 추가하지 않음
-        if (originalRequest.url.encodedPath.endsWith("/user/token/test")) {
+        if (originalRequest.url.encodedPath.endsWith("/user/login") or
+            originalRequest.url.encodedPath.endsWith("/user/refresh")) {
             return chain.proceed(originalRequest)
         }
 

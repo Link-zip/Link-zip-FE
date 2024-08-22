@@ -36,9 +36,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
                 }
                 is NetworkResult.Fail -> {
                     Log.d("login", "Jwt 확인 실패 : ${result.statusCode}")
-                    if(result.message == "Unauthorized") {
-                        navigateToLoginActivity()
-                    }
                 }
                 is NetworkResult.Success -> {
                     Log.d("login", "Jwt 확인 성공")
