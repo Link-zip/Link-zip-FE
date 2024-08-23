@@ -112,7 +112,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
             findNavController().navigateUp()
         }
 
-        binding.clCustomLinkZipNextBtn.setOnClickListener {
+        binding.btnCustomLinkZipNext.setOnClickListener {
             navigateToCustom()
         }
 
@@ -173,6 +173,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.ivCustomLinkZipGrayshadow.visibility = View.GONE
         binding.ivCustomLinkZipBlueshadow.visibility = View.VISIBLE
         binding.btnCustomLinkZipNext.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
+
+        binding.btnCustomLinkZipNext.isClickable = true
     }
 
     private fun resetSelectedBtn() {
@@ -180,6 +182,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.ivCustomLinkZipBlueshadow.visibility = View.GONE
         binding.btnCustomLinkZipNext.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         adapter?.clearSelections()
+
+        binding.btnCustomLinkZipNext.isClickable = false
     }
 
     private fun setupClickListener() {

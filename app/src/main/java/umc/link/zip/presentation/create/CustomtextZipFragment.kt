@@ -110,7 +110,7 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
             navigateToCreate()
         }
 
-        binding.clCustomTextZipNextBtn.setOnClickListener{
+        binding.btnCustomTextZipNext.setOnClickListener{
             navigateToCustom()
         }
 
@@ -165,6 +165,8 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         binding.ivCustomTextZipGrayshadow.visibility = View.GONE
         binding.ivCustomTextZipBlueshadow.visibility = View.VISIBLE
         binding.btnCustomTextZipNext.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
+
+        binding.btnCustomTextZipNext.isClickable = true
     }
 
     private fun resetSelectedBtn() {
@@ -172,6 +174,8 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         binding.ivCustomTextZipBlueshadow.visibility = View.GONE
         binding.btnCustomTextZipNext.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         adapter?.clearSelections()
+
+        binding.btnCustomTextZipNext.isClickable = false
     }
 
     private fun setupClickListener() {
