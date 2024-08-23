@@ -180,6 +180,9 @@ class OpenZipItemAdapter(
             binding.root.setOnClickListener {
                 if (selectedItems.contains(linkItem)) {
                     selectedItems.remove(linkItem)
+                    if (adapterPosition == 0) {
+                        onBackgroundChangeRequested(false)
+                    }
                     onItemSelected(linkItem, selectedItems.count())
                     notifyItemChanged(adapterPosition)
                     Log.d("OpenZipItemAdapter", "deselectedItem : $selectedItems")
