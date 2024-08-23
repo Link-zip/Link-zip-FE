@@ -51,6 +51,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
     private val edit by lazy {
         arguments?.getBoolean("edit")
     }
+    private var bool : Boolean = true
 
     private var url: String? = null
     private var isLike: Int? = null
@@ -115,11 +116,14 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                             }
                             Log.d("OpenLinkFragment", "링크 정보 가져오기 성공")
 
-                            if (add == true) {
-                                showCustomToast("링크 저장 완료")
-                            }
-                            if (edit == true) {
-                                showCustomToast("링크 수정 완료")
+                            if (bool) {
+                                if (add == true) {
+                                    showCustomToast("링크 저장 완료")
+                                }
+                                if (edit == true) {
+                                    showCustomToast("링크 수정 완료")
+                                }
+                                bool = false
                             }
 
                         }
@@ -135,9 +139,11 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                 }
             }
         }
+
         // 원본 링크 이동
         binding.btnOpenLinkMove.setOnClickListener {
             isSuccess = false
+            bool = false
             // VisitLink API 호출
             linkVisitViewModel.visitLink(linkId)
             Log.d("OpenLinkFragment", "OpenLinkFragment VisitLink API 호출")
@@ -181,7 +187,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         }
 
     }
-
 
     override fun initView() {
         linkGetByIDViewModel.resetState()
