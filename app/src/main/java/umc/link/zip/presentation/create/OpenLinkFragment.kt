@@ -195,7 +195,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
             }
         }
 
-
         binding.btnOpenLinkEdit.setOnClickListener {
             navigateToCustomLinkCustom()
         }
@@ -215,7 +214,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(R.id.openLinkFragment_to_homeFragment)
+        findNavController().navigate(R.id.openLinkFragment_to_homeFragmentTab)
     }
 
     private fun navigateToCustomLinkCustom() {

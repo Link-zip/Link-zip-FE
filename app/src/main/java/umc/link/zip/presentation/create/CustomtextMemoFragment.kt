@@ -1,6 +1,10 @@
 package umc.link.zip.presentation.create
 
+import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -25,6 +29,19 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
     private val linkAddViewModel: LinkAddViewModel by activityViewModels()
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set up touch listener to hide keyboard
+        view.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                val imm = context?.getSystemService(InputMethodManager::class.java)
+                imm?.hideSoftInputFromWindow(v.windowToken, 0)
+                binding.etCustomTextMemoAddMemo.clearFocus()
+            }
+            false
+        }
+    }
     override fun initObserver() {
         repeatOnStarted {
             linkAddViewModel.link.collectLatest { link ->

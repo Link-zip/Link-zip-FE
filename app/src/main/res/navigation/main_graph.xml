@@ -58,17 +58,15 @@
         <fragment
             android:id="@+id/openLinkFragment"
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
-            android:label="OpenLinkFragment" />
+            android:label="OpenLinkFragment"/>
         <fragment
             android:id="@+id/homeListFragment"
             android:name="umc.link.zip.presentation.list.ListFragment"
             android:label="ListFragment"/>
-
         <fragment
             android:id="@+id/openTextFragment"
             android:name="umc.link.zip.presentation.create.OpenTextFragment"
-            android:label="OpenTextFragment">
-        </fragment>
+            android:label="OpenTextFragment"/>
     </navigation>
 
     <navigation
@@ -99,7 +97,7 @@
         <fragment
             android:id="@+id/openLinkFragment"
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
-            android:label="OpenLinkFragment" />
+            android:label="OpenLinkFragment"/>
         <fragment
             android:id="@+id/listLikeFragment"
             android:name="umc.link.zip.presentation.list.ListLikeFragment"
@@ -211,20 +209,12 @@
         <fragment
             android:id="@+id/openTextFragment"
             android:name="umc.link.zip.presentation.create.OpenTextFragment"
-            android:label="OpenTextFragment">
-            <action
-                android:id="@+id/action_openTextFragment_to_customTextCustomFragment"
-                app:destination="@id/customtextCustomFragment" />
-        </fragment>
+            android:label="OpenTextFragment"/>
 
         <fragment
             android:id="@+id/openLinkFragment"
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
-            android:label="OpenLinkFragment">
-            <action
-                android:id="@+id/action_openLinkFragment_to_customLinkCustomFragment"
-                app:destination="@id/customlinkCustomFragment" />
-        </fragment>
+            android:label="OpenLinkFragment"/>
 
         <fragment
             android:id="@+id/OpenZipFragment"
@@ -308,12 +298,12 @@
     <fragment
         android:id="@+id/openLinkFragment"
         android:name="umc.link.zip.presentation.create.OpenLinkFragment"
-        android:label="OpenLinkFragment" />
+        android:label="OpenLinkFragment"/>
 
     <fragment
         android:id="@+id/openTextFragment"
         android:name="umc.link.zip.presentation.create.OpenTextFragment"
-        android:label="OpenTextFragment" />
+        android:label="OpenTextFragment"/>
 
     <navigation
         android:id="@+id/mypageFragmentTab"
@@ -431,7 +421,7 @@
             android:label="CustomtextZipFragment">
             <action
                 android:id="@+id/action_customtextZipFragment_to_createFragment"
-                app:destination="@+id/createFragment">
+                app:destination="@id/createFragment">
                 <argument
                     android:name="fromZip"
                     app:argType="string"
@@ -454,7 +444,7 @@
                 app:destination="@id/customlinkCustomFragment" />
             <action
                 android:id="@+id/action_customlinkZipFragment_to_openLinkFragment"
-                app:destination="@+id/openLinkFragment" />
+                app:destination="@id/openLinkFragment" />
         </fragment>
 
         <fragment
@@ -532,8 +522,8 @@
             android:name="umc.link.zip.presentation.create.OpenTextFragment"
             android:label="OpenTextFragment">
             <action
-                android:id="@+id/openTextFragment_to_homeFragment"
-                app:destination="@id/homeFragment" />
+                android:id="@+id/openTextFragment_to_homeFragmentTab"
+                app:destination="@id/homeFragmentTab" />
             <action
                 android:id="@+id/action_openTextFragment_to_modifyTextCustomFragment"
                 app:destination="@id/modifyTextCustomFragment">
@@ -551,7 +541,7 @@
             android:name="umc.link.zip.presentation.create.OpenLinkFragment"
             android:label="OpenLinkFragment">
             <action
-                android:id="@+id/openLinkFragment_to_homeFragment"
+                android:id="@+id/openLinkFragment_to_homeFragmentTab"
                 app:destination="@id/homeFragmentTab" />
             <action
                 android:id="@+id/action_openLinkFragment_to_modifyLinkCustomFragment"

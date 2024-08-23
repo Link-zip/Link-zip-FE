@@ -186,8 +186,13 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
 
     override fun initView() {
         linkGetByIDViewModel.resetState()
+
         binding.ivOpenTextToolbarBack.setOnClickListener {
-            navigateToHome()
+            if (add == true || edit == true) {
+                navigateToHome()
+            } else {
+                findNavController().navigateUp()
+            }
         }
 
         binding.btnOpenTextEdit.setOnClickListener {
@@ -209,7 +214,7 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(R.id.openTextFragment_to_homeFragment)
+        findNavController().navigate(R.id.openTextFragment_to_homeFragmentTab)
     }
 
     private fun navigateToCustomTextCustom() {

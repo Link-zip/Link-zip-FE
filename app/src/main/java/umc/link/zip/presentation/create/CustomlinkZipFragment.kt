@@ -35,6 +35,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
 
+    private var selectedZipID: Int? = null
+
 
     private fun navigateToCustom() {
         findNavController().navigate(R.id.action_customlinkZipFragment_to_customlinkCustomFragment)
@@ -151,6 +153,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         adapter = CustomtextZipItemAdapter { zipItem, isSelected ->
             if (isSelected) {
                 setSelectedBtn()
+                selectedZipID = zipItem.zip_id
             }else {
                 resetSelectedBtn()
             }
