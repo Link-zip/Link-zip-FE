@@ -19,7 +19,7 @@ class CreateLoadingViewModel : ViewModel() {
     }
 
     private fun startAnimation() {
-        object : CountDownTimer(5000, 200) {
+        object : CountDownTimer(15000, 200) {
             var currentIndex = 0
             override fun onTick(millisUntilFinished: Long) {
                 _currentVisibleView.value = currentIndex

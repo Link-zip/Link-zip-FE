@@ -413,6 +413,9 @@
             <action
                 android:id="@+id/action_createLoadingFragment_to_customTextZipFragment"
                 app:destination="@id/customtextZipFragment" />
+            <action
+                android:id="@+id/action_createLoadingFragment_to_createFragment"
+                app:destination="@id/createFragment" />
         </fragment>
 
         <fragment

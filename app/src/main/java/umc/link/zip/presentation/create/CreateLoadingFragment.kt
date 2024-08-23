@@ -5,6 +5,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCreateLoadingBinding
 import umc.link.zip.presentation.base.BaseFragment
@@ -30,6 +31,14 @@ class CreateLoadingFragment : BaseFragment<FragmentCreateLoadingBinding>(R.layou
         repeatOnStarted {
             createViewModel.animationFinished.collect { isFinished ->
                 if (isFinished) {
+                    navigateToCreateFragment()
+                }
+            }
+        }
+
+        repeatOnStarted {
+            linkSummaryViewModel.isSummaryLoaded.collectLatest { isLoaded ->
+                if (isLoaded) {
                     navigateToCustomTextZipFragment()
                 }
             }
@@ -48,5 +57,9 @@ class CreateLoadingFragment : BaseFragment<FragmentCreateLoadingBinding>(R.layou
 
     private fun navigateToCustomTextZipFragment() {
         findNavController().navigate(R.id.action_createLoadingFragment_to_customTextZipFragment)
+    }
+
+    private fun navigateToCreateFragment() {
+        findNavController().navigate(R.id.action_createLoadingFragment_to_createFragment)
     }
 }
