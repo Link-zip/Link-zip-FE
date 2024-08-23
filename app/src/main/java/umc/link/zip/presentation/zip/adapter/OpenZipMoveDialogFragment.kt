@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
@@ -48,18 +49,21 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
     private val sharedViewModel : OpenZipMoveDialogSharedViewModel by viewModels()
 
     private val zipId by lazy { arguments?.getInt(ARG_ZIP_ID) ?: 0 }
-    private val linkId by lazy { arguments?.getInt(ARG_LINK_ID) ?: 0 }
+
+    private var selectedLinkIds : List<Int> = emptyList()
+
+
 
     companion object {
         private const val ARG_ZIP_ID = "zip_id"
         private const val ARG_LINK_ID = "link_id"
 
-        fun newInstance(zipId: Int, linkId : Int): OpenZipMoveDialogFragment {
+        fun newInstance(zipId: Int, linkId : List<Int>): OpenZipMoveDialogFragment {
             val fragment = OpenZipMoveDialogFragment()
-            val args = Bundle().apply {
-                putInt(ARG_ZIP_ID, zipId)
-                putInt(ARG_LINK_ID, linkId)
-            }
+            val args = Bundle()
+
+            args.putInt(ARG_ZIP_ID, zipId)
+            args.putIntegerArrayList(ARG_LINK_ID, ArrayList(linkId))
             fragment.arguments = args
             return fragment
         }
@@ -72,7 +76,7 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
                     binding.fragmentMakezipMakeBtn.setBackgroundResource(R.drawable.shape_rect_005773_fill)
                     binding.ivProfilesetGrayshadow.visibility = View.GONE
                     binding.ivProfilesetBlueshadow.visibility = View.VISIBLE
-                    //navigate 함수 호출 필요
+
                     navigateToOpenZip(zipItem.zip_id)
 
                 } else {
@@ -87,6 +91,11 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialogTheme
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        selectedLinkIds = arguments?.getIntegerArrayList(ARG_LINK_ID)?.toList() ?: emptyList()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -141,7 +150,7 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
 
                         is UiState.Success<*> -> {
                             Log.d("OpenZipMoveDialogFragment", "Dismiss()")
-                            dismiss()
+                            //dismiss()
                         }
 
                         is UiState.Error -> {
@@ -163,6 +172,7 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
         binding.fragmentZipRecyclerview.adapter = adapter
         sharedViewModel.getZipList("latest")
 
+
         // Close 버튼 클릭 시 다이얼로그를 닫도록 설정
         binding.ivDialogueLineupClose.setOnClickListener {
             dismiss()
@@ -180,11 +190,20 @@ class OpenZipMoveDialogFragment : BaseBottomSheetDialogFragment<FragmentDialogue
         super.onDismiss(dialog)
     }
 
-    private fun navigateToOpenZip(zipId: Int)
+    private fun navigateToOpenZip( zipId : Int)
     {
         binding.fragmentMakezipMakeBtn.setOnClickListener {
-            sharedViewModel.moveLinkToNewZip(linkId, zipId)
+            Log.d("DialogOpenZip", "$selectedLinkIds")
+            repeatOnStarted {
+                selectedLinkIds.forEach { linkId ->
+                    sharedViewModel.moveLinkToNewZip(linkId, zipId)
+                    // 이미 uiState_link를 수집하고 있으므로 여기서는 추가적인 collectLatest가 필요 없습니다.
+                    Log.d("DialogOpenZip", "$selectedLinkIds, dismiss22")
+
+                }
+            }
+            Log.d("DialogOpenZip", "$selectedLinkIds, dismiss")
+            dismiss() // 다이얼로그 닫기
         }
     }
-
 }

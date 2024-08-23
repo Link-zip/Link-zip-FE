@@ -111,7 +111,6 @@ class OpenZipItemAdapter(
         )
     }
 
-
     override fun onBindViewHolder(holder: LinkViewHolder, position: Int) {
         val linkItem = getItem(position) // ListAdapter에서 제공하는 getItem 사용
         val isSelected = selectedItems.contains(linkItem)
