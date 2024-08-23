@@ -102,7 +102,7 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                     updateAlert = link.alertDate
 
                     Log.d("ModifylinkCustomFragment", "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert")
-                    if (updateTitle == ""){
+                    if (updateTitle == "default"){
                         binding.etCustomLinkCustomLinkTitle.setText(getTitle)
                         Log.d("ModifylinkCustomFragment", "제목 설정: $getTitle")
                     } else {

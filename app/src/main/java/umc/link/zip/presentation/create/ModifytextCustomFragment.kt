@@ -102,7 +102,7 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                             "updateTitle: $updateTitle \nupdateMemo: $updateMemo \nupdateAlert: $updateAlert"
                         )
 
-                        if (updateTitle == "") {
+                        if (updateTitle == "default") {
                             binding.etCustomTextCustomLinkTitle.setText(getTitle)
                             Log.d("ModifytextCustomFragment", "제목 설정: $getTitle")
                         } else {
@@ -120,7 +120,7 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                 linkAddViewModel.link.collectLatest { link ->
                     updateText = link.text
                     Log.d("ModifytextCustomFragment", "updateText: $updateText")
-                    if (updateText == ""){
+                    if (updateText == "default"){
                         binding.etCustomTextSummaryText.setText(getText)
                         Log.d("ModifytextCustomFragment", "텍스트 요약 설정: $getText")
                     } else {
