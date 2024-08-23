@@ -24,6 +24,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenzipBinding
 import umc.link.zip.domain.model.link.LinkGetModel
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.home.HomeFragmentDirections
 import umc.link.zip.presentation.zip.adapter.LinkDeleteDialogueFragment
 import umc.link.zip.presentation.zip.adapter.OpenZipDialogueLineupFragment
 import umc.link.zip.presentation.zip.adapter.OpenZipDialogueListSelectFragment
@@ -88,6 +89,15 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                     binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg3)
                 } else {
                     binding.fragmentOpenzipShadow.setBackgroundResource(R.drawable.shadow_zip_bg2)
+                }
+            },
+            onItemClicked = { link ->
+                if(link.tag == "text"){
+                    val action = OpenZipFragmentDirections.actionFragmentOpenZipToOpenTextFragment(link.id)
+                    navigator.navigate(action)
+                }else{
+                    val action = OpenZipFragmentDirections.actionFragmentOpenZipToOpenLinkFragment(link.id)
+                    navigator.navigate(action)
                 }
             }
         )

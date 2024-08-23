@@ -24,8 +24,10 @@ import com.bumptech.glide.request.target.Target
 import umc.link.zip.R
 import umc.link.zip.databinding.ItemLinkBinding
 import umc.link.zip.databinding.ItemZipBinding
+import umc.link.zip.domain.model.alert.Link
 import umc.link.zip.domain.model.link.LinkGetItemModel
 import umc.link.zip.domain.model.zip.ZipGetItemModel
+import umc.link.zip.presentation.home.HomeFragmentDirections
 import umc.link.zip.presentation.zip.OpenZipFragmentDirections
 import umc.link.zip.presentation.zip.ZipFragmentDirections
 
@@ -34,6 +36,7 @@ class OpenZipItemAdapter(
     private val onSelectionCleared: () -> Unit,
     private val onLikeClicked: (LinkGetItemModel) -> Unit,
     private val onBackgroundChangeRequested: (Boolean) -> Unit,  // 배경 변경 요청 콜백
+    private val onItemClicked: (LinkGetItemModel) -> Unit,
 ) : ListAdapter<LinkGetItemModel, OpenZipItemAdapter.LinkViewHolder>(DiffCallback()) {
 
     private var selectedItems: MutableSet<LinkGetItemModel> = mutableSetOf()
@@ -202,30 +205,13 @@ class OpenZipItemAdapter(
 
         private fun handleNormalMode(linkItem: LinkGetItemModel, position: Int) {
             resetUI()
-            binding.root.setOnClickListener {
-                if(linkItem.tag == "text")
-                    navigateToOpenText()
-                else if(linkItem.tag == "link")
-                    navigateToOpenLink()
+            binding.root.setOnClickListener{
+                onItemClicked(linkItem)
             }
         }
 
         private fun resetUI(){
             binding.root.setBackgroundColor(Color.parseColor("#FBFBFB"))
-        }
-
-        private fun navigateToOpenText() {
-            val bundle = Bundle().apply {
-                putInt("id", linkId)
-            }
-            itemView.findNavController().navigate(R.id.action_fragmentOpenZip_to_openTextFragment, bundle)
-        }
-
-        private fun navigateToOpenLink() {
-            val bundle = Bundle().apply {
-                putInt("id", linkId)
-            }
-            itemView.findNavController().navigate(R.id.action_fragmentOpenZip_to_openLinkFragment, bundle)
         }
     }
 
