@@ -37,6 +37,8 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     private var setTitle: String? = null
     private var setUrl: String? = null
 
+    private var isAvail : Boolean = true
+
 
     override fun initObserver() {
         repeatOnStarted {
@@ -78,7 +80,10 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
                             setUrl = binding.etCreateLink.text.toString()
                             Log.d("CustomlinkCustomFragment", "setTitle: $setTitle setUrl: $setUrl")
 
-                            navigateToLink()
+                            if(isAvail) {
+                                navigateToLink()
+                                isAvail = false
+                            }
                         }
 
                         is UiState.Error -> {
@@ -96,11 +101,11 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
     override fun initView() {
         binding.viewModel = linkAddViewModel
-
-        if(fromZip==null){
-            linkAddViewModel.resetState()
-        }else{
+        isAvail = false
+        linkAddViewModel.resetState()
+        if(fromZip!=null){
             binding.etCreateLink.setText(fromZip)
+            linkAddViewModel.updateLinkInput(fromZip.toString())
         }
 
         binding.etCreateLink.addTextChangedListener(object : TextWatcher {
@@ -127,6 +132,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
         // 텍스트 요약
         binding.btnCreateSaveText.setOnClickListener {
+            isAvail = true
             setUrl = binding.etCreateLink.text.toString()
 
             // URL에 맞는 더미 데이터 가져오기
@@ -144,6 +150,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
         // 링크 저장
         binding.btnCreateSaveLink.setOnClickListener {
+            isAvail = true
             val url = binding.etCreateLink.text.toString()
 
             // URL에 맞는 더미 데이터 가져오기

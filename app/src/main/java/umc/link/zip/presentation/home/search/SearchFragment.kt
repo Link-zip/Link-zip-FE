@@ -3,7 +3,9 @@ package umc.link.zip.presentation.home.search
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -149,6 +151,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 ivSearchNoneClip.visibility = View.VISIBLE
                 tvSearchNone.text = "최근 검색어가 없어요"
                 tvSearchNone.visibility = View.VISIBLE
+            }
+
+            etSearchBar.setOnEditorActionListener { _, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE || event?.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    // 엔터키를 눌렀을 때 버튼 클릭 이벤트 발생
+                    viewSearchBtn.performClick()
+                    true // 기본 엔터 동작을 막고 우리가 정의한 동작만 실행
+                } else {
+                    false // 기본 엔터 동작이 실행되도록 허용
+                }
             }
         }
 

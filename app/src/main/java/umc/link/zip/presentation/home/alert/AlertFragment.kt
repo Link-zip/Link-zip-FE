@@ -28,6 +28,8 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
 
     private var linkId: Int? = null
 
+    private var isAvail : Boolean = true
+
     override fun initObserver() {
         lifecycleScope.launch {
             alertGetViewModel.getAlertResponse.collect { state ->
@@ -70,10 +72,13 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
                                 it
                             )
                         }
-                        if (action != null) {
-                            navigator.navigate(action)
+                        if(isAvail) {
+                            if (action != null) {
+                                navigator.navigate(action)
+                            }
+                            Log.d("AlertFragment", "${linkId}번 링크 알림 확인 성공")
+                            isAvail = false
                         }
-                        Log.d("AlertFragment", "${linkId}번 링크 알림 확인 성공")
                     }
                     is UiState.Error -> {
                         // 에러 처리
@@ -88,6 +93,7 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
     }
 
     override fun initView() {
+        isAvail = false
         // 업버튼 설정
         binding.ivAlertToolbarBack.setOnClickListener {
             findNavController().navigateUp()
@@ -102,6 +108,7 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
     private val alertRVA by lazy {
         AlertRVA(
             onItemClick = { alert ->
+                isAvail = true
                 linkId = alert.link.id
                 Log.d("AlertFragment", "linkId = ${linkId}")
                 alertGetViewModel.confirmAlert(alert.alert_id)
