@@ -122,6 +122,7 @@
     <navigation
         android:id="@+id/zipFragmentTab"
         app:startDestination="@id/zipFragment">
+
         <fragment
             android:id="@+id/alertFragment"
             android:name="umc.link.zip.presentation.home.alert.AlertFragment"

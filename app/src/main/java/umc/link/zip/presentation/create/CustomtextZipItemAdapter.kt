@@ -14,7 +14,6 @@ import umc.link.zip.domain.model.ZipItem
 import umc.link.zip.domain.model.zip.ZipGetItemModel
 
 class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit) : RecyclerView.Adapter<CustomtextZipItemAdapter.ZipViewHolder>() {
-
     private var items: List<ZipGetItemModel> = emptyList()
     private var selectedItem: ZipGetItemModel? = null // 단일 선택을 위한 변수
 

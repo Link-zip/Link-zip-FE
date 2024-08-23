@@ -52,6 +52,7 @@ class OpenZipMoveDialogSharedViewModel @Inject constructor(
                     is NetworkResult.Success -> {
                         _uiState.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
                         _uiState.value = UiState.Success(this.data)
+                        _zipList.value = this.data // zipList 업데이트
                     }
                     is NetworkResult.Error -> {
                         _uiState.value = UiState.Error(this.exception)
