@@ -20,7 +20,7 @@
                 android:id="@+id/fragment_deletezip_delete_message"
                 android:layout_width="210dp"
                 android:layout_height="92dp"
-                android:background="@drawable/delete_message"
+                android:background="@drawable/canclebtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

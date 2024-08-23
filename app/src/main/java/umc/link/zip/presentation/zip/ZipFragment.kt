@@ -166,6 +166,10 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
             navigator.navigate(R.id.action_zipFragment_to_alertFragment)
         }
 
+        binding.ivHomeAlarmNothing.setOnClickListener {
+            navigator.navigate(R.id.action_homeFragment_to_alertFragment)
+        }
+
         // Initialize in NormalMode
         setNormalMode()
         viewModel.getZipList(userSelectedLineup)
