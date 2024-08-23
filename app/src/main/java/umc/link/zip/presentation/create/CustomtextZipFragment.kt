@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +18,7 @@ import umc.link.zip.R
 import umc.link.zip.databinding.FragmentCustomtextZipBinding
 import umc.link.zip.databinding.FragmentZipBinding
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.zip.adapter.CustomtextZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.ZipAdapter
 import umc.link.zip.presentation.zip.adapter.ZipDialogueLineupFragment
@@ -27,6 +30,9 @@ import umc.link.zip.util.extension.setOnSingleClickListener
 @AndroidEntryPoint
 class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layout.fragment_customtext_zip){
     private val viewModel: ZipGetViewModel by viewModels()
+    private val linkAddViewModel: LinkAddViewModel by activityViewModels()
+
+    private val navigator by lazy { findNavController() }
     private var adapter: CustomtextZipItemAdapter? = null
 
     private var isSelected = false
@@ -34,15 +40,27 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
 
+    private var selectedZipID: Int? = null
+
 
     private fun navigateToCreate() {
-        findNavController().navigate(R.id.action_customtextZipFragment_to_createFragment)
-    }
+        val action = CustomtextZipFragmentDirections.actionCustomtextZipFragmentToCreateFragment(linkAddViewModel.link.value.url)
+        navigator.navigate(action, NavOptions.Builder()
+            .setPopUpTo(R.id.createFragment, false)
+            .build())    }
 
     private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_customtextZipFragment_to_customtextCustomFragment)
+        selectedZipID?.let { id ->
+            val action =
+                CustomtextZipFragmentDirections.actionCustomtextZipFragmentToCustomtextCustomFragment(
+                    id
+                )
+            Log.d("CustomtextZipFragment", "선택된 zipId: $id 전달 navigate")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("CustomtextZipFragment", "선택된 zipId 가져오기 실패")
+        }
     }
-
 
 
 
@@ -110,7 +128,7 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
             navigateToCreate()
         }
 
-        binding.clCustomTextZipNextBtn.setOnClickListener{
+        binding.btnCustomTextZipNext.setOnClickListener{
             navigateToCustom()
         }
 
@@ -146,6 +164,8 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         adapter = CustomtextZipItemAdapter { zipItem, isSelected ->
             if (isSelected) {
                 setSelectedBtn()
+                selectedZipID = zipItem.zip_id
+                Log.d("CustomlinkZipFragment", "선택된 zipId: $selectedZipID")
             }else {
                 resetSelectedBtn()
             }
@@ -164,6 +184,8 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         binding.ivCustomTextZipGrayshadow.visibility = View.GONE
         binding.ivCustomTextZipBlueshadow.visibility = View.VISIBLE
         binding.btnCustomTextZipNext.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
+
+        binding.btnCustomTextZipNext.isClickable = true
     }
 
     private fun resetSelectedBtn() {
@@ -171,6 +193,8 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         binding.ivCustomTextZipBlueshadow.visibility = View.GONE
         binding.btnCustomTextZipNext.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         adapter?.clearSelections()
+
+        binding.btnCustomTextZipNext.isClickable = false
     }
 
     private fun setupClickListener() {

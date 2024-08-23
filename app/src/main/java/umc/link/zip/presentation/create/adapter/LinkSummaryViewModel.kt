@@ -27,30 +27,41 @@ class LinkSummaryViewModel @Inject constructor(
     private val _summaryResponse = MutableStateFlow<UiState<LinkSummaryModel>>(UiState.Loading)
     val summaryResponse: StateFlow<UiState<LinkSummaryModel>> = _summaryResponse.asStateFlow()
 
+    private val _isSummaryLoaded = MutableStateFlow(false)
+    val isSummaryLoaded: StateFlow<Boolean> get() = _isSummaryLoaded.asStateFlow()
+
     fun fetchLinkSummary(linkSummaryRequest: LinkSummaryRequest) {
         viewModelScope.launch {
             linkRepository.SummaryLink(linkSummaryRequest).apply {
+                _summaryResponse.value = UiState.Loading
+                _isSummaryLoaded.value = false
+
                 when (this) {
                     is NetworkResult.Success -> {
-                        _summaryResponse.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
                         _summaryResponse.value = UiState.Success(this.data)
+                        _isSummaryLoaded.value = true
                         Log.d("LinkSummaryViewModel", "Loading text summary data 성공")
                     }
                     is NetworkResult.Error -> {
                         _summaryResponse.value = UiState.Error(this.exception)
+                        _isSummaryLoaded.value = false
                         Log.d("LinkSummaryViewModel", "Loading text summary data 에러 ${this.exception}")
                     }
                     is NetworkResult.Fail -> {
                         _summaryResponse.value = UiState.Error(Throwable("Failed to load data"))
+                        _isSummaryLoaded.value = false
                         Log.d("LinkSummaryViewModel", "Loading text summary data 실패")
                     }
                 }
             }.onError {
                 _summaryResponse.value = UiState.Error(it)
+                _isSummaryLoaded.value = false
             }.onException {
                 _summaryResponse.value = UiState.Error(it)
+                _isSummaryLoaded.value = false
             }.onFail {
                 _summaryResponse.value = UiState.Error(Throwable("Failed to load data"))
+                _isSummaryLoaded.value = false
             }
         }
     }

@@ -4,7 +4,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -12,11 +15,13 @@ import umc.link.zip.R
 import umc.link.zip.data.dto.link.request.LinkExtractRequest
 import umc.link.zip.data.dto.link.request.LinkSummaryRequest
 import umc.link.zip.databinding.FragmentCreateBinding
+import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create) {
@@ -28,6 +33,10 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     private val fromZip by lazy {
         arguments?.getString("fromZip")
     }
+
+    private var setTitle: String? = null
+    private var setUrl: String? = null
+
 
     override fun initObserver() {
         repeatOnStarted {
@@ -51,6 +60,36 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
         repeatOnStarted {
             linkAddViewModel.isDeleteIconVisible.collectLatest { isVisible ->
                 binding.ivCreateDelete.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+            }
+        }
+        // extract API 응답
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                linkExtractViewModel.extractResponse.collectLatest { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("CustomlinkCustomFragment", "Loading extract data")
+                        }
+
+                        is UiState.Success<*> -> {
+                            val data = state.data as LinkExtractModel
+                            setTitle = data.title
+                            setUrl = binding.etCreateLink.text.toString()
+                            Log.d("CustomlinkCustomFragment", "setTitle: $setTitle setUrl: $setUrl")
+
+                            navigateToLink()
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(requireContext(), "제목 추출 실패", Toast.LENGTH_SHORT)
+                                .show()
+                            Log.d("CustomlinkCustomFragment", "제목 가져오기 실패")
+                        }
+
+                        UiState.Empty -> Log.d("CustomlinkCustomFragment", "isEmpty")
+                    }
+                }
             }
         }
     }
@@ -88,17 +127,17 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
         // 텍스트 요약
         binding.btnCreateSaveText.setOnClickListener {
-            val url = binding.etCreateLink.text.toString()
+            setUrl = binding.etCreateLink.text.toString()
 
             // URL에 맞는 더미 데이터 가져오기
-            linkAddViewModel.fetchLinkByUrl(url)
-            Log.d("CreateFragment", "입력된 URL: $url")
+            linkAddViewModel.fetchLinkByUrl(setUrl!!)
+            Log.d("CreateFragment", "입력된 URL: $setUrl")
 
             // 텍스트 요약 API 호출
-            linkSummaryViewModel.fetchLinkSummary(linkSummaryRequest = LinkSummaryRequest(url))  // 텍스트 요약 API 호출
+            linkSummaryViewModel.fetchLinkSummary(linkSummaryRequest = LinkSummaryRequest(setUrl!!))  // 텍스트 요약 API 호출
 
             // 제목, 썸네일 API 호출
-            linkExtractViewModel.fetchLinkExtract(linkExtractRequest = LinkExtractRequest(url))  // 제목, 썸네일 API 호출
+            linkExtractViewModel.fetchLinkExtract(linkExtractRequest = LinkExtractRequest(setUrl!!))  // 제목, 썸네일 API 호출
 
             navigateToLoading()
         }
@@ -113,8 +152,6 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
 
             // 제목, 썸네일 API 호출
             linkExtractViewModel.fetchLinkExtract(linkExtractRequest = LinkExtractRequest(url))  // 제목, 썸네일 API 호출
-
-            navigateToLink()
         }
 
         // Delete 버튼
@@ -129,7 +166,20 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     }
 
     private fun navigateToLink() {
-        findNavController().navigate(R.id.action_createFragment_to_customlinkZipFragment)
+        setTitle?.let { id ->
+            val action =
+                setUrl?.let {
+                    CreateFragmentDirections.actionCreateFragmentToCustomlinkZipFragment(
+                        id, it
+                    )
+                }
+            Log.d("CreateFragment", "$id $setUrl  전달 navigate")
+            if (action != null) {
+                findNavController().navigate(action)
+            }
+        } ?: run {
+            Log.d("CreateFragment", "제목, 링크  전달 실패")
+        }
     }
 
     private fun navigateToLoading() {
