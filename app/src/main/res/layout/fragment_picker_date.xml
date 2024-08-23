@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintWidth_percent="0.053" />
+                app:layout_constraintWidth_percent="0.045" />
 
             <DatePicker
                 android:id="@+id/custom_datePicker"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:calendarViewShown="true"
                 android:datePickerMode="calendar"
-                android:layout_marginTop="-80dp"
+                android:layout_marginTop="-90dp"
                 android:scaleX="1.15"
                 android:scaleY="1.15"
                 android:outlineSpotShadowColor="@color/abled_color"
