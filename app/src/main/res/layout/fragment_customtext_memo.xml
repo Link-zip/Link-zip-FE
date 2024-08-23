@@ -12,7 +12,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#33EEEEEE">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#33EEEEEE"/>
 
         <View
             android:id="@+id/toolbar_customText_memo_mg0"
@@ -77,6 +83,18 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_customtext_memo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_customText_memo"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_customtext_memo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
         <!--Top Image-->
         <ImageView
@@ -87,9 +105,10 @@
             android:src="@drawable/iv_link_thumbnail_default"
             app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_customText_memo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/iv_customText_memo_topImg_shadow"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:alpha="0.3"
@@ -97,7 +116,8 @@
             android:src="@drawable/shape_rect_gradiant_up"
             app:layout_constraintDimensionRatio="360:115"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_customText_memo_topImg" />
+            app:layout_constraintTop_toTopOf="@id/iv_customText_memo_topImg"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <View
             android:id="@+id/view_customText_memo_mg4"
@@ -129,13 +149,6 @@
             app:layout_constraintWidth_percent="0.066"
             app:layout_constraintTop_toBottomOf="@id/tv_customText_memo_setMemo"
             app:layout_constraintStart_toStartOf="parent"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#33EEEEEE"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/view_customText_memo_shadow_top" />
 
         <View
             android:id="@+id/view_customText_memo_shadow_top"
@@ -178,7 +191,7 @@
         <EditText
             android:id="@+id/et_customText_memo_addMemo"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
             android:text=""
@@ -199,8 +212,7 @@
             app:layout_constraintVertical_bias="1.0"
             app:layout_constraintEnd_toStartOf="@id/view_customText_memo_mg7"
             app:layout_constraintStart_toEndOf="@id/view_customText_memo_mg6"
-            app:layout_constraintTop_toBottomOf="@id/tv_customText_memo_linkTitle"
-            app:layout_constraintBottom_toTopOf="@id/view_customText_memo_mg8" />
+            app:layout_constraintTop_toBottomOf="@id/tv_customText_memo_linkTitle" />
 
         <View
             android:id="@+id/view_customText_memo_mg8"
@@ -209,8 +221,11 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintWidth_percent="0.066"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/cl_customText_memo_complete_btn"/>
+            app:layout_constraintTop_toBottomOf="@id/et_customText_memo_addMemo"/>
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
         <!-- 저장 버튼 -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_customText_memo_complete_btn"

@@ -20,6 +20,7 @@ import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
+import umc.link.zip.util.extension.KeyboardUtil
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
 
@@ -90,6 +91,8 @@ class CustomtextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
     }
 
     override fun initView() {
+        KeyboardUtil.registerKeyboardVisibilityListenerMemo(binding.clCustomtextMemo, binding.nsvCustomtextMemo, binding.ivCustomTextMemoTopImg, binding.ivCustomTextMemoTopImg, binding.ivCustomTextMemoTopImgShadow)
+
         binding.ivCustomTextMemoToolbarBack.setOnClickListener{
             findNavController().navigateUp()
         }
