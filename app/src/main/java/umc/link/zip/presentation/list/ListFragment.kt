@@ -1,6 +1,7 @@
 package umc.link.zip.presentation.list
 
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
@@ -17,16 +18,17 @@ import umc.link.zip.presentation.home.HomeFragmentDirections
 import umc.link.zip.presentation.home.SharedViewModel
 import umc.link.zip.presentation.list.adapter.ListVPA
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.network.NetworkResult
 
 @AndroidEntryPoint
 class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), OnItemClickListener {
-//    private val viewModel: ListViewModel by viewModels()
     private var _listVPA: ListVPA? = null
     private val listVPA get() = _listVPA
     private val navigator by lazy { findNavController() }
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val listTabViewModel: ListTabViewModel by viewModels()
+    private val listViewModel: ListViewModel by viewModels()
 
     override fun onItemClicked(linkItem: Link) {
         if(linkItem.tag == "text"){
@@ -75,10 +77,29 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), 
                 }
             }
         }
+
+        setHomeAlertExistsViewModel()
+    }
+
+    private fun setHomeAlertExistsViewModel() {
+        listViewModel.alertExists.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> { Log.d("home", "alert exists : ${result.exception}") }
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    if(result.data.uncomfirmedAlert) {
+                        binding.ivListAlarm.setImageResource(R.drawable.ic_main_alarm_exist)
+                    } else {
+                        binding.ivListAlarm.setImageResource(R.drawable.ic_main_alarm_nothing)
+                    }
+                }
+            }
+        }
     }
     override fun initView() {
         initListVPAdapter()
         setupButtonListeners()
+        listViewModel.getAlertExists()
     }
 
     private fun initListVPAdapter() {

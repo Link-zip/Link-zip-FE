@@ -7,27 +7,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/view_home_toolbar_mg"
-            android:layout_width="match_parent"
-            android:layout_height="37.5dp"
-            android:background="@color/white"
-            android:elevation="1dp"
-            app:layout_constraintTop_toTopOf="parent"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_home_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="93dp"
             android:elevation="1dp"
-            app:layout_constraintTop_toBottomOf="@id/view_home_toolbar_mg">
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <View
+                android:id="@+id/view_home_toolbar_mg"
+                android:layout_width="match_parent"
+                android:layout_height="37.5dp"
+                android:background="@drawable/bg_transparent"
+                android:elevation="1dp"
+                app:layout_constraintTop_toTopOf="parent"/>
             <View
                 android:id="@+id/view_home_toolbar_mg1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.0722" />
@@ -43,7 +43,7 @@
                 android:lineHeight="28dp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toEndOf="@id/view_home_toolbar_mg1"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_home_toolbar_mg"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <View
@@ -62,7 +62,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_main_alarm_nothing"
                 app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg2"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_home_toolbar_mg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="visible" />
 
@@ -72,7 +72,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_main_alarm_exist"
                 app:layout_constraintEnd_toStartOf="@id/view_home_toolbar_mg2"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_home_toolbar_mg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="invisible" />
 
