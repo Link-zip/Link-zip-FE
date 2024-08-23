@@ -410,14 +410,23 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             dialogFragment.show(childFragmentManager, "OpenZipMoveDialogFragment")
         }
 
+
         binding.fragmentOpenzipEditIv.setOnClickListener {
-            toggleEditMode()
-            adapter.toggleEditMode()
+            if (isEditMode) {
+                // 현재 edit mode인 경우 "완료" 버튼을 눌렀을 때
+                setNormalMode() // Normal mode로 전환
+            } else {
+                // 현재 normal mode인 경우 "편집" 버튼을 눌렀을 때
+                setEditMode() // Edit mode로 전환
+            }
+            adapter.setEditMode(isEditMode) // Adapter에 현재 모드 전달
+            adapter.notifyDataSetChanged() // 상태 변화 후 리스트를 갱신
         }
 
         binding.allSelectedBtn.setOnClickListener(allSelectedListener)
         binding.allSelectedTv.setOnClickListener(allSelectedListener)
         setNormalMode()
+        adapter.resetSelectionAndNotify()
     }
 
     private fun setBackgroundResource(color: String): Int {
@@ -433,16 +442,19 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    /*@SuppressLint("NotifyDataSetChanged")
     private fun toggleEditMode() {
         isEditMode = !isEditMode
         if (isEditMode) {
             setEditMode()
         } else {
             setNormalMode()
+            adapter.resetSelectionAndNotify()
         }
         adapter.notifyDataSetChanged()
-    }
+    }*/
+
+
 
     private fun setEditMode() {
         isEditMode = true
@@ -464,6 +476,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
         resetAllSelectedMode()
         adapter.resetSelectionAndNotify()
+        Log.d("resetSelectionAndNotify", "resetSelectionAndNotify setNormalMode")
         adapter.notifyDataSetChanged()
         adapter.setEditMode(false)
 
@@ -565,7 +578,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         val toast = Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT
             view = layout
-            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 1800)
         }
         toast.show()
     }
@@ -575,20 +588,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         val layout = inflater.inflate(R.layout.custom_toast, null)
         val tv = layout.findViewById<TextView>(R.id.tvSample)
         tv.text = "삭제할 링크를 선택하세요."
-
-        val toast = Toast(requireActivity()).apply {
-            duration = Toast.LENGTH_SHORT
-            view = layout
-            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
-        }
-        toast.show()
-    }
-
-    private fun showCustomToast4() {
-        val inflater = LayoutInflater.from(requireActivity())
-        val layout = inflater.inflate(R.layout.custom_toast, null)
-        val tv = layout.findViewById<TextView>(R.id.tvSample)
-        tv.text = "편집할 링크가 없습니다."
 
         val toast = Toast(requireActivity()).apply {
             duration = Toast.LENGTH_SHORT

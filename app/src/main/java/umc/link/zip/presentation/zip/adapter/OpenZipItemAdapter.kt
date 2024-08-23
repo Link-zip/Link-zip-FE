@@ -40,7 +40,6 @@ class OpenZipItemAdapter(
 ) : ListAdapter<LinkGetItemModel, OpenZipItemAdapter.LinkViewHolder>(DiffCallback()) {
 
     private var selectedItems: MutableSet<LinkGetItemModel> = mutableSetOf()
-    private var items: List<LinkGetItemModel> = emptyList()
     private var isEditMode: Boolean = false
     private var linkId: Int = 0
 
@@ -64,12 +63,6 @@ class OpenZipItemAdapter(
         notifyDataSetChanged()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun toggleEditMode() {
-        isEditMode = !isEditMode
-        notifyDataSetChanged()
-    }
-
     // 현재 선택된 아이템들을 로그로 출력
     fun logSelectedItems() {
         Log.d("OpenZipItemAdapter", "현재 선택된 아이템들: $selectedItems")
@@ -89,14 +82,17 @@ class OpenZipItemAdapter(
     fun setEditMode(isEditMode: Boolean) {
         this.isEditMode = isEditMode
         if (!isEditMode) {
-            clearSelections()  // 일반 모드로 전환 시 선택 항목 초기화
+            clearSelections() // Normal Mode로 전환할 때 선택 항목 초기화
         }
-        notifyDataSetChanged()
+        notifyDataSetChanged() // 변경된 모드에 따라 리스트를 다시 렌더링
     }
+
+
 
 
     @SuppressLint("NotifyDataSetChanged")
     fun resetSelectionAndNotify() {
+        Log.d("resetSelectionAndNotify", "resetSelectionAndNotify")
         selectedItems.clear()
         currentList.forEach { item ->
             onItemSelected(item,0)
@@ -118,9 +114,15 @@ class OpenZipItemAdapter(
         val linkItem = getItem(position) // ListAdapter에서 제공하는 getItem 사용
         val isSelected = selectedItems.contains(linkItem)
 
-        holder.itemView.setBackgroundColor(
-            if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
-        )
+        // Edit Mode와 Normal Mode의 배경 색상을 분리하여 설정
+        if (isEditMode) {
+            holder.itemView.setBackgroundColor(
+                if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor("#FBFBFB")
+            )
+        } else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FBFBFB")) // Normal mode일 때 기본 색상
+        }
+
         holder.bind(linkItem, isSelected, isEditMode, position)
     }
 
@@ -168,42 +170,42 @@ class OpenZipItemAdapter(
 
         }
 
-        private fun handleEditMode(linkItem: LinkGetItemModel, isSelected: Boolean) {
-            resetUI()
-            binding.root.setBackgroundColor(
-                if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor(
-                    "#FBFBFB"
-                )
+    private fun handleEditMode(linkItem: LinkGetItemModel, isSelected: Boolean) {
+        resetUI()
+        binding.root.setBackgroundColor(
+            if (isSelected) Color.parseColor("#F5F4FD") else Color.parseColor(
+                "#FBFBFB"
             )
+        )
 
-            // 아이템 클릭 리스너 설정
-            binding.root.setOnClickListener {
-                if (selectedItems.contains(linkItem)) {
-                    selectedItems.remove(linkItem)
-                    if (adapterPosition == 0) {
-                        onBackgroundChangeRequested(false)
-                    }
-                    onItemSelected(linkItem, selectedItems.count())
-                    notifyItemChanged(adapterPosition)
-                    Log.d("OpenZipItemAdapter", "deselectedItem : $selectedItems")
-
-                    if (selectedItems.isEmpty()) {
-                        onSelectionCleared() // 선택된 아이템이 없을 때 콜백 호출
-                        onBackgroundChangeRequested(false)
-                    }
-                } else {
-                    selectedItems.add(linkItem)
-                    onItemSelected(linkItem, selectedItems.count())
-                    notifyItemChanged(adapterPosition)
-
-                    if (adapterPosition == 0) {
-                        onBackgroundChangeRequested(true)
-                    }
-                    Log.d("OpenZipItemAdapter", "selectedItem : $selectedItems")
+        // 아이템 클릭 리스너 설정
+        binding.root.setOnClickListener {
+            if (selectedItems.contains(linkItem)) {
+                selectedItems.remove(linkItem)
+                if (adapterPosition == 0) {
+                    onBackgroundChangeRequested(false)
                 }
-                logSelectedItems() // 아이템 선택 후 로그 출력
+                onItemSelected(linkItem, selectedItems.count())
+                notifyItemChanged(adapterPosition)
+                Log.d("OpenZipItemAdapter", "deselectedItem : $selectedItems")
+
+                if (selectedItems.isEmpty()) {
+                    onSelectionCleared() // 선택된 아이템이 없을 때 콜백 호출
+                    onBackgroundChangeRequested(false)
+                }
+            } else {
+                selectedItems.add(linkItem)
+                onItemSelected(linkItem, selectedItems.count())
+                notifyItemChanged(adapterPosition)
+
+                if (adapterPosition == 0) {
+                    onBackgroundChangeRequested(true)
+                }
+                Log.d("OpenZipItemAdapter", "selectedItem : $selectedItems")
             }
+            logSelectedItems() // 아이템 선택 후 로그 출력
         }
+    }
 
         private fun handleNormalMode(linkItem: LinkGetItemModel, position: Int) {
             resetUI()
@@ -213,7 +215,9 @@ class OpenZipItemAdapter(
         }
 
         private fun resetUI(){
-            binding.root.setBackgroundColor(Color.parseColor("#FBFBFB"))
+            if (isEditMode) {
+                binding.root.setBackgroundColor(Color.parseColor("#FBFBFB"))
+            }
         }
     }
 
