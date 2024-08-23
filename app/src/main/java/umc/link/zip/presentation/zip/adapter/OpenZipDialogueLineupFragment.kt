@@ -97,6 +97,10 @@ class OpenZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDial
                 openZipLineDialogSharedViewModel.setSelectedData("most_visited")
             }
         }
+
+        binding.ivDialogueLineupClose.setOnClickListener {
+            dismiss()
+        }
     }
 
     private fun reset() {

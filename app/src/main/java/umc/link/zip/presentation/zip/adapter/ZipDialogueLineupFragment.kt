@@ -96,6 +96,10 @@ class ZipDialogueLineupFragment : BaseBottomSheetDialogFragment<FragmentDialogue
                 zipLineDialogSharedViewModel.setSelectedData("visit")
             }
         }
+
+        binding.ivDialogueLineupClose.setOnClickListener {
+            dismiss()
+        }
     }
 
     private fun reset() {
