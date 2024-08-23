@@ -43,6 +43,7 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
     inner class ZipViewHolder(private val binding: ItemSaveZipBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(zipItem: ZipGetItemModel, isSelected: Boolean) {
             binding.itemTitle1.text = zipItem.title
+            binding.itemSubtitle3.text = "${zipItem.link_count.toString()}개"
             setBackgroundBasedOnColor(binding.itemImage1, zipItem.color)
 
             // 선택된 항목에 대한 배경색을 변경합니다.
