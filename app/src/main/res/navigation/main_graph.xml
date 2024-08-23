@@ -429,7 +429,11 @@
             </action>
             <action
                 android:id="@+id/action_customtextZipFragment_to_customtextCustomFragment"
-                app:destination="@id/customtextCustomFragment" />
+                app:destination="@id/customtextCustomFragment">
+                <argument
+                    android:name="zipId"
+                    app:argType="integer"/>
+            </action>
             <action
                 android:id="@+id/action_customtextZipFragment_to_makeZipFragment"
                 app:destination="@id/makezipFragment" />
@@ -441,10 +445,18 @@
             android:label="CustomlinkZipFragment">
             <action
                 android:id="@+id/action_customlinkZipFragment_to_customlinkCustomFragment"
-                app:destination="@id/customlinkCustomFragment" />
+                app:destination="@id/customlinkCustomFragment">
+                <argument
+                    android:name="zipId"
+                    app:argType="integer"/>
+            </action>
             <action
                 android:id="@+id/action_customlinkZipFragment_to_openLinkFragment"
-                app:destination="@id/openLinkFragment" />
+                app:destination="@id/openLinkFragment">
+                <argument
+                    android:name="zipId"
+                    app:argType="integer"/>
+            </action>
         </fragment>
 
         <fragment

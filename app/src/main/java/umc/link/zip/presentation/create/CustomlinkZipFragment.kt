@@ -35,15 +35,34 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
 
+    private var easySaveZipId : Int? = null
     private var selectedZipID: Int? = null
 
 
     private fun navigateToCustom() {
-        findNavController().navigate(R.id.action_customlinkZipFragment_to_customlinkCustomFragment)
+        selectedZipID?.let { id ->
+            val action =
+                CustomlinkZipFragmentDirections.actionCustomlinkZipFragmentToCustomlinkCustomFragment(
+                    id
+                )
+            Log.d("CustomlinkZipFragment", "선택된 zipId: $id 전달 navigate")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("CustomlinkZipFragment", "선택된 zipId 가져오기 실패")
+        }
     }
 
     private fun navigateToOpenLink(){
-        findNavController().navigate(R.id.action_customlinkZipFragment_to_openLinkFragment)
+        selectedZipID?.let { id ->
+            val action =
+                CustomlinkZipFragmentDirections.actionCustomlinkZipFragmentToOpenLinkFragment(
+                    id
+                )
+            Log.d("OpenLinkFragment", "빠른저장 zipId; $id 전달 navigate")
+            findNavController().navigate(action)
+        } ?: run {
+            Log.d("OpenLinkFragment", "빠른저장 zipId 가져오기 실패")
+        }
     }
 
 
@@ -138,6 +157,12 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.zipList.collect { zipList ->
                 adapter?.submitList(zipList)
+
+                // 빠른저장 zipId 가져오기
+                val easySaveZip = zipList.find { it.title == "빠른 저장" }
+                easySaveZipId = easySaveZip?.zip_id
+
+                Log.d("CustomlinkZipFragment", "빠른 저장 zipId: $easySaveZipId")
             }
         }
         setupRecyclerView()
@@ -154,6 +179,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
             if (isSelected) {
                 setSelectedBtn()
                 selectedZipID = zipItem.zip_id
+                Log.d("CustomlinkZipFragment", "선택된 zipId: $selectedZipID")
             }else {
                 resetSelectedBtn()
             }

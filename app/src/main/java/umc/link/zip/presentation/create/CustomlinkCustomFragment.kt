@@ -30,7 +30,12 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
     private val linkExtractViewModel: LinkExtractViewModel by activityViewModels()
 
     private var linkId: Int? = null
-    private var getUrl: String? = null
+
+    private val zipId: Int? by lazy {
+        arguments?.getInt("zipId")
+    }
+    private var selectedZipId: Int? = null
+
 
     private var setTitle: String? = null
     private var updateTitle: String? = null
@@ -38,6 +43,8 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
     private var isSuccess: Boolean = false
 
     override fun initObserver() {
+        selectedZipId = zipId ?: return
+
         // extract API 응답
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -82,7 +89,6 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkAddViewModel.link.collectLatest { link ->
-                    getUrl = link.url
                     updateTitle = link.title
                     Log.d("CustomlinkCustomFragment", "updateTitle: $updateTitle")
                     if (updateTitle == "default"){
@@ -99,7 +105,6 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkAddViewModel.link.collectLatest { link ->
-                    getUrl = link.url
                     updateTitle = link.title
                     Log.d("CustomtextCustomFragment", "updateTitle: $updateTitle")
                     if (updateTitle == "default"){
@@ -181,7 +186,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
     }
 
     private fun navigateToOpenLink() {
-        val zipId = 209 // 임시
+        val zipId = selectedZipId
         updateTitle = linkAddViewModel.link.value.title
         val memoText = linkAddViewModel.link.value.memo
         val text: String? = null // text를 null로 지정
@@ -190,7 +195,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
 
         if(alertDate == "null"){
             val linkAddRequest = LinkAddRequest(
-                zip_id = zipId,
+                zip_id = zipId!!,
                 title = updateTitle!!,
                 memo = memoText,
                 text = text,
@@ -201,7 +206,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         }else {
             // ADD API 호출
             val linkAddRequest = LinkAddRequest(
-                zip_id = zipId,
+                zip_id = zipId!!,
                 title = updateTitle!!,
                 memo = memoText,
                 text = text,

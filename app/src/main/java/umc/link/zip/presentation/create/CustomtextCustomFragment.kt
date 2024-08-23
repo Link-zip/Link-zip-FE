@@ -33,6 +33,11 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
     private var linkId: Int? = null
 
+    private val zipId: Int? by lazy {
+        arguments?.getInt("zipId")
+    }
+    private var selectedZipId: Int? = null
+
     private var setTitle: String? = null
     private var updateTitle: String? = null
 
@@ -44,6 +49,8 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
 
     override fun initObserver() {
+        selectedZipId = zipId ?: return
+
         // text 요약 API 응답
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -199,7 +206,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
     }
 
     private fun navigateToOpenText() {
-        val zipId = 209 // 임시
+        val zipId = selectedZipId
         updateTitle = binding.etCustomTextCustomLinkTitle.text.toString()
         val memoText = linkAddViewModel.link.value.memo
         updateSummary = binding.etCustomTextSummaryText.text.toString()
@@ -208,7 +215,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         if(alertDate == "null"){
             val linkAddRequest = LinkAddRequest(
-                zip_id = zipId,
+                zip_id = zipId!!,
                 title = updateTitle!!,
                 memo = memoText,
                 text = updateSummary,
@@ -219,7 +226,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         }else {
             // ADD API 호출
             val linkAddRequest = LinkAddRequest(
-                zip_id = zipId,
+                zip_id = zipId!!,
                 title = updateTitle!!,
                 memo = memoText,
                 text = updateSummary,
