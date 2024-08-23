@@ -417,6 +417,8 @@
                                     android:textAppearance="@style/mypage_profile_social"
                                     android:textSize="14sp"
                                     android:elevation="20dp"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
                                     />
 
                                 <View
