@@ -124,7 +124,24 @@
         <fragment
             android:id="@+id/alertFragment"
             android:name="umc.link.zip.presentation.home.alert.AlertFragment"
-            android:label="AlertFragment"/>
+            android:label="AlertFragment">
+            <action
+                android:id="@+id/action_alertFragment_to_openLinkFragment"
+                android:name="umc.link.zip.presentation.create.OpenLinkFragment"
+                app:destination="@id/openLinkFragment">
+                <argument
+                    android:name="linkId"
+                    app:argType="integer" />
+            </action>
+        </fragment>
+
+        <fragment
+            android:id="@+id/openLinkFragment"
+            android:name="umc.link.zip.presentation.create.OpenLinkFragment"
+            android:label="OpenLinkFragment"/>
+
+
+
 
         <fragment
             android:id="@+id/zipFragment"
@@ -149,7 +166,6 @@
                     android:name="zipLinkCount"
                     app:argType="integer" />
             </action>
-
             <action
                 android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
                 app:destination="@id/makezipFragment" />
@@ -217,11 +233,6 @@
             android:label="OpenTextFragment"/>
 
         <fragment
-            android:id="@+id/openLinkFragment"
-            android:name="umc.link.zip.presentation.create.OpenLinkFragment"
-            android:label="OpenLinkFragment"/>
-
-        <fragment
             android:id="@+id/OpenZipFragment"
             android:name="umc.link.zip.presentation.zip.OpenZipFragment"
             android:label="OpenZipFragment">
@@ -258,6 +269,7 @@
                     android:name="linkId"
                     app:argType="integer" />
             </action>
+
         </fragment>
     </navigation>
 
