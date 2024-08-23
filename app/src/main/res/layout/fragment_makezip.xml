@@ -210,9 +210,10 @@
                     android:textColor="#666666"
                     android:textFontWeight="400"
                     android:textSize="16dp"
-                    android:inputType="textMultiLine"
-                    android:maxLines="3"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:text=""
+                    android:singleLine="true"
                     app:layout_constraintEnd_toStartOf="@id/fragment_makezip_delete_ic"
                     app:layout_constraintStart_toEndOf="@id/makezip_msg11"
                     app:layout_constraintTop_toTopOf="parent" />
