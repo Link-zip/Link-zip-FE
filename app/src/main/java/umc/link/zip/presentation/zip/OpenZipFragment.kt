@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import umc.link.zip.R
 import umc.link.zip.databinding.FragmentOpenzipBinding
@@ -58,21 +59,16 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private val zip_color by lazy { arguments?.getString("zipColor") }
     private val zip_linkCount by lazy { arguments?.getInt("zipLinkCount") }
 
+/*    val selectedIds = adapter.getSelectedLinkIds() ?: emptyList()
+    if (selectedIds.isNotEmpty()) {
+        val deleteDialog = LinkDeleteDialogueFragment.newInstance(selectedIds)
+        deleteDialog.show(childFragmentManager, "ZipDeleteDialogueFragment")*/
+
     private val adapter by lazy {
         OpenZipItemAdapter(
             onItemSelected = { linkItem, selectedCount ->
                 if (selectedCount > 0) {
                     switchToSelectedMode()
-                    binding.cvMypageProfileUserInfoBoxBg.setOnSingleClickListener {
-                        val dialogFragment = OpenZipMoveDialogFragment.newInstance(zip_id ?: 0, linkItem.id)
-                        dialogFragment.dismissListener = object : OnDialogDismissListener {
-                            override fun onDialogDismiss() {
-                                getLinkListApi()
-                                setNormalMode()
-                            }
-                        }
-                        dialogFragment.show(childFragmentManager, "OpenZipMoveDialogFragment")
-                    }
                 } else {
                     resetAllSelectedMode()
                 }
@@ -99,6 +95,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     }
 
     override fun initObserver() {
+
         // Observers for different dialog states and data updates
         repeatOnStarted {
             openZipLineDialogSharedViewModel.selectedData.collectLatest { data ->
@@ -154,11 +151,40 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                 }
             }
         }
+
+        repeatOnStarted {
+            sharedViewModel.uiState.collectLatest { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        val zipModel = uiState.data
+                        val currentZip = zipModel.zips.find { it.zip_id == zip_id }
+                        currentZip?.let {
+                            binding.fragmentOpenzipLinkCountTv2.text = "${it.link_count} 개"
+                        }
+                    }
+                    is UiState.Loading -> {
+                        // 로딩 중 처리 (필요 시)
+                    }
+                    is UiState.Error -> {
+                        Log.e("OpenZipFragment", "Error fetching data", uiState.error)
+                    }
+                    UiState.Empty -> {
+                        // 빈 상태 처리 (필요 시)
+                    }
+                }
+            }
+        }
+
     }
 
     private fun getLinkListApi() {
         viewModel.getLinkList(zip_id!!, userSelectedListselect, userSelectedLineup)
-        Log.d("OpenZipFragment", "getApi 호출됨")
+        Log.d("OpenZipFragment", "getLinkApi 호출됨")
+    }
+
+    private fun getZipListAPi() {
+        sharedViewModel.getZipList("latest")
+        Log.d("OpenZipFragment", "getZipApi 호출됨")
     }
 
     private fun setLineupOnDialog(selected: String) {
@@ -299,7 +325,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
         // Set up initial view state
         binding.fragmentOpenzipZipTitle.text = zip_title?.take(5)
         binding.fragmentOpenzipInsiteTv.text = zip_title
-        binding.fragmentOpenzipLinkCountTv2.text = "$zip_linkCount 개"
         binding.fragmentOpenzipInsiteIv.setBackgroundResource(setBackgroundResource(zip_color.toString()))
 
         if (zip_linkCount == 0) {
@@ -328,6 +353,7 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     override fun onResume() {
         super.onResume()
         getLinkListApi()
+        getZipListAPi()
     }
 
     override fun initView() {
@@ -347,7 +373,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
 
                     deleteDialog.dismissListener = object : OnDialogDismissListener {
                         override fun onDialogDismiss() {
-                            getLinkListApi()
+                            getLinkListApi() // 링크 리스트를 갱신
+                            getZipListAPi() // Zip 리스트를 갱신
                             showCustomToast2()
                             setNormalMode()
                         }
@@ -358,6 +385,19 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             } else {
                 findNavController().navigate(R.id.action_fragmentOpenZip_to_fragmentZip)
             }
+        }
+
+        binding.cvMypageProfileUserInfoBoxBg.setOnSingleClickListener {
+            val selectedIds = adapter.getSelectedLinkIds() ?: emptyList()
+            val dialogFragment = OpenZipMoveDialogFragment.newInstance(zip_id ?: 0, selectedIds)
+            dialogFragment.dismissListener = object : OnDialogDismissListener {
+                override fun onDialogDismiss() {
+                    getZipListAPi()
+                    getLinkListApi()
+                    setNormalMode()
+                }
+            }
+            dialogFragment.show(childFragmentManager, "OpenZipMoveDialogFragment")
         }
 
         binding.fragmentOpenzipEditIv.setOnClickListener {

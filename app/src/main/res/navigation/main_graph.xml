@@ -124,6 +124,11 @@
         app:startDestination="@id/zipFragment">
 
         <fragment
+            android:id="@+id/alertFragment"
+            android:name="umc.link.zip.presentation.home.alert.AlertFragment"
+            android:label="AlertFragment"/>
+
+        <fragment
             android:id="@+id/zipFragment"
             android:name="umc.link.zip.presentation.zip.ZipFragment"
             android:label="ZipFragment">

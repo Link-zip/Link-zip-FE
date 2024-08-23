@@ -14,7 +14,6 @@ import umc.link.zip.domain.model.ZipItem
 import umc.link.zip.domain.model.zip.ZipGetItemModel
 
 class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boolean) -> Unit) : RecyclerView.Adapter<CustomtextZipItemAdapter.ZipViewHolder>() {
-
     private var items: List<ZipGetItemModel> = emptyList()
     private var selectedItem: ZipGetItemModel? = null // 단일 선택을 위한 변수
 
@@ -44,6 +43,7 @@ class CustomtextZipItemAdapter(private val onItemSelected: (ZipGetItemModel, Boo
     inner class ZipViewHolder(private val binding: ItemSaveZipBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(zipItem: ZipGetItemModel, isSelected: Boolean) {
             binding.itemTitle1.text = zipItem.title
+            binding.itemSubtitle3.text = "${zipItem.link_count.toString()}개"
             setBackgroundBasedOnColor(binding.itemImage1, zipItem.color)
 
             // 선택된 항목에 대한 배경색을 변경합니다.

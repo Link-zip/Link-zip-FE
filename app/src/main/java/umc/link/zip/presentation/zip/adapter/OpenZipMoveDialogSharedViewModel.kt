@@ -52,6 +52,7 @@ class OpenZipMoveDialogSharedViewModel @Inject constructor(
                     is NetworkResult.Success -> {
                         _uiState.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
                         _uiState.value = UiState.Success(this.data)
+                        _zipList.value = this.data // zipList 업데이트
                     }
                     is NetworkResult.Error -> {
                         _uiState.value = UiState.Error(this.exception)
@@ -59,6 +60,7 @@ class OpenZipMoveDialogSharedViewModel @Inject constructor(
                     is NetworkResult.Fail -> {
                         _uiState.value = UiState.Error(Throwable("Failed to load data"))
                     }
+                    else -> {}
                 }
             }.onError {
                 _uiState.value = UiState.Error(it)
@@ -73,6 +75,7 @@ class OpenZipMoveDialogSharedViewModel @Inject constructor(
     fun moveLinkToNewZip(link_id : Int, new_zip_id : Int) {
         viewModelScope.launch {
             linkRepository.MoveLinkToNewZip(link_id, new_zip_id).apply {
+                Log.d("moveLinkToNewZip", "호출 어쩌구")
                 when (this) {
                     is NetworkResult.Success -> {
                         _uiState_link.value = UiState.Loading  // 상태를 초기화 (동일한 데이터가 와도 방출될 수 있도록)
@@ -85,6 +88,7 @@ class OpenZipMoveDialogSharedViewModel @Inject constructor(
                     is NetworkResult.Fail -> {
                         _uiState_link.value = UiState.Error(Throwable("Failed to load data"))
                     }
+                    else -> {}
                 }
             }.onError {
                 _uiState_link.value = UiState.Error(it)
@@ -93,6 +97,7 @@ class OpenZipMoveDialogSharedViewModel @Inject constructor(
             }.onFail {
                 _uiState_link.value = UiState.Error(Throwable("Failed to load data"))
             }
+
         }
     }
 

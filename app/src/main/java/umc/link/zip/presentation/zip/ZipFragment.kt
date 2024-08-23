@@ -36,24 +36,28 @@ import umc.link.zip.util.network.NetworkResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.collect
+import umc.link.zip.presentation.zip.adapter.ZipAlertViewModel
 
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     private val viewModel: ZipGetViewModel by viewModels()
+    private val zipDeleteViewModel: ZipDeleteViewModel by viewModels()
+    private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
+    private val zipAlertViewModel : ZipAlertViewModel by viewModels()
+
+    private val navigator by lazy { findNavController() }
     private var adapter: ZipAdapter? = null
+
     private var isEditMode = false
     private var isAllSelectedMode = false
-
-    private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
-
-    private val zipDeleteViewModel: ZipDeleteViewModel by viewModels()
-
 
 
     override fun initObserver() {
+        setZipAlertExistsViewModel()
+
         // lineup
         viewLifecycleOwner.lifecycleScope.launch {
             zipLineDialogSharedViewModel.selectedData.collectLatest { data ->
@@ -115,6 +119,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
         viewModel.getZipList(userSelectedLineup)
+        zipAlertViewModel.getAlertExists()
 
         binding.fragmentMakezipMakeBtn.setOnClickListener {
             if (isEditMode) {
@@ -157,10 +162,8 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
         }
         setupRecyclerView()
 
-        val alertBtn = binding.ivHomeAlarmNothing
-        alertBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_zipFragment_to_alertFragment)
-            Log.d("FragmentZip", "Navigated to FragmentAlertZip")
+        binding.ivHomeAlarmExist.setOnClickListener {
+            navigator.navigate(R.id.action_zipFragment_to_alertFragment)
         }
 
         // Initialize in NormalMode
@@ -216,6 +219,24 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     override fun onDestroyView() {
         super.onDestroyView()
         adapter = null
+    }
+
+    private fun setZipAlertExistsViewModel() {
+        zipAlertViewModel.alertExists.observe(this) { result ->
+            when(result) {
+                is NetworkResult.Error -> { Log.d("home", "alert exists : ${result.exception}") }
+                is NetworkResult.Fail -> {}
+                is NetworkResult.Success -> {
+                    if(result.data.uncomfirmedAlert) {
+                        binding.ivHomeAlarmExist.visibility = View.VISIBLE
+                        binding.ivHomeAlarmNothing.visibility = View.INVISIBLE
+                    } else {
+                        binding.ivHomeAlarmExist.visibility = View.INVISIBLE
+                        binding.ivHomeAlarmNothing.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
     }
 
     private fun toggleEditMode() {

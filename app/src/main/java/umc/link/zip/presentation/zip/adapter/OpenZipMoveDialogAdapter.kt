@@ -50,6 +50,8 @@ class OpenZipMoveDialogAdapter(private val onItemSelected: (ZipGetItemModel, Boo
         Log.d("ZipAdapter", "현재 선택된 아이템들: $selectedItems")
     }
 
+
+
     inner class ZipViewHolder(private val binding: ItemSelectedZipBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(zipItem: ZipGetItemModel, isSelected: Boolean, isEditMode: Boolean, position: Int) {
             binding.itemTitle1.text = zipItem.title
@@ -75,8 +77,6 @@ class OpenZipMoveDialogAdapter(private val onItemSelected: (ZipGetItemModel, Boo
                 logSelectedItems() // 아이템 선택 후 로그 출력
             }
         }
-
-
 
         //Zip color Binding을 위한 함수입니다 - 반희님이 필요하실 겁니당
         private fun setBackgroundBasedOnColor(imageView: ImageView, color: String) {

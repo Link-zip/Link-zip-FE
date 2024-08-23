@@ -166,17 +166,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <ImageView
-                    android:id="@+id/fragment_openzip_dropdown_iv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:scaleType="matrix"
-                    android:src="@drawable/ic_dropdown_arrow"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/fragment_openzip_insite_tv"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <TextView
                     android:id="@+id/fragment_openzip_link_count_tv1"
                     android:layout_width="wrap_content"

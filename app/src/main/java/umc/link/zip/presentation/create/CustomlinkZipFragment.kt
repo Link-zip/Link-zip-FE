@@ -151,6 +151,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         adapter = CustomtextZipItemAdapter { zipItem, isSelected ->
             if (isSelected) {
                 setSelectedBtn()
+                //zipItem.zip_id <== zip_id 여기서 사용 가능
             }else {
                 resetSelectedBtn()
             }
@@ -178,6 +179,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.btnCustomLinkZipNext.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         adapter?.clearSelections()
     }
+
+    //selected Mode / empty Mode
 
     private fun setupClickListener() {
         //한번만 클릭 허용
