@@ -45,10 +45,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         arguments?.getInt("linkId")
     }
 
-    private val zipId: Int? by lazy {
-        arguments?.getInt("zipId")
-    }
-
     private val add by lazy {
         arguments?.getBoolean("add")
     }

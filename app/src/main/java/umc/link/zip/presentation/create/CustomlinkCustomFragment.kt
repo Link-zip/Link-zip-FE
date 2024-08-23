@@ -39,6 +39,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
 
     private var setTitle: String? = null
     private var updateTitle: String? = null
+    private var getUrl: String? = null
 
     private var isSuccess: Boolean = false
 
@@ -85,10 +86,11 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                 }
             }
         }
-        // add API 응답
+        // add 응답
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkAddViewModel.link.collectLatest { link ->
+                    getUrl = link.url
                     updateTitle = link.title
                     Log.d("CustomlinkCustomFragment", "updateTitle: $updateTitle")
                     if (updateTitle == "default"){
@@ -105,6 +107,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkAddViewModel.link.collectLatest { link ->
+                    getUrl = link.url
                     updateTitle = link.title
                     Log.d("CustomtextCustomFragment", "updateTitle: $updateTitle")
                     if (updateTitle == "default"){

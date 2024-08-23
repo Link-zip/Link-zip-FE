@@ -4,19 +4,29 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.link.request.LinkAddRequest
 import umc.link.zip.databinding.FragmentCustomlinkZipBinding
 import umc.link.zip.databinding.FragmentCustomtextZipBinding
 import umc.link.zip.databinding.FragmentZipBinding
+import umc.link.zip.domain.model.link.LinkAddModel
+import umc.link.zip.domain.model.link.LinkExtractModel
 import umc.link.zip.presentation.base.BaseFragment
+import umc.link.zip.presentation.create.adapter.LinkAddViewModel
+import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.zip.adapter.CustomtextZipItemAdapter
 import umc.link.zip.presentation.zip.adapter.ZipAdapter
 import umc.link.zip.presentation.zip.adapter.ZipDialogueLineupFragment
@@ -24,10 +34,13 @@ import umc.link.zip.presentation.zip.adapter.ZipGetViewModel
 import umc.link.zip.presentation.zip.adapter.ZipLineDialogSharedViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
+import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
 class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layout.fragment_customlink_zip){
     private val viewModel: ZipGetViewModel by viewModels()
+    private val linkAddViewModel: LinkAddViewModel by viewModels()
+
     private var adapter: CustomtextZipItemAdapter? = null
 
     private var isSelected = false
@@ -37,6 +50,18 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
 
     private var easySaveZipId : Int? = null
     private var selectedZipID: Int? = null
+
+    private val linkTitle: String? by lazy {
+        arguments?.getString("linkTitle")
+    }
+    private val linkUrl: String? by lazy {
+        arguments?.getString("linkUrl")
+    }
+
+    private var setTitle: String? = null
+    private var setUrl: String? = null
+
+    private var linkId: Int? = null
 
 
     private fun navigateToCustom() {
@@ -53,21 +78,74 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     }
 
     private fun navigateToOpenLink(){
-        selectedZipID?.let { id ->
-            val action =
-                CustomlinkZipFragmentDirections.actionCustomlinkZipFragmentToOpenLinkFragment(
-                    id
-                )
-            Log.d("OpenLinkFragment", "빠른저장 zipId; $id 전달 navigate")
-            findNavController().navigate(action)
-        } ?: run {
-            Log.d("OpenLinkFragment", "빠른저장 zipId 가져오기 실패")
+        val zipId = easySaveZipId
+        val title = setTitle
+        val memoText = ""
+        val text: String? = null // text를 null로 지정
+        val url = setUrl
+        val alertDate = null
+
+        val linkAddRequest = LinkAddRequest(
+            zip_id = zipId!!,
+            title = title!!,
+            memo = memoText,
+            text = text,
+            url = url!!,
+            alert_date = alertDate
+        )
+        linkAddViewModel.addLink(linkAddRequest)
+
+        Log.d(
+            "CustomlinkZipFragment",
+            "ADD API 호출\nzip_id=${zipId}\ntitle=${title}\nmemo=${memoText}\ntext=${text}\nurl=${url}\nalert_date=${alertDate}"
+        )
+
+        // ADD API 응답 후 이동 (linkId 설정)
+        repeatOnStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                linkAddViewModel.addResponse.collectLatest { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            // 로딩 상태 처리
+                            Log.d("CustomlinkZipFragment", "Loading ADD data")
+                        }
+                        is UiState.Success<*> -> {
+                            val data = state.data as LinkAddModel
+                            linkId = data.link_id  // 응답으로 받은 링크 ID 설정
+                            Log.d("CustomlinkZipFragment", "링크 추가 성공 linkId: $linkId")
+
+                            // 성공적으로 linkId를 받았을 때 화면 이동
+                            linkId?.let { id ->
+                                val action =
+                                    CustomlinkZipFragmentDirections.actionCustomlinkZipFragmentToOpenLinkFragment(
+                                        id, true
+                                    )
+                                Log.d("CustomlinkZipFragment", "linkId: $id")
+                                findNavController().navigate(action)
+                            } ?: run {
+                                Log.d("CustomlinkZipFragment", "linkId 가져오기 실패")
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(requireContext(), "링크 추가 실패", Toast.LENGTH_SHORT)
+                                .show()
+                            Log.d("CustomlinkZipFragment", "링크 추가 실패")
+                        }
+
+                        UiState.Empty -> Log.d("CustomlinkZipFragment", "isEmpty")
+                    }
+                }
+            }
         }
     }
 
 
 
     override fun initObserver() {
+        setTitle = linkTitle ?: return
+        setUrl = linkUrl ?: return
+
         // lineup
         viewLifecycleOwner.lifecycleScope.launch {
             zipLineDialogSharedViewModel.selectedData.collectLatest { data ->
@@ -84,6 +162,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
                 }
             }
         }
+
     }
 
     private fun setLineupOnDialog(selected: String) {

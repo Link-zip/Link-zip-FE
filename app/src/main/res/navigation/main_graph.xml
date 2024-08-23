@@ -400,7 +400,14 @@
                 app:destination="@id/homeFragmentTab" />
             <action
                 android:id="@+id/action_createFragment_to_customlinkZipFragment"
-                app:destination="@id/customlinkZipFragment" />
+                app:destination="@id/customlinkZipFragment">
+                <argument
+                    android:name="linkTitle"
+                    app:argType="string" />
+                <argument
+                    android:name="linkUrl"
+                    app:argType="string" />
+            </action>
             <action
                 android:id="@+id/action_createFragment_to_createLoadingFragment"
                 app:destination="@id/createLoadingFragment" />
@@ -457,8 +464,12 @@
                 android:id="@+id/action_customlinkZipFragment_to_openLinkFragment"
                 app:destination="@id/openLinkFragment">
                 <argument
-                    android:name="zipId"
-                    app:argType="integer"/>
+                    android:name="linkId"
+                    app:argType="integer" />
+                <argument
+                    android:name="add"
+                    app:argType="boolean"
+                    android:defaultValue="false" />
             </action>
         </fragment>
 
