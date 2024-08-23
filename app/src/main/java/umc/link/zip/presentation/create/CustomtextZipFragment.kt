@@ -170,7 +170,6 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
                 resetSelectedBtn()
             }
         }
-
         binding.rvCustomTextZip.layoutManager = LinearLayoutManager(context)
         binding.rvCustomTextZip.adapter = adapter
     }

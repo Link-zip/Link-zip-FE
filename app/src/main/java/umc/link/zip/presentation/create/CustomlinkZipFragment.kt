@@ -291,6 +291,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.btnCustomLinkZipNext.isClickable = false
     }
 
+    //selected Mode / empty Mode
+
     private fun setupClickListener() {
         //한번만 클릭 허용
         binding.btnCustomLinkEarlyUnselected.setOnSingleClickListener {
