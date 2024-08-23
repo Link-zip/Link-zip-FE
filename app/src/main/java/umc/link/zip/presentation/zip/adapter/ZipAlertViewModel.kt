@@ -16,16 +16,10 @@ import javax.inject.Inject
 class ZipAlertViewModel @Inject constructor(private val homeRepository: HomeRepository) : ViewModel() {
 
     private val _alertCount = MutableLiveData<NetworkResult<HomeAlertCountModel>>()
-    val alertCount: LiveData<NetworkResult<HomeAlertCountModel>> get() = _alertCount
 
     private val _alertExists = MutableLiveData<NetworkResult<HomeAlertExistsModel>>()
     val alertExists: LiveData<NetworkResult<HomeAlertExistsModel>> get() = _alertExists
 
-    fun getAlertCount() {
-        viewModelScope.launch {
-            _alertCount.value = homeRepository.getAlertCount()
-        }
-    }
 
     fun getAlertExists() {
         viewModelScope.launch {

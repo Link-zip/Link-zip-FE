@@ -385,7 +385,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
                         override fun onDialogDismiss() {
                             getLinkListApi() // 링크 리스트를 갱신
                             getZipListAPi() // Zip 리스트를 갱신
-                            showCustomToast2()
                             setNormalMode()
                         }
                     }
@@ -565,20 +564,6 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
             duration = Toast.LENGTH_SHORT
             view = layout
             setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 230)
-        }
-        toast.show()
-    }
-
-    private fun showCustomToast2() {
-        val inflater = LayoutInflater.from(requireActivity())
-        val layout = inflater.inflate(R.layout.custom_toast, null)
-        val tv = layout.findViewById<TextView>(R.id.tvSample)
-        tv.text = "링크 삭제 완료"
-
-        val toast = Toast(requireActivity()).apply {
-            duration = Toast.LENGTH_SHORT
-            view = layout
-            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 1800)
         }
         toast.show()
     }
