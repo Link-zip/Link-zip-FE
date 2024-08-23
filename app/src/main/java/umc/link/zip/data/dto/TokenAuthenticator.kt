@@ -2,7 +2,9 @@ package umc.link.zip.data.dto
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -11,8 +13,11 @@ import okhttp3.Route
 import umc.link.zip.data.UserPreferences
 import umc.link.zip.data.dto.request.RefreshRequest
 import umc.link.zip.data.service.LoginService
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 class TokenAuthenticator @Inject constructor(
     private val loginService: dagger.Lazy<LoginService>,
     private val context: Context
@@ -23,14 +28,16 @@ class TokenAuthenticator @Inject constructor(
             val loginService = loginService.get()
             // 이미 갱신을 시도한 경우, 무한 루프를 방지하기 위해 null을 반환
             if (responseCount(response) >= 3) {
-                Log.d("TokenAuthenticator", "갱신 시도 : ${responseCount(response)}")
+                Log.d("TokenAuthenticator", "갱신 시도 횟수 초과: ${responseCount(response)}")
                 restartApp(context)
                 return null
             }
 
             val currentTime = System.currentTimeMillis() / 1000 // 초 단위로 변환
-            val accessTokenExpires = UserPreferences(context).getUserIdExpires()?.toLongOrNull()
+            val accessTokenExpires = UserPreferences(context).getUserIdExpires()
+                ?.let { getISODateToLong(it) }
             Log.d("TokenAuthenticator", "accessTokenExpires : $accessTokenExpires")
+            Log.d("TokenAuthenticator", "currentTime : $currentTime")
 
             // 만료 시간이 현재 시간을 초과하면 토큰 갱신 필요 없음
             if (accessTokenExpires != null && currentTime < accessTokenExpires) {
@@ -55,6 +62,7 @@ class TokenAuthenticator @Inject constructor(
                 val newAccessToken = newTokenResponse.body()?.result?.accessToken
                 val newAccessTokenExpires = newTokenResponse.body()?.result?.accessTokenExpiresAt
                 Log.d("TokenAuthenticator", "잘 받아옴 : $newAccessToken")
+                Log.d("TokenAuthenticator", "잘 받아옴 : $newAccessTokenExpires")
                 // 새로 받은 토큰을 저장
                 UserPreferences(context).saveAccessToken(newAccessToken ?: "")
                 UserPreferences(context).saveAccessTokenExpires(newAccessTokenExpires ?: "")
@@ -90,5 +98,16 @@ class TokenAuthenticator @Inject constructor(
         UserPreferences(context).deleteUserId()
         context.startActivity(mainIntent)
         Runtime.getRuntime().exit(0)
+    }
+
+    private fun getISODateToLong(expires: String): Long? {
+        return try {
+            val formatter = DateTimeFormatter.ISO_DATE_TIME
+            val dateTime = ZonedDateTime.parse(expires, formatter)
+            dateTime.toEpochSecond() // 초 단위로 변환
+        } catch (e: Exception) {
+            Log.e("TokenAuthenticator", "날짜 파싱 실패: $expires", e)
+            null
+        }
     }
 }
