@@ -102,7 +102,7 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                     updateAlert = link.alertDate
 
                     Log.d("ModifylinkCustomFragment", "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert")
-                    if (updateTitle == "default"){
+                    if (updateTitle == ""){
                         binding.etCustomLinkCustomLinkTitle.setText(getTitle)
                         Log.d("ModifylinkCustomFragment", "제목 설정: $getTitle")
                     } else {
@@ -158,6 +158,7 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         isSuccess = false
 
         updateTitle = binding.etCustomLinkCustomLinkTitle.text.toString()
+        updateMemo = getMemo.toString()
 
         if (!isSuccess) {
             isSuccess = true
@@ -167,6 +168,7 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
             } else {
                 // 제목이 비어있지 않으면 ViewModel에 제목 저장하고 이동
                 linkAddViewModel.updateTitle(updateTitle!!)
+                linkAddViewModel.updateMemo(updateMemo!!)
                 navigateAction()
             }
         }
