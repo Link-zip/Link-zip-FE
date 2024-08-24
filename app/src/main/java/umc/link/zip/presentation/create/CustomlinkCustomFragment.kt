@@ -244,6 +244,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                                         id, true
                                     )
                                 Log.d("CustomlinkCustomFragment", "linkId: $id")
+                                linkAddViewModel.resetState()
                                 findNavController().navigate(action)
                             } ?: run {
                                 Log.d("CustomlinkCustomFragment", "linkId 가져오기 실패")

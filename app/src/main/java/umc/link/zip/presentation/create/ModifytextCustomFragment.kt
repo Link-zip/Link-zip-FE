@@ -168,11 +168,13 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         updateTitle = binding.etCustomTextCustomLinkTitle.text.toString()
         updateText = binding.etCustomTextSummaryText.text.toString()
-        updateMemo = getMemo.toString()
+        updateMemo = getMemo
+        updateAlert = getAlert
 
         linkAddViewModel.updateText(text = updateText!!)
         linkAddViewModel.updateTitle(title = updateTitle!!)
         linkAddViewModel.updateMemo(memo = updateMemo!!)
+        linkAddViewModel.updateAlertDateAll(getAlert)
         Log.d("ModifytextCustomFragment", "updateTitle: $updateTitle\nupdateSummary: $updateText")
 
         if (!isSuccess) {
@@ -253,6 +255,7 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                                         id, true
                                     )
                                 Log.d("ModifytextCustomFragment", "linkId: $id 로 이동")
+                                linkAddViewModel.resetState()
                                 findNavController().navigate(action)
                             } ?: run {
                                 Log.d("ModifytextCustomFragment", "이동 실패")

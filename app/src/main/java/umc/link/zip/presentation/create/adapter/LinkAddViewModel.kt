@@ -119,6 +119,20 @@ class LinkAddViewModel @Inject constructor(
 
         Log.d("LinkAddViewModel", "text 업데이트: $text")
     }
+    //전체
+    fun updateAlertDateAll(allDate: String? = null) {
+
+        val existingDateTime = _Add_link.value.alertDate
+
+        _Add_link.value.alertDate = allDate ?: existingDateTime
+
+        // 더미 데이터에서도 업데이트
+        dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {
+            this.alertDate = allDate ?: existingDateTime
+        }
+
+        Log.d("LinkAddViewModel", "alertDate 업데이트: $allDate")
+    }
 
 
     // 현재 링크 데이터 중 date alarm 업데이트
@@ -148,7 +162,7 @@ class LinkAddViewModel @Inject constructor(
     fun updateAlertDateOnly(date: String?) {
         val existingDateTime = _Add_link.value.alertDate
         val currentDate = date ?: existingDateTime?.substringBefore("T")
-        val currentTime = existingDateTime?.substringAfter("T")?.removeSuffix("Z") ?: "00:00:00"
+        val currentTime = existingDateTime?.substringAfter("T")?.removeSuffix("Z") ?: "00:00:00.000"
 
         val updatedAlertDate = if (currentDate != null) {
             "${currentDate}T${currentTime}Z"
@@ -245,8 +259,8 @@ class LinkAddViewModel @Inject constructor(
     fun resetState() {
         _Add_link.value = CreateLink(
             zipId = 0,
-            title = "",
-            text = "",
+            title = "default",
+            text = "default",
             url = "",
             memo = "",
             alertDate = null

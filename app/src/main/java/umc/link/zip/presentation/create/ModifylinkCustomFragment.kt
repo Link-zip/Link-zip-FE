@@ -32,19 +32,20 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
 
     private var linkId: Int? = null
 
-    private var getTitle: String? = null
-    private var getMemo: String? = null
-    private var getAlert: String? = null
+    private var getTitle: String? = ""
+    private var getMemo: String? = ""
+    private var getAlert: String? = ""
 
-    private var updateTitle: String? = null
-    private var updateMemo: String? = null
-    private var updateAlert: String? = null
+    private var updateTitle: String? = ""
+    private var updateMemo: String? = ""
+    private var updateAlert: String? = ""
 
     private var isSuccess: Boolean = false
 
     private val getLinkId: Int? by lazy {
         arguments?.getInt("linkId")
     }
+    private var bool : Boolean = true
 
     override fun initObserver() {
         linkId = getLinkId ?: return
@@ -97,17 +98,22 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkAddViewModel.link.collectLatest { link ->
-                    updateTitle = link.title
-                    updateMemo = link.memo
-                    updateAlert = link.alertDate
-
-                    Log.d("ModifylinkCustomFragment", "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert")
-                    if (updateTitle == "default"){
-                        binding.etCustomLinkCustomLinkTitle.setText(getTitle)
-                        Log.d("ModifylinkCustomFragment", "제목 설정: $getTitle")
-                    } else {
-                        binding.etCustomLinkCustomLinkTitle.setText(updateTitle)
-                        Log.d("ModifylinkCustomFragment", "제목 설정: $updateTitle")
+                    if(bool == true) {
+                        updateTitle = link.title
+                        updateMemo = link.memo
+                        updateAlert = link.alertDate
+                        Log.d(
+                            "ModifylinkCustomFragment",
+                            "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert"
+                        )
+                        if (updateTitle == "default" || updateTitle == "") {
+                            binding.etCustomLinkCustomLinkTitle.setText(getTitle)
+                            Log.d("ModifylinkCustomFragment", "제목 설정: $getTitle")
+                        } else {
+                            binding.etCustomLinkCustomLinkTitle.setText(updateTitle)
+                            Log.d("ModifylinkCustomFragment", "제목 설정: $updateTitle")
+                        }
+                        bool = false
                     }
                 }
             }
@@ -158,8 +164,13 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         isSuccess = false
 
         updateTitle = binding.etCustomLinkCustomLinkTitle.text.toString()
-        updateMemo = getMemo.toString()
+        updateMemo = getMemo
+        updateAlert = getAlert
 
+        linkAddViewModel.updateTitle(title = updateTitle!!)
+        linkAddViewModel.updateMemo(memo = updateMemo!!)
+        linkAddViewModel.updateAlertDateAll(updateAlert)
+        Log.d("handleSave", "$getTitle , $updateMemo, $updateAlert")
         if (!isSuccess) {
             isSuccess = true
             if (updateTitle!!.isEmpty()) {
@@ -168,7 +179,6 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
             } else {
                 // 제목이 비어있지 않으면 ViewModel에 제목 저장하고 이동
                 linkAddViewModel.updateTitle(updateTitle!!)
-                linkAddViewModel.updateMemo(updateMemo!!)
                 navigateAction()
             }
         }
