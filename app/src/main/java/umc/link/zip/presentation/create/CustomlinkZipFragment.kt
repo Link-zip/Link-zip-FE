@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.BlurView
+import eightbitlab.com.blurview.RenderScriptBlur
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import umc.link.zip.R
@@ -202,6 +206,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     }
 
     override fun initView() {
+        applyBlurToImageView(binding.ivMypageProfileUserInfoBoxBg)
         Log.d("CustomtextZipFragment", "initView called")
         setupClickListener()
         setLineupDismissDialog(userSelectedLineup)
@@ -304,5 +309,21 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
             dialogFragment.show(childFragmentManager, "ZipDialogueLineupFragment")
         }
     }
+
+    private fun applyBlurToImageView(view: BlurView) {
+        val window = requireActivity().window
+        val radius = 16f
+
+        val decorView = window.decorView
+        val rootView = decorView.findViewById<ViewGroup>(android.R.id.content)
+        val windowBackground = decorView.background
+        view.outlineProvider = ViewOutlineProvider.BOUNDS
+        view.setClipToOutline(true)
+
+        view.setupWith(rootView, context?.let { RenderScriptBlur(it) }) // or RenderEffectBlur
+            .setFrameClearDrawable(windowBackground) // Optional
+            .setBlurRadius(radius)
+    }
+
 
 }
