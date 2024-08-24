@@ -43,6 +43,7 @@ class ModifytextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
             if(isUpdated) {
                 linkAddViewModel.link.collectLatest { link ->
                     // 제목
+                    Log.d("ModifytextMemoFragment", link.memo)
                     binding.tvCustomTextMemoLinkTitle.text = link.title ?: "제목을 추가해주세요."
                     // 메모
                     binding.etCustomTextMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
@@ -89,14 +90,14 @@ class ModifytextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
 
     override fun initView() {
         binding.ivCustomTextMemoToolbarBack.setOnClickListener{
-            findNavController().navigateUp()
             isUpdated = true
+            findNavController().navigateUp()
         }
         binding.btnCustomTextMemoComplete.setOnClickListener {
             // 메모 업데이트
             isUpdated = true
             var updatedMemo = binding.etCustomTextMemoAddMemo.text.toString()
-            linkAddViewModel.updateMemo(memo = updatedMemo)
+            linkAddViewModel.updateMemo(updatedMemo)
 
             Log.d("ModifyTextMemo", updatedMemo)
             findNavController().navigateUp()

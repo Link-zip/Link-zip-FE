@@ -130,6 +130,7 @@ class ModifytextAlarmFragment :
                     binding.tvCustomTextAlarmDateNone.visibility == View.GONE && binding.tvCustomTextAlarmTimeNone.visibility == View.GONE -> {
                         repeatOnStarted {
                             linkAddViewModel.updateAlertDate(date, formatTimeForISO(time)) // 날짜와 시간 업데이트
+                            Log.d("CustomTextAlarm", "$date , $time")
                         }
                         navigator.navigateUp()
                     }

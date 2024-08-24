@@ -99,6 +99,7 @@ class LinkAddViewModel @Inject constructor(
     // 현재 링크 데이터 중 memo 업데이트
     fun updateMemo(memo: String) {
         _Add_link.value = _Add_link.value.copy(memo = memo)
+        Log.d("LinkAddViewModel", "메모 업데이트 $_Add_link.value")
 
         // dummyLinks에서 해당 URL의 데이터를 찾아 업데이트
         dummyAddLinks.find { it.url == _Add_link.value.url }?.apply {

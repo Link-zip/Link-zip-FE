@@ -51,6 +51,8 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         arguments?.getInt("linkId")
     }
 
+    private var first : Boolean = true
+
     override fun initObserver() {
         linkId = getLinkId ?: return
         linkGetByIDViewModel.getLinkByLinkID(linkId!!)
@@ -75,8 +77,17 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                             getMemo = data.memo
                             // 알림
                             getAlert = data.alert_date
-                            Log.d("ModifytextCustomFragment", "getLinkByID 성공 getTitle: $getTitle getText: $getText getMemo: $getMemo getAlert: $getAlert")
-                        }
+                            if(first) {
+                                linkAddViewModel.updateTitle(getTitle.toString())
+                                linkAddViewModel.updateText(getText.toString())
+                                linkAddViewModel.updateAlertDate(getAlert)
+                                linkAddViewModel.updateMemo(getMemo.toString())
+                                first = false
+                                Log.d("ModifytextCustomFragment", "1getLinkByID 성공 getTitle: $getTitle getText: $getText getMemo: $getMemo getAlert: $getAlert")
+
+                            }
+
+                            }
 
                         is UiState.Error -> {
                             Log.d("ModifytextCustomFragment", "getLinkByID 가져오기 실패")
@@ -91,25 +102,23 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkAddViewModel.link.collectLatest { link ->
-                    if (isUpdated == true) {
 
-                        updateTitle = link.title
-                        updateMemo = link.memo
-                        updateAlert = link.alertDate
+                    updateTitle = link.title
+                    updateMemo = link.memo
+                    updateAlert = link.alertDate ?: getAlert
 
-                        Log.d(
-                            "ModifytextCustomFragment",
-                            "updateTitle: $updateTitle \nupdateMemo: $updateMemo \nupdateAlert: $updateAlert"
-                        )
 
-                        if (updateTitle == "default") {
-                            binding.etCustomTextCustomLinkTitle.setText(getTitle)
-                            Log.d("ModifytextCustomFragment", "제목 설정: $getTitle")
-                        } else {
-                            binding.etCustomTextCustomLinkTitle.setText(updateTitle)
-                            Log.d("ModifytextCustomFragment", "제목 설정: $updateTitle")
-                        }
-                        isUpdated = false
+                    Log.d(
+                        "ModifytextCustomFragment",
+                        "2updateTitle: $updateTitle \nupdateMemo: $updateMemo \nupdateAlert: $updateAlert"
+                    )
+
+                    if (updateTitle == "default") {
+                        binding.etCustomTextCustomLinkTitle.setText(getTitle)
+                        Log.d("ModifytextCustomFragment", "제목 설정: $getTitle")
+                    } else {
+                        binding.etCustomTextCustomLinkTitle.setText(updateTitle)
+                        Log.d("ModifytextCustomFragment", "제목 설정: $updateTitle")
                     }
                 }
             }
@@ -122,10 +131,10 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
                     Log.d("ModifytextCustomFragment", "updateText: $updateText")
                     if (updateText == "default"){
                         binding.etCustomTextSummaryText.setText(getText)
-                        Log.d("ModifytextCustomFragment", "텍스트 요약 설정: $getText")
+                        Log.d("ModifytextCustomFragment", "get텍스트 요약 설정: $getText")
                     } else {
                         binding.etCustomTextSummaryText.setText(updateText)
-                        Log.d("ModifytextCustomFragment", "텍스트 요약 설정: $updateText")
+                        Log.d("ModifytextCustomFragment", "update텍스트 요약 설정: $updateText")
                     }
                 }
             }
@@ -168,13 +177,11 @@ class ModifytextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
 
         updateTitle = binding.etCustomTextCustomLinkTitle.text.toString()
         updateText = binding.etCustomTextSummaryText.text.toString()
-        updateMemo = getMemo
-        updateAlert = getAlert
 
         linkAddViewModel.updateText(text = updateText!!)
         linkAddViewModel.updateTitle(title = updateTitle!!)
         linkAddViewModel.updateMemo(memo = updateMemo!!)
-        linkAddViewModel.updateAlertDateAll(getAlert)
+        linkAddViewModel.updateAlertDateAll(updateAlert)
         Log.d("ModifytextCustomFragment", "updateTitle: $updateTitle\nupdateSummary: $updateText")
 
         if (!isSuccess) {
