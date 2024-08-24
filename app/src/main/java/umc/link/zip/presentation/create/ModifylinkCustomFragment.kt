@@ -98,22 +98,19 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 linkAddViewModel.link.collectLatest { link ->
-                    if(bool == true) {
-                        updateTitle = link.title
-                        updateMemo = link.memo
-                        updateAlert = link.alertDate
-                        Log.d(
-                            "ModifylinkCustomFragment",
-                            "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert"
-                        )
-                        if (updateTitle == "default" || updateTitle == "") {
-                            binding.etCustomLinkCustomLinkTitle.setText(getTitle)
-                            Log.d("ModifylinkCustomFragment", "제목 설정: $getTitle")
-                        } else {
-                            binding.etCustomLinkCustomLinkTitle.setText(updateTitle)
-                            Log.d("ModifylinkCustomFragment", "제목 설정: $updateTitle")
-                        }
-                        bool = false
+                    updateTitle = link.title
+                    updateMemo = link.memo
+                    updateAlert = link.alertDate
+                    Log.d(
+                        "ModifylinkCustomFragment",
+                        "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert"
+                    )
+                    if (updateTitle == "default" || updateTitle == "") {
+                        binding.etCustomLinkCustomLinkTitle.setText(getTitle)
+                        Log.d("ModifylinkCustomFragment", "제목 설정: $getTitle")
+                    } else {
+                        binding.etCustomLinkCustomLinkTitle.setText(updateTitle)
+                        Log.d("ModifylinkCustomFragment", "제목 설정: $updateTitle")
                     }
                 }
             }
