@@ -1,8 +1,9 @@
 package umc.link.zip.presentation
 
-import android.util.Log
+import android.os.Build
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
@@ -11,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.ActivityMainBinding
 import umc.link.zip.presentation.base.BaseActivity
+import umc.link.zip.presentation.home.HomeFragment
 import umc.link.zip.presentation.home.HomeViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 
@@ -71,15 +73,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            @RequiresApi(Build.VERSION_CODES.P)
             override fun handleOnBackPressed() {
-                // 현재 네비게이션 컨트롤러의 백스택이 남아있는지 확인
                 if (!navController.popBackStack()) {
-                    // 백스택이 없고 현재 화면이 홈이 아닌 경우 홈으로 이동
-                    if (navController.currentDestination?.id != R.id.homeFragmentTab) {
+                    val fragment = navHostFragment.childFragmentManager.fragments[0]
+                    if (fragment !is HomeFragment) {
                         binding.mainBnv.selectedItemId = R.id.homeFragmentTab
                         navController.navigate(R.id.homeFragmentTab)
                     } else {
-                        // 홈 프래그먼트에서 뒤로 가기 눌렀을 때 앱 종료
                         finish()
                     }
                 }
