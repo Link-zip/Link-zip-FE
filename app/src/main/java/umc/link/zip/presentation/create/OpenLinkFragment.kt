@@ -249,7 +249,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
         return try {
             // 입력 형식: 밀리초와 'Z'를 포함
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-            inputFormat.timeZone = TimeZone.getTimeZone("UTC") // 'Z'는 UTC를 나타냅니다
+            // 'Z'는 UTC를 나타냅니다
 
             // 출력 형식
             val outputFormat = SimpleDateFormat("yyyy.MM.dd a hh:mm", Locale.getDefault())

@@ -33,16 +33,22 @@ class ModifytextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
         arguments?.getInt("linkId")
     }
 
+    private var isUpdated: Boolean = true
+
     override fun initObserver() {
         val linkId = linkId ?: return
         linkGetByIDViewModel.getLinkByLinkID(linkId)
 
         repeatOnStarted {
-            linkAddViewModel.link.collectLatest { link ->
-                // 제목
-                binding.tvCustomTextMemoLinkTitle.text = link.title ?: "제목을 추가해주세요."
-                // 메모
-                binding.etCustomTextMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
+            if(isUpdated) {
+                linkAddViewModel.link.collectLatest { link ->
+                    // 제목
+                    Log.d("ModifytextMemoFragment", link.memo)
+                    binding.tvCustomTextMemoLinkTitle.text = link.title ?: "제목을 추가해주세요."
+                    // 메모
+                    binding.etCustomTextMemoAddMemo.setText(link.memo ?: "메모를 추가해주세요.")
+                }
+                isUpdated = false
             }
         }
         // 썸네일 API 응답
@@ -84,13 +90,16 @@ class ModifytextMemoFragment : BaseFragment<FragmentCustomtextMemoBinding>(R.lay
 
     override fun initView() {
         binding.ivCustomTextMemoToolbarBack.setOnClickListener{
+            isUpdated = true
             findNavController().navigateUp()
         }
         binding.btnCustomTextMemoComplete.setOnClickListener {
             // 메모 업데이트
-            val updatedMemo = binding.etCustomTextMemoAddMemo.text.toString()
-            linkAddViewModel.updateMemo(memo = updatedMemo)
+            isUpdated = true
+            var updatedMemo = binding.etCustomTextMemoAddMemo.text.toString()
+            linkAddViewModel.updateMemo(updatedMemo)
 
+            Log.d("ModifyTextMemo", updatedMemo)
             findNavController().navigateUp()
         }
     }

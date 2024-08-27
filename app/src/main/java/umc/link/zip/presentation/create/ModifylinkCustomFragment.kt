@@ -32,19 +32,20 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
 
     private var linkId: Int? = null
 
-    private var getTitle: String? = null
-    private var getMemo: String? = null
-    private var getAlert: String? = null
+    private var getTitle: String? = ""
+    private var getMemo: String? = ""
+    private var getAlert: String? = ""
 
-    private var updateTitle: String? = null
-    private var updateMemo: String? = null
-    private var updateAlert: String? = null
+    private var updateTitle: String? = ""
+    private var updateMemo: String? = ""
+    private var updateAlert: String? = ""
 
     private var isSuccess: Boolean = false
 
     private val getLinkId: Int? by lazy {
         arguments?.getInt("linkId")
     }
+    private var first : Boolean = true
 
     override fun initObserver() {
         linkId = getLinkId ?: return
@@ -80,6 +81,15 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                                     .into(binding.ivCustomLinkCustomTopImg)
                             }
 
+                            if(first) {
+                                linkAddViewModel.updateTitle(getTitle.toString())
+                                linkAddViewModel.updateAlertDate(getAlert)
+                                linkAddViewModel.updateMemo(getMemo.toString())
+                                first = false
+                                Log.d("ModifylinkCustomFragment", "1getLinkByID 성공 getTitle: $getTitle getMemo: $getMemo getAlert: $getAlert")
+
+                            }
+
                             Log.d("ModifylinkCustomFragment", "getLinkByID 가져오기 성공")
 
                         }
@@ -99,10 +109,12 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                 linkAddViewModel.link.collectLatest { link ->
                     updateTitle = link.title
                     updateMemo = link.memo
-                    updateAlert = link.alertDate
-
-                    Log.d("ModifylinkCustomFragment", "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert")
-                    if (updateTitle == "default"){
+                    updateAlert = link.alertDate ?: getAlert
+                    Log.d(
+                        "ModifylinkCustomFragment",
+                        "updateTitle: $updateTitle updateMemo: $updateMemo updateAlert: $updateAlert"
+                    )
+                    if (updateTitle == "default" || updateTitle == "") {
                         binding.etCustomLinkCustomLinkTitle.setText(getTitle)
                         Log.d("ModifylinkCustomFragment", "제목 설정: $getTitle")
                     } else {
@@ -117,14 +129,6 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
     override fun initView() {
         setOnClickListener()
 
-        binding.etCustomLinkCustomLinkTitle.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                linkAddViewModel.updateLinkInput(s.toString())
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
     }
 
     private fun setOnClickListener() {
@@ -158,8 +162,11 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         isSuccess = false
 
         updateTitle = binding.etCustomLinkCustomLinkTitle.text.toString()
-        updateMemo = getMemo.toString()
 
+        linkAddViewModel.updateTitle(title = updateTitle!!)
+        linkAddViewModel.updateMemo(memo = updateMemo!!)
+        linkAddViewModel.updateAlertDateAll(updateAlert)
+        Log.d("handleSave", "$getTitle , $updateMemo, $updateAlert")
         if (!isSuccess) {
             isSuccess = true
             if (updateTitle!!.isEmpty()) {
@@ -167,8 +174,6 @@ class ModifylinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
                 Toast.makeText(requireContext(), "제목을 설정해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 // 제목이 비어있지 않으면 ViewModel에 제목 저장하고 이동
-                linkAddViewModel.updateTitle(updateTitle!!)
-                linkAddViewModel.updateMemo(updateMemo!!)
                 navigateAction()
             }
         }
