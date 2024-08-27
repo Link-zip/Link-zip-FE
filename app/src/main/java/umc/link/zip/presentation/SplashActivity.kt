@@ -50,6 +50,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
         if (userId != null) {
             Log.d("login", "JWT 발견 $userId")
+            Log.d("login", "refresh : ${UserPreferences(this).getUserIdRefresh()}")
             viewModel.checkJwt()
         } else {
             Log.d("login", "JWT 없음")

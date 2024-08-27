@@ -1,6 +1,9 @@
 package umc.link.zip.presentation
 
+import android.content.Intent
 import android.os.Build
+import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -22,6 +25,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewModel: HomeViewModel by viewModels()
     override fun initView() {
         initNavigator()
+        val action: String = intent.action ?:""
+        val type: String? = intent.type
+
+        if (Intent.ACTION_SEND == action && type != null) {
+            Log.d("MainActivity", "type : $type")
+            if ("text/plain" == type) {
+                val link = intent.getStringExtra(Intent.EXTRA_TEXT)
+                Log.d("MainActivity", "link : $link")
+                handleSendUrl(link)
+            }
+        }
+
+    }
+
+
+    private fun handleSendUrl(link: String?) {
+        Log.d("MainActivity", "link2 : $link")
+        if(link != null) {
+            val bundle = Bundle().apply {
+                putString("shared_url", link)
+            }
+
+            navController.navigate(R.id.createFragmentTab, bundle)
+        }
     }
 
     override fun initObserver() {
