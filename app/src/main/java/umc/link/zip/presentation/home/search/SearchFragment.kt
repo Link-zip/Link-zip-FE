@@ -333,7 +333,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         SearchResultRVA(
             onItemClicked = { link ->
                 if(link.link.tag == "text"){
-                    val action = HomeFragmentDirections.actionHomeFragmentToOpenTextFragment(link.link.id)
+                    val action = SearchFragmentDirections.actionSearchFragmentToOpenTextFragment(link.link.id)
                     navigator.navigate(action)
                 }else{
                     val action = SearchFragmentDirections.actionSearchFragmentToOpenLinkFragment(link.link.id)
