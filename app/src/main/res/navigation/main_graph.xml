@@ -144,7 +144,12 @@
             </action>
             <action
                 android:id="@+id/action_fragmentZip_to_fragmentMakeZip"
-                app:destination="@id/makezipFragment" />
+                app:destination="@id/makezipFragment">
+                <argument
+                    android:name="source"
+                    app:argType="string"
+                    android:defaultValue="fragmentZip"/>
+            </action>
         </fragment>
 
         <fragment
@@ -154,6 +159,12 @@
             <action
                 android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
                 app:destination="@id/zipFragment" />
+            <action
+                android:id="@+id/action_fragmentMakeZip_to_customTextZipFragment"
+                app:destination="@id/customtextZipFragment" />
+            <action
+                android:id="@+id/action_fragmentMakeZip_to_customLinkZipFragment"
+                app:destination="@id/customlinkZipFragment" />
         </fragment>
 
         <fragment
@@ -547,7 +558,12 @@
             </action>
             <action
                 android:id="@+id/action_customtextZipFragment_to_makeZipFragment"
-                app:destination="@id/makezipFragment" />
+                app:destination="@id/makezipFragment" >
+                <argument
+                    android:name="source"
+                    app:argType="string"
+                    android:defaultValue="fragmentZip"/>
+            </action>
         </fragment>
 
         <fragment
@@ -560,6 +576,14 @@
                 <argument
                     android:name="zipId"
                     app:argType="integer"/>
+            </action>
+            <action
+                android:id="@+id/action_customlinkZipFragment_to_makeZipFragment"
+                app:destination="@id/makezipFragment" >
+                <argument
+                    android:name="source"
+                    app:argType="string"
+                    android:defaultValue="fragmentZip"/>
             </action>
             <action
                 android:id="@+id/action_customlinkZipFragment_to_openLinkFragment"
@@ -599,7 +623,17 @@
         <fragment
             android:id="@+id/makezipFragment"
             android:name="umc.link.zip.presentation.zip.MakeZipFragment"
-            android:label="MakeZipFragment" />
+            android:label="MakeZipFragment">
+            <action
+                android:id="@+id/action_fragmentMakeZip_to_fragmentZip"
+                app:destination="@id/zipFragment" />
+            <action
+                android:id="@+id/action_fragmentMakeZip_to_customTextZipFragment"
+                app:destination="@id/customtextZipFragment" />
+            <action
+                android:id="@+id/action_fragmentMakeZip_to_customLinkZipFragment"
+                app:destination="@id/customlinkZipFragment" />
+        </fragment>
 
         <fragment
             android:id="@+id/customtextAlarmFragment"
