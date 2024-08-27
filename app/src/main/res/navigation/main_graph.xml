@@ -327,18 +327,6 @@
                 android:name="linkId"
                 app:argType="integer" />
         </action>
-        <action
-            android:id="@+id/action_openLinkFragment_to_WebViewFragment"
-            app:destination="@id/webViewFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/webViewFragment"
-        android:name="umc.link.zip.presentation.create.WebViewFragment"
-        android:label="WebViewFragment">
-        <argument
-            android:name="url"
-            app:argType="string" />
     </fragment>
 
     <fragment
