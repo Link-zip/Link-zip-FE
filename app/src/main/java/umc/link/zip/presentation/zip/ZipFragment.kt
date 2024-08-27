@@ -35,7 +35,9 @@ import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.network.NetworkResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
 import kotlinx.coroutines.flow.collect
+import umc.link.zip.presentation.create.CustomlinkZipFragmentDirections
 import umc.link.zip.presentation.zip.adapter.ZipAlertViewModel
 
 
@@ -134,7 +136,8 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
                 }
             } else {
                 // MakeZip 화면으로 이동
-                findNavController().navigate(R.id.action_fragmentZip_to_fragmentMakeZip)
+                val action = ZipFragmentDirections.actionFragmentZipToFragmentMakeZip("fragmentZip")
+                navigator.navigate(action)
                 Log.d("ZipFragment", "Navigated To MakeZip")
             }
         }

@@ -62,6 +62,11 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
         }
     }
 
+    private fun navigateToMake() {
+        val action = CustomtextZipFragmentDirections.actionCustomtextZipFragmentToMakeZipFragment("CustomtextZipFragment")
+        navigator.navigate(action)
+    }
+
 
 
     override fun initObserver() {
@@ -130,6 +135,10 @@ class CustomtextZipFragment : BaseFragment<FragmentCustomtextZipBinding>(R.layou
 
         binding.btnCustomTextZipNext.setOnClickListener{
             navigateToCustom()
+        }
+
+        binding.tvCustomTextNewZip.setOnClickListener{
+            navigateToMake()
         }
 
         if(isSelected){

@@ -47,6 +47,10 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
 
     private var adapter: CustomtextZipItemAdapter? = null
 
+    private val navigator by lazy {
+        findNavController()
+    }
+
     private var isSelected = false
 
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
@@ -79,6 +83,11 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         } ?: run {
             Log.d("CustomlinkZipFragment", "선택된 zipId 가져오기 실패")
         }
+    }
+
+    private fun navigateToMake() {
+        val action = CustomlinkZipFragmentDirections.actionCustomlinkZipFragmentToMakeZipFragment("CustomlinkZipFragment")
+        navigator.navigate(action)
     }
 
     private fun navigateToOpenLink(){
@@ -212,7 +221,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         setLineupDismissDialog(userSelectedLineup)
 
         binding.ivCustomLinkZipToolbarBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack(R.id.createFragment, false)
         }
 
         binding.btnCustomLinkZipNext.setOnClickListener {
@@ -221,6 +230,10 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
 
         binding.clCustomLinkZipEasySaveBtn.setOnClickListener {
             navigateToOpenLink()
+        }
+
+        binding.tvCustomLinkNewZip.setOnClickListener{
+            navigateToMake()
         }
 
 

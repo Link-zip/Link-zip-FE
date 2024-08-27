@@ -76,7 +76,8 @@ class EditZipFragment : BaseFragment<FragmentEditzipBinding>(R.layout.fragment_e
         val ivProfilesetGrayshadow = binding.ivProfilesetGrayshadow
         val ivProfilesetBlueshadow = binding.ivProfilesetBlueshadow
 
-        selectedColor = "lightblue"
+        selectedColor = zipColor
+        setBackgroundBasedOnColor(selectedColor)
 
         // 기존에 입력된 것들 불러오기
         binding.zipNameEnterTv.setText(zipTitle)
@@ -85,38 +86,38 @@ class EditZipFragment : BaseFragment<FragmentEditzipBinding>(R.layout.fragment_e
 
         // Set click listeners for each rectangle and store the selected color
         view.findViewById<View>(R.id.rectangle_1)?.setOnClickListener {
-            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_1)
             selectedColor = "yellow"
+            setBackgroundBasedOnColor(selectedColor)
             Log.d("MakeZipFragment", "selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_2)?.setOnClickListener {
-            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_2)
             selectedColor = "lightgreen"
+            setBackgroundBasedOnColor(selectedColor)
             Log.d("MakeZipFragment", "selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_3)?.setOnClickListener {
-            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_3)
             selectedColor = "green"
+            setBackgroundBasedOnColor(selectedColor)
             Log.d("MakeZipFragment", "selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_4)?.setOnClickListener {
-            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_4)
             selectedColor = "lightblue"
+            setBackgroundBasedOnColor(selectedColor)
             Log.d("MakeZipFragment", "selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_5)?.setOnClickListener {
-            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_5)
             selectedColor = "blue"
+            setBackgroundBasedOnColor(selectedColor)
             Log.d("MakeZipFragment", "selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_6)?.setOnClickListener {
-            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_6)
             selectedColor = "darkpurple"
+            setBackgroundBasedOnColor(selectedColor)
             Log.d("MakeZipFragment", "selectedColor = ${selectedColor}")
         }
         view.findViewById<View>(R.id.rectangle_7)?.setOnClickListener {
-            fragmentMakezipExzipIc.setImageResource(R.drawable.ic_zip_shadow_7)
             selectedColor = "purple"
+            setBackgroundBasedOnColor(selectedColor)
             Log.d("MakeZipFragment", "selectedColor = ${selectedColor}")
         }
         // 한글은 2글자, 영어는 1글자로 취급해 주는 함수
