@@ -1,8 +1,12 @@
 package umc.link.zip.presentation
 
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
@@ -11,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import umc.link.zip.R
 import umc.link.zip.databinding.ActivityMainBinding
 import umc.link.zip.presentation.base.BaseActivity
+import umc.link.zip.presentation.home.HomeFragment
 import umc.link.zip.presentation.home.HomeViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 
@@ -20,6 +25,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewModel: HomeViewModel by viewModels()
     override fun initView() {
         initNavigator()
+        val action: String = intent.action ?:""
+        val type: String? = intent.type
+
+        if (Intent.ACTION_SEND == action && type != null) {
+            Log.d("MainActivity", "type : $type")
+            if ("text/plain" == type) {
+                val link = intent.getStringExtra(Intent.EXTRA_TEXT)
+                Log.d("MainActivity", "link : $link")
+                handleSendUrl(link)
+            }
+        }
+
+    }
+
+
+    private fun handleSendUrl(link: String?) {
+        Log.d("MainActivity", "link2 : $link")
+        if(link != null) {
+            val bundle = Bundle().apply {
+                putString("shared_url", link)
+            }
+
+            navController.navigate(R.id.createFragmentTab, bundle)
+        }
     }
 
     override fun initObserver() {
@@ -71,15 +100,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            @RequiresApi(Build.VERSION_CODES.P)
             override fun handleOnBackPressed() {
-                // 현재 네비게이션 컨트롤러의 백스택이 남아있는지 확인
                 if (!navController.popBackStack()) {
-                    // 백스택이 없고 현재 화면이 홈이 아닌 경우 홈으로 이동
-                    if (navController.currentDestination?.id != R.id.homeFragmentTab) {
+                    val fragment = navHostFragment.childFragmentManager.fragments[0]
+                    if (fragment !is HomeFragment) {
                         binding.mainBnv.selectedItemId = R.id.homeFragmentTab
                         navController.navigate(R.id.homeFragmentTab)
                     } else {
-                        // 홈 프래그먼트에서 뒤로 가기 눌렀을 때 앱 종료
                         finish()
                     }
                 }

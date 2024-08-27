@@ -117,6 +117,13 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        val sharedUrl = arguments?.getString("shared_url")
+
+        sharedUrl?.let {
+            Log.d("CreateFragment", "Received URL : $it")
+            binding.etCreateLink.setText(it)
+        }
+
         setOnClickListener()
     }
 
