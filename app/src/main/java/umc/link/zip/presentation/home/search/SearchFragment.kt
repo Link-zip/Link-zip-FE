@@ -346,6 +346,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        setSearchBefore(false)
+    }
+
     private fun fnCount(int: Int){
         binding.tvSearchResultCount.text = int.toString()
     }
