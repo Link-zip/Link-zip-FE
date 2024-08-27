@@ -93,7 +93,7 @@
             app:layout_constraintTop_toBottomOf="@id/view_customText_zip_mg5"
             app:layout_constraintStart_toEndOf="@id/view_customText_zip_mg5"/>
 
-        <!--<TextView
+        <TextView
             android:id="@+id/tv_customText_new_zip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             android:fontFamily="@font/pretendard_medium"
             app:layout_constraintTop_toTopOf="@id/btn_customText_early_unselected"
             app:layout_constraintBottom_toBottomOf="@id/btn_customText_early_unselected"
-            app:layout_constraintEnd_toStartOf="@id/view_customText_zip_mg7"/>-->
+            app:layout_constraintEnd_toStartOf="@id/view_customText_zip_mg7"/>
 
         <View
             android:id="@+id/view_customText_zip_mg6"
