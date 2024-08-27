@@ -1,5 +1,7 @@
 package umc.link.zip.presentation.create
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -164,16 +166,17 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                                 val data = state.data as LinkVisitModel
                                 // 방문 횟수
                                 binding.tvOpenTextCountingNumber.text = data.visit.toString()
-                                Log.d("OpenTextFragment", "방문 횟수 가져오기 성공")
+                                Log.d("OpenLinkFragment", "방문 횟수 가져오기 성공")
 
-                                if (!isSuccess) {
+                                if (!isSuccess && !url.isNullOrEmpty()) {
                                     isSuccess = true
+                                    Log.d("OpenLinkFragment", "isSuccess: $isSuccess")
                                     // 링크 이동
-                                    navigateToWebView()
-                                    Log.d("OpenTextFragment", "MoveLink 호출")
+                                    moveLink()
+                                    Log.d("OpenLinkFragment", "MoveLink 호출")
                                 }
 
-                                Log.d("OpenTextFragment", "방문 횟수 가져오기 성공")
+                                Log.d("OpenLinkFragment", "방문 횟수 가져오기 성공")
 
                             }
 
@@ -235,13 +238,34 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
         }
     }
 
-    private fun navigateToWebView() {
-        url?.let { url ->
-            val action = OpenTextFragmentDirections.actionOpenTextFragmentToWebViewFragment(url)
-            Log.d("OpenTextFragment", "url: $url")
-            findNavController().navigate(action)
-        } ?: run {
-            Log.d("OpenTextFragment", "url 가져오기 실패")
+    private fun moveLink() {
+        var finalUrl = url ?: return
+
+        // URL이 http:// 또는 https://로 시작하지 않는다면 추가
+        if (!finalUrl.startsWith("http://") && !finalUrl.startsWith("https://")) {
+            finalUrl = "http://$finalUrl"
+        }
+
+        // 명시적으로 Chrome으로 URL 열기
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl))
+        intent.setPackage("com.android.chrome")  // Chrome 패키지 명시
+
+        // Chrome 앱이 설치되어 있는지 확인
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            startActivity(intent)
+            Log.d("OpenLinkFragment", "Chrome에서 웹 페이지 열기: $finalUrl")
+        } else {
+            Log.e("OpenLinkFragment", "Chrome이 설치되지 않음, 기본 브라우저로 시도")
+
+            // Chrome이 없으면 일반 브라우저로 열기 시도
+            val fallbackIntent = Intent(Intent.ACTION_VIEW, Uri.parse(finalUrl))
+            if (fallbackIntent.resolveActivity(requireContext().packageManager) != null) {
+                startActivity(fallbackIntent)
+                Log.d("OpenLinkFragment", "외부 브라우저로 이동: $finalUrl")
+            } else {
+                Log.e("OpenLinkFragment", "No activity found to handle the intent")
+                Toast.makeText(requireContext(), "No application can handle this link", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
