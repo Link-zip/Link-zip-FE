@@ -223,7 +223,11 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                navigateToHome()
+                if (add == true || edit == true) {
+                    navigateToHome()
+                } else {
+                    findNavController().navigateUp()
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
