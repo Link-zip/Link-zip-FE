@@ -22,6 +22,7 @@ import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
@@ -164,7 +165,7 @@ class CustomtextCustomFragment : BaseFragment<FragmentCustomtextCustomBinding>(R
         }
 
         // 저장 버튼
-        binding.btnCustomTextCustomSave.setOnClickListener {
+        binding.btnCustomTextCustomSave.setOnSingleClickListener {
             handleSaveAndNavigate(::navigateToOpenText)
         }
 

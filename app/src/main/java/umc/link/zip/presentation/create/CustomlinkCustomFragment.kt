@@ -21,6 +21,7 @@ import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.presentation.create.adapter.LinkAddViewModel
 import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.util.extension.repeatOnStarted
+import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.network.UiState
 
 @AndroidEntryPoint
@@ -151,7 +152,7 @@ class CustomlinkCustomFragment : BaseFragment<FragmentCustomlinkCustomBinding>(R
         }
 
         // 저장 버튼
-        binding.btnCustomLinkCustomSave.setOnClickListener {
+        binding.btnCustomLinkCustomSave.setOnSingleClickListener() {
             handleSaveAndNavigate(::navigateToOpenLink)
         }
 
