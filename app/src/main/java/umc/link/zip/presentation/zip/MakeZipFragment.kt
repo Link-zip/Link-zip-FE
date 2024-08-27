@@ -54,6 +54,8 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val source = arguments?.getString("source", "fragmentZip") ?: "fragmentZip" // 기본값은 "fragmentZip"
+
         val fragmentMakezipExzipIc: ImageView = binding.fragmentMakezipExzipIc
         val zipNameEnterTv = binding.zipNameEnterTv
         val fragmentMakezipDeleteIc = binding.fragmentMakezipDeleteIc
@@ -207,11 +209,15 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
 
         val toolbarBackkBtn = binding.ivOpenzipToolbarBack
         toolbarBackkBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
-            Log.d("MakeZipFragment", "Navigated to FragmentZip")
+            // source에 따라 다른 프래그먼트로 navigate
+            val action = when (source) {
+                "CustomlinkZipFragment" -> R.id.action_fragmentMakeZip_to_customLinkZipFragment
+                "CustomtextZipFragment" -> R.id.action_fragmentMakeZip_to_customTextZipFragment
+                else -> R.id.action_fragmentMakeZip_to_fragmentZip
+            }
+            navigator.navigate(action)
         }
 
-        // Add item and navigate to FragmentZip on button click
         fragmentMakezipMakeBtn.setOnClickListener {
             val title = zipNameEnterTv.text.toString().trim() // trim()을 사용하여 공백을 제거하고 검사
 
@@ -223,9 +229,17 @@ class MakeZipFragment : BaseFragment<FragmentMakezipBinding>(R.layout.fragment_m
                 // title이 비어있지 않은 경우 정상적으로 처리
                 val request = ZipCreateRequest(selectedColor, title)
                 zipViewModel.createZip(request)
-                navigator.navigate(R.id.action_fragmentMakeZip_to_fragmentZip)
+
+                // source에 따라 다른 프래그먼트로 navigate
+                val action = when (source) {
+                    "CustomlinkZipFragment" -> R.id.action_fragmentMakeZip_to_customLinkZipFragment
+                    "CustomtextZipFragment" -> R.id.action_fragmentMakeZip_to_customTextZipFragment
+                    else -> R.id.action_fragmentMakeZip_to_fragmentZip
+                }
+                navigator.navigate(action)
+
                 Log.d("MakeZipFragment", "selectedColor = $selectedColor, title = $title")
-                Log.d("MakeZipFragment", "Navigated to FragmentZip")
+                Log.d("MakeZipFragment", "Navigated to correct fragment based on source: $source")
             }
         }
 
