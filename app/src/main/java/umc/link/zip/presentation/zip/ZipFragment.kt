@@ -136,7 +136,7 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
                 }
             } else {
                 // MakeZip 화면으로 이동
-                val action = ZipFragmentDirections.actionFragmentZipToFragmentMakeZip("CustomlinkZipFragment")
+                val action = ZipFragmentDirections.actionFragmentZipToFragmentMakeZip("fragmentZip")
                 navigator.navigate(action)
                 Log.d("ZipFragment", "Navigated To MakeZip")
             }
