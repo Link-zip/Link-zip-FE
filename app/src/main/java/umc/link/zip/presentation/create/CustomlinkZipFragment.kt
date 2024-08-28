@@ -56,6 +56,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
 
+    private var defaultZipId : Int? = null
+    private var easySaveZipId : Int? = null
     private var selectedZipID: Int? = null
 
     private val linkTitle: String? by lazy {
@@ -90,7 +92,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     }
 
     private fun navigateToOpenLink(){
-        val zipId = selectedZipID
+        val zipId = easySaveZipId
         val title = setTitle ?: "제목이 없습니다."
         val memoText = ""
         val text: String? = null // text를 null로 지정
@@ -253,6 +255,13 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.zipList.collect { zipList ->
                 adapter?.submitList(zipList)
+
+                // 빠른저장 zipId 가져오기
+                val easySaveZip = zipList.find { it.title == "빠른 저장" }
+                defaultZipId = easySaveZip?.zip_id
+                easySaveZipId = defaultZipId
+
+                Log.d("CustomlinkZipFragment", "빠른 저장 zipId: $easySaveZipId")
             }
         }
         setupRecyclerView()
@@ -269,9 +278,11 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
             if (isSelected) {
                 setSelectedBtn()
                 selectedZipID = zipItem.zip_id
+                easySaveZipId = selectedZipID
                 Log.d("CustomlinkZipFragment", "선택된 zipId: $selectedZipID")
             }else {
                 resetSelectedBtn()
+                easySaveZipId = defaultZipId
             }
         }
 
@@ -290,7 +301,6 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.ivCustomLinkZipBlueshadow.visibility = View.VISIBLE
         binding.btnCustomLinkZipNext.setBackgroundResource(R.drawable.shape_rect_1191ad_fill)
 
-        binding.clCustomLinkZipEasySaveBtn.isClickable = true
         binding.btnCustomLinkZipNext.isClickable = true
     }
 
@@ -300,7 +310,6 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.btnCustomLinkZipNext.setBackgroundResource(R.drawable.shape_rect_8_666666_fill)
         adapter?.clearSelections()
 
-        binding.clCustomLinkZipEasySaveBtn.isClickable = false
         binding.btnCustomLinkZipNext.isClickable = false
     }
 
