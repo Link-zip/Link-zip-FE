@@ -56,6 +56,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
     private val zipLineDialogSharedViewModel: ZipLineDialogSharedViewModel by viewModels()
     private var userSelectedLineup = "latest"
 
+    private var defaultZipId : Int? = null
     private var easySaveZipId : Int? = null
     private var selectedZipID: Int? = null
 
@@ -92,7 +93,7 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
 
     private fun navigateToOpenLink(){
         val zipId = easySaveZipId
-        val title = setTitle
+        val title = setTitle ?: "제목이 없습니다."
         val memoText = ""
         val text: String? = null // text를 null로 지정
         val url = setUrl
@@ -257,7 +258,8 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
 
                 // 빠른저장 zipId 가져오기
                 val easySaveZip = zipList.find { it.title == "빠른 저장" }
-                easySaveZipId = easySaveZip?.zip_id
+                defaultZipId = easySaveZip?.zip_id
+                easySaveZipId = defaultZipId
 
                 Log.d("CustomlinkZipFragment", "빠른 저장 zipId: $easySaveZipId")
             }
@@ -276,9 +278,11 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
             if (isSelected) {
                 setSelectedBtn()
                 selectedZipID = zipItem.zip_id
+                easySaveZipId = selectedZipID
                 Log.d("CustomlinkZipFragment", "선택된 zipId: $selectedZipID")
             }else {
                 resetSelectedBtn()
+                easySaveZipId = defaultZipId
             }
         }
 
@@ -309,7 +313,6 @@ class CustomlinkZipFragment : BaseFragment<FragmentCustomlinkZipBinding>(R.layou
         binding.btnCustomLinkZipNext.isClickable = false
     }
 
-    //selected Mode / empty Mode
 
     private fun setupClickListener() {
         //한번만 클릭 허용
