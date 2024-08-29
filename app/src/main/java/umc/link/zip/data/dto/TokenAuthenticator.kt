@@ -5,81 +5,69 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import kotlinx.coroutines.runBlocking
+import dagger.Lazy
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import javax.inject.Inject
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import umc.link.zip.data.UserPreferences
-import umc.link.zip.data.dto.request.RefreshRequest
-import umc.link.zip.data.service.LoginService
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.O)
 class TokenAuthenticator @Inject constructor(
-    private val loginService: dagger.Lazy<LoginService>,
+    private val tokenRefreshManager: Lazy<TokenRefreshManager>,
     private val context: Context
 ) : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
+        // 동기화된 접근 방식으로 이미 갱신을 시도한 경우를 체크
         synchronized(this) {
-            val loginService = loginService.get()
-            // 이미 갱신을 시도한 경우, 무한 루프를 방지하기 위해 null을 반환
             if (responseCount(response) >= 3) {
                 Log.d("TokenAuthenticator", "갱신 시도 횟수 초과: ${responseCount(response)}")
                 restartApp(context)
                 return null
             }
 
-            val currentTime = System.currentTimeMillis() / 1000 // 초 단위로 변환
+            val currentTime = System.currentTimeMillis() / 1000
             val accessTokenExpires = UserPreferences(context).getUserIdExpires()
                 ?.let { getISODateToLong(it) }
             Log.d("TokenAuthenticator", "accessTokenExpires : $accessTokenExpires")
             Log.d("TokenAuthenticator", "currentTime : $currentTime")
 
-            // 만료 시간이 현재 시간을 초과하면 토큰 갱신 필요 없음
             if (accessTokenExpires != null && currentTime < accessTokenExpires) {
                 Log.d("TokenAuthenticator", "토큰 갱신 불필요")
-                restartApp(context)
-                return null
+                return response.request.newBuilder()
+                    .header("Authorization", "Bearer ${UserPreferences(context).getUserId()}")
+                    .build()
             }
 
-            // 토큰 갱신을 동기적으로 처리
-            val newTokenResponse = runBlocking {
-                val refreshToken = UserPreferences(context).getUserIdRefresh()
-                Log.d("TokenAuthenticator", "refreshToken : $refreshToken")
-                if(refreshToken != null) {
-                    loginService.refresh(RefreshRequest(refreshToken))
-                } else {
-                    restartApp(context)
-                    null
-                }
+            // 비동기적으로 토큰 갱신을 시도
+            var newAccessToken: String? = null
+            val latch = java.util.concurrent.CountDownLatch(1)
+
+            GlobalScope.launch {
+                newAccessToken = tokenRefreshManager.get().refreshToken()
+                latch.countDown()
             }
 
-            if (newTokenResponse?.isSuccessful == true) {
-                val newAccessToken = newTokenResponse.body()?.result?.accessToken
-                val newAccessTokenExpires = newTokenResponse.body()?.result?.accessTokenExpiresAt
-                Log.d("TokenAuthenticator", "잘 받아옴 : $newAccessToken")
-                Log.d("TokenAuthenticator", "잘 받아옴 : $newAccessTokenExpires")
-                // 새로 받은 토큰을 저장
-                UserPreferences(context).saveAccessToken(newAccessToken ?: "")
-                UserPreferences(context).saveAccessTokenExpires(newAccessTokenExpires ?: "")
-
-                // 새로운 토큰으로 원래 요청을 다시 만듦
+            latch.await() // 메인 스레드를 기다리게 함
+            if (newAccessToken != null) {
                 return response.request.newBuilder()
                     .header("Authorization", "Bearer $newAccessToken")
                     .build()
             } else {
-                Log.d("TokenAuthenticator", "받아오기 실패")
+                Log.d("TokenAuthenticator", "토큰 갱신 실패")
+                UserPreferences(context).deleteUserId()
                 restartApp(context)
                 return null
             }
         }
     }
 
-    // 응답 횟수 체크
     private fun responseCount(response: Response): Int {
         var result = 1
         var priorResponse = response.priorResponse
@@ -104,7 +92,7 @@ class TokenAuthenticator @Inject constructor(
         return try {
             val formatter = DateTimeFormatter.ISO_DATE_TIME
             val dateTime = ZonedDateTime.parse(expires, formatter)
-            dateTime.toEpochSecond() // 초 단위로 변환
+            dateTime.toEpochSecond()
         } catch (e: Exception) {
             Log.e("TokenAuthenticator", "날짜 파싱 실패: $expires", e)
             null
