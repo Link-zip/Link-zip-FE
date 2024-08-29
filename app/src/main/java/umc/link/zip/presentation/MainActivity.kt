@@ -102,7 +102,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             @RequiresApi(Build.VERSION_CODES.P)
             override fun handleOnBackPressed() {
-                Log.d("MainActivity", "main activity의 onbackpressed")
                 if (!navController.popBackStack()) {
                     val fragment = navHostFragment.childFragmentManager.fragments[0]
                     if (fragment !is HomeFragment) {
