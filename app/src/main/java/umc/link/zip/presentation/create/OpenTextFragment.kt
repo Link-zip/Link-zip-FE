@@ -220,7 +220,10 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
                 linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
             }
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (add == true || edit == true) {
@@ -231,7 +234,6 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
     }
 
     private fun navigateToHome() {

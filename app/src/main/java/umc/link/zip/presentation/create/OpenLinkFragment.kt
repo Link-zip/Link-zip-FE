@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI.navigateUp
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +32,6 @@ import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
 import java.text.SimpleDateFormat
 import java.util.Locale
-import java.util.TimeZone
 
 @AndroidEntryPoint
 class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment_open_link) {
@@ -198,6 +196,7 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
 
 
         binding.ivOpenLinkToolbarBack.setOnClickListener {
+            Log.d("OpenLinkFragment", "toolbar back values : $add, $edit")
             if (add == true || edit == true) {
                 navigateToHome()
             } else {
@@ -221,9 +220,13 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
                 linkId?.let { it1 -> linkUpdateLikeViewModel.updateLikeStatusOnServer(linkId = it1) }
             }
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                Log.d("OpenLinkFragment", "onBackPressed values : $add, $edit")
                 if (add == true || edit == true) {
                     navigateToHome()
                 } else {
@@ -232,7 +235,6 @@ class OpenLinkFragment : BaseFragment<FragmentOpenLinkBinding>(R.layout.fragment
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
     }
 
     private fun navigateToHome() {
