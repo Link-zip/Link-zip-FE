@@ -4,13 +4,16 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.databinding.FragmentListBinding
 import umc.link.zip.domain.model.list.Link
 import umc.link.zip.presentation.base.BaseFragment
@@ -19,6 +22,7 @@ import umc.link.zip.presentation.home.SharedViewModel
 import umc.link.zip.presentation.list.adapter.ListVPA
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.NetworkResult
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), OnItemClickListener {
@@ -29,6 +33,21 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val listTabViewModel: ListTabViewModel by viewModels()
     private val listViewModel: ListViewModel by viewModels()
+
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
 
     override fun onItemClicked(linkItem: Link) {
         if(linkItem.tag == "text"){
@@ -46,6 +65,7 @@ class ListFragment : BaseFragment<FragmentListBinding>(R.layout.fragment_list), 
 
 
     override fun initObserver() {
+        refreshToken()
         repeatOnStarted {
             sharedViewModel.getSelectedItem().observe(viewLifecycleOwner) { selectedItem ->
                 if (selectedItem.isNullOrEmpty()) {

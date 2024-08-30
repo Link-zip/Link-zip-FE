@@ -12,13 +12,16 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.databinding.FragmentOpenTextBinding
 import umc.link.zip.domain.model.link.LinkGetByLinkIDModel
 import umc.link.zip.domain.model.link.LinkVisitModel
@@ -31,6 +34,7 @@ import umc.link.zip.util.network.UiState
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment_open_text) {
@@ -58,7 +62,23 @@ class OpenTextFragment : BaseFragment<FragmentOpenTextBinding>(R.layout.fragment
     private var url: String? = null
     private var isLike: Int? = null
 
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
+
     override fun initObserver() {
+        refreshToken()
         val linkId = linkId ?: return
         popUp = false
 

@@ -37,8 +37,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigator
 import kotlinx.coroutines.flow.collect
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.presentation.create.CustomlinkZipFragmentDirections
 import umc.link.zip.presentation.zip.adapter.ZipAlertViewModel
+import javax.inject.Inject
 
 
 @Suppress("DEPRECATION")
@@ -56,8 +58,24 @@ class ZipFragment : BaseFragment<FragmentZipBinding>(R.layout.fragment_zip) {
     private var isAllSelectedMode = false
     private var userSelectedLineup = "latest"
 
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
+
 
     override fun initObserver() {
+        refreshToken()
         setZipAlertExistsViewModel()
 
         // lineup
