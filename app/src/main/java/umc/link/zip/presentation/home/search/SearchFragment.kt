@@ -9,12 +9,16 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Visibility
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.databinding.FragmentSearchBinding
 import umc.link.zip.domain.model.list.UnreadModel
 import umc.link.zip.domain.model.notice.Notice
@@ -30,6 +34,7 @@ import umc.link.zip.presentation.mypage.adapter.NoticeRVA
 import umc.link.zip.util.extension.KeyboardUtil
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search){
@@ -38,7 +43,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private var recentShow : Boolean = true
 
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
+
     override fun initObserver() {
+        refreshToken()
+
         repeatOnStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collectLatest { uiState ->
@@ -69,18 +91,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                         }
 
                         is UiState.Error -> {
+                            delay(200)
                             // 에러 상태 처리
                             Log.e("SearchFragment", "Error fetching data", uiState.error)
                             binding.rvSearchResult.visibility = View.INVISIBLE
                             binding.tvSearchResultTitle.visibility = View.INVISIBLE
-                            binding.tvSearchResultCount.visibility = View.INVISIBLE
                             binding.ivSearchNoneClip.visibility= View.VISIBLE
                             binding.tvSearchNone.visibility= View.VISIBLE
                             binding.tvSearchNone.text="검색된 링크가 없어요"
-                            binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
+                            binding.rvSearchRecent.visibility = View.INVISIBLE
                             binding.tvSearchRecentTitle.visibility = View.INVISIBLE
                             binding.tvSearchDeleteAll.visibility = View.INVISIBLE
-                            binding.rvSearchRecent.visibility = View.INVISIBLE
+                            binding.tvSearchResultCount.visibility = View.INVISIBLE
+                            binding.ivSearchBarDeleteAfterSearch.visibility= View.VISIBLE
                             binding.viewSearchBtn.visibility = View.INVISIBLE
                             binding.ivSearchBarDelete.visibility = View.INVISIBLE
                         }

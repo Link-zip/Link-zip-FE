@@ -15,14 +15,18 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.databinding.FragmentHomeBinding
 import umc.link.zip.domain.model.home.Link
 import umc.link.zip.presentation.base.BaseFragment
 import umc.link.zip.util.network.NetworkResult
+import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.P)
 @AndroidEntryPoint
@@ -31,6 +35,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     private lateinit var sharedViewModel: SharedViewModel
     private val homeViewModel: HomeViewModel by activityViewModels()
     private lateinit var recentRVAdapter: RecentRVAdapter
+
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
 
     override fun initObserver() {
         setHomeOldCountViewModel()
@@ -42,6 +61,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home){
     }
 
     override fun initView() {
+        refreshToken()
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
         homeViewModel.getRecentLinks()

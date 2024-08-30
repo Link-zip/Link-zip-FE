@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.databinding.FragmentAlertBinding
 import umc.link.zip.domain.model.alert.Alert
 import umc.link.zip.domain.model.alert.AlertConfirmModel
@@ -20,6 +21,7 @@ import umc.link.zip.presentation.home.alert.adapter.AlertRVA
 import umc.link.zip.presentation.home.search.SearchFragmentDirections
 import umc.link.zip.presentation.home.search.adapter.SearchResultRVA
 import umc.link.zip.util.network.UiState
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert) {
@@ -30,7 +32,23 @@ class AlertFragment : BaseFragment<FragmentAlertBinding>(R.layout.fragment_alert
 
     private var isAvail : Boolean = true
 
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
+
     override fun initObserver() {
+        refreshToken()
         lifecycleScope.launch {
             alertGetViewModel.getAlertResponse.collect { state ->
                 when (state) {

@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.databinding.FragmentOpenzipBinding
 import umc.link.zip.domain.model.link.LinkGetModel
 import umc.link.zip.presentation.base.BaseFragment
@@ -41,6 +42,7 @@ import umc.link.zip.presentation.zip.adapter.OpenZipViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.extension.setOnSingleClickListener
 import umc.link.zip.util.network.UiState
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_openzip) {
@@ -62,6 +64,21 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     private val zip_title by lazy { arguments?.getString("zipTitle") }
     private val zip_color by lazy { arguments?.getString("zipColor") }
     private val zip_linkCount by lazy { arguments?.getInt("zipLinkCount") }
+
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
 
 /*    val selectedIds = adapter.getSelectedLinkIds() ?: emptyList()
     if (selectedIds.isNotEmpty()) {
@@ -108,6 +125,8 @@ class OpenZipFragment : BaseFragment<FragmentOpenzipBinding>(R.layout.fragment_o
     }
 
     override fun initObserver() {
+
+        refreshToken()
 
         // Observers for different dialog states and data updates
         repeatOnStarted {

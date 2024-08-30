@@ -7,11 +7,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import umc.link.zip.R
+import umc.link.zip.data.dto.TokenRefreshManager
 import umc.link.zip.data.dto.link.request.LinkExtractRequest
 import umc.link.zip.data.dto.link.request.LinkSummaryRequest
 import umc.link.zip.databinding.FragmentCreateBinding
@@ -22,6 +25,7 @@ import umc.link.zip.presentation.create.adapter.LinkExtractViewModel
 import umc.link.zip.presentation.create.adapter.LinkSummaryViewModel
 import umc.link.zip.util.extension.repeatOnStarted
 import umc.link.zip.util.network.UiState
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_create) {
@@ -38,6 +42,21 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     private var setUrl: String? = null
 
     private var isAvail : Boolean = true
+
+    //토큰 리프레시
+    @Inject
+    lateinit var tokenRefreshManager: TokenRefreshManager
+
+    private fun refreshToken() {
+        lifecycleScope.launch {
+            val newToken = tokenRefreshManager.refreshToken()
+            if (newToken != null) {
+                Log.d("MyFragment", "New Token: $newToken")
+            } else {
+                Log.d("MyFragment", "Failed to refresh token")
+            }
+        }
+    }
 
 
     override fun initObserver() {
@@ -100,6 +119,7 @@ class CreateFragment : BaseFragment<FragmentCreateBinding>(R.layout.fragment_cre
     }
 
     override fun initView() {
+        refreshToken()
         binding.viewModel = linkAddViewModel
         isAvail = false
         linkAddViewModel.resetState()
