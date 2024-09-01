@@ -1,4 +1,6 @@
 # Link-zip-FE
+> UMC 6th 대상 수상작 🥇
+
 # Link.Zip Project
 > 사용자 맞춤 링크 아카이빙 서비스
 <div align="center">
